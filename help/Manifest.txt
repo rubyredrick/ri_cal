@@ -1,0 +1,9 @@
+History.txt
+Manifest.txt
+README.txt
+Rakefile
+bin/help
+lib/help.rb
+spec/help_spec.rb
+spec/spec_helper.rb
+test/test_help.rb
