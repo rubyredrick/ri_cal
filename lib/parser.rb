@@ -21,11 +21,24 @@ class Rfc2445::Parser
     end
   end
   
+  def parse_params(string)
+    if string
+      string.split(";").inject({}) { |result, val|
+        m = /^(.+)=(.+)$/.match(val)
+        invalid unless m
+        result[m[1]] = m[2]
+        result 
+        }
+    else
+      nil
+    end
+  end
+  
   def separate_line(string)
     match = string.match(/^([^;:]*)(;([^:]*))?:(.*)$/)
     {
       :name => match[1],
-      :params => match[3] && match[3].split(";"),
+      :params => parse_params(match[3]),
       :value => match[4]
     }
   end
