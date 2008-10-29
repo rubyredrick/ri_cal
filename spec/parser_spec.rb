@@ -7,24 +7,24 @@ require 'lib/vjournal'
 require 'lib/vfreebusy'
 require 'lib/vtimezone'
 require 'lib/valarm'
-require 'lib/vtextproperty'
+require 'lib/v_property'
+require 'lib/ext/core_extensions'
 
 describe Rfc2445::Parser do
   
   def self.describe_property(entity_name, prop_name, params, value, type = Rfc2445::VTextProperty)
     describe prop_name do
       parse_input = params.inject("BEGIN:#{entity_name.upcase}\n#{prop_name.upcase}") { |pi, assoc| "#{pi};#{assoc[0]}=#{assoc[1]}"}
-      parse_input = "#{parse_input}:#{value}\nEND:#{entity_name.upcase}"
+      parse_input = "#{parse_input}:#{value.to_rfc2445_string}\nEND:#{entity_name.upcase}"
       
-      puts parse_input
-
       it "should parse an event with an #{prop_name.upcase} property" do
         lambda {Rfc2445::Parser.parse(StringIO.new(parse_input))}.should_not raise_error
       end
 
       describe "property characteristics" do
         before(:each) do
-          @prop = Rfc2445::Parser.parse(StringIO.new(parse_input)).send("#{prop_name.downcase}_property".to_sym)
+          @entity = Rfc2445::Parser.parse(StringIO.new(parse_input))
+          @prop = @entity.send("#{prop_name.downcase}_property".to_sym)
         end
 
         it "should be a #{type.name}" do
@@ -37,6 +37,10 @@ describe Rfc2445::Parser do
 
         it "should have the right value" do
           @prop.value.should == value
+        end
+        
+        it "should make the value accessible directly" do
+          @entity.send(prop_name.downcase).should == value
         end
 
         it "should have the right parameters" do
@@ -103,8 +107,8 @@ describe Rfc2445::Parser do
       describe_property("VEVENT", "ATTACH", {"FMTTYPE" => "application/postscript"}, "FMTTYPE=application/postscript:ftp//xyzCorp.com/put/reports/r-960812.ps")
 
 
-      #RFC 2445 section 4.8.1.2 pp 77
-      describe_property("VEVENT", "CATEGORIES", {"LANGUAGE" => "us-EN"}, "APPOINTMENT,EDUCATION")
+      #RFC 2445 section 4.8.1.2 pp 78
+      describe_property("VEVENT", "CATEGORIES", {"LANGUAGE" => "us-EN"}, %w{APPOINTMENT EDUCATION}, Rfc2445::VArrayProperty)
     end
 
     describe "parsing a calendar" do
@@ -160,12 +164,6 @@ describe Rfc2445::Parser do
           @x_prop.params.should == {"X-FOO" => "Y"}
         end
       end 
-    end
-
-    it "should parse an event" do
-      parser = Rfc2445::Parser.new(StringIO.new("BEGIN:VEVENT"))
-      Rfc2445::Vevent.should_receive(:from_parser).with(parser)
-      parser.parse
     end
 
     it "should parse a to-do" do
