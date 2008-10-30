@@ -34,12 +34,35 @@ class Rfc2445::Parser
     end
   end
   
+  def params_and_value(string)
+    string = string.sub(/^:/,'')
+    return ["", string] unless string.match(/^;/)
+    segments = string.sub(';','').split(":")
+    return ["", string] if segments.length < 2
+    quote_count = 0
+    gathering_params = true
+    params = []
+    values = []
+    segments.each do |segment|
+      if gathering_params
+        params << segment
+        quote_count += segment.count("\"")
+        gathering_params = (1 == quote_count % 2)
+      else
+        values << segment
+      end
+    end
+    [params.join(":"), values.join(":")]
+  end
+  
   def separate_line(string)
-    match = string.match(/^([^;:]*)(;([^:]*))?:(.*)$/)
+    match = string.match(/^([^;:]*)(.*)$/)
+    name = match[1]
+    params, value = *params_and_value(match[2])
     {
-      :name => match[1],
-      :params => parse_params(match[3]),
-      :value => match[4]
+      :name => name,
+      :params => parse_params(params),
+      :value => value
     }
   end
      

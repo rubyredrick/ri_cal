@@ -13,11 +13,15 @@ require 'lib/ext/core_extensions'
 describe Rfc2445::Parser do
   
   def self.describe_property(entity_name, prop_name, params, value, type = Rfc2445::VTextProperty)
+    describe_named_property(entity_name, prop_name, prop_name, params, value, type)
+  end
+    
+  def self.describe_named_property(entity_name, prop_text, prop_name, params, value, type = Rfc2445::VTextProperty)
     describe prop_name do
-      parse_input = params.inject("BEGIN:#{entity_name.upcase}\n#{prop_name.upcase}") { |pi, assoc| "#{pi};#{assoc[0]}=#{assoc[1]}"}
+      parse_input = params.inject("BEGIN:#{entity_name.upcase}\n#{prop_text.upcase}") { |pi, assoc| "#{pi};#{assoc[0]}=#{assoc[1]}"}
       parse_input = "#{parse_input}:#{value.to_rfc2445_string}\nEND:#{entity_name.upcase}"
       
-      it "should parse an event with an #{prop_name.upcase} property" do
+      it "should parse an event with an #{prop_text.upcase} property" do
         lambda {Rfc2445::Parser.parse(StringIO.new(parse_input))}.should_not raise_error
       end
 
@@ -32,7 +36,7 @@ describe Rfc2445::Parser do
         end
 
         it "should have the right name" do
-          @prop.name.should == prop_name.upcase
+          @prop.name.should == prop_text.upcase
         end
 
         it "should have the right value" do
@@ -106,9 +110,44 @@ describe Rfc2445::Parser do
       #RFC 2445 section 4.8.1.1 pp 77
       describe_property("VEVENT", "ATTACH", {"FMTTYPE" => "application/postscript"}, "FMTTYPE=application/postscript:ftp//xyzCorp.com/put/reports/r-960812.ps")
 
-
       #RFC 2445 section 4.8.1.2 pp 78
       describe_property("VEVENT", "CATEGORIES", {"LANGUAGE" => "us-EN"}, %w{APPOINTMENT EDUCATION}, Rfc2445::VArrayProperty)
+
+      #RFC 2445 section 4.8.1.3 pp 79
+      describe_named_property("VEVENT", "CLASS", "security_class", {"X-FOO" => "BAR"}, "PUBLIC")
+
+      #RFC 2445 section 4.8.1.4 pp 80
+      describe_property("VEVENT", "COMMENT", {"X-FOO" => "BAR"}, "Event comment")
+
+      #RFC 2445 section 4.8.1.5 pp 81
+      describe_property("VEVENT", "DESCRIPTION", {"X-FOO" => "BAR"}, "Event description")
+      
+      #RFC 2445 section 4.8.1.6 pp 82
+      describe_property("VEVENT", "GEO", {"X-FOO" => "BAR"}, "37.386013;-122.082932")
+      
+      #RFC 2445 section 4.8.1.7 pp 84
+      describe_property("VEVENT", "LOCATION", {"ALTREP" => "\"http://xyzcorp.com/conf-rooms/f123.vcf\""}, "Conference Room - F123, Bldg. 002")
+      
+      #RFC 2445 section 4.8.1.8 PERCENT-COMPLETE does not apply to VEvents
+      
+      #RFC 2445 section 4.8.1.9 pp 84
+      describe_property("VEVENT", "PRIORITY", {"X-FOO" => "BAR"}, 1, Rfc2445::VIntegerProperty)
+
+      #RFC 2445 section 4.8.1.10 pp 87
+      describe_property("VEVENT", "RESOURCES", {"X-FOO" => "BAR"}, %w{Easel Projector VCR}, Rfc2445::VArrayProperty)
+
+      #RFC 2445 section 4.8.1.11 pp 88
+      describe_property("VEVENT", "STATUS", {"X-FOO" => "BAR"}, "CONFIRMED")
+
+      #RFC 2445 section 4.8.1.12 pp 89
+      describe_property("VEVENT", "SUMMARY", {"X-FOO" => "BAR"}, "Department Party")
+      
+      #RFC 2445 section 4.8.2.1 COMPLETED does not apply to VEvents
+      
+      #RFC 2445 section 4.8.2.2 DTEND p91
+      #TODO Need to handle date/date-time property variation
+      #describe_property("VEVENT", "DTEND", {"X-FOO" => "BAR"}, "19970714")
+      
     end
 
     describe "parsing a calendar" do
