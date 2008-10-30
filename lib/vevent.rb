@@ -2,8 +2,13 @@ require File.expand_path(File.join(File.dirname(__FILE__), 'ventity'))
 
 module Rfc2445
   class Vevent < Ventity
-    text_property "attach"
-    array_property "categories"
+    text_properties "attach", "comment", "description", "status", "summary"
+    text_property "geo"
+    #TODO: should parse alt-rep parameter
+    text_property "location"
+    special_property "class", "security_class"
+    array_properties "categories", "resources"
+    integer_property "priority"
     
    end
 end

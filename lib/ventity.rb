@@ -18,18 +18,29 @@ module Rfc2445
         property(name, VArrayProperty)
       end
     end
+
+    def self.integer_properties(*names)
+      names.each do |name|
+        property(name, VIntegerProperty)
+      end
+    end
+
     class << self
       alias_method :text_property, :text_properties
       alias_method :array_property, :array_properties
+      alias_method :integer_property, :integer_properties
+    end
+        
+    def self.property(name, type = VTextProperty, &block)
+      special_property(name, name, type, &block)
     end
 
-
-    def self.property(name, type = VTextProperty, &block)
-      property = "#{name.downcase}_property"
+    def self.special_property(name, ruby_name, type = VTextProperty, &block)
+      property = "#{ruby_name.downcase}_property"
       attr_accessor property.to_sym
 
-      unless instance_methods(false).include?(name.downcase)
-        class_eval "def #{name.downcase};#{name.downcase}_property.value;end"
+      unless instance_methods(false).include?(ruby_name.downcase)
+        class_eval "def #{ruby_name.downcase};#{ruby_name.downcase}_property.value;end"
       end
 
       if block_given?
