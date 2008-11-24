@@ -6,7 +6,7 @@ module Rfc2445
     text_property "geo"
     #TODO: should parse alt-rep parameter
     text_property "location"
-    special_property "class", "security_class"
+    named_property "class", "security_class"
     array_properties "categories", "resources"
     integer_property "priority"
     

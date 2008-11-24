@@ -31,11 +31,12 @@ module Rfc2445
       alias_method :integer_property, :integer_properties
     end
         
+    # By default, the ruby attribute name is derived from the RFC name
     def self.property(name, type = VTextProperty, &block)
-      special_property(name, name, type, &block)
+      named_property(name, name, type, &block)
     end
 
-    def self.special_property(name, ruby_name, type = VTextProperty, &block)
+    def self.named_property(name, ruby_name, type = VTextProperty, &block)
       property = "#{ruby_name.downcase}_property"
       attr_accessor property.to_sym
 
