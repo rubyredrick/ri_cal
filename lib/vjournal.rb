@@ -1,4 +1,4 @@
-class Rfc2445::Vjournal
+class RiCal::Vjournal
   
   def self.from_parser(parser)
   end

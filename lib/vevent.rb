@@ -1,6 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__), 'ventity'))
 
-module Rfc2445
+module RiCal
   class Vevent < Ventity
     text_properties "attach", "comment", "description", "status", "summary"
     text_property "geo"

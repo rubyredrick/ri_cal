@@ -1,5 +1,5 @@
 
-module Rfc2445
+module RiCal
 
   # :stopdoc:
   VERSION = '0.0.1'
@@ -42,8 +42,8 @@ module Rfc2445
     Dir.glob(search_me).sort.each {|rb| require rb}
   end
 
-end  # module Rfc2445
+end  # module RiCal
 
-Rfc2445.require_all_libs_relative_to(__FILE__)
+RiCal.require_all_libs_relative_to(__FILE__)
 
 # EOF

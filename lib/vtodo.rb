@@ -1,4 +1,4 @@
-class Rfc2445::Vtodo
+class RiCal::Vtodo
   
   def self.from_parser(parser)
   end

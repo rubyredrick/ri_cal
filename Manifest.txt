@@ -2,8 +2,8 @@ History.txt
 Manifest.txt
 README.txt
 Rakefile
-bin/rfc2445
-lib/rfc2445.rb
-spec/rfc2445_spec.rb
+bin/ri_cal
+lib/ri_cal.rb
+spec/ri_cal_spec.rb
 spec/spec_helper.rb
-test/test_rfc2445.rb
+test/test_ri_cal.rb

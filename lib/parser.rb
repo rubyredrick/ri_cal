@@ -6,7 +6,7 @@ require 'lib/vjournal'
 require 'lib/vtimezone'
 require 'lib/vtodo'
 
-class Rfc2445::Parser
+class RiCal::Parser
   def next_line
     result = nil
     begin
@@ -97,19 +97,19 @@ class Rfc2445::Parser
     invalid unless first_line[:name] == "BEGIN"
     case first_line[:value]
     when "VCALENDAR"
-      Rfc2445::Vcalendar.from_parser(self)
+      RiCal::Vcalendar.from_parser(self)
     when "VEVENT"
-      Rfc2445::Vevent.from_parser(self)
+      RiCal::Vevent.from_parser(self)
     when "VTODO"
-      Rfc2445::Vtodo.from_parser(self)
+      RiCal::Vtodo.from_parser(self)
     when "VJOURNAL"
-      Rfc2445::Vjournal.from_parser(self)
+      RiCal::Vjournal.from_parser(self)
     when "VFREEBUSY"
-      Rfc2445::Vfreebusy.from_parser(self)
+      RiCal::Vfreebusy.from_parser(self)
     when "VTIMEZONE"
-      Rfc2445::Vtimezone.from_parser(self)
+      RiCal::Vtimezone.from_parser(self)
     when "VALARM"
-      Rfc2445::Valarm.from_parser(self)
+      RiCal::Valarm.from_parser(self)
     else
       invalid
     end
