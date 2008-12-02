@@ -1,4 +1,4 @@
-class Rfc2445::Vfreebusy
+class RiCal::Vfreebusy
   
   def self.from_parser(parser)
   end

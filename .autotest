@@ -1,0 +1,30 @@
+Autotest.add_hook :initialize do |at|
+  %w{.svn .hg .git .bzr}.each { |exception| at.add_exception(exception) }
+  at.clear_mappings
+  
+
+  at.add_mapping(%r%^(spec/(spec_helper|shared/.*)|config/(boot|environment(s/test)?))\.rb$%) {
+    at.files_matching %r%^spec/(models|controllers|views|helpers)/.*_spec\.rb$%
+  }
+  at.add_mapping(%r%^lib/(.*)\.rb$%) { |_, m|
+    ["spec/lib/#{m[1]}_spec.rb"]
+  }
+
+end
+
+Autotest.add_discovery do
+  "rspec" if File.directory?('spec') && ENV['RSPEC']
+end
+
+require 'autotest/menu'
+begin
+  if RUBY_PLATFORM =~ /mswin|mingw/
+    require 'autotest/snarl'
+    require 'Win32/Console/ANSI'
+  else
+    require 'autotest/growl'
+  end
+rescue LoadError => e
+  puts "I suggest you install Growl or Snarl for cool notifications!"
+  puts "(don't forget about win32console under Windows to get nice color output)"
+end

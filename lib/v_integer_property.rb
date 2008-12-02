@@ -1,4 +1,4 @@
-module Rfc2445
+module RiCal
 
   class VIntegerProperty < VProperty
 

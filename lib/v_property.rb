@@ -1,11 +1,11 @@
-class Rfc2445::VProperty
+class RiCal::VProperty
 end
 
 %w{v_text_property v_array_property v_integer_property v_date_property v_date_time_property}.each do |sub|
   require File.expand_path(File.join(File.dirname(__FILE__), sub))
 end
 
-module Rfc2445
+module RiCal
 
   class VProperty
 

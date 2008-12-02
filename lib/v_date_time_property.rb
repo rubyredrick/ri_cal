@@ -1,4 +1,5 @@
-module Rfc2445
+require File.join(File.dirname(__FILE__), 'v_property')
+module RiCal
 
   class VDateTimeProperty < VProperty
 

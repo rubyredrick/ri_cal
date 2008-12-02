@@ -1,4 +1,4 @@
-class Rfc2445::Vtimezone
+class RiCal::Vtimezone
   
   def self.from_parser(parser)
   end
