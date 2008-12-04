@@ -8,27 +8,46 @@ module RiCal
     end
 
     def self.text_properties(*names)
-      names.each do |name|
-        property(name)
-      end
+      names.each { |name|; property(name) }
     end
 
     def self.array_properties(*names)
-      names.each do |name|
-        property(name, VArrayProperty)
-      end
+      names.each { |name|; property(name, VArrayProperty) }
     end
 
     def self.integer_properties(*names)
-      names.each do |name|
-        property(name, VIntegerProperty)
-      end
+      names.each { |name|; property(name, VIntegerProperty) }
+    end
+    
+    def self.date_time_or_date_properties(*names)
+      names.each { |name|; property(name, VDateTimeProperty) {|line| VDateTimeProperty.from_separated_line(line) } }
+    end
+
+    def self.duration_properties(*names)
+      names.each { |name|; property(name, VDurationProperty) }
+    end
+
+    def self.cal_address_properties(*names)
+      names.each { |name|; property(name, VCalAddressProperty) }
+    end
+
+    def self.uri_properties(*names)
+      names.each { |name|; property(name, VUriProperty) }
+    end
+
+    def self.date_list_properties(*names)
+      names.each { |name|; property(name, VDateListProperty) }
     end
 
     class << self
       alias_method :text_property, :text_properties
       alias_method :array_property, :array_properties
       alias_method :integer_property, :integer_properties
+      alias_method :date_time_or_date_property, :date_time_or_date_properties
+      alias_method :duration_property, :duration_properties
+      alias_method :cal_address_property, :cal_address_properties
+      alias_method :uri_property, :uri_properties
+      alias_method :date_list_property, :date_list_properties
     end
         
     # By default, the ruby attribute name is derived from the RFC name
@@ -37,6 +56,7 @@ module RiCal
     end
 
     def self.named_property(name, ruby_name, type = VTextProperty, &block)
+      ruby_name = ruby_name.tr("-", "_")
       property = "#{ruby_name.downcase}_property"
       attr_accessor property.to_sym
 

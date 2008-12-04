@@ -17,7 +17,8 @@ describe RiCal::Parser do
   end
     
   def self.describe_named_property(entity_name, prop_text, prop_name, params, value, type = RiCal::VTextProperty)
-    describe prop_name do
+    ruby_prop_name = prop_name.tr("-", "_")
+    describe "#{prop_name} with value of #{value.inspect}" do
       parse_input = params.inject("BEGIN:#{entity_name.upcase}\n#{prop_text.upcase}") { |pi, assoc| "#{pi};#{assoc[0]}=#{assoc[1]}"}
       parse_input = "#{parse_input}:#{value.to_rfc2445_string}\nEND:#{entity_name.upcase}"
       
@@ -28,11 +29,11 @@ describe RiCal::Parser do
       describe "property characteristics" do
         before(:each) do
           @entity = RiCal::Parser.parse(StringIO.new(parse_input))
-          @prop = @entity.send("#{prop_name.downcase}_property".to_sym)
+          @prop = @entity.send("#{ruby_prop_name.downcase}_property".to_sym)
         end
 
         it "should be a #{type.name}" do
-          @prop.should be_kind_of(type)
+          @prop.class.should == type
         end
 
         it "should have the right name" do
@@ -44,7 +45,7 @@ describe RiCal::Parser do
         end
         
         it "should make the value accessible directly" do
-          @entity.send(prop_name.downcase).should == value
+          @entity.send(ruby_prop_name.downcase).should == value
         end
 
         it "should have the right parameters" do
@@ -145,9 +146,52 @@ describe RiCal::Parser do
       #RFC 2445 section 4.8.2.1 COMPLETED does not apply to VEvents
       
       #RFC 2445 section 4.8.2.2 DTEND p91
-      #TODO Need to handle date/date-time property variation
-      #describe_property("VEVENT", "DTEND", {"X-FOO" => "BAR"}, "19970714")
+      describe_property("VEVENT", "DTEND", {"X-FOO" => "BAR"}, "19970714", RiCal::VDateProperty)
+      describe_property("VEVENT", "DTEND", {"X-FOO" => "BAR"}, "19970714T235959Z", RiCal::VDateTimeProperty)
+
+      #RFC 2445 section 4.8.2.3 DUE does not apply to VEvents
       
+      #RFC 2445 section 4.8.2.4 DTSTART p93
+      describe_property("VEVENT", "DTSTART", {"X-FOO" => "BAR"}, "19970714", RiCal::VDateProperty)
+      describe_property("VEVENT", "DTSTART", {"X-FOO" => "BAR"}, "19970714T235959Z", RiCal::VDateTimeProperty)
+
+      #RFC 2445 section 4.8.2.5 DURATION p94
+      describe_property("VEVENT", "DURATION", {"X-FOO" => "BAR"}, "19970714", RiCal::VDurationProperty)
+
+      #RFC 2445 section 4.8.2.6 FREEBUSY does not apply to VEvents
+      
+      #RFC 2445 section 4.8.2.4 TRANSP p93
+      describe_property("VEVENT", "TRANSP", {"X-FOO" => "BAR"}, "OPAQUE")
+      #TO-DO need to spec that values are constrained to OPAQUE and TRANSPARENT
+      #      and that this property can be specified at most once
+      
+      #RFC 2445 section 4.8.4.1 ATTENDEE p102
+      describe_property("VEVENT", "ATTENDEE", {"X-FOO" => "BAR"}, "MAILTO:jane_doe@host.com", RiCal::VCalAddressProperty)
+      #TO-DO need to handle param values
+      
+      #RFC 2445 section 4.8.4.2 CONTACT p104
+      describe_property("VEVENT", "CONTACT", {"X-FOO" => "BAR"}, "Contact info")
+      
+      #RFC 2445 section 4.8.4.3 ORGANIZER p106
+      describe_property("VEVENT", "ORGANIZER", {"X-FOO" => "BAR", "CN" => "John Smith"}, "MAILTO:jsmith@host1.com", RiCal::VCalAddressProperty)
+      #TO-DO need to handle param values     
+      
+      #RFC 2445 section 4.8.4.4 RECURRENCE-ID p107
+      describe_property("VEVENT", "RECURRENCE-ID", {"X-FOO" => "BAR", "VALUE" => "DATE"}, "19970714", RiCal::VDateProperty)
+      describe_property("VEVENT", "RECURRENCE-ID", {"X-FOO" => "BAR", "VALUE" => "DATE-TIME"}, "19970714T235959Z", RiCal::VDateTimeProperty)
+      #TO-DO need to handle parameters
+      
+      #RFC 2445 section 4.8.4.5 RELATED-TO p109
+      describe_property("VEVENT", "RELATED-TO", {"X-FOO" => "BAR"}, "<jsmith.part7.19960817T083000.xyzMail@host3.com")
+      
+      #RFC 2445 section 4.8.4.6 URL p110
+      describe_property("VEVENT", "URL", {"X-FOO" => "BAR"}, "http://abc.com/pub/calendars/jsmith/mytime.ics", RiCal::VUriProperty)
+      
+      #RFC 2445 section 4.8.4.7 UID p111
+      describe_property("VEVENT", "UID", {"X-FOO" => "BAR"}, "19960401T080045Z-4000F192713-0052@host1.com")
+            
+      #RFC 2445 section 4.8.5.1 EXDATE p112
+      describe_property("VEVENT", "EXDATE", {"X-FOO" => "BAR"}, %w{19960402T010000Z 19960403T010000Z 19960404T010000Z}, RiCal::VDateListProperty)
     end
 
     describe "parsing a calendar" do
