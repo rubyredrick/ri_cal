@@ -16,6 +16,21 @@ Autotest.add_discovery do
   "rspec" if File.directory?('spec') && ENV['RSPEC']
 end
 
+class Autotest::Rspec
+
+  # def make_test_cmd(files_to_test)
+  #   return '' if files_to_test.empty?
+  #   return "spec #{files_to_test.keys.flatten.join(' ')} #{add_options_if_present}"
+  # end
+  # 
+  def make_test_cmd(files_to_test)
+      return '' if files_to_test.empty?
+      puts "/opt/local/bin/spec #{files_to_test.keys.flatten.join(' ')} #{add_options_if_present}"
+      return "/opt/local/bin/spec #{files_to_test.keys.flatten.join(' ')} #{add_options_if_present}"
+    end
+end
+
+
 require 'autotest/menu'
 begin
   if RUBY_PLATFORM =~ /mswin|mingw/
@@ -27,4 +42,4 @@ begin
 rescue LoadError => e
   puts "I suggest you install Growl or Snarl for cool notifications!"
   puts "(don't forget about win32console under Windows to get nice color output)"
-end
+end         

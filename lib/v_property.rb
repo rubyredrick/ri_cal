@@ -1,9 +1,19 @@
 class RiCal::VProperty
 end
 
-%w{v_text_property v_array_property v_integer_property v_date_property v_date_time_property}.each do |sub|
-  require File.expand_path(File.join(File.dirname(__FILE__), sub))
-end
+%w{
+  v_text_property 
+  v_array_property 
+  v_integer_property 
+  v_date_property 
+  v_date_time_property 
+  v_duration_property
+  v_cal_address_property
+  v_uri_property
+  v_date_list_property
+  }.each do |sub|
+    require File.expand_path(File.join(File.dirname(__FILE__), sub))
+  end
 
 module RiCal
 
