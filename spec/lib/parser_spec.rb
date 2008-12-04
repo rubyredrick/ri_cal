@@ -192,6 +192,9 @@ describe RiCal::Parser do
             
       #RFC 2445 section 4.8.5.1 EXDATE p112
       describe_property("VEVENT", "EXDATE", {"X-FOO" => "BAR"}, %w{19960402T010000Z 19960403T010000Z 19960404T010000Z}, RiCal::VDateListProperty)
+
+      #RFC 2445 section 4.8.5.3 RDATE p115
+      describe_property("VEVENT", "RDATE", {"X-FOO" => "BAR"}, %w{19960402T010000Z 19960403T010000Z 19960404T010000Z}, RiCal::VDateListProperty)
     end
 
     describe "parsing a calendar" do

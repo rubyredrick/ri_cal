@@ -15,6 +15,6 @@ module RiCal
     text_property "related-to"
     cal_address_properties "attendee", "organizer"
     uri_property "url"
-    date_list_property "exdate"
+    date_list_properties "exdate", "rdate"
    end
 end
