@@ -1,4 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__), 'v_text_property'))
+require 'rubygems'
+require 'activesupport'
 
 module RiCal
   class Ventity
@@ -6,48 +8,32 @@ module RiCal
     def self.property_map
       @property_map ||= {}
     end
-
-    def self.text_properties(*names)
-      names.each { |name|; property(name) }
-    end
-
-    def self.array_properties(*names)
-      names.each { |name|; property(name, VArrayProperty) }
-    end
-
-    def self.integer_properties(*names)
-      names.each { |name|; property(name, VIntegerProperty) }
-    end
     
+    prop_types = %w{text array integer duration cal_address uri date_list}
+    prop_types.each do |type|
+      type_class = "V#{type.camelize}Property"
+      source = <<-SOURCEEND
+      def self.#{type}_properties(*names)
+        names.each do
+          |name| property(name, #{type_class})
+        end
+      end
+      
+      class << self
+        alias_method :#{type}_property, :#{type}_properties
+      end
+      SOURCEEND
+      puts source
+      instance_eval(source)
+    end
+
+
     def self.date_time_or_date_properties(*names)
-      names.each { |name|; property(name, VDateTimeProperty) {|line| VDateTimeProperty.from_separated_line(line) } }
-    end
-
-    def self.duration_properties(*names)
-      names.each { |name|; property(name, VDurationProperty) }
-    end
-
-    def self.cal_address_properties(*names)
-      names.each { |name|; property(name, VCalAddressProperty) }
-    end
-
-    def self.uri_properties(*names)
-      names.each { |name|; property(name, VUriProperty) }
-    end
-
-    def self.date_list_properties(*names)
-      names.each { |name|; property(name, VDateListProperty) }
+      names.each { |name| property(name, VDateTimeProperty) {|line| VDateTimeProperty.from_separated_line(line) } }
     end
 
     class << self
-      alias_method :text_property, :text_properties
-      alias_method :array_property, :array_properties
-      alias_method :integer_property, :integer_properties
       alias_method :date_time_or_date_property, :date_time_or_date_properties
-      alias_method :duration_property, :duration_properties
-      alias_method :cal_address_property, :cal_address_properties
-      alias_method :uri_property, :uri_properties
-      alias_method :date_list_property, :date_list_properties
     end
         
     # By default, the ruby attribute name is derived from the RFC name
