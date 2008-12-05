@@ -201,7 +201,22 @@ describe RiCal::Parser do
 
       #RFC 2445 section 4.8.5.2 RRULE p117
       describe_property("VEVENT", "RRULE", {"X-FOO" => "BAR"}, "FREQ=DAILY;COUNT=10", RiCal::VRecurrenceRuleProperty)
-    end
+
+      #RFC 2445 section 4.8.7.1 CREATED p129
+      describe_property("VEVENT", "CREATED", {"X-FOO" => "BAR"}, "19960329T133000Z", RiCal::VDateTimeProperty)
+ 
+      #RFC 2445 section 4.8.7.2 DTSTAMP p129
+      describe_property("VEVENT", "DTSTAMP", {"X-FOO" => "BAR"}, "19971210T080000Z", RiCal::VDateTimeProperty)
+
+      #RFC 2445 section 4.8.7.3 LAST-MODIFIED p131
+      describe_property("VEVENT", "LAST-MODIFIED", {"X-FOO" => "BAR"}, "19960817T133000Z", RiCal::VDateTimeProperty)
+
+      #RFC 2445 section 4.8.7.3 SEQUENCE p131
+      describe_property("VEVENT", "SEQUENCE", {"X-FOO" => "BAR"}, 2, RiCal::VIntegerProperty)
+
+      #RFC 2445 section 4.8.8.2 REQUEST-STATUS p131
+      describe_property("VEVENT", "REQUEST-STATUS", {"X-FOO" => "BAR"}, "2.0;Success")
+   end
 
     describe "parsing a calendar" do
 

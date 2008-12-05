@@ -16,7 +16,7 @@ module RiCal
       @property_map ||= {}
     end
     
-    prop_types = %w{text array integer duration cal_address uri date_list recurrence_rule}
+    prop_types = %w{text array integer duration cal_address uri date_list recurrence_rule date_time}
     prop_types.each do |type|
       type_class = "V#{type.camelize}Property"
       source = <<-SOURCEEND
