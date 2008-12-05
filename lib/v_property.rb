@@ -11,6 +11,7 @@ end
   v_cal_address_property
   v_uri_property
   v_date_list_property
+  v_recurrence_rule_property
   }.each do |sub|
     require File.expand_path(File.join(File.dirname(__FILE__), sub))
   end

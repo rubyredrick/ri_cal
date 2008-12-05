@@ -16,5 +16,6 @@ module RiCal
     cal_address_properties "attendee", "organizer"
     uri_property "url"
     date_list_properties "exdate", "rdate"
+    recurrence_rule_properties "exrule", "rrule"
    end
 end

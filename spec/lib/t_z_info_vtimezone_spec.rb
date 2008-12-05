@@ -11,7 +11,7 @@ describe RiCal::TZInfoVtimezone do
     tz.local_to_utc(DateTime.parse("Apr 6, 1998")))
     rez.should == <<-ENDDATA
 BEGIN:VTIMEZONE
-TZID:America/New_York
+TZID;X-RICAL-TZSOURCE=TZINFO:America/New_York
 BEGIN:DAYLIGHT
 DTSTART:19970406T030000
 RDATE:19970406T030000

@@ -1,6 +1,13 @@
 require File.expand_path(File.join(File.dirname(__FILE__), 'v_text_property'))
-require 'rubygems'
-require 'activesupport'
+
+# code stolen from ActiveSupport Gem
+unless  String.instance_methods.include?("camelize")
+  class String
+    def camelize
+      self.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+    end
+  end
+end
 
 module RiCal
   class Ventity
@@ -9,7 +16,7 @@ module RiCal
       @property_map ||= {}
     end
     
-    prop_types = %w{text array integer duration cal_address uri date_list}
+    prop_types = %w{text array integer duration cal_address uri date_list recurrence_rule}
     prop_types.each do |type|
       type_class = "V#{type.camelize}Property"
       source = <<-SOURCEEND
@@ -23,7 +30,6 @@ module RiCal
         alias_method :#{type}_property, :#{type}_properties
       end
       SOURCEEND
-      puts source
       instance_eval(source)
     end
 
