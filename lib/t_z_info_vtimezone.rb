@@ -18,7 +18,7 @@ class RiCal::TZInfoVtimezone < RiCal::Vtimezone
   end
 
   def to_rfc2445_string(utc_start, utc_end)
-    result = ["BEGIN:VTIMEZONE","TZID:#{identifier}"]
+    result = ["BEGIN:VTIMEZONE","TZID;X-RICAL-TZSOURCE=TZINFO:#{identifier}"]
     period = tzinfo_timezone.period_for_utc(utc_start)
     prev_period = tzinfo_timezone.period_for_utc(period.utc_start - 1)
     while period && period.utc_start < utc_end
