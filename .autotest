@@ -3,17 +3,21 @@ Autotest.add_hook :initialize do |at|
   at.clear_mappings
   
 
-  at.add_mapping(%r%^(spec/(spec_helper|shared/.*)|config/(boot|environment(s/test)?))\.rb$%) {
-    at.files_matching %r%^spec/(models|controllers|views|helpers)/.*_spec\.rb$%
+  at.add_mapping(%r%^(spec/(spec_helper|lib/.*)|config/(boot|environment(s/test)?))\.rb$%) { |f,m|
+    # puts "f is #{f.inspect}"
+    #     puts "m is #{m.inspect}"
+    #     at.files_matching %r%^spec/(lib)/.*_spec\.rb$% 
+    [f]
   }
   at.add_mapping(%r%^lib/(.*)\.rb$%) { |_, m|
+    puts "match is spec/lib/#{m[1]}_spec.rb"
     ["spec/lib/#{m[1]}_spec.rb"]
   }
 
 end
 
 Autotest.add_discovery do
-  "rspec" if File.directory?('spec') && ENV['RSPEC']
+  "rspec" # if File.directory?('spec') && ENV['RSPEC']
 end
 
 class Autotest::Rspec
@@ -26,6 +30,7 @@ class Autotest::Rspec
   def make_test_cmd(files_to_test)
       return '' if files_to_test.empty?
       puts "/opt/local/bin/spec #{files_to_test.keys.flatten.join(' ')} #{add_options_if_present}"
+      
       return "/opt/local/bin/spec #{files_to_test.keys.flatten.join(' ')} #{add_options_if_present}"
     end
 end
