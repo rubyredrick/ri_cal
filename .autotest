@@ -4,9 +4,6 @@ Autotest.add_hook :initialize do |at|
   
 
   at.add_mapping(%r%^(spec/(spec_helper|lib/.*)|config/(boot|environment(s/test)?))\.rb$%) { |f,m|
-    # puts "f is #{f.inspect}"
-    #     puts "m is #{m.inspect}"
-    #     at.files_matching %r%^spec/(lib)/.*_spec\.rb$% 
     [f]
   }
   at.add_mapping(%r%^lib/(.*)\.rb$%) { |_, m|
