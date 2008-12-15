@@ -6,6 +6,8 @@ module RiCal
       self.freq = value_hash[:freq]
       @count= value_hash[:count]
       @until= value_hash[:until]
+      self.interval = value_hash[:interval]
+      set_by_lists(value_hash)
       errors << "COUNT and UNTIL cannot both be specified" if @count && @until
     end
     
@@ -37,6 +39,17 @@ module RiCal
       @count = nil unless until_value.nil?
     end
     
+    def interval
+      @interval ||= 1
+    end 
+    
+    def interval=(interval_value)
+      @interval = interval_value
+      if interval_value
+        errors << "interval must be a positive integer" unless interval_value > 0 
+      end
+    end
+    
     def errors
       @errors ||= []
     end
@@ -44,5 +57,28 @@ module RiCal
     def valid?
       errors.empty?
     end
-  end
+    
+    private
+    def by_list
+      @by_list ||= {}
+    end
+    
+    def set_by_lists(value_hash)
+      [
+        :by_second,
+        :by_minute,
+        :by_hour,
+        :by_day,
+        :by_month_day,
+        :by_year_day,
+        :by_week_no,
+        :by_month,
+        :by_setpos
+        ].each do |which|
+          if val = value_hash[which]
+            by_list[which] = [val].flatten
+          end
+        end
+      end
+    end
 end
