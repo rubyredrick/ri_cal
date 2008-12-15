@@ -2,27 +2,36 @@ module RiCal
   class RecurrenceRule
     
     attr_reader :count, :until
+
     def initialize(value_hash)
       self.freq = value_hash[:freq]
       @count= value_hash[:count]
       @until= value_hash[:until]
       self.interval = value_hash[:interval]
       set_by_lists(value_hash)
-      errors << "COUNT and UNTIL cannot both be specified" if @count && @until
     end
     
-    def freq=(freq_value)
-      @freq = freq_value
-      if freq_value
+    def validate
+      @errors = []
+      errors << "COUNT and UNTIL cannot both be specified" if @count && @until
+      if @freq
         unless %w{
           SECONDLY MINUTELY HOURLY DAILY
           WEEKLY MONTHLY YEARLY
-          }.include?(freq_value.upcase)
-          errors <<  "Invalid frequency '#{freq_value}'" 
+          }.include?(@freq.upcase)
+          errors <<  "Invalid frequency '#{@freq}'" 
         end
       else
         errors << "RecurrenceRule must have a value for FREQ" 
       end
+      if @interval
+        errors << "interval must be a positive integer" unless @interval > 0 
+      end
+    end
+    
+    def freq=(freq_value)
+      reset_errors
+      @freq = freq_value
     end
     
     def freq
@@ -30,11 +39,13 @@ module RiCal
     end
     
     def count=(count_value)
+      reset_errors
       @count = count_value
       @until = nil unless count_value.nil?
     end
     
     def until=(until_value, init=false)
+      reset_errors
       @until = until_value
       @count = nil unless until_value.nil?
     end
@@ -44,17 +55,20 @@ module RiCal
     end 
     
     def interval=(interval_value)
+      reset_errors
       @interval = interval_value
-      if interval_value
-        errors << "interval must be a positive integer" unless interval_value > 0 
-      end
     end
     
     def errors
       @errors ||= []
     end
     
+    def reset_errors
+      @errors = nil
+    end
+    
     def valid?
+      validate if @errors.nil?
       errors.empty?
     end
     
