@@ -7,7 +7,6 @@ Autotest.add_hook :initialize do |at|
     [f]
   }
   at.add_mapping(%r%^lib/(.*)\.rb$%) { |_, m|
-    puts "match is spec/lib/#{m[1]}_spec.rb"
     ["spec/lib/#{m[1]}_spec.rb"]
   }
 
@@ -26,8 +25,6 @@ class Autotest::Rspec
   # 
   def make_test_cmd(files_to_test)
       return '' if files_to_test.empty?
-      puts "/opt/local/bin/spec #{files_to_test.keys.flatten.join(' ')} #{add_options_if_present}"
-      
       return "/opt/local/bin/spec #{files_to_test.keys.flatten.join(' ')} #{add_options_if_present}"
     end
 end
