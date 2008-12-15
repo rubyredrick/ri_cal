@@ -8,6 +8,7 @@ describe RiCal::RecurrenceRule do
   describe "initialized from hash" do
     it "should require a frequency" do
       @it = RiCal::RecurrenceRule.new({})
+      @it.should_not be_valid
       @it.errors.should include("RecurrenceRule must have a value for FREQ")
     end
     
