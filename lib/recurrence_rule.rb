@@ -23,6 +23,10 @@ module RiCal
       def to_a
         [@day, @ord]
       end
+      
+      def to_s
+        "#{@ord}#{@day}"
+      end
     end
     
     class RecurringNumberedSpan
@@ -37,6 +41,10 @@ module RiCal
       
       def  ==(another)
         self.class == another.class && source == another.source
+      end
+      
+      def to_s
+        source.to_s
       end
     end
     
@@ -209,6 +217,18 @@ module RiCal
       validate if @errors.nil?
       errors.empty?
     end
+    
+    def to_ical
+       result = ["FREQ=#{freq}"]
+       result << "COUNT=#{count}" if count
+       result << "INTERVAL=#{interval}" unless interval == 1
+       %w{by_second by_minute by_hour by_day by_month_day by_year_day by_week_no by_month by_setpos}.each do |by_part|
+         val = by_list[by_part.to_sym]
+         result << "#{by_part.gsub('_','').upcase}=#{[val].flatten.join(',')}" if val
+       end
+       result << "WKST=#{wkst}" unless wkst == "MO"
+       result.join(";")
+     end
     
     private
     def by_list

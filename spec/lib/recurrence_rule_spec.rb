@@ -283,8 +283,103 @@ describe RiCal::RecurrenceRule do
 
   describe "initialized from string" do
   end
+  
+  describe "to_ical" do 
+    
+    it "should handle basic cases" do
+      RiCal::RecurrenceRule.new(:freq => "daily").to_ical.should == "FREQ=DAILY"
+    end
+    
+    it "should handle multiple parts" do
+      @it = RiCal::RecurrenceRule.new(:freq => "daily", :count => 10, :interval => 2).to_ical
+      @it.should match /^FREQ=DAILY;/
+      parts = @it.split(';')
+      parts.should include("COUNT=10")
+      parts.should include("INTERVAL=2")
+    end
+    
+    it "should supress the default interval value" do
+      RiCal::RecurrenceRule.new(:freq => "daily", :interval => 1).to_ical.should_not match(/INTERVAL=/)
+    end
+    
+    it "should support the wkst value" do
+      RiCal::RecurrenceRule.new(:freq => "daily", :wkst => 'SU').to_ical.split(";").should include("WKST=SU")
+    end
+    
+    it "should supress the default wkst value" do
+      RiCal::RecurrenceRule.new(:freq => "daily", :wkst => 'MO').to_ical.split(";").should_not include("WKST=SU")
+    end
+    
+    it "should handle a scalar by_second" do
+      RiCal::RecurrenceRule.new(:freq => "daily", :by_second => 15).to_ical.split(";").should include("BYSECOND=15")
+    end
+    
+    it "should handle an array by_second" do
+      RiCal::RecurrenceRule.new(:freq => "daily", :by_second => [15, 45]).to_ical.split(";").should include("BYSECOND=15,45")
+    end
+
+    it "should handle a scalar by_day" do
+      RiCal::RecurrenceRule.new(:freq => "monthly", :by_day => 'MO').to_ical.split(";").should include("BYDAY=MO")
+    end
+    
+    it "should handle an array by_day" do
+      RiCal::RecurrenceRule.new(:freq => "daily", :by_day => ["MO", "-3SU"]).to_ical.split(";").should include("BYDAY=MO,-3SU")
+    end
+
+    it "should handle a scalar by_month_day" do
+      RiCal::RecurrenceRule.new(:freq => "monthly", :by_month_day => 14).to_ical.split(";").should include("BYMONTHDAY=14")
+    end
+    
+    it "should handle an array by_month_day" do
+      RiCal::RecurrenceRule.new(:freq => "daily", :by_month_day => [15, -10]).to_ical.split(";").should include("BYMONTHDAY=15,-10")
+    end
+
+    it "should handle a scalar by_year_day" do
+      RiCal::RecurrenceRule.new(:freq => "monthly", :by_year_day => 14).to_ical.split(";").should include("BYYEARDAY=14")
+    end
+    
+    it "should handle an array by_year_day" do
+      RiCal::RecurrenceRule.new(:freq => "daily", :by_year_day => [15, -10]).to_ical.split(";").should include("BYYEARDAY=15,-10")
+    end
+
+    it "should handle a scalar by_weekno" do
+      RiCal::RecurrenceRule.new(:freq => "monthly", :by_week_no => 14).to_ical.split(";").should include("BYWEEKNO=14")
+    end
+    
+    it "should handle an array by_year_day" do
+      RiCal::RecurrenceRule.new(:freq => "daily", :by_week_no => [15, -10]).to_ical.split(";").should include("BYWEEKNO=15,-10")
+    end
+
+    it "should handle a scalar by_month" do
+      RiCal::RecurrenceRule.new(:freq => "monthly", :by_month => 2).to_ical.split(";").should include("BYMONTH=2")
+    end
+    
+    it "should handle an array by_month" do
+      RiCal::RecurrenceRule.new(:freq => "daily", :by_month => [5, 6]).to_ical.split(";").should include("BYMONTH=5,6")
+    end
+
+    it "should handle a scalar by_setpos" do
+      RiCal::RecurrenceRule.new(:freq => "monthly", :by_day => %w{MO TU WE TH FR}, :by_setpos => -1).to_ical.split(";").should include("BYSETPOS=-1")
+    end
+    
+    it "should handle an array by_setpos" do
+      RiCal::RecurrenceRule.new(:freq => "monthly", :by_day => %w{MO TU WE TH FR}, :by_setpos => [2, -1]).to_ical.split(";").should include("BYSETPOS=2,-1")
+    end
+  end
 end
 
 describe RiCal::RecurrenceRule::RecurringDay do
+  it "should have its computation behavior specified"
+end
+
+describe RiCal::RecurrenceRule::RecurringMonthDay do
+  it "should have its computation behavior specified"
+end
+
+describe RiCal::RecurrenceRule::RecurringYearDay do
+  it "should have its computation behavior specified"
+end
+
+describe RiCal::RecurrenceRule::RecurringNumberedWeek do
   it "should have its computation behavior specified"
 end
