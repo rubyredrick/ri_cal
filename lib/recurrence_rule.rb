@@ -1,9 +1,23 @@
 module RiCal
-  class RecurrenceRule
+  class RecurrenceRule 
+    
+    module MonthLengthCalculator
+      def leap_year(year)
+        year % 4 == 0 && (year % 400 == 0 || year % 100 != 0)
+      end
+
+      def days_in_month(date_or_time)
+        year = date_or_time.year
+        raw = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][date_or_time.month]
+        date_or_time.month == 2 && leap_year(year) ? raw + 1 : raw
+      end
+    end
 
     # Instances of RecurringDay are used to represent values in BYDAY recurrence rule parts
     #
-    class RecurringDay
+    class RecurringDay 
+      
+      include MonthLengthCalculator
 
       DayNames = %w{SU MO TU WE TH FR SA}
       day_nums = {}
@@ -33,16 +47,6 @@ module RiCal
 
       def to_s
         "#{@ord}#{@day}"
-      end
-
-      def leap_year(year)
-        year % 4 == 0 && (year % 400 == 0 || year % 100 != 0)
-      end
-
-      def days_in_month(date_or_time)
-        year = date_or_time.year
-        raw = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][date_or_time.month]
-        date_or_time.month == 2 && leap_year(year) ? raw + 1 : raw
       end
 
       def order_match(date_or_time)

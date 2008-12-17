@@ -366,7 +366,52 @@ describe RiCal::RecurrenceRule do
       RiCal::RecurrenceRule.new(:freq => "monthly", :by_day => %w{MO TU WE TH FR}, :by_setpos => [2, -1]).to_ical.split(";").should include("BYSETPOS=2,-1")
     end
   end
+end 
+
+describe RiCal::RecurrenceRule::MonthLengthCalculator do
+  before(:each) do
+    @it = Object.new
+    @it.extend RiCal::RecurrenceRule::MonthLengthCalculator
+  end
+
+  describe "#leap_year" do
+    it "should return true for 2000" do
+      @it.leap_year(2000).should be_true
+    end
+
+    it "should return false for 2007" do
+      @it.leap_year(2007).should_not be_true
+    end
+
+    it "should return true for 2008" do
+      @it.leap_year(2008).should be_true
+    end
+
+    it "should return false for 2100" do
+      @it.leap_year(2100).should_not be_true
+    end
+  end
+
+  describe "#days_in_month" do
+
+    it "should return 29 for February in a leap year" do
+      @it.days_in_month(Date.new(2008, 2, 1)).should == 29
+    end
+
+    it "should return 28 for February in a non-leap year" do
+      @it.days_in_month(Date.new(2009, 2, 1)).should == 28
+    end
+
+    it "should return 31 for January in a leap year" do
+      @it.days_in_month(Date.new(2008, 1, 1)).should == 31
+    end
+
+    it "should return 31 for January in a non-leap year" do
+      @it.days_in_month(Date.new(2009, 1, 1)).should == 31
+    end
+  end
 end
+
 
 describe RiCal::RecurrenceRule::RecurringDay do
   describe "MO - any monday" do
@@ -542,49 +587,6 @@ describe RiCal::RecurrenceRule::RecurringDay do
 
     it "should match February 29 for a non leap year when appropriate" do
       @it.should include Date.parse("Feb 29 1988")
-    end
-  end
-
-  describe "leap year sensitivities" do
-    before(:each) do
-      @it = RiCal::RecurrenceRule::RecurringDay.new("MO")
-    end
-
-    describe "#leap_year" do
-      it "should return true for 2000" do
-        @it.leap_year(2000).should be_true
-      end
-
-      it "should return false for 2007" do
-        @it.leap_year(2007).should_not be_true
-      end
-
-      it "should return true for 2008" do
-        @it.leap_year(2008).should be_true
-      end
-
-      it "should return false for 2100" do
-        @it.leap_year(2100).should_not be_true
-      end
-    end
-
-    describe "#days_in_month" do
-
-      it "should return 29 for February in a leap year" do
-        @it.days_in_month(Date.new(2008, 2, 1)).should == 29
-      end
-
-      it "should return 28 for February in a non-leap year" do
-        @it.days_in_month(Date.new(2009, 2, 1)).should == 28
-      end
-
-      it "should return 31 for January in a leap year" do
-        @it.days_in_month(Date.new(2008, 1, 1)).should == 31
-      end
-
-      it "should return 31 for January in a non-leap year" do
-        @it.days_in_month(Date.new(2009, 1, 1)).should == 31
-      end
     end
   end
 end
