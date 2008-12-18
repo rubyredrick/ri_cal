@@ -374,20 +374,68 @@ describe RiCal::RecurrenceRule::WeekNumCalculator do
     @it.extend RiCal::RecurrenceRule::WeekNumCalculator
   end
 
+  describe "#week_one" do
+    describe "with a monday week start" do
+      it "should return Jan 3, 2000 for 2000" do
+        @it.week_one(2000, 1).should == Date.new(2000, 1, 3)
+      end
+  
+      it "should return Jan 1, 2001 for 2001" do
+        @it.week_one(2001, 1).should == Date.new(2001, 1,1)
+      end
+  
+      it "should return Dec 31, 2001 for 2002" do
+        @it.week_one(2002, 1).should == Date.new(2001, 12, 31)
+      end
+  
+      it "should return Dec 30, 2002 for 2003" do
+        @it.week_one(2003, 1).should == Date.new(2002, 12, 30)
+      end
+  
+      it "should return Dec 29, 2003 for 2004" do
+        @it.week_one(2004, 1).should == Date.new(2003, 12, 29)
+      end
+    end
+    
+    it "should return Jan 2, 2001 for 2001 with a Tuesday week start" do
+      @it.week_one(2001, 2).should == Date.new(2001, 1, 2)
+    end
+    
+    it "should return Jan 3, 2001 for 2001 with a Wednesday week start" do
+      @it.week_one(2001, 3).should == Date.new(2001, 1, 3)
+    end
+    
+    it "should return Jan 4, 2001 for 2001 with a Thursday week start" do
+      @it.week_one(2001, 4).should == Date.new(2001, 1, 4)
+    end
+    
+    it "should return Dec 29, 2000 for 2001 with a Friday week start" do
+      @it.week_one(2001, 5).should == Date.new(2000, 12, 29)
+    end
+    
+    it "should return Dec 30, 2000 for 2001 with a Saturday week start" do
+      @it.week_one(2001, 6).should == Date.new(2000, 12, 30)
+    end
+    
+    it "should return Dec 31, 2000 for 2001 with a Sunday week start" do
+      @it.week_one(2001, 0).should == Date.new(2000, 12, 31)
+    end
+  end
+
   describe "#week_num" do
 
     it "should calculate week 1 for January 1, 2001 for a wkst of 1 (Monday)" do
       @it.week_num(Date.new(2001, 1,1), 1).should == 1
     end
-
+    
     it "should calculate week 1 for January 7, 2001 for a wkst of 1 (Monday)" do
       @it.week_num(Date.new(2001, 1,7), 1).should == 1
     end
-
+    
     it "should calculate week 2 for January 8, 2001 for a wkst of 1 (Monday)" do
       @it.week_num(Date.new(2001, 1,8), 1).should == 2
     end
-
+    
     it "should calculate week 52 for December 31, 2000 for a wkst of 1 (Monday)" do
       @it.week_num(Date.new(2000, 12,31), 1).should == 52
     end
@@ -398,10 +446,6 @@ describe RiCal::RecurrenceRule::WeekNumCalculator do
 
     it "should calculate week 1 for Dec 31, 2003 for a wkst of 1 (Monday)" do
       @it.week_num(Date.new(2003, 12, 31), 1, true).should == 1
-    end
-
-    it "should calculate week 53 for Dec 31, 2004 for a wkst of 1 (Monday)" do
-      @it.week_num(Date.new(2004, 12, 31), 1, true).should == 53
     end
   end
 
