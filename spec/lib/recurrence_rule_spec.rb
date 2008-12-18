@@ -791,5 +791,23 @@ describe RiCal::RecurrenceRule::RecurringYearDay do
 end
 
 describe RiCal::RecurrenceRule::RecurringNumberedWeek do
-  it "should have its computation behavior specified"
+  before(:each) do
+    @it = RiCal::RecurrenceRule::RecurringNumberedWeek.new(50)
+  end
+  
+  it "should not include Dec 10, 2000" do
+    @it.should_not include(Date.new(2000, 12, 10))
+  end
+  
+  it "should include Dec 11, 2000" do
+    @it.should include(Date.new(2000, 12, 11))
+  end
+  
+  it "should include Dec 17, 2000" do
+    @it.should include(Date.new(2000, 12, 17))
+  end
+  
+  it "should not include Dec 18, 2000" do
+    @it.should_not include(Date.new(2000, 12, 18))
+  end
 end
