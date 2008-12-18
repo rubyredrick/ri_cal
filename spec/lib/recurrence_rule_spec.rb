@@ -366,7 +366,46 @@ describe RiCal::RecurrenceRule do
       RiCal::RecurrenceRule.new(:freq => "monthly", :by_day => %w{MO TU WE TH FR}, :by_setpos => [2, -1]).to_ical.split(";").should include("BYSETPOS=2,-1")
     end
   end
-end 
+end
+
+describe RiCal::RecurrenceRule::WeekNumCalculator do
+  before(:each) do
+    @it = Object.new
+    @it.extend RiCal::RecurrenceRule::WeekNumCalculator
+  end
+
+  describe "#week_num" do
+
+    it "should calculate week 1 for January 1, 2001 for a wkst of 1 (Monday)" do
+      @it.week_num(Date.new(2001, 1,1), 1).should == 1
+    end
+
+    it "should calculate week 1 for January 7, 2001 for a wkst of 1 (Monday)" do
+      @it.week_num(Date.new(2001, 1,7), 1).should == 1
+    end
+
+    it "should calculate week 2 for January 8, 2001 for a wkst of 1 (Monday)" do
+      @it.week_num(Date.new(2001, 1,8), 1).should == 2
+    end
+
+    it "should calculate week 52 for December 31, 2000 for a wkst of 1 (Monday)" do
+      @it.week_num(Date.new(2000, 12,31), 1).should == 52
+    end
+
+    it "should calculate week 52 for January 1, 2001 for a wkst of 2 (Tuesday)" do
+      @it.week_num(Date.new(2001, 1, 1), 2).should == 52
+    end
+
+    it "should calculate week 1 for Dec 31, 2003 for a wkst of 1 (Monday)" do
+      @it.week_num(Date.new(2003, 12, 31), 1, true).should == 1
+    end
+
+    it "should calculate week 53 for Dec 31, 2004 for a wkst of 1 (Monday)" do
+      @it.week_num(Date.new(2004, 12, 31), 1, true).should == 53
+    end
+  end
+
+end
 
 describe RiCal::RecurrenceRule::MonthLengthCalculator do
   before(:each) do
@@ -592,11 +631,119 @@ describe RiCal::RecurrenceRule::RecurringDay do
 end
 
 describe RiCal::RecurrenceRule::RecurringMonthDay do
-  it "should have its computation behavior specified"
+
+  describe "with a value of 1" do
+    before(:each) do
+      @it = RiCal::RecurrenceRule::RecurringMonthDay.new(1)
+    end
+
+    it "should match the first of each month" do
+      (1..12).each do |month|
+        @it.should include(Date.new(2008, month, 1))
+      end
+    end
+
+    it "should not match other days of the month" do
+        (2..31).each do |day|
+          @it.should_not include(Date.new(2008, 1, day))
+        end
+      end
+
+      describe "with a value of -1" do
+        before(:each) do
+          @it = RiCal::RecurrenceRule::RecurringMonthDay.new(-1)
+        end
+
+        it "should match the last of each month" do
+          {
+            1 => 31, 2 => 29, 3 => 31, 4 => 30, 5 => 31, 6 => 30, 7 => 31,
+            8 => 31, 9 => 30, 10 => 31, 11 => 30, 12 => 31
+            }.each do |month, last|
+              @it.should include(Date.new(2008, month, last))
+          end
+          @it.should include(Date.new(2007, 2, 28))
+        end
+
+        it "should not match other days of the month" do
+            (1..30).each do |day|
+              @it.should_not include(Date.new(2008, 1, day))
+            end
+          end
+      end
+  end
 end
 
 describe RiCal::RecurrenceRule::RecurringYearDay do
-  it "should have its computation behavior specified"
+
+  describe "with a value of 20" do
+    before(:each) do
+      @it = RiCal::RecurrenceRule::RecurringYearDay.new(20)
+    end
+
+    it "should include January 20 in a non-leap year" do
+      @it.should include Date.new(2007, 1, 20)
+    end
+
+    it "should include January 20 in a leap year" do
+      @it.should include Date.new(2008, 1, 20)
+    end
+  end
+
+  describe "with a value of 60" do
+    before(:each) do
+      @it = RiCal::RecurrenceRule::RecurringYearDay.new(60)
+    end
+
+    it "should include March 1 in a non-leap year" do
+      @it.should include Date.new(2007, 3, 1)
+    end
+
+    it "should include February 29 in a leap year" do
+      @it.should include Date.new(2008, 2, 29)
+    end
+  end
+
+  describe "with a value of -1" do
+    before(:each) do
+      @it = RiCal::RecurrenceRule::RecurringYearDay.new(-1)
+    end
+
+    it "should include December 31 in a non-leap year" do
+      @it.should include Date.new(2007,12, 31)
+    end
+
+    it "should include December 31 in a leap year" do
+      @it.should include Date.new(2008,12, 31)
+    end
+  end
+
+  describe "with a value of -365" do
+    before(:each) do
+      @it = RiCal::RecurrenceRule::RecurringYearDay.new(-365)
+    end
+
+    it "should include January 1 in a non-leap year" do
+      @it.should include Date.new(2007,1, 1)
+    end
+
+    it "should include January 2 in a leap year" do
+      @it.should include Date.new(2008,1, 2)
+    end
+  end
+
+  describe "with a value of -366" do
+    before(:each) do
+      @it = RiCal::RecurrenceRule::RecurringYearDay.new(-366)
+    end
+
+    it "should not include January 1 in a non-leap year" do
+      @it.should_not include Date.new(2007,1, 1)
+    end
+
+    it "should include January 1 in a leap year" do
+      @it.should include Date.new(2008,1, 1)
+    end
+  end
 end
 
 describe RiCal::RecurrenceRule::RecurringNumberedWeek do
