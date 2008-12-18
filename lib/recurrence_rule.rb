@@ -4,7 +4,7 @@ module RiCal
     module MonthLengthCalculator
       def leap_year(year)
         year % 4 == 0 && (year % 400 == 0 || year % 100 != 0)
-      end
+      end 
 
       def days_in_month(date_or_time)
         year = date_or_time.year
@@ -12,12 +12,41 @@ module RiCal
         date_or_time.month == 2 && leap_year(year) ? raw + 1 : raw
       end
     end
+    
+    module WeekNumCalculator
+      # From RFC 2445 page 43:
+      # A week is defined as a seven day period, starting on the day of the week defined to be the
+      # week start (see WKST). Week number one of the calendar year is the first week which contains 
+      # at least four (4) days in that calendar
+      # year.
+      # 
+      # Note that wkst uses the ruby definition, with Sunday = 0
+      def week_num(date_or_time, wkst, debug=false)
+        first_day_of_year = Date.new(date_or_time.year, 1, 1)
+        offset = wkst - first_day_of_year.wday
+        offset += 7 if offset < 0
+        first_start_day_in_year = first_day_of_year + offset
+        #determine if there are at least 4 days in the week during the year, if not adjust
+        first_start_day_in_year += 7 if first_start_day_in_year.mday > 4
+        if date_or_time < (first_start_day_in_year)
+          return week_num(first_day_of_year - 1, wkst, debug)
+        end
+        if debug
+          puts "date_or_time=#{date_or_time}"
+          puts "first_start_day_in_year = #{first_start_day_in_year}"
+          puts "diff=#{(date_or_time.yday - first_start_day_in_year.mday)}"
+        end
+        (date_or_time.yday - first_start_day_in_year.yday + 7) / 7
+      end
+    end
 
     # Instances of RecurringDay are used to represent values in BYDAY recurrence rule parts
     #
     class RecurringDay 
       
-      include MonthLengthCalculator
+      include MonthLengthCalculator 
+      
+      Time
 
       DayNames = %w{SU MO TU WE TH FR SA}
       day_nums = {}
@@ -93,16 +122,48 @@ module RiCal
         source.to_s
       end
     end
-
+    
+    # Instances of RecurringMonthDay represent BYMONTHDAY parts in recurrence rules
     class RecurringMonthDay < RecurringNumberedSpan
+      
+      include MonthLengthCalculator
+      
       def last
         31
+      end
+      
+      def target_for(date_or_time)
+        if @source > 0
+          @source
+        else
+          days_in_month(date_or_time) + @source + 1
+        end
+      end
+      
+      def include?(date_or_time)
+        date_or_time.mday == target_for(date_or_time)
       end
     end
 
     class RecurringYearDay < RecurringNumberedSpan
+      
+      include MonthLengthCalculator
+      
       def last
         366
+      end
+            
+      def length_of_year(year)
+        leap_year(year) ? 366 : 365
+      end 
+      
+      def include?(date_or_time)
+        if @source > 0
+          target = @source
+        else
+          target = length_of_year(date_or_time.year) + @source + 1
+        end
+        date_or_time.yday == target
       end
     end
 
