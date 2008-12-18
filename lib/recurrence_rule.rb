@@ -222,8 +222,14 @@ module RiCal
     end
 
     class RecurringNumberedWeek < RecurringNumberedSpan
+      include WeekNumCalculator
+      
       def last
         53
+      end
+      
+      def include?(date_or_time, wkst=1)
+        week_num(date_or_time, wkst) == @source
       end
     end
 
