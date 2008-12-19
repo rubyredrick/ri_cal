@@ -58,180 +58,180 @@ describe RiCal::RecurrenceRuleValue do
       end
     end
 
-    describe "by_second parameter" do
+    describe "bysecond parameter" do
 
       it "should accept a single integer" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_second => 10)
-        @it.send(:by_list)[:by_second].should == [10]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bysecond => 10)
+        @it.send(:by_list)[:bysecond].should == [10]
       end
 
       it "should accept an array of integers" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_second => [10, 20])
-        @it.send(:by_list)[:by_second].should == [10, 20]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bysecond => [10, 20])
+        @it.send(:by_list)[:bysecond].should == [10, 20]
       end
 
       it "should reject invalid values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_second => [-1, 0, 59, 60])
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bysecond => [-1, 0, 59, 60])
         @it.should_not be_valid
-        @it.errors.should == ['-1 is invalid for by_second', '60 is invalid for by_second']
+        @it.errors.should == ['-1 is invalid for bysecond', '60 is invalid for bysecond']
       end
     end
 
-    describe "by_minute parameter" do
+    describe "byminute parameter" do
 
       it "should accept a single integer" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_minute => 10)
-        @it.send(:by_list)[:by_minute].should == [10]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byminute => 10)
+        @it.send(:by_list)[:byminute].should == [10]
       end
 
       it "should accept an array of integers" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_minute => [10, 20])
-        @it.send(:by_list)[:by_minute].should == [10, 20]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byminute => [10, 20])
+        @it.send(:by_list)[:byminute].should == [10, 20]
       end
 
       it "should reject invalid values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_minute => [-1, 0, 59, 60])
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byminute => [-1, 0, 59, 60])
         @it.should_not be_valid
-        @it.errors.should == ['-1 is invalid for by_minute', '60 is invalid for by_minute']
+        @it.errors.should == ['-1 is invalid for byminute', '60 is invalid for byminute']
       end
     end
 
-    describe "by_hour parameter" do
+    describe "byhour parameter" do
 
       it "should accept a single integer" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_hour => 10)
-        @it.send(:by_list)[:by_hour].should == [10]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byhour => 10)
+        @it.send(:by_list)[:byhour].should == [10]
       end
 
       it "should accept an array of integers" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_hour => [10, 12])
-        @it.send(:by_list)[:by_hour].should == [10, 12]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byhour => [10, 12])
+        @it.send(:by_list)[:byhour].should == [10, 12]
       end
 
       it "should reject invalid values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_hour => [-1, 0, 23, 24])
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byhour => [-1, 0, 23, 24])
         @it.should_not be_valid
-        @it.errors.should == ['-1 is invalid for by_hour', '24 is invalid for by_hour']
+        @it.errors.should == ['-1 is invalid for byhour', '24 is invalid for byhour']
       end
     end
 
-    describe "by_day parameter" do
+    describe "byday parameter" do
 
       it "should accept a single value" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_day => 'MO')
-        @it.send(:by_list)[:by_day].should == [AnyMonday]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byday => 'MO')
+        @it.send(:by_list)[:byday].should == [AnyMonday]
       end
 
       it "should accept an array of values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_day => ['MO', 'WE'])
-        @it.send(:by_list)[:by_day].should == [AnyMonday, AnyWednesday]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byday => ['MO', 'WE'])
+        @it.send(:by_list)[:byday].should == [AnyMonday, AnyWednesday]
       end
 
       it "should reject invalid values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_day => ['VE'])
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byday => ['VE'])
         @it.should_not be_valid
         @it.errors.should == ['"VE" is not a valid day']
       end
     end
 
-    describe "by_month_day parameter" do
+    describe "bymonthday parameter" do
 
       it "should accept a single value" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_month_day => 1)
-        @it.send(:by_list)[:by_month_day].should == [FirstOfMonth]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bymonthday => 1)
+        @it.send(:by_list)[:bymonthday].should == [FirstOfMonth]
       end
 
       it "should accept an array of values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_month_day => [1, 10])
-        @it.send(:by_list)[:by_month_day].should == [FirstOfMonth, TenthOfMonth]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bymonthday => [1, 10])
+        @it.send(:by_list)[:bymonthday].should == [FirstOfMonth, TenthOfMonth]
       end
 
       it "should reject invalid values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_month_day => [0, 32, 'VE'])
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bymonthday => [0, 32, 'VE'])
         @it.should_not be_valid
         @it.errors.should == ['0 is not a valid month day','32 is not a valid month day', '"VE" is not a valid month day']
       end
     end
 
-    describe "by_year_day parameter" do
+    describe "byyearday parameter" do
 
       it "should accept a single value" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_year_day => 1)
-        @it.send(:by_list)[:by_year_day].should == [FirstOfYear]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byyearday => 1)
+        @it.send(:by_list)[:byyearday].should == [FirstOfYear]
       end
 
       it "should accept an array of values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_year_day => [1, 10])
-        @it.send(:by_list)[:by_year_day].should == [FirstOfYear, TenthOfYear]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byyearday => [1, 10])
+        @it.send(:by_list)[:byyearday].should == [FirstOfYear, TenthOfYear]
       end
 
       it "should reject invalid values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_year_day => [0, 370, 'VE'])
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byyearday => [0, 370, 'VE'])
         @it.should_not be_valid
         @it.errors.should == ['0 is not a valid year day', '370 is not a valid year day', '"VE" is not a valid year day']
       end
     end
 
-    describe "by_week_no parameter" do
+    describe "byweekno parameter" do
 
       it "should accept a single value" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_week_no => 2)
-        @it.send(:by_list)[:by_week_no].should == [SecondWeekOfYear]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byweekno => 2)
+        @it.send(:by_list)[:byweekno].should == [SecondWeekOfYear]
       end
 
       it "should accept an array of values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_week_no => [2, -1])
-        @it.send(:by_list)[:by_week_no].should == [SecondWeekOfYear, LastWeekOfYear]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byweekno => [2, -1])
+        @it.send(:by_list)[:byweekno].should == [SecondWeekOfYear, LastWeekOfYear]
       end
 
       it "should reject invalid values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_week_no => [0, 54, 'VE'])
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byweekno => [0, 54, 'VE'])
         @it.should_not be_valid
         @it.errors.should == ['0 is not a valid week number', '54 is not a valid week number', '"VE" is not a valid week number']
       end
     end
 
-    describe "by_month parameter" do
+    describe "bymonth parameter" do
 
       it "should accept a single integer" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_month => 10)
-        @it.send(:by_list)[:by_month].should == [10]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bymonth => 10)
+        @it.send(:by_list)[:bymonth].should == [10]
       end
 
       it "should accept an array of integers" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_month => [10, 12])
-        @it.send(:by_list)[:by_month].should == [10, 12]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bymonth => [10, 12])
+        @it.send(:by_list)[:bymonth].should == [10, 12]
       end
 
       it "should reject invalid values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_month => [-1, 0, 1, 12, 13])
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bymonth => [-1, 0, 1, 12, 13])
         @it.should_not be_valid
-        @it.errors.should == ['-1 is invalid for by_month', '0 is invalid for by_month', '13 is invalid for by_month']
+        @it.errors.should == ['-1 is invalid for bymonth', '0 is invalid for bymonth', '13 is invalid for bymonth']
       end
     end
 
-    describe "by_setpos parameter" do
+    describe "bysetpos parameter" do
 
       it "should accept a single integer" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_month => 10, :by_setpos => 2)
-        @it.send(:by_list)[:by_setpos].should == [2]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bymonth => 10, :bysetpos => 2)
+        @it.send(:by_list)[:bysetpos].should == [2]
       end
 
       it "should accept an array of integers" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_month => 10, :by_setpos => [2, 3])
-        @it.send(:by_list)[:by_setpos].should == [2, 3]
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bymonth => 10, :bysetpos => [2, 3])
+        @it.send(:by_list)[:bysetpos].should == [2, 3]
       end
 
       it "should reject invalid values" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_month => 10, :by_setpos => [-367, -366, -1, 0, 1, 366, 367])
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bymonth => 10, :bysetpos => [-367, -366, -1, 0, 1, 366, 367])
         @it.should_not be_valid
-        @it.errors.should == ['-367 is invalid for by_setpos', '0 is invalid for by_setpos', '367 is invalid for by_setpos']
+        @it.errors.should == ['-367 is invalid for bysetpos', '0 is invalid for bysetpos', '367 is invalid for bysetpos']
       end
 
       it "should require another BYxxx rule part" do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_setpos => 2)
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :bysetpos => 2)
         @it.should_not be_valid
-        @it.errors.should == ['by_setpos cannot be used without another by_xxx rule part']
+        @it.errors.should == ['bysetpos cannot be used without another by_xxx rule part']
       end
     end
 
@@ -281,7 +281,8 @@ describe RiCal::RecurrenceRuleValue do
     end
   end
 
-  describe "initialized from string" do
+  describe "initialized from parser" do
+    
   end
 
   describe "to_ical" do
@@ -310,60 +311,60 @@ describe RiCal::RecurrenceRuleValue do
       RiCal::RecurrenceRuleValue.new(:freq => "daily", :wkst => 'MO').to_ical.split(";").should_not include("WKST=SU")
     end
 
-    it "should handle a scalar by_second" do
-      RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_second => 15).to_ical.split(";").should include("BYSECOND=15")
+    it "should handle a scalar bysecond" do
+      RiCal::RecurrenceRuleValue.new(:freq => "daily", :bysecond => 15).to_ical.split(";").should include("BYSECOND=15")
     end
 
-    it "should handle an array by_second" do
-      RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_second => [15, 45]).to_ical.split(";").should include("BYSECOND=15,45")
+    it "should handle an array bysecond" do
+      RiCal::RecurrenceRuleValue.new(:freq => "daily", :bysecond => [15, 45]).to_ical.split(";").should include("BYSECOND=15,45")
     end
 
-    it "should handle a scalar by_day" do
-      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :by_day => 'MO').to_ical.split(";").should include("BYDAY=MO")
+    it "should handle a scalar byday" do
+      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :byday => 'MO').to_ical.split(";").should include("BYDAY=MO")
     end
 
-    it "should handle an array by_day" do
-      RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_day => ["MO", "-3SU"]).to_ical.split(";").should include("BYDAY=MO,-3SU")
+    it "should handle an array byday" do
+      RiCal::RecurrenceRuleValue.new(:freq => "daily", :byday => ["MO", "-3SU"]).to_ical.split(";").should include("BYDAY=MO,-3SU")
     end
 
-    it "should handle a scalar by_month_day" do
-      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :by_month_day => 14).to_ical.split(";").should include("BYMONTHDAY=14")
+    it "should handle a scalar bymonthday" do
+      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :bymonthday => 14).to_ical.split(";").should include("BYMONTHDAY=14")
     end
 
-    it "should handle an array by_month_day" do
-      RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_month_day => [15, -10]).to_ical.split(";").should include("BYMONTHDAY=15,-10")
+    it "should handle an array bymonthday" do
+      RiCal::RecurrenceRuleValue.new(:freq => "daily", :bymonthday => [15, -10]).to_ical.split(";").should include("BYMONTHDAY=15,-10")
     end
 
-    it "should handle a scalar by_year_day" do
-      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :by_year_day => 14).to_ical.split(";").should include("BYYEARDAY=14")
+    it "should handle a scalar byyearday" do
+      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :byyearday => 14).to_ical.split(";").should include("BYYEARDAY=14")
     end
 
-    it "should handle an array by_year_day" do
-      RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_year_day => [15, -10]).to_ical.split(";").should include("BYYEARDAY=15,-10")
+    it "should handle an array byyearday" do
+      RiCal::RecurrenceRuleValue.new(:freq => "daily", :byyearday => [15, -10]).to_ical.split(";").should include("BYYEARDAY=15,-10")
     end
 
-    it "should handle a scalar by_weekno" do
-      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :by_week_no => 14).to_ical.split(";").should include("BYWEEKNO=14")
+    it "should handle a scalar byweekno" do
+      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :byweekno => 14).to_ical.split(";").should include("BYWEEKNO=14")
     end
 
-    it "should handle an array by_year_day" do
-      RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_week_no => [15, -10]).to_ical.split(";").should include("BYWEEKNO=15,-10")
+    it "should handle an array byyearday" do
+      RiCal::RecurrenceRuleValue.new(:freq => "daily", :byweekno => [15, -10]).to_ical.split(";").should include("BYWEEKNO=15,-10")
     end
 
-    it "should handle a scalar by_month" do
-      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :by_month => 2).to_ical.split(";").should include("BYMONTH=2")
+    it "should handle a scalar bymonth" do
+      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :bymonth => 2).to_ical.split(";").should include("BYMONTH=2")
     end
 
-    it "should handle an array by_month" do
-      RiCal::RecurrenceRuleValue.new(:freq => "daily", :by_month => [5, 6]).to_ical.split(";").should include("BYMONTH=5,6")
+    it "should handle an array bymonth" do
+      RiCal::RecurrenceRuleValue.new(:freq => "daily", :bymonth => [5, 6]).to_ical.split(";").should include("BYMONTH=5,6")
     end
 
-    it "should handle a scalar by_setpos" do
-      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :by_day => %w{MO TU WE TH FR}, :by_setpos => -1).to_ical.split(";").should include("BYSETPOS=-1")
+    it "should handle a scalar bysetpos" do
+      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :byday => %w{MO TU WE TH FR}, :bysetpos => -1).to_ical.split(";").should include("BYSETPOS=-1")
     end
 
-    it "should handle an array by_setpos" do
-      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :by_day => %w{MO TU WE TH FR}, :by_setpos => [2, -1]).to_ical.split(";").should include("BYSETPOS=2,-1")
+    it "should handle an array bysetpos" do
+      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :byday => %w{MO TU WE TH FR}, :bysetpos => [2, -1]).to_ical.split(";").should include("BYSETPOS=2,-1")
     end
   end
 end
