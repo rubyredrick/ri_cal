@@ -1,5 +1,7 @@
+require File.expand_path(File.join(File.dirname(__FILE__), "property_value"))
+
 module RiCal
-  class RecurrenceRule 
+  class RecurrenceRuleValue < PropertyValue 
     
     module MonthLengthCalculator
       def leap_year(year)
@@ -236,6 +238,7 @@ module RiCal
     attr_reader :count, :until
 
     def initialize(value_hash)
+      super
       self.freq = value_hash[:freq]
       self.wkst = value_hash[:wkst]
       @count= value_hash[:count]
@@ -266,6 +269,7 @@ module RiCal
     end
 
     def validate_freq
+      puts "@freq=#{@freq.inspect}"
       if @freq
         unless %w{
           SECONDLY MINUTELY HOURLY DAILY
@@ -276,6 +280,7 @@ module RiCal
       else
         errors << "RecurrenceRule must have a value for FREQ"
       end
+      puts "errors=#{errors.inspect}"
     end
 
     def validate_interval

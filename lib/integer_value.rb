@@ -1,6 +1,6 @@
 module RiCal
 
-  class VIntegerProperty < VProperty
+  class IntegerValue < PropertyValue
 
     def value=(string)
       @value = string.to_i 

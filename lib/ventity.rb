@@ -1,4 +1,4 @@
-require File.expand_path(File.join(File.dirname(__FILE__), 'v_text_property'))
+require File.expand_path(File.join(File.dirname(__FILE__), 'text_value'))
 
 # code stolen from ActiveSupport Gem
 unless  String.instance_methods.include?("camelize")
@@ -18,7 +18,7 @@ module RiCal
     
     prop_types = %w{text array integer duration cal_address uri date_list recurrence_rule date_time}
     prop_types.each do |type|
-      type_class = "V#{type.camelize}Property"
+      type_class = "#{type.camelize}Value"
       source = <<-SOURCEEND
       def self.#{type}_properties(*names)
         names.each do
@@ -35,7 +35,7 @@ module RiCal
 
 
     def self.date_time_or_date_properties(*names)
-      names.each { |name| property(name, VDateTimeProperty) {|line| VDateTimeProperty.from_separated_line(line) } }
+      names.each { |name| property(name, DateTimeValue) {|line| DateTimeValue.from_separated_line(line) } }
     end
 
     class << self
@@ -47,7 +47,7 @@ module RiCal
       named_property(name, name, type, &block)
     end
 
-    def self.named_property(name, ruby_name, type = VTextProperty, &block)
+    def self.named_property(name, ruby_name, type = TextValue, &block)
       ruby_name = ruby_name.tr("-", "_")
       property = "#{ruby_name.downcase}_property"
       attr_accessor property.to_sym
@@ -83,7 +83,7 @@ module RiCal
       if creator
         creator.call(self, line)
       else 
-        self.add_x_property(VTextProperty.new(line))
+        self.add_x_property(TextValue.new(line))
       end
     end
 

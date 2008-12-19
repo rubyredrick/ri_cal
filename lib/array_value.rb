@@ -1,6 +1,6 @@
 module RiCal
 
-  class VArrayProperty < VProperty
+  class ArrayValue < PropertyValue
 
     def value=(string)
       @value = string.split(",")
