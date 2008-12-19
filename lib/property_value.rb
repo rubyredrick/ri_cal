@@ -1,24 +1,24 @@
-class RiCal::VProperty
+class RiCal::PropertyValue
 end
 
 %w{
-  v_text_property 
-  v_array_property 
-  v_integer_property 
-  v_date_property 
-  v_date_time_property 
-  v_duration_property
-  v_cal_address_property
-  v_uri_property
-  v_date_list_property
-  v_recurrence_rule_property
+  text_value 
+  array_value 
+  integer_value 
+  date_value 
+  date_time_value 
+  duration_value
+  cal_address_value
+  uri_value
+  date_list_value
+  recurrence_rule_value
   }.each do |sub|
     require File.expand_path(File.join(File.dirname(__FILE__), sub))
   end
 
 module RiCal
 
-  class VProperty
+  class PropertyValue
 
     attr_accessor :name, :params, :value
     def initialize(separated_line)
@@ -38,10 +38,10 @@ module RiCal
           raise Exception.new("Invalid time, cannot combine Zulu with timezone reference") if parms[:tzid]
           parms[:tzid] = "UTC"
         end
-        VDateTimeProperty.new(separated_line.merge(:value => time, :params => parms ))
+        DateTimeValue.new(separated_line.merge(:value => time, :params => parms ))
       else
         date = Date.civil(match[1].to_i, match[2].to_i, match[3].to_i)
-        VDateProperty.new(separated_line.merge(:value => date))
+        DateValue.new(separated_line.merge(:value => date))
       end
     end
     
