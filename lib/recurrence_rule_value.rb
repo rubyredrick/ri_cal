@@ -55,14 +55,12 @@ module RiCal
         if (1..4).include?(wkst)
           # return the date of the wkst day which is less than or equal to jan4th
           jan4th = Date.new(year, 1, 4)
-          #puts "jan4th = #{jan4th}, jan4th.wday=#{convert_wday(jan4th.wday)}"
           result = jan4th - (convert_wday(jan4th.wday) - convert_wday(wkst))
         else
           # return the date of the wkst day which is greater than or equal to Dec 31 of the prior year
           dec29th = Date.new(year-1, 12, 29)
           result = dec29th + convert_wday(wkst) - convert_wday(dec29th.wday)
         end
-        #puts "week_one(#{year}, #{wkst}) is #{result}"
         result
       end
       
@@ -239,6 +237,10 @@ module RiCal
 
     def initialize(value_hash)
       super
+      initialize_from_hash(value_hash)
+    end
+    
+    def initialize_from_hash(value_hash)
       self.freq = value_hash[:freq]
       self.wkst = value_hash[:wkst]
       @count= value_hash[:count]
@@ -246,21 +248,25 @@ module RiCal
       self.interval = value_hash[:interval]
       set_by_lists(value_hash)
     end
+    
+    def value=(string)
+      @value = string
+    end
 
     def validate
       @errors = []
       validate_termination
       validate_freq
       validate_interval
-      validate_int_by_list(:by_second, (0..59))
-      validate_int_by_list(:by_minute, (0..59))
-      validate_int_by_list(:by_hour, (0..23))
-      validate_int_by_list(:by_month, (1..12))
-      validate_by_setpos
-      validate_by_day_list
-      validate_by_month_day_list
-      validate_by_year_day_list
-      validate_by_week_no_list
+      validate_int_by_list(:bysecond, (0..59))
+      validate_int_by_list(:byminute, (0..59))
+      validate_int_by_list(:byhour, (0..23))
+      validate_int_by_list(:bymonth, (1..12))
+      validate_bysetpos
+      validate_byday_list
+      validate_bymonthday_list
+      validate_byyearday_list
+      validate_byweekno_list
       validate_wkst
     end
 
@@ -269,7 +275,6 @@ module RiCal
     end
 
     def validate_freq
-      puts "@freq=#{@freq.inspect}"
       if @freq
         unless %w{
           SECONDLY MINUTELY HOURLY DAILY
@@ -280,7 +285,6 @@ module RiCal
       else
         errors << "RecurrenceRule must have a value for FREQ"
       end
-      puts "errors=#{errors.inspect}"
     end
 
     def validate_interval
@@ -300,39 +304,39 @@ module RiCal
       end
     end
 
-    def validate_by_setpos
-      vals = by_list[:by_setpos] || []
+    def validate_bysetpos
+      vals = by_list[:bysetpos] || []
       vals.each do |val|
-        errors << "#{val} is invalid for by_setpos" unless (-366..-1) === val  || (1..366) === val
+        errors << "#{val} is invalid for bysetpos" unless (-366..-1) === val  || (1..366) === val
       end
       unless vals.empty?
-        errors << "by_setpos cannot be used without another by_xxx rule part" unless by_list.length > 1
+        errors << "bysetpos cannot be used without another by_xxx rule part" unless by_list.length > 1
       end
     end
 
-    def validate_by_day_list
-      days = by_list[:by_day] || []
+    def validate_byday_list
+      days = by_list[:byday] || []
       days.each do |day|
         errors << "#{day.source.inspect} is not a valid day" unless day.valid?
       end
     end
 
-    def validate_by_month_day_list
-      days = by_list[:by_month_day] || []
+    def validate_bymonthday_list
+      days = by_list[:bymonthday] || []
       days.each do |day|
         errors << "#{day.source.inspect} is not a valid month day" unless day.valid?
       end
     end
 
-    def validate_by_year_day_list
-      days = by_list[:by_year_day] || []
+    def validate_byyearday_list
+      days = by_list[:byyearday] || []
       days.each do |day|
         errors << "#{day.source.inspect} is not a valid year day" unless day.valid?
       end
     end
 
-    def validate_by_week_no_list
-      days = by_list[:by_week_no] || []
+    def validate_byweekno_list
+      days = by_list[:byweekno] || []
       days.each do |day|
         errors << "#{day.source.inspect} is not a valid week number" unless day.valid?
       end
@@ -394,9 +398,9 @@ module RiCal
        result = ["FREQ=#{freq}"]
        result << "COUNT=#{count}" if count
        result << "INTERVAL=#{interval}" unless interval == 1
-       %w{by_second by_minute by_hour by_day by_month_day by_year_day by_week_no by_month by_setpos}.each do |by_part|
+       %w{bysecond byminute byhour byday bymonthday byyearday byweekno bymonth bysetpos}.each do |by_part|
          val = by_list[by_part.to_sym]
-         result << "#{by_part.gsub('_','').upcase}=#{[val].flatten.join(',')}" if val
+         result << "#{by_part.upcase}=#{[val].flatten.join(',')}" if val
        end
        result << "WKST=#{wkst}" unless wkst == "MO"
        result.join(";")
@@ -408,27 +412,27 @@ module RiCal
     end
 
     def set_by_lists(value_hash)
-      [:by_second,
-        :by_minute,
-        :by_hour,
-        :by_month,
-        :by_setpos
+      [:bysecond,
+        :byminute,
+        :byhour,
+        :bymonth,
+        :bysetpos
         ].each do |which|
           if val = value_hash[which]
             by_list[which] = [val].flatten
           end
         end
-        if val = value_hash[:by_day]
-          by_list[:by_day] = [val].flatten.map {|day| RecurringDay.new(day)}
+        if val = value_hash[:byday]
+          by_list[:byday] = [val].flatten.map {|day| RecurringDay.new(day)}
         end
-        if val = value_hash[:by_month_day]
-          by_list[:by_month_day] = [val].flatten.map {|md| RecurringMonthDay.new(md)}
+        if val = value_hash[:bymonthday]
+          by_list[:bymonthday] = [val].flatten.map {|md| RecurringMonthDay.new(md)}
         end
-        if val = value_hash[:by_year_day]
-          by_list[:by_year_day] = [val].flatten.map {|yd| RecurringYearDay.new(yd)}
+        if val = value_hash[:byyearday]
+          by_list[:byyearday] = [val].flatten.map {|yd| RecurringYearDay.new(yd)}
         end
-        if val = value_hash[:by_week_no]
-          by_list[:by_week_no] = [val].flatten.map {|wkno| RecurringNumberedWeek.new(wkno)}
+        if val = value_hash[:byweekno]
+          by_list[:byweekno] = [val].flatten.map {|wkno| RecurringNumberedWeek.new(wkno)}
         end
       end
     end
