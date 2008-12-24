@@ -237,22 +237,48 @@ module RiCal
 
     def initialize(value_hash)
       super
-      initialize_from_hash(value_hash)
+      initialize_from_hash(value_hash) unless value_hash[:value]
     end
     
     def initialize_from_hash(value_hash)
       self.freq = value_hash[:freq]
       self.wkst = value_hash[:wkst]
-      @count= value_hash[:count]
-      @until= value_hash[:until]
+      set_count(value_hash[:count])
+      set_until(value_hash[:until])
       self.interval = value_hash[:interval]
       set_by_lists(value_hash)
     end
     
     def value=(string)
-      @value = string
+      if string
+        @value = string
+        parts = string.split(";")
+        value_hash = parts.inject({}) { |hash, part| add_part_to_hash(hash, part) }
+        initialize_from_hash(value_hash)
+      end
     end
-
+    
+    def add_part_to_hash(hash, part)
+      part_name, value = part.split("=")
+      attribute = part_name.downcase.to_sym
+      errors << "Repeated rule part #{attribute} last occurrence was used" if hash[attribute]
+      case attribute
+      when :freq, :wkst
+      when :until
+        value = PropertyValue.date_or_date_time(:value => value)
+      when :interval, :count
+        value = value.to_i
+      when :bysecond, :byminute, :byhour, :bymonthday, :byyearday, :byweekno, :bymonth, :bysetpos
+        value = value.split(",").map {|int| int.to_i} 
+      when :byday
+        value = value.split(",")
+      else
+        errors << "Invalid rule part #{part}"
+      end
+      hash[attribute] = value
+      hash
+    end
+    
     def validate
       @errors = []
       validate_termination
@@ -344,13 +370,14 @@ module RiCal
 
     def freq=(freq_value)
       reset_errors
+      puts caller.join("\n") unless freq_value
       @freq = freq_value
     end
 
     def freq
       @freq.upcase
     end
-
+    
     def wkst
       @wkst || 'MO'
     end
@@ -362,14 +389,22 @@ module RiCal
 
     def count=(count_value)
       reset_errors
-      @count = count_value
+      set_count(count_value)
       @until = nil unless count_value.nil?
+    end
+    
+    def set_count(count_value)
+      @count = count_value
     end
 
     def until=(until_value, init=false)
       reset_errors
-      @until = until_value
+      set_until
       @count = nil unless until_value.nil?
+    end
+
+    def set_until(until_value)
+      @until = until_value
     end
 
     def interval

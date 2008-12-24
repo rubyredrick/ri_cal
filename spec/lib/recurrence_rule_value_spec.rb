@@ -282,7 +282,23 @@ describe RiCal::RecurrenceRuleValue do
   end
 
   describe "initialized from parser" do
-    
+
+    describe "from 'FREQ=YEARLY;INTERVAL=2;BYMONTH=1;BYDAY=SU;BYHOUR=8,9;BYMINUTE=30'" do
+
+      before(:all) do
+        lambda {
+          @it = RiCal::RecurrenceRuleValue.new(:value => 'FREQ=YEARLY;INTERVAL=2;BYMONTH=1;BYDAY=SU;BYHOUR=8,9;BYMINUTE=30')
+          }.should_not raise_error
+      end
+      
+      it "should have a frequency of yearly" do
+        @it.freq.should == "YEARLY"
+      end
+      
+      it "should have an interval of 2" do
+        @it.interval.should == 2
+      end
+    end
   end
 
   describe "to_ical" do
