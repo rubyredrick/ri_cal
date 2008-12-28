@@ -440,8 +440,38 @@ module RiCal
        result << "WKST=#{wkst}" unless wkst == "MO"
        result.join(";")
      end
+     
+     def next_occurrence(start_time, after_time)
+       if start_time >= after_time
+         start_time
+       else
+         advance_time(start_time)
+       end
+     end
 
     private
+    
+    def advance_time(time)
+      case freq
+      when "DAILY"
+        time + (60*60*24)
+      when "WEEKLY"
+        time + (60*60*24*7)
+      when "SECONDLY"
+        time + 1
+      when "MINUTELY"
+        time + 60 
+      when "HOURLY"
+        time + 3600
+      when "DAILY"
+        (60*60*24)
+      when "WEEKLY"
+        (60*60*24*7)
+      when "MONTHLY" 
+      when "YEARLY"
+      end
+    end
+    
     def by_list
       @by_list ||= {}
     end

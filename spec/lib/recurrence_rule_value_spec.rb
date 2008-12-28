@@ -383,6 +383,64 @@ describe RiCal::RecurrenceRuleValue do
       RiCal::RecurrenceRuleValue.new(:freq => "monthly", :byday => %w{MO TU WE TH FR}, :bysetpos => [2, -1]).to_ical.split(";").should include("BYSETPOS=2,-1")
     end
   end
+  describe "#next_occurrence" do
+    describe "for a daily occurrence with default interval" do
+      before(:each) do
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily")
+        @start_time = Time.now
+      end
+      
+      it "should return the requested time if it matches the start time" do
+        @it.next_occurrence(@start_time, @start_time).should == @start_time        
+      end
+      
+      it "should return the same time the next day if the aftertime is after the start time" do
+        @it.next_occurrence(@start_time, @start_time + 1).should == @start_time +(60*60*24)
+      end
+      
+      it "should return the start time if the requested time is before the start time" do
+        @it.next_occurrence(@start_time, @start_time - (60*60*3)).should == @start_time
+      end
+    end
+    
+    describe "for a weekly occurrence with default interval" do
+      before(:each) do
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "weekly")
+        @start_time = Time.now
+      end
+      
+      it "should return the requested time if it matches the start time" do
+        @it.next_occurrence(@start_time, @start_time).should == @start_time        
+      end
+      
+      it "should return the same time the next day if the aftertime is after the start time" do
+        @it.next_occurrence(@start_time, @start_time + 1).should == @start_time +(60*60*24*7)
+      end
+      
+      it "should return the start time if the requested time is before the start time" do
+        @it.next_occurrence(@start_time, @start_time - (60*60*3)).should == @start_time
+      end
+    end
+
+    describe "for various frequencies" do
+      before(:each) do
+        @start_time = Time.now
+      end
+      
+      it "should return the next second for a frequency of SECONDLY if the aftertime is after the start time" do
+        RiCal::RecurrenceRuleValue.new(:freq => "secondly").next_occurrence(@start_time, @start_time + 0.5).should == @start_time + 1
+      end
+      
+      it "should return the next minute for a frequency of MINUTELY if the aftertime is after the start time" do
+        RiCal::RecurrenceRuleValue.new(:freq => "minutely").next_occurrence(@start_time, @start_time + 1).should == @start_time + 60
+      end
+      
+      it "should return the next hour for a frequency of HOURLY if the aftertime is after the start time" do
+        RiCal::RecurrenceRuleValue.new(:freq => "hourly").next_occurrence(@start_time, @start_time + 1).should == @start_time + (60*60)
+      end
+     
+    end
+  end
 end
 
 describe RiCal::RecurrenceRuleValue::WeekNumCalculator do
