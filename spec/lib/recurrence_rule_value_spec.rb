@@ -413,7 +413,7 @@ describe RiCal::RecurrenceRuleValue do
         @it.next_occurrence(@start_time, @start_time).should == @start_time        
       end
       
-      it "should return the same time the next day if the aftertime is after the start time" do
+      it "should return the same time the next day if the aftertime is after the start time but before the next occurrence" do
         @it.next_occurrence(@start_time, @start_time + 1).should == @start_time +(60*60*24*7)
       end
       
@@ -424,21 +424,30 @@ describe RiCal::RecurrenceRuleValue do
 
     describe "for various frequencies" do
       before(:each) do
-        @start_time = Time.now
+        @start_time = Time.mktime(2008, 12, 28, 17, 32, 10, 15)
       end
       
-      it "should return the next second for a frequency of SECONDLY if the aftertime is after the start time" do
+      it "should return the next second for a frequency of SECONDLY if the aftertime is after the start time but before the next occurrence" do
         RiCal::RecurrenceRuleValue.new(:freq => "secondly").next_occurrence(@start_time, @start_time + 0.5).should == @start_time + 1
       end
       
-      it "should return the next minute for a frequency of MINUTELY if the aftertime is after the start time" do
+      it "should return the next minute for a frequency of MINUTELY if the aftertime is after the start time  but before the next occurrence" do
         RiCal::RecurrenceRuleValue.new(:freq => "minutely").next_occurrence(@start_time, @start_time + 1).should == @start_time + 60
       end
       
-      it "should return the next hour for a frequency of HOURLY if the aftertime is after the start time" do
+      it "should return the next hour for a frequency of HOURLY if the aftertime is after the start time but before the next occurrence" do
         RiCal::RecurrenceRuleValue.new(:freq => "hourly").next_occurrence(@start_time, @start_time + 1).should == @start_time + (60*60)
       end
-     
+      
+      it "should return the next month for a frequency of MONTHLY if the aftertime is after the start time but before the next occurrence" do      
+        same_time_next_month = Time.mktime(2009, 1, 28, 17, 32, 10, 15)
+        RiCal::RecurrenceRuleValue.new(:freq => "monthly").next_occurrence(@start_time, @start_time + 1).should == same_time_next_month
+      end
+      
+      it "should return the next year for a frequency of YEARLY if the aftertime is after the start time but before the next occurrence" do      
+        same_time_next_year = Time.mktime(2009, 12, 28, 17, 32, 10, 15)
+        RiCal::RecurrenceRuleValue.new(:freq => "yearly").next_occurrence(@start_time, @start_time + 1).should == same_time_next_year
+      end
     end
   end
 end

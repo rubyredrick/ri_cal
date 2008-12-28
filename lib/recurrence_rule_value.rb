@@ -464,11 +464,19 @@ module RiCal
       when "HOURLY"
         time + 3600
       when "DAILY"
-        (60*60*24)
+        time + (60*60*24)
       when "WEEKLY"
-        (60*60*24*7)
-      when "MONTHLY" 
+        time + (60*60*24*7)
+      when "MONTHLY"
+        target_year = time.year
+        next_month = time.month + 1
+        if next_month > 12
+          next_month = 1
+          target_year += 1
+        end
+        Time.mktime(target_year, next_month, time.mday, time.hour, time.min, time.sec, time.usec) 
       when "YEARLY"
+        Time.mktime(time.year + 1, time.month, time.mday, time.hour, time.min, time.sec, time.usec) 
       end
     end
     
