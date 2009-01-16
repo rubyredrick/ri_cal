@@ -1,7 +1,36 @@
 require File.expand_path(File.join(File.dirname(__FILE__), "property_value"))
 
+require 'rubygems'
+require 'activesupport'
+
 module RiCal
-  class RecurrenceRuleValue < PropertyValue 
+  class RecurrenceRuleValue < PropertyValue
+    
+    class OccurrenceEnumerator
+      attr_accessor :next_time, :recurrence_rule
+      def initialize(recurrence_rule, start_time)
+        self.recurrence_rule = recurrence_rule
+        # datetime conversion stolen from ActiveSupport time#to_date_time
+        self.next_time = start_time.to_datetime
+        @count = 0
+      end
+
+      def next_occurrence
+        result = next_time
+        self.next_time = compute_next_occurrence(result)
+        @count += 1
+        if recurrence_rule.exhausted?(@count, result)
+          nil
+        else
+          result
+        end
+      end
+      
+      def compute_next_occurrence(time)
+        recurrence_rule.advance_by_interval(time)
+      end
+      
+    end
     
     module MonthLengthCalculator
       def leap_year(year)
@@ -100,12 +129,12 @@ module RiCal
       
       include MonthLengthCalculator 
       
-      Time
-
-      DayNames = %w{SU MO TU WE TH FR SA}
+      DayNames = %w{SU MO TU WE TH FR SA} unless defined? DayNames
       day_nums = {}
-      DayNames.each_with_index { |name, i| day_nums[name] = i }
-      DayNums = day_nums
+      unless defined? DayNums
+        DayNames.each_with_index { |name, i| day_nums[name] = i }
+        DayNums = day_nums
+      end
 
       attr_reader :source
       def initialize(source)
@@ -370,7 +399,6 @@ module RiCal
 
     def freq=(freq_value)
       reset_errors
-      puts caller.join("\n") unless freq_value
       @freq = freq_value
     end
 
@@ -404,7 +432,15 @@ module RiCal
     end
 
     def set_until(until_value)
-      @until = until_value
+      @until = date_time_from_value(until_value)
+    end
+    
+    def date_time_from_value(value)
+      if value
+         value.to_datetime
+      else
+        nil
+      end
     end
 
     def interval
@@ -430,55 +466,67 @@ module RiCal
     end
 
     def to_ical
-       result = ["FREQ=#{freq}"]
-       result << "COUNT=#{count}" if count
-       result << "INTERVAL=#{interval}" unless interval == 1
-       %w{bysecond byminute byhour byday bymonthday byyearday byweekno bymonth bysetpos}.each do |by_part|
-         val = by_list[by_part.to_sym]
-         result << "#{by_part.upcase}=#{[val].flatten.join(',')}" if val
-       end
-       result << "WKST=#{wkst}" unless wkst == "MO"
-       result.join(";")
-     end
-     
-     def next_occurrence(start_time, after_time)
-       if start_time >= after_time
-         start_time
-       else
-         advance_time(start_time)
-       end
-     end
+      result = ["FREQ=#{freq}"]
+      result << "COUNT=#{count}" if count
+      result << "INTERVAL=#{interval}" unless interval == 1
+      %w{bysecond byminute byhour byday bymonthday byyearday byweekno bymonth bysetpos}.each do |by_part|
+        val = by_list[by_part.to_sym]
+        result << "#{by_part.upcase}=#{[val].flatten.join(',')}" if val
+      end
+      result << "WKST=#{wkst}" unless wkst == "MO"
+      result.join(";")
+    end
 
-    private
+    def enumerator(start_time)
+      OccurrenceEnumerator.new(self, start_time)
+    end
     
-    def advance_time(time)
+    def exhausted?(count, time)
+      (@count && count > @count) || (@until && time > @until)
+    end
+    
+    def advance_by_interval(time)
+      time = advance_time_by_interval_once(time)
+      while exclude_time_by_rule?(time) && (!@until || time <= @until)
+        time = advance_time_by_interval_once(time)
+      end
+      time
+    end
+    
+    # determine if time should be excluded due to by rules
+    def exclude_time_by_rule?(time)
+      exclude_time_by_month?(time)
+    end
+    
+    def exclude_time_by_month?(time)
+      valid_months = by_list[:bymonth]
+      valid_months && !valid_months.include?(time.month)
+    end
+
+    def advance_time_by_interval_once(time)
       case freq
       when "DAILY"
-        time + (60*60*24)
+        time.advance(:days => interval)
       when "WEEKLY"
-        time + (60*60*24*7)
+        time.advance(:weeks => interval)
       when "SECONDLY"
-        time + 1
+        time.advance(:seconds => interval)
       when "MINUTELY"
-        time + 60 
+        time.advance(:minutes => interval) 
       when "HOURLY"
-        time + 3600
+        time.advance(:hours => interval)
       when "DAILY"
-        time + (60*60*24)
+        time.advance(:days => interval)
       when "WEEKLY"
-        time + (60*60*24*7)
+        time.advance(:weeks => interval)
       when "MONTHLY"
-        target_year = time.year
-        next_month = time.month + 1
-        if next_month > 12
-          next_month = 1
-          target_year += 1
-        end
-        Time.mktime(target_year, next_month, time.mday, time.hour, time.min, time.sec, time.usec) 
+        time.advance(:months => interval) 
       when "YEARLY"
-        Time.mktime(time.year + 1, time.month, time.mday, time.hour, time.min, time.sec, time.usec) 
+        time.advance(:years => interval)
       end
     end
+
+    private
     
     def by_list
       @by_list ||= {}
