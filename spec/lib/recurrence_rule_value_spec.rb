@@ -1,6 +1,8 @@
 require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
 require 'lib/recurrence_rule_value'
+require 'rubygems'
+require 'activesupport'    
 
 AnyMonday = RiCal::RecurrenceRuleValue::RecurringDay.new("MO")
 AnyWednesday = RiCal::RecurrenceRuleValue::RecurringDay.new("WE")
@@ -383,72 +385,177 @@ describe RiCal::RecurrenceRuleValue do
       RiCal::RecurrenceRuleValue.new(:freq => "monthly", :byday => %w{MO TU WE TH FR}, :bysetpos => [2, -1]).to_ical.split(";").should include("BYSETPOS=2,-1")
     end
   end
-  describe "#next_occurrence" do
+  
+  describe "#enumerator" do
     describe "for a daily occurrence with default interval" do
       before(:each) do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily")
         @start_time = Time.now
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily").enumerator(@start_time)
       end
       
-      it "should return the requested time if it matches the start time" do
-        @it.next_occurrence(@start_time, @start_time).should == @start_time        
+      it "should return the start time as the first occurrence" do
+        @it.next_occurrence.should == @start_time        
       end
       
-      it "should return the same time the next day if the aftertime is after the start time" do
-        @it.next_occurrence(@start_time, @start_time + 1).should == @start_time +(60*60*24)
+      it "should return the same time the next day as the second occurrence" do
+        @it.next_occurrence
+        @it.next_occurrence.should ==  @start_time.to_datetime.advance(:days => 1)
       end
-      
-      it "should return the start time if the requested time is before the start time" do
-        @it.next_occurrence(@start_time, @start_time - (60*60*3)).should == @start_time
+    end
+    
+    describe "for a daily occurrence with a default interval and count of 2" do
+      it "should return nil for the third occurrence" do
+        @start_time = Time.now
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :count => 2).enumerator(@start_time)
+        @it.next_occurrence.should be
+        @it.next_occurrence.should be
+        @it.next_occurrence.should be_nil
       end
+    end
+
+    describe "for a daily occurrence with a default interval and until=tomorrow" do
+      it "should return nil for the third occurrence" do
+        @start_time = Time.now
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :until => @start_time + (60*60*24)).enumerator(@start_time)
+        @it.next_occurrence.should be
+        @it.next_occurrence.should be
+        @it.next_occurrence.should be_nil
+      end
+
     end
     
     describe "for a weekly occurrence with default interval" do
       before(:each) do
-        @it = RiCal::RecurrenceRuleValue.new(:freq => "weekly")
         @start_time = Time.now
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "weekly").enumerator(@start_time)
       end
       
       it "should return the requested time if it matches the start time" do
-        @it.next_occurrence(@start_time, @start_time).should == @start_time        
+        @it.next_occurrence.should == @start_time
       end
       
-      it "should return the same time the next day if the aftertime is after the start time but before the next occurrence" do
-        @it.next_occurrence(@start_time, @start_time + 1).should == @start_time +(60*60*24*7)
-      end
-      
-      it "should return the start time if the requested time is before the start time" do
-        @it.next_occurrence(@start_time, @start_time - (60*60*3)).should == @start_time
+      it "should return the same time the next day as the second occurrence" do
+        @it.next_occurrence
+        @it.next_occurrence.should == @start_time.to_datetime.advance(:weeks => 1)
       end
     end
 
-    describe "for various frequencies" do
+    describe "for various frequencies getting the second and third occurrences" do
       before(:each) do
         @start_time = Time.mktime(2008, 12, 28, 17, 32, 10, 15)
       end
       
-      it "should return the next second for a frequency of SECONDLY if the aftertime is after the start time but before the next occurrence" do
-        RiCal::RecurrenceRuleValue.new(:freq => "secondly").next_occurrence(@start_time, @start_time + 0.5).should == @start_time + 1
+      def setup_enumerator_for(freq)
+        @it = RiCal::RecurrenceRuleValue.new(:freq => freq).enumerator(@start_time)
+        @it.next_occurrence
       end
       
-      it "should return the next minute for a frequency of MINUTELY if the aftertime is after the start time  but before the next occurrence" do
-        RiCal::RecurrenceRuleValue.new(:freq => "minutely").next_occurrence(@start_time, @start_time + 1).should == @start_time + 60
+      it "should return the next second for a frequency of SECONDLY" do
+         setup_enumerator_for("secondly")
+         @it.next_occurrence.should == @start_time.to_datetime.advance(:seconds => 1)
+         @it.next_occurrence.should == @start_time.to_datetime.advance(:seconds => 2)
       end
       
-      it "should return the next hour for a frequency of HOURLY if the aftertime is after the start time but before the next occurrence" do
-        RiCal::RecurrenceRuleValue.new(:freq => "hourly").next_occurrence(@start_time, @start_time + 1).should == @start_time + (60*60)
+      it "should return the next minute for a frequency of MINUTELY" do
+        setup_enumerator_for("minutely")
+        @it.next_occurrence.should == @start_time.to_datetime.advance(:minutes => 1)
+        @it.next_occurrence.should == @start_time.to_datetime.advance(:minutes => 2)
       end
       
-      it "should return the next month for a frequency of MONTHLY if the aftertime is after the start time but before the next occurrence" do      
-        same_time_next_month = Time.mktime(2009, 1, 28, 17, 32, 10, 15)
-        RiCal::RecurrenceRuleValue.new(:freq => "monthly").next_occurrence(@start_time, @start_time + 1).should == same_time_next_month
+      it "should return the next hour for a frequency of HOURLY" do
+        setup_enumerator_for("hourly")
+        @it.next_occurrence.should == @start_time.to_datetime.advance(:hours => 1)
+        @it.next_occurrence.should == @start_time.to_datetime.advance(:hours => 2)
       end
       
-      it "should return the next year for a frequency of YEARLY if the aftertime is after the start time but before the next occurrence" do      
-        same_time_next_year = Time.mktime(2009, 12, 28, 17, 32, 10, 15)
-        RiCal::RecurrenceRuleValue.new(:freq => "yearly").next_occurrence(@start_time, @start_time + 1).should == same_time_next_year
+      it "should return the next month for a frequency of MONTHLY" do      
+        setup_enumerator_for("monthly")
+        @it.next_occurrence.should == @start_time.to_datetime.advance(:months => 1)
+        @it.next_occurrence.should == @start_time.to_datetime.advance(:months => 2)
+      end
+      
+      it "should return the next year for a frequency of YEARLY" do      
+        setup_enumerator_for("yearly")
+        @it.next_occurrence.should == @start_time.to_datetime.advance(:years => 1)
+        @it.next_occurrence.should == @start_time.to_datetime.advance(:years => 2)
       end
     end
+    describe "for a monthly frequency with various intervals" do
+      before(:each) do
+        @start_time = Time.mktime(2008, 12, 28, 17, 32, 10, 15)
+      end
+      
+      def setup_enumerator_for(interval)
+        @it = RiCal::RecurrenceRuleValue.new(:freq => "monthly", :interval => interval).enumerator(@start_time)
+        @it.next_occurrence
+      end
+      
+      it "should skip months for an interval of 2" do
+        setup_enumerator_for(2)
+         @it.next_occurrence.should == @start_time.to_datetime.advance(:months => 2)
+      end
+      
+      it "should handle an interval of more than a year" do
+        setup_enumerator_for(18)
+        @it.next_occurrence.should == @start_time.to_datetime.advance(:months => 18)
+      end      
+    end
+    
+    describe "for a yearly frequency with bymonth=1, and byday=SU,MO,TU,WE,TH,FR,SA specified" do
+      # see RFC 2445 p 119 first example
+      before(:each) do
+        enum = RiCal::RecurrenceRuleValue.new(:freq => "yearly", 
+        :until => Time.mktime(2000, 1, 31, 9, 0, 0, 0),
+        :bymonth => 1,
+        :byday => %w{SU MO TU WE TH FR SA}
+        ).enumerator(Time.mktime(1998, 1,1,9,0,0,0))
+        @it = (1..94).collect {|i| enum.next_occurrence}
+      end
+      
+      it "should only produce occurrences in January" do
+        @it.each do |occurrence|
+          if occurrence
+            occurrence.month.should == 1
+          end
+        end
+      end
+      
+      it "should end with a nil" do
+        @it.last.should be_nil
+      end
+      
+      it "should have 93 occurrences" do
+        @it.compact.length.should == 93
+      end
+    end
+    
+    describe "for a daily frequency with bymonth=1 specified" do
+      # see RFC 2445 p 119 second example
+      before(:each) do
+        enum = RiCal::RecurrenceRuleValue.new(:freq => "daily", 
+        :until => Time.mktime(2000, 1, 31, 9, 0, 0, 0),
+        :bymonth => 1
+        ).enumerator(Time.mktime(1998, 1,1,9,0,0,0))
+        @it = (1..94).collect {|i| enum.next_occurrence}
+      end
+      
+      it "should only produce occurrences in January" do
+        @it.each do |occurrence|
+          if occurrence
+            occurrence.month.should == 1
+          end
+        end
+      end
+      
+      it "should end with a nil" do
+        @it.last.should be_nil
+      end
+      
+      it "should have 93 occurrences" do
+        @it.compact.length.should == 93
+      end
+    end
+
   end
 end
 
