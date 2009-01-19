@@ -382,7 +382,7 @@ describe RiCal::RecurrenceRuleValue do
     end
 
     it "should handle an array bysetpos" do
-      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :byday => %w{MO TU WE TH FR}, :bysetpos => [2, -1]).to_ical.split(";").should include("BYSETPOS=2,-1")
+      RiCal::RecurrenceRuleValue.new(:freq => "monthly", :byday => %w{MO TU WE TH FR}, :bysetpos => [2, -1]).to_ical.split(";").should include("BYSETPOS=-1,2")
     end
   end
   
@@ -439,7 +439,7 @@ describe RiCal::RecurrenceRuleValue do
         @it.next_occurrence.should == @start_time.to_datetime.advance(:weeks => 1)
       end
     end
-
+    
     describe "for various frequencies getting the second and third occurrences" do
       before(:each) do
         @start_time = Time.mktime(2008, 12, 28, 17, 32, 10, 15)
@@ -480,6 +480,7 @@ describe RiCal::RecurrenceRuleValue do
         @it.next_occurrence.should == @start_time.to_datetime.advance(:years => 2)
       end
     end
+
     describe "for a monthly frequency with various intervals" do
       before(:each) do
         @start_time = Time.mktime(2008, 12, 28, 17, 32, 10, 15)
@@ -504,11 +505,12 @@ describe RiCal::RecurrenceRuleValue do
     describe "for a yearly frequency with bymonth=1, and byday=SU,MO,TU,WE,TH,FR,SA specified" do
       # see RFC 2445 p 119 first example
       before(:each) do
-        enum = RiCal::RecurrenceRuleValue.new(:freq => "yearly", 
+        @rr = RiCal::RecurrenceRuleValue.new(:freq => "yearly", 
         :until => Time.mktime(2000, 1, 31, 9, 0, 0, 0),
         :bymonth => 1,
         :byday => %w{SU MO TU WE TH FR SA}
-        ).enumerator(Time.mktime(1998, 1,1,9,0,0,0))
+        )
+        enum = @rr.enumerator(Time.mktime(1998, 1,1,9,0,0,0))
         @it = (1..94).collect {|i| enum.next_occurrence}
       end
       
@@ -525,6 +527,7 @@ describe RiCal::RecurrenceRuleValue do
       end
       
       it "should have 93 occurrences" do
+        puts @it.compact.join("\n")
         @it.compact.length.should == 93
       end
     end

@@ -8,26 +8,39 @@ module RiCal
     
     class OccurrenceEnumerator
       attr_accessor :next_time, :recurrence_rule
+      attr_reader :reset_second, :reset_minute, :reset_hour, :reset_day, :reset_month
       def initialize(recurrence_rule, start_time)
         self.recurrence_rule = recurrence_rule
         # datetime conversion stolen from ActiveSupport time#to_date_time
         self.next_time = start_time.to_datetime
         @count = 0
+        @setpos = 1
+        @reset_second = recurrence_rule.reset_second || start_time.sec
+        @reset_minute = recurrence_rule.reset_minute || start_time.min
+        @reset_hour = recurrence_rule.reset_hour || start_time.hour
+        @reset_day = recurrence_rule.reset_day || start_time.day
+        @reset_month = recurrence_rule.reset_month || start_time.month
+      end
+      
+      def compute_reset(value_list, default)
+        if value_list && !value_list.empty?
+          value_list.first
+        else
+          default
+        end
       end
 
       def next_occurrence
+        #TODO handle setpos
         result = next_time
-        self.next_time = compute_next_occurrence(result)
+        self.next_time = recurrence_rule.advance(result, self)
         @count += 1
         if recurrence_rule.exhausted?(@count, result)
           nil
         else
+          @setpos += 1
           result
         end
-      end
-      
-      def compute_next_occurrence(time)
-        recurrence_rule.advance_by_interval(time)
       end
       
     end
@@ -409,10 +422,15 @@ module RiCal
     def wkst
       @wkst || 'MO'
     end
+    
+    def wkst_day
+      @wkst_day ||= (%w{SU MO TU WE FR SA SU}.index(value) || 2) - 1
+    end
 
     def wkst=(value)
       reset_errors
       @wkst = value
+      @wkst_day = nil
     end
 
     def count=(count_value)
@@ -485,16 +503,17 @@ module RiCal
       (@count && count > @count) || (@until && time > @until)
     end
     
-    def advance_by_interval(time)
-      time = advance_time_by_interval_once(time)
+    def advance(time, enumerator)
+      time = advance_seconds(time, enumerator)
       while exclude_time_by_rule?(time) && (!@until || time <= @until)
-        time = advance_time_by_interval_once(time)
+        time = advance_seconds(time, enumerator)
       end
       time
     end
     
     # determine if time should be excluded due to by rules
     def exclude_time_by_rule?(time)
+      #TODO - this is overdoing it in cases like by_month with a frequency longer than a month
       exclude_time_by_month?(time)
     end
     
@@ -502,28 +521,173 @@ module RiCal
       valid_months = by_list[:bymonth]
       valid_months && !valid_months.include?(time.month)
     end
-
-    def advance_time_by_interval_once(time)
-      case freq
-      when "DAILY"
-        time.advance(:days => interval)
-      when "WEEKLY"
-        time.advance(:weeks => interval)
-      when "SECONDLY"
-        time.advance(:seconds => interval)
-      when "MINUTELY"
-        time.advance(:minutes => interval) 
-      when "HOURLY"
-        time.advance(:hours => interval)
-      when "DAILY"
-        time.advance(:days => interval)
-      when "WEEKLY"
-        time.advance(:weeks => interval)
-      when "MONTHLY"
-        time.advance(:months => interval) 
-      when "YEARLY"
-        time.advance(:years => interval)
+    
+    def reset_value(which)
+      if list = by_rule_list(which)
+        list.first #Note that [].first => nil
+      else
+        nil
       end
+    end
+    
+    def reset_second
+      reset_value(:bysecond)
+    end
+      
+    def reset_minute
+      reset_value(:byminute)
+    end
+      
+    def reset_hour
+      reset_value(:byhour)
+    end
+
+    def reset_day
+      if @by_list && (@by_list[:byday] || @by_list[:bymonthday] || @by_list[:byyearday])
+        1
+      else
+        nil
+      end
+    end
+    
+    def by_rule_list(which)
+      if @by_list
+        @by_list[which]
+      else
+        nil
+      end
+    end
+
+    def reset_month
+      reset_value(:bymonth)
+    end
+
+    def advance_seconds(time, enumerator)
+      if freq == 'SECONDLY'
+        time.advance(:seconds => interval)
+      elsif seconds_list = by_rule_list(:bysecond)
+        next_second = seconds_list.find {|sec| sec > time.sec}
+        if next_second
+          time.change(:sec => next_second)
+        else
+          advance_minutes(
+            time.change(:sec => enumerator.reset_second),
+            enumerator
+            )
+        end
+      else
+        advance_minutes(time, enumerator)
+      end
+    end
+        
+    def advance_minutes(time, enumerator)
+      if freq == 'MINUTELY'
+        time.advance(:minutes => interval)
+      elsif minutes_list = by_rule_list(:byminute)
+        next_minute = minutes_list.find {|min| min > time.min}
+        if next_minute
+          time.change(:min => next_minute, :sec => time.sec)
+        else
+          advance_hours(
+            time.change(:min => minutes_list.first, :sec => enumerator.reset_second),
+            enumerator
+          )
+        end
+      else
+        advance_hours(time, enumerator)
+      end
+    end
+    
+    def advance_hours(time, enumerator)
+      if freq == 'HOURLY'
+        time.advance(:hours => interval)
+      elsif hours_list = by_rule_list(:byhour)
+        next_hour = hours_list.find {|hr| hr > time.hour}
+        if next_hour
+          time.change(:hour => next_hour, :min => time.hour, :sec => time.sec)
+        else
+          advance_days(
+            time.change(:hour => next_hour, :min => enumerator.reset_minute, :sec => enumerator.reset_second),
+            enumerator
+          )
+        end
+      else
+       advance_days(time, enumerator)
+     end
+    end
+    
+    def advance_days(time, enumerator)
+      if freq == 'DAILY'
+        result = time.advance(:days => interval)
+        result
+      elsif by_rule_list(:byday) || by_rule_list(:bymonthday) || by_rule_list(:byyearday)
+        new_time = time.advance(:days => 1)
+        if new_time.wday != wkst_day
+          new_time
+        else
+          advance_weeks(
+            time.change(
+              :day => 1, 
+              :hour => enumerator.reset_hour, 
+              :min => enumerator.reset_minute, 
+              :sec => enumerator.reset_second
+            ), 
+            enumerator
+          )
+        end
+      else
+        advance_weeks(time, enumerator)
+      end
+    end
+    
+    def advance_weeks(time, enumerator)
+      if freq == 'WEEKLY'
+        time.advance(:days => 7 * interval)
+      else
+        advance_months(time, enumerator)
+      end
+    end
+    
+    def advance_months(time, enumerator)
+      if freq == 'MONTHLY'
+        time.advance(:months => interval)
+      else
+        time.change(
+        :year => time.year + 1,
+        :month => enumerator.reset_month, 
+        :day => enumerator.reset_day, 
+        :hour => enumerator.reset_hour, 
+        :min => enumerator.reset_minute,
+        :sec => enumerator.reset_second
+        )
+      end
+    end
+        
+    def expanding_by_rules
+      case freq
+      when "YEARLY"
+        [:bymonth, :byweekno, :byyearday, :bymonthday, :byday, :byhour, :byminute, :bysecond]
+      when "MONTHLY"
+        [:byweekno, :byyearday, :bymonthday, :byday, :byhour, :byminute, :bysecond]
+      when "WEEKLY"
+        [:byday, :byhour, :byminute, :bysecond]
+      when "DAILY"
+        [:byhour, :byminute, :bysecond]
+      when "HOURLY"
+        [:byminute, :bysecond]
+      when "MINUTELY"
+        [:bysecond] 
+      when "SECONDLY"
+        []
+      end      
+    end
+    
+    def active_expanding_by_rules
+      expanding_by_rules.select {|rule| by_list.has_key?(rule)}
+    end
+    
+    def filtering_by_rules
+      [:bymonth, :byweekno, :byyearday, :bymonthday, :byday, :byhour, :byminute, :bysecond] - expanding_by_rules
     end
 
     private
@@ -540,7 +704,7 @@ module RiCal
         :bysetpos
         ].each do |which|
           if val = value_hash[which]
-            by_list[which] = [val].flatten
+            by_list[which] = [val].flatten.sort
           end
         end
         if val = value_hash[:byday]
