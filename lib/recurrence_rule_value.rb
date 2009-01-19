@@ -514,12 +514,24 @@ module RiCal
     # determine if time should be excluded due to by rules
     def exclude_time_by_rule?(time)
       #TODO - this is overdoing it in cases like by_month with a frequency longer than a month
-      exclude_time_by_month?(time)
+      exclude_time_by_month?(time) ||
+      exclude_time_by_day?(time) ||
+      exclude_time_by_monthday?(time)
     end
     
     def exclude_time_by_month?(time)
       valid_months = by_list[:bymonth]
       valid_months && !valid_months.include?(time.month)
+    end
+    
+    def exclude_time_by_day?(time)
+      valid_days = by_list[:byday]
+      valid_days && !valid_days.any? {|recurring_day| recurring_day.include?(time)}
+    end
+    
+    def exclude_time_by_monthday?(time)
+      valid_days = by_list[:bymonthday]
+      valid_days && !valid_days.any? {|recurring_day| recurring_day.include?(time)}
     end
     
     def reset_value(which)
@@ -622,18 +634,14 @@ module RiCal
         result
       elsif by_rule_list(:byday) || by_rule_list(:bymonthday) || by_rule_list(:byyearday)
         new_time = time.advance(:days => 1)
-        if new_time.wday != wkst_day
-          new_time
+        if freq == "WEEKLY" && interval > 1 && new_time.wday == wkst_day
+          new_time.advance(:weeks => interval - 1)
+        elsif freq == "MONTHLY" && interval > 1 && new_time.month != time.month
+          new_time.advance(:months => interval - 1)
+        elsif freq == "YEARLY" && interval > 1 && new_time.year != time.year
+          new_time.advance(:years => interval - 1)
         else
-          advance_weeks(
-            time.change(
-              :day => 1, 
-              :hour => enumerator.reset_hour, 
-              :min => enumerator.reset_minute, 
-              :sec => enumerator.reset_second
-            ), 
-            enumerator
-          )
+          new_time
         end
       else
         advance_weeks(time, enumerator)

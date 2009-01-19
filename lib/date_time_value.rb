@@ -13,7 +13,11 @@ module RiCal
 
     def tzid
       params && params[:tzid]
-    end    
+    end
+    
+    def to_datetime
+      value.to_datetime
+    end
   end
 
 end

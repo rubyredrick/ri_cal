@@ -527,7 +527,6 @@ describe RiCal::RecurrenceRuleValue do
       end
       
       it "should have 93 occurrences" do
-        puts @it.compact.join("\n")
         @it.compact.length.should == 93
       end
     end
@@ -560,6 +559,275 @@ describe RiCal::RecurrenceRuleValue do
     end
 
   end
+  
+  describe "for a weekly event with byday:TU,TH" do
+    # RFC2445 p 119-20
+    before(:each) do
+      enum = RiCal::RecurrenceRuleValue.new(
+      :freq => 'weekly',
+      :wkst => 'SU',
+      :byday => %w{TU TH},
+      # The until should be 0:00 zulu time
+      :until => Time.mktime(1997, 10, 7, 0, 0, 0, 0)).enumerator(Time.mktime(1997, 9, 2, 9, 0, 0, 0))
+      @it = (1..11).collect {|i| enum.next_occurrence}.compact
+    end
+    
+    it "should produce 10 occurrences" do
+      @it.length.should == 10
+    end
+    
+    it "should produce occurrences on TU and TH only" do
+      @it.each do |occurrence|
+        [2, 4].should include(occurrence.wday)
+      end
+    end
+  end
+  
+  describe "for a weekly event with byday:MO,WE,FR but a Tuesday startdate" do
+    # RFC2445 p 120
+    before(:each) do
+      #TODO - make this account for timezones!
+      @start_time = Time.mktime(1997, 9, 2, 9, 0, 0, 0)
+      enum = RiCal::RecurrenceRuleValue.new(
+      :freq => 'weekly',
+      :interval => 2,
+      :wkst => 'SU',
+      :byday => %w{MO, WE, FR},
+      # The until should be 0:00 zulu time
+      :until => Time.mktime(1997, 12, 24, 0, 0, 0, 0)).enumerator(@start_time)
+      @it = (1..26).collect {|i| enum.next_occurrence}.compact
+    end
+    
+    it "should produce 10 occurrences" do
+      @it.length.should == 25
+    end
+    
+    it "should include the startdate as the first occurrence" do
+      @it.first.should == @start_time.to_datetime
+    end
+    
+    it "should produce subsequent occurrences on MO, WE, and FR only" do
+      @it.each_with_index do |occurrence, index|
+        unless index == 0
+          [1, 3, 5].should include(occurrence.wday)
+        end
+      end
+    end
+  end
+  
+  def self.enumeration_spec(description, dtstart_string, tzid, rrule_string, expectation)
+    if expectation.last == "..."
+      expectation = expectation[0..-2]
+      iterations = expectation.length
+    else
+      iterations = expectation.length + 1
+    end
+    
+    describe description do
+      before(:each) do
+        enum = RiCal::RecurrenceRuleValue.new(
+        :value => rrule_string
+        ).enumerator(DateTime.parse(dtstart_string))
+        @it = (1..iterations).collect {|i| enum.next_occurrence}.compact
+      end
+
+      it "should produce the correct occurrences" do
+        #TODO - Fix this to use the timezone
+        @it.should == (expectation.map {|str|
+          begin 
+          DateTime.parse(str.gsub(/E[SD]T$/,''))
+        rescue ArgumentError => ex
+          puts "invalid date #{str}"
+          raise ex
+        end
+          })
+      end
+    end
+  end
+  
+  enumeration_spec(
+    "Every other week on TU and TH for 8 occurrences (RFC 2445 p 120)",
+    "19970902T090000",
+    "US-Eastern",
+    "FREQ=WEEKLY;INTERVAL=2;COUNT=8;WKST=SU;BYDAY=TU,TH",
+    [
+      "9/2/1997 9:00 AM EDT",
+      "9/4/1997 9:00 AM EDT",
+      "9/16/1997 9:00 AM EDT",
+      "9/18/1997 9:00 AM EDT",
+      "9/30/1997 9:00 AM EDT",
+      "10/2/1997 9:00 AM EDT",
+      "10/14/1997 9:00 AM EDT",
+      "10/16/1997 9:00 AM EDT"
+    ]
+  )
+  
+  enumeration_spec(
+    "Monthly on the 1st Friday for ten occurrences (RFC 2445 p 120)",
+    "19970905T090000",
+    "US-Eastern",
+    "FREQ=MONTHLY;COUNT=10;BYDAY=1FR",
+    [
+      "9/5/1997 9:00 AM EDT",
+      "10/3/1997 9:00 AM EDT",
+      "11/7/1997 9:00 AM EST",
+      "12/5/1997 9:00 AM EST",
+      "1/2/1998 9:00 AM EST",
+      "2/6/1998 9:00 AM EST",
+      "3/6/1998 9:00 AM EST",
+      "4/3/1998 9:00 AM EST",
+      "5/1/1998 9:00 AM EDT",
+      "6/5/1998 9:00 AM EDT",
+    ]
+  )
+    
+  enumeration_spec(
+    "Monthly on the 1st Friday until December 24, 1997 (RFC 2445 p 120)",
+    "19970905T090000",
+    "US-Eastern",
+    "FREQ=MONTHLY;UNTIL=19971224T000000Z;BYDAY=1FR",
+    [
+      "9/5/1997 9:00 AM EDT",
+      "10/3/1997 9:00 AM EDT",
+      "11/7/1997 9:00 AM EST",
+      "12/5/1997 9:00 AM EST"
+    ]
+  )
+    
+  enumeration_spec(
+    "Every other month on the 1st and last Sunday of the month for 10 occurrences (RFC 2445 p 120)",
+    "19970907T090000",
+    "US-Eastern",
+    "FREQ=MONTHLY;INTERVAL=2;COUNT=10;BYDAY=1SU,-1SU",
+    [
+      "9/7/1997 9:00 AM EDT",
+      "9/28/1997 9:00 AM EDT",
+      "11/2/1997 9:00 AM EST",
+      "11/30/1997 9:00 AM EST",
+      "1/4/1998 9:00 AM EST",
+      "1/25/1998 9:00 AM EST",
+      "3/1/1998 9:00 AM EST",
+      "3/29/1998 9:00 AM EST",
+      "5/3/1998 9:00 AM EDT",
+      "5/31/1998 9:00 AM EST"
+    ]
+  )
+    
+  enumeration_spec(
+    "Monthly on the second to last Monday of the month for 6 months (RFC 2445 p 121)",
+    "19970922T090000",
+    "US-Eastern",
+    "FREQ=MONTHLY;COUNT=6;BYDAY=-2MO",
+    [
+      "9/22/1997 9:00 AM EDT",
+      "10/20/1997 9:00 AM EDT",
+      "11/17/1997 9:00 AM EST",
+      "12/22/1997 9:00 AM EST",
+      "1/19/1998 9:00 AM EST",
+      "2/16/1998 9:00 AM EST"
+    ]
+  )
+    
+  enumeration_spec(
+    "Monthly on the third the to last day of the month forever (RFC 2445 p 121)",
+    "19970928T090000",
+    "US-Eastern",
+    "FREQ=MONTHLY;BYMONTHDAY=-3",
+    [
+      "9/28/1997 9:00 AM EDT",
+      "10/29/1997 9:00 AM EDT",
+      "11/28/1997 9:00 AM EST",
+      "12/29/1997 9:00 AM EST",
+      "1/29/1998 9:00 AM EST",
+      "2/26/1998 9:00 AM EST",
+      "..."
+    ]
+  )
+
+    enumeration_spec(
+      "Monthly on the first and last day of the month for 10 occurrences (RFC 2445 p 121)",
+      "19970930T090000",
+      "US-Eastern",
+      "FREQ=MONTHLY;COUNT=10;BYMONTHDAY=1,-1",
+      [
+        "9/30/1997 9:00 AM EDT",
+        "10/1/1997 9:00 AM EDT",
+        "10/31/1997 9:00 AM EST",
+        "11/1/1997 9:00 AM EST",
+        "11/30/1997 9:00 AM EST",
+        "12/1/1997 9:00 AM EST",
+        "12/31/1997 9:00 AM EST",
+        "1/1/1998 9:00 AM EST",
+        "1/31/1998 9:00 AM EST",
+        "2/1/1998 9:00 AM EST"
+      ]
+    )
+
+    enumeration_spec(
+      "Every 18 months on the 10th thru 15th of the month for 10 occurrences (RFC 2445 p 121)",
+      "19970910T090000",
+      "US-Eastern",
+      "FREQ=MONTHLY;INTERVAL=18;COUNT=10;BYMONTHDAY=10,11,12,13,14,15",
+      [
+        "9/10/1997 9:00 AM EDT",
+        "9/11/1997 9:00 AM EDT",
+        "9/12/1997 9:00 AM EDT",
+        "9/13/1997 9:00 AM EDT",
+        "9/14/1997 9:00 AM EDT",
+        "9/15/1997 9:00 AM EDT",
+        "3/10/1999 9:00 AM EDT",
+        "3/11/1999 9:00 AM EDT",
+        "3/12/1999 9:00 AM EDT",
+        "3/13/1999 9:00 AM EDT"
+      ]
+    )
+
+    enumeration_spec(
+      "Every Tuesday, every other month (RFC 2445 p 122)",
+      "19970902T090000",
+      "US-Eastern",
+      "FREQ=MONTHLY;INTERVAL=2;BYDAY=TU",
+      [
+        "9/2/1997 9:00 AM EDT",
+        "9/9/1997 9:00 AM EDT",
+        "9/16/1997 9:00 AM EDT",
+        "9/23/1997 9:00 AM EDT",
+        "9/30/1997 9:00 AM EDT",
+        "11/4/1997 9:00 AM EST",
+        "11/11/1997 9:00 AM EST",
+        "11/18/1997 9:00 AM EST",
+        "11/25/1997 9:00 AM EST",
+        "1/6/1998 9:00 AM EST",
+        "1/13/1998 9:00 AM EST",
+        "1/20/1998 9:00 AM EST",
+        "1/27/1998 9:00 AM EST",
+        "3/3/1998 9:00 AM EST",
+        "3/10/1998 9:00 AM EST",
+        "3/17/1998 9:00 AM EST",
+        "3/24/1998 9:00 AM EST",
+        "3/31/1998 9:00 AM EST",
+        "..."
+      ]
+    )
+
+    enumeration_spec(
+      "Yearly in June and July for 10 occurrences (RFC 2445 p 122)",
+      "19970610T090000",
+      "US-Eastern",
+      "FREQ=YEARLY;COUNT=10;BYMONTH=6,7",
+      [
+        "6/10/1997 9:00 AM EDT",
+        "7/10/1997 9:00 AM EDT",
+        "6/10/1998 9:00 AM EDT",
+        "7/10/1998 9:00 AM EDT",
+        "6/10/1999 9:00 AM EDT",
+        "7/10/1999 9:00 AM EDT",
+        "6/10/2000 9:00 AM EDT",
+        "7/10/2000 9:00 AM EDT",
+        "6/10/2001 9:00 AM EDT",
+        "7/10/2001 9:00 AM EDT"
+      ]
+    )
 end
 
 describe RiCal::RecurrenceRuleValue::WeekNumCalculator do
