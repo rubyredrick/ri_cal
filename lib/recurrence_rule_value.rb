@@ -658,17 +658,28 @@ module RiCal
     
     def advance_months(time, enumerator)
       if freq == 'MONTHLY'
-        time.advance(:months => interval)
-      else
-        time.change(
-        :year => time.year + 1,
-        :month => enumerator.reset_month, 
-        :day => enumerator.reset_day, 
-        :hour => enumerator.reset_hour, 
-        :min => enumerator.reset_minute,
-        :sec => enumerator.reset_second
-        )
+        return time.advance(:months => interval)
+      elsif months_list = by_rule_list(:bymonth)
+        next_month = months_list.find {|month| month > time.month}
+        if next_month
+          return time.change(
+            :month => next_month, 
+            :day => time.day, 
+            :hour => time.hour,
+            :min => time.min,
+            :sec => time.sec
+          )
+        end
       end
+      year_increment = freq == "YEARLY" ? interval : 1
+      time.change(
+      :year => time.year + year_increment,
+      :month => enumerator.reset_month, 
+      :day => enumerator.reset_day, 
+      :hour => enumerator.reset_hour, 
+      :min => enumerator.reset_minute,
+      :sec => enumerator.reset_second
+      )
     end
         
     def expanding_by_rules
