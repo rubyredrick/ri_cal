@@ -4,8 +4,6 @@ require 'lib/recurrence_rule_value'
 require 'rubygems'
 require 'activesupport'    
 
-AnyMonday = RiCal::RecurrenceRuleValue::RecurringDay.new("MO")
-AnyWednesday = RiCal::RecurrenceRuleValue::RecurringDay.new("WE")
 FirstOfMonth = RiCal::RecurrenceRuleValue::RecurringMonthDay.new(1)
 TenthOfMonth = RiCal::RecurrenceRuleValue::RecurringMonthDay.new(10)
 FirstOfYear = RiCal::RecurrenceRuleValue::RecurringYearDay.new(1)
@@ -118,15 +116,24 @@ describe RiCal::RecurrenceRuleValue do
     end
 
     describe "byday parameter" do
+      
+      def anyMonday(rule)
+        RiCal::RecurrenceRuleValue::RecurringDay.new("MO", rule)
+      end
+      
+      def anyWednesday(rule)
+        RiCal::RecurrenceRuleValue::RecurringDay.new("WE", rule)
+      end
+      
 
       it "should accept a single value" do
         @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byday => 'MO')
-        @it.send(:by_list)[:byday].should == [AnyMonday]
+        @it.send(:by_list)[:byday].should == [anyMonday(@it)]
       end
 
       it "should accept an array of values" do
         @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :byday => ['MO', 'WE'])
-        @it.send(:by_list)[:byday].should == [AnyMonday, AnyWednesday]
+        @it.send(:by_list)[:byday].should == [anyMonday(@it), anyWednesday(@it)]
       end
 
       it "should reject invalid values" do
@@ -625,9 +632,10 @@ describe RiCal::RecurrenceRuleValue do
     
     describe description do
       before(:each) do
-        enum = RiCal::RecurrenceRuleValue.new(
+        rrule = RiCal::RecurrenceRuleValue.new(
         :value => rrule_string
-        ).enumerator(DateTime.parse(dtstart_string))
+        )
+        enum = rrule.enumerator(DateTime.parse(dtstart_string))
         @it = (1..iterations).collect {|i| enum.next_occurrence}.compact
       end
 
@@ -828,6 +836,71 @@ describe RiCal::RecurrenceRuleValue do
         "7/10/2001 9:00 AM EDT"
       ]
     )
+
+    enumeration_spec(
+      "Every other year on January, February, and March for 10 occurrences (RFC 2445 p 122)",
+      "19970310T090000",
+      "US-Eastern",
+      "FREQ=YEARLY;INTERVAL=2;COUNT=10;BYMONTH=1,2,3",
+      [
+        "3/10/1997 9:00 AM EST",
+        "1/10/1999 9:00 AM EST",
+        "2/10/1999 9:00 AM EST",
+        "3/10/1999 9:00 AM EST",
+        "1/10/2001 9:00 AM EST",
+        "2/10/2001 9:00 AM EST",
+        "3/10/2001 9:00 AM EST",
+        "1/10/2003 9:00 AM EST",
+        "2/10/2003 9:00 AM EST",
+        "3/10/2003 9:00 AM EST",
+      ]
+    )
+
+    enumeration_spec(
+      "Every 3rd year on the 1st, 100th and 200th day for 10 occurrences (RFC 2445 p 122)",
+      "19970101T090000",
+      "US-Eastern",
+      "FREQ=YEARLY;INTERVAL=3;COUNT=10;BYYEARDAY=1,100,200",
+      [
+        "1/1/1997 9:00 AM EST",
+        "4/10/1997 9:00 AM EDT",
+        "7/19/1997 9:00 AM EDT",
+        "1/1/2000 9:00 AM EST",
+        "4/9/2000 9:00 AM EDT",
+        "7/18/2000 9:00 AM EDT",
+        "1/1/2003 9:00 AM EST",
+        "4/10/2003 9:00 AM EDT",
+        "7/19/2003 9:00 AM EDT",
+        "1/1/2006 9:00 AM EST"
+      ]
+    )
+
+    enumeration_spec(
+      "Every 20th Monday of the year, forever (RFC 2445 p 122-3)",
+      "19970519T090000",
+      "US-Eastern",
+      "FREQ=YEARLY;BYDAY=20MO",
+      [
+        "5/19/1997 9:00 AM EDT",
+        "5/18/1998 9:00 AM EDT",
+        "5/17/1999 9:00 AM EDT",
+        "..."
+      ]
+    )
+
+    enumeration_spec(
+      "Every second to last Wednesday of the year, forever",
+      "19971224T090000",
+      "US-Eastern",
+      "FREQ=YEARLY;BYDAY=-2WE",
+      [
+        "12/24/1997 9:00 AM EDT",
+        "12/23/1998 9:00 AM EDT",
+        "12/22/1999 9:00 AM EDT",
+        "12/20/2000 9:00 AM EDT",
+        "..."
+      ]
+    )
 end
 
 describe RiCal::RecurrenceRuleValue::WeekNumCalculator do
@@ -959,9 +1032,14 @@ end
 
 
 describe RiCal::RecurrenceRuleValue::RecurringDay do
+  
+  def recurring(day)
+    RiCal::RecurrenceRuleValue::RecurringDay.new(day, RiCal::RecurrenceRuleValue.new(:value => "FREQ=MONTHLY"))
+  end
+    
   describe "MO - any monday" do
     before(:each) do
-      @it= RiCal::RecurrenceRuleValue::RecurringDay.new("MO")
+      @it= recurring("MO")
     end
 
     it "should include all Mondays" do
@@ -979,7 +1057,7 @@ describe RiCal::RecurrenceRuleValue::RecurringDay do
 
   describe "TU - any Tuesday" do
     before(:each) do
-      @it= RiCal::RecurrenceRuleValue::RecurringDay.new("TU")
+      @it= recurring("TU")
     end
 
     it "should include all Tuesdays" do
@@ -997,7 +1075,7 @@ describe RiCal::RecurrenceRuleValue::RecurringDay do
 
   describe "WE - any Wednesday" do
     before(:each) do
-      @it= RiCal::RecurrenceRuleValue::RecurringDay.new("WE")
+      @it= recurring("WE")
     end
 
     it "should include all Wednesdays" do
@@ -1015,7 +1093,7 @@ describe RiCal::RecurrenceRuleValue::RecurringDay do
 
   describe "TH - any Thursday" do
     before(:each) do
-      @it= RiCal::RecurrenceRuleValue::RecurringDay.new("TH")
+      @it= recurring("TH")
     end
 
     it "should include all Thursdays" do
@@ -1033,7 +1111,7 @@ describe RiCal::RecurrenceRuleValue::RecurringDay do
 
   describe "FR - any Friday" do
     before(:each) do
-      @it= RiCal::RecurrenceRuleValue::RecurringDay.new("FR")
+      @it= recurring("FR")
     end
 
     it "should include all Fridays" do
@@ -1051,7 +1129,7 @@ describe RiCal::RecurrenceRuleValue::RecurringDay do
 
   describe "SA - any Saturday" do
     before(:each) do
-      @it= RiCal::RecurrenceRuleValue::RecurringDay.new("SA")
+      @it= recurring("SA")
     end
 
     it "should include all Saturdays" do
@@ -1069,7 +1147,7 @@ describe RiCal::RecurrenceRuleValue::RecurringDay do
 
   describe "SU - any Sunday" do
     before(:each) do
-      @it= RiCal::RecurrenceRuleValue::RecurringDay.new("SU")
+      @it= recurring("SU")
     end
 
     it "should include all Sundays" do
@@ -1087,7 +1165,7 @@ describe RiCal::RecurrenceRuleValue::RecurringDay do
 
   describe "1MO - first Monday" do
     before(:each) do
-      @it = RiCal::RecurrenceRuleValue::RecurringDay.new("1MO")
+      @it = recurring("1MO")
     end
 
     it "should match the first Monday of the month" do
@@ -1103,7 +1181,7 @@ describe RiCal::RecurrenceRuleValue::RecurringDay do
 
   describe "5MO - Fifth Monday" do
     before(:each) do
-      @it = RiCal::RecurrenceRuleValue::RecurringDay.new("5MO")
+      @it = recurring("5MO")
     end
 
     it "should match the fifth Monday of a month with five Mondays" do
@@ -1113,7 +1191,7 @@ describe RiCal::RecurrenceRuleValue::RecurringDay do
 
   describe "-1MO - last Monday" do
     before(:each) do
-      @it = RiCal::RecurrenceRuleValue::RecurringDay.new("-1MO")
+      @it = recurring("-1MO")
     end
 
     it "should match the last Monday of the month" do

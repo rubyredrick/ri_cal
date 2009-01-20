@@ -150,8 +150,9 @@ module RiCal
       end
 
       attr_reader :source
-      def initialize(source)
+      def initialize(source, rrule)
         @source = source
+        @rrule = rrule
         wd_match = source.match(/([+-]?\d*)(SU|MO|TU|WE|TH|FR|SA)/)
         if wd_match
           @day, @ord = wd_match[2], wd_match[1]
@@ -179,16 +180,30 @@ module RiCal
           true
         else
           n = @ord.to_i
-          first_of_month = Date.new(date_or_time.year, date_or_time.month, 1)
-          first_in_month = first_of_month + (DayNums[@day] - first_of_month.wday)
-          first_in_month += 7 if first_in_month.month != first_of_month.month
-          if n > 0
-            target = first_in_month + (7*(n - 1))
+          if @rrule.freq == "YEARLY"
+            if n > 0
+              first_of_year = Date.new(date_or_time.year, 1, 1)
+              first_in_year = first_of_year + (DayNums[@day] - first_of_year.wday + 7) % 7
+              #puts "dot=#{date_or_time} foy=#{first_of_year} fiy=#{first_in_year}" if n == 20 && @last_year != date_or_time.year
+              @last_year = date_or_time.year
+              target = first_in_year + (7*(n - 1))
+            else
+              twentyfifth_of_year = Date.new(date_or_time.year, 12, 25)
+              last_in_year = twentyfifth_of_year + (DayNums[@day] - twentyfifth_of_year.wday + 7) % 7
+              target = last_in_year + (7 * (n + 1))
+            end
           else
-            possible = first_in_month +  21
-            possible += 7 while possible.month == first_in_month.month
-            last_in_month = possible - 7
-            target = last_in_month - (7*(n.abs - 1))
+            first_of_month = Date.new(date_or_time.year, date_or_time.month, 1)
+            first_in_month = first_of_month + (DayNums[@day] - first_of_month.wday)
+            first_in_month += 7 if first_in_month.month != first_of_month.month
+            if n > 0
+              target = first_in_month + (7*(n - 1))
+            else
+              possible = first_in_month +  21
+              possible += 7 while possible.month == first_in_month.month
+              last_in_month = possible - 7
+              target = last_in_month - (7*(n.abs - 1))
+            end
           end
           Date.new(date_or_time.year, date_or_time.mon, date_or_time.day) == target
         end
@@ -516,7 +531,8 @@ module RiCal
       #TODO - this is overdoing it in cases like by_month with a frequency longer than a month
       exclude_time_by_month?(time) ||
       exclude_time_by_day?(time) ||
-      exclude_time_by_monthday?(time)
+      exclude_time_by_monthday?(time) ||
+      exclude_time_by_yearday?(time)
     end
     
     def exclude_time_by_month?(time)
@@ -531,6 +547,11 @@ module RiCal
     
     def exclude_time_by_monthday?(time)
       valid_days = by_list[:bymonthday]
+      valid_days && !valid_days.any? {|recurring_day| recurring_day.include?(time)}
+    end
+    
+    def exclude_time_by_yearday?(time)
+      valid_days = by_list[:byyearday]
       valid_days && !valid_days.any? {|recurring_day| recurring_day.include?(time)}
     end
     
@@ -727,7 +748,7 @@ module RiCal
           end
         end
         if val = value_hash[:byday]
-          by_list[:byday] = [val].flatten.map {|day| RecurringDay.new(day)}
+          by_list[:byday] = [val].flatten.map {|day| RecurringDay.new(day, self)}
         end
         if val = value_hash[:bymonthday]
           by_list[:bymonthday] = [val].flatten.map {|md| RecurringMonthDay.new(md)}
