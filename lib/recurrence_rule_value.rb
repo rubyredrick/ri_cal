@@ -532,7 +532,8 @@ module RiCal
       exclude_time_by_month?(time) ||
       exclude_time_by_day?(time) ||
       exclude_time_by_monthday?(time) ||
-      exclude_time_by_yearday?(time)
+      exclude_time_by_yearday?(time) ||
+      exclude_time_by_weekno?(time)
     end
     
     def exclude_time_by_month?(time)
@@ -552,6 +553,12 @@ module RiCal
     
     def exclude_time_by_yearday?(time)
       valid_days = by_list[:byyearday]
+      valid_days && !valid_days.any? {|recurring_day| recurring_day.include?(time)}
+    end
+    
+    
+    def exclude_time_by_weekno?(time)
+      valid_days = by_list[:byweekno]
       valid_days && !valid_days.any? {|recurring_day| recurring_day.include?(time)}
     end
     

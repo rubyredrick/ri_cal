@@ -901,6 +901,144 @@ describe RiCal::RecurrenceRuleValue do
         "..."
       ]
     )
+    
+      enumeration_spec(
+        "Monday of week number 20 (where the default start of the week is Monday), forever (RFC 2445 p 123)",
+        "19970512T090000",
+        "US-Eastern",
+        "FREQ=YEARLY;BYWEEKNO=20;BYDAY=MO",
+        [
+          "5/12/1997 9:00 AM EDT",
+          "5/11/1998 9:00 AM EDT",
+          "5/17/1999 9:00 AM EDT",
+          "..."
+        ]
+      )
+  
+    enumeration_spec(
+      "Every Thursday in March, forever (RFC 2445 p 123)",
+      "19970313T090000",
+      "US-Eastern",
+      "FREQ=YEARLY;BYMONTH=3;BYDAY=TH",
+      [
+        "3/13/1997 9:00 AM EST",
+        "3/20/1997 9:00 AM EST",
+        "3/27/1997 9:00 AM EST",
+        "3/5/1998 9:00 AM  EST",
+        "3/12/1998 9:00 AM EST",
+        "3/19/1998 9:00 AM EST",
+        "3/26/1998 9:00 AM EST",
+        "3/4/1999 9:00 AM  EST",
+        "3/11/1999 9:00 AM EST",
+        "3/18/1999 9:00 AM EST",
+        "3/25/1999 9:00 AM EST",
+        "..."
+      ]
+    )
+
+  enumeration_spec(
+    "Every Thursday, but only during June, July, and August, forever (RFC 2445 p 123)",
+    "19970605T090000",
+    "US-Eastern",
+    "FREQ=YEARLY;BYDAY=TH;BYMONTH=6,7,8",
+    [
+      "6/05/1997 9:00 AM EDT",
+      "6/12/1997 9:00 AM EDT",
+      "6/19/1997 9:00 AM EDT",
+      "6/26/1997 9:00 AM EDT",
+      "7/03/1997 9:00 AM EDT",
+      "7/10/1997 9:00 AM EDT",
+      "7/17/1997 9:00 AM EDT",
+      "7/24/1997 9:00 AM EDT",
+      "7/31/1997 9:00 AM EDT",
+      "8/07/1997 9:00 AM EDT",
+      "8/14/1997 9:00 AM EDT",
+      "8/21/1997 9:00 AM EDT",
+      "8/28/1997 9:00 AM EDT",
+      "6/04/1998 9:00 AM EDT",
+      "6/11/1998 9:00 AM EDT",
+      "6/18/1998 9:00 AM EDT",
+      "6/25/1998 9:00 AM EDT",
+      "7/02/1998 9:00 AM EDT",
+      "7/09/1998 9:00 AM EDT",
+      "7/16/1998 9:00 AM EDT",
+      "7/23/1998 9:00 AM EDT",
+      "7/30/1998 9:00 AM EDT",
+      "8/06/1998 9:00 AM EDT",
+      "8/13/1998 9:00 AM EDT",
+      "8/20/1998 9:00 AM EDT",
+      "8/27/1998 9:00 AM EDT",
+      "6/03/1999 9:00 AM EDT",
+      "6/10/1999 9:00 AM EDT",
+      "6/17/1999 9:00 AM EDT",
+      "6/24/1999 9:00 AM EDT",
+      "7/01/1999 9:00 AM EDT",
+      "7/08/1999 9:00 AM EDT",
+      "7/15/1999 9:00 AM EDT",
+      "7/22/1999 9:00 AM EDT",
+      "7/29/1999 9:00 AM EDT",
+      "8/05/1999 9:00 AM EDT",
+      "8/12/1999 9:00 AM EDT",
+      "8/19/1999 9:00 AM EDT",
+      "8/26/1999 9:00 AM EDT",
+      "..."
+    ]
+  )
+
+  enumeration_spec(
+    "Every Friday the 13th, forever (RFC 2445 p 123-4)",
+    "19970902T090000",
+    "US-Eastern",
+    "FREQ=MONTHLY;BYDAY=FR;BYMONTHDAY=13",
+    [
+      # The RFC example uses exdate to exclude the start date, this is a slightly altered
+      # use case
+      "9/2/1997 9:00 AM EST",
+      "2/13/1998 9:00 AM EST",
+      "3/13/1998 9:00 AM EST",
+      "11/13/1998 9:00 AM EST",
+      "8/13/1999 9:00 AM EDT",
+      "10/13/2000 9:00 AM EST",
+      "..."
+    ]
+  )
+
+  enumeration_spec(
+    "The first Saturday that follows the first Sunday of the month, forever (RFC 2445 p 124)",
+    "19970913T090000",
+    "US-Eastern",
+    "FREQ=MONTHLY;BYDAY=SA;BYMONTHDAY=7,8,9,10,11,12,13",
+    [
+      # The RFC example uses exdate to exclude the start date, this is a slightly altered
+      # use case
+      "9/13/1997 9:00 AM EDT",
+      "10/11/1997 9:00 AM EDT",
+      "11/8/1997 9:00 AM EST",
+      "12/13/1997 9:00 AM EST",
+      "1/10/1998 9:00 AM EST",
+      "2/7/1998 9:00 AM EST",
+      "3/7/1998 9:00 AM EST",
+      "4/11/1998 9:00 AM EDT",
+      "5/9/1998 9:00 AM EDT",
+      "6/13/1998 9:00 AM EDT",
+      "..."
+    ]
+  )
+  
+  enumeration_spec(
+    "Every four years, the first Tuesday after a Monday in November, forever(U.S. Presidential Election day) (RFC 2445 p 124)",
+    "19961105T090000",
+    "US-Eastern",
+    "FREQ=YEARLY;INTERVAL=4;BYMONTH=11;BYDAY=TU;BYMONTHDAY=2,3,4,5,6,7,8",
+    [
+      # The RFC example uses exdate to exclude the start date, this is a slightly altered
+      # use case
+      "11/5/1996 9:00 AM EDT",
+      "11/7/2000 9:00 AM EDT",
+      "11/2/2004 9:00 AM EDT",
+      "..."
+    ]
+  )
 end
 
 describe RiCal::RecurrenceRuleValue::WeekNumCalculator do
