@@ -1009,8 +1009,6 @@ describe RiCal::RecurrenceRuleValue do
     "US-Eastern",
     "FREQ=MONTHLY;BYDAY=SA;BYMONTHDAY=7,8,9,10,11,12,13",
     [
-      # The RFC example uses exdate to exclude the start date, this is a slightly altered
-      # use case
       "9/13/1997 9:00 AM EDT",
       "10/11/1997 9:00 AM EDT",
       "11/8/1997 9:00 AM EST",
@@ -1031,11 +1029,38 @@ describe RiCal::RecurrenceRuleValue do
     "US-Eastern",
     "FREQ=YEARLY;INTERVAL=4;BYMONTH=11;BYDAY=TU;BYMONTHDAY=2,3,4,5,6,7,8",
     [
-      # The RFC example uses exdate to exclude the start date, this is a slightly altered
-      # use case
       "11/5/1996 9:00 AM EDT",
       "11/7/2000 9:00 AM EDT",
       "11/2/2004 9:00 AM EDT",
+      "..."
+    ]
+  )
+  
+  enumeration_spec(
+    "3rd instance into the month of one of Tuesday, Wednesday or Thursday, for the next 3 months (RFC 2445 p 124)",
+    "19970904T090000",
+    "US-Eastern",
+    "FREQ=MONTHLY;COUNT=3;BYDAY=TU,WE,TH;BYSETPOS=3",
+    [
+      "9/4/1997 9:00 AM EDT",
+      "10/7/1997 9:00 AM EDT",
+      "11/6/1997 9:00 AM EST",
+    ]
+  )
+  
+  enumeration_spec(
+    "The 2nd to last weekday of the month (RFC 2445 p 124)",
+    "19970929T090000",
+    "US-Eastern",
+    "FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-2",
+    [
+      "9/29/1997 9:00 AM EDT",
+      "10/30/1997 9:00 AM EST",
+      "11/27/1997 9:00 AM EST",
+      "12/30/1997 9:00 AM EST",
+      "1/29/1998 9:00 AM EST",
+      "2/26/1998 9:00 AM EST",
+      "3/30/1998 9:00 AM EST",
       "..."
     ]
   )
