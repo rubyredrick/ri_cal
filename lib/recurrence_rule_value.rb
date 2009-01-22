@@ -7,13 +7,15 @@ module RiCal
   class RecurrenceRuleValue < PropertyValue
     
     class OccurrenceEnumerator
-      attr_accessor :next_time, :recurrence_rule
+      attr_accessor :start_time, :next_time, :recurrence_rule
       attr_reader :reset_second, :reset_minute, :reset_hour, :reset_day, :reset_month
-      def initialize(recurrence_rule, start_time)
+      def initialize(recurrence_rule, start_time, setpos_list)
         self.recurrence_rule = recurrence_rule
         # datetime conversion stolen from ActiveSupport time#to_date_time
-        self.next_time = start_time.to_datetime
+        self.next_time = recurrence_rule.adjust_start(start_time.to_datetime)
+        self.start_time = start_time.to_datetime
         @count = 0
+        @setpos_list = setpos_list
         @setpos = 1
         @reset_second = recurrence_rule.reset_second || start_time.sec
         @reset_minute = recurrence_rule.reset_minute || start_time.min
@@ -22,27 +24,82 @@ module RiCal
         @reset_month = recurrence_rule.reset_month || start_time.month
       end
       
-      def compute_reset(value_list, default)
-        if value_list && !value_list.empty?
-          value_list.first
-        else
-          default
+      def next_occurrence
+        while true
+          result = next_time
+          self.next_time = recurrence_rule.advance(result, self)
+          if @setpos_list
+            result_setpos = @setpos
+            if recurrence_rule.in_same_set?(result, next_time)
+              @setpos += 1
+            else
+              @setpos = 1
+            end
+            if (result == start_time) || (result > start_time && @setpos_list.include?(result_setpos))
+              @count += 1
+              return recurrence_rule.exhausted?(@count, result) ? nil : result
+            end
+          else
+            if result >= start_time
+              @count += 1              
+              return recurrence_rule.exhausted?(@count, result) ? nil : result
+            end
+          end
         end
+      end
+    end
+    
+    class NegativeSetposEnumerator < OccurrenceEnumerator
+
+      def initialize(recurrence_rule, start_time, setpos_list)
+        super
+        @current_set = []
+        @valids = []
       end
 
       def next_occurrence
-        #TODO handle setpos
-        result = next_time
-        self.next_time = recurrence_rule.advance(result, self)
-        @count += 1
-        if recurrence_rule.exhausted?(@count, result)
-          nil
-        else
-          @setpos += 1
-          result
+        while true
+          result = advance
+          if result >= start_time
+            @count += 1
+            return recurrence_rule.exhausted?(@count, result) ? nil : result
+          end
         end
       end
       
+      def advance
+        if @valids.empty?
+          fill_set
+          @valids = @setpos_list.map {|sp| sp < 0 ? @current_set.length + sp : sp - 1}
+          current_time_index = @current_set.index(@start_time)
+          if current_time_index
+            @valids << current_time_index
+          end
+          @valids = @valids.uniq.sort
+        end
+        @current_set[@valids.shift]
+      end
+        
+
+      def fill_set
+        @current_set = [next_time]
+        while true
+          self.next_time = recurrence_rule.advance(next_time, self)
+          if recurrence_rule.in_same_set?(@current_set.last, next_time)
+            @current_set << next_time
+          else
+            return
+          end
+        end
+      end
+    end
+    
+    def OccurrenceEnumerator.for(recurrence_rule, start_time, setpos_list)
+      if !setpos_list || setpos_list.all? {|setpos| setpos > 1}
+        self.new(recurrence_rule, start_time, setpos_list)
+      else
+        NegativeSetposEnumerator.new(recurrence_rule, start_time, setpos_list)
+      end
     end
     
     module MonthLengthCalculator
@@ -184,7 +241,6 @@ module RiCal
             if n > 0
               first_of_year = Date.new(date_or_time.year, 1, 1)
               first_in_year = first_of_year + (DayNums[@day] - first_of_year.wday + 7) % 7
-              #puts "dot=#{date_or_time} foy=#{first_of_year} fiy=#{first_in_year}" if n == 20 && @last_year != date_or_time.year
               @last_year = date_or_time.year
               target = first_in_year + (7*(n - 1))
             else
@@ -509,13 +565,87 @@ module RiCal
       result << "WKST=#{wkst}" unless wkst == "MO"
       result.join(";")
     end
+    
+    # if the recurrence rule has a bysetpos part we need to search starting with the
+    # first time in the frequency period containing the start time specified by DTSTART
+    def adjust_start(start_time)
+      if by_list[:bysetpos]
+        case freq
+        when "SECONDLY"
+          start_time
+        when "MINUTELY"
+          start_time.change(:seconds => 0)
+        when "HOURLY"
+          start_time.change(
+          :minutes => 0, 
+          :seconds => start_time.sec
+          )
+        when "DAILY"
+          start_time.change(
+          :hour => 0,
+          :minutes => start_time.min, 
+          :seconds => start_time.sec
+          )
+        when "WEEKLY"
+          start_of_week(time)
+        when "MONTHLY"
+          start_time.change(
+          :day => 1, 
+          :hour => start_time.hour, 
+          :minutes => start_time.min,
+          :seconds => start_time.sec
+          )
+        when "YEARLY"
+          start_time.change(
+          :month => 1,
+          :day => start_time.day,
+          :hour => start_time.hour,
+          :minutes => start_time.min,
+          :seconds => start_time.sec
+          )
+        end
+      else
+        start_time
+      end
+    end
 
     def enumerator(start_time)
-      OccurrenceEnumerator.new(self, start_time)
+      OccurrenceEnumerator.for(self, start_time, by_list[:bysetpos])
     end
     
     def exhausted?(count, time)
       (@count && count > @count) || (@until && time > @until)
+    end
+    
+    def start_of_week(time)
+      time.advance(:days => - (wkst_day - time.wday + 7) % 7)
+    end
+    
+    def in_same_set?(time1, time2)
+      case freq
+      when "SECONDLY"
+        [time1.year, time1.month, time1.day, time1.hour, time1.min, time1.sec] ==
+        [time2.year, time2.month, time2.day, time2.hour, time2.min, time2.sec] 
+      when "MINUTELY"
+        [time1.year, time1.month, time1.day, time1.hour, time1.min] ==
+        [time2.year, time2.month, time2.day, time2.hour, time2.min] 
+      when "HOURLY"
+        [time1.year, time1.month, time1.day, time1.hour] ==
+        [time2.year, time2.month, time2.day, time2.hour] 
+      when "DAILY"
+        [time1.year, time1.month, time1.day] ==
+        [time2.year, time2.month, time2.day] 
+      when "WEEKLY"
+        sow1 = start_of_week(time1)
+        sow2 = start_of_week(time2)
+        [sow1.year, sow1.month, sow1.day] ==
+        [sow2.year, sow2.month, sow2.day] 
+      when "MONTHLY"
+        [time1.year, time1.month] ==
+        [time2.year, time2.month] 
+      when "YEARLY"
+        time1.year == time2.year 
+      end
     end
     
     def advance(time, enumerator)
