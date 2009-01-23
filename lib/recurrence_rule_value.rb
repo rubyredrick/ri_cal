@@ -495,7 +495,7 @@ module RiCal
     end
     
     def wkst_day
-      @wkst_day ||= (%w{SU MO TU WE FR SA SU}.index(value) || 2) - 1
+      @wkst_day ||= (%w{SU MO TU WE FR SA}.index(wkst) || 1)
     end
 
     def wkst=(value)
