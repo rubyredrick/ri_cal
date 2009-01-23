@@ -659,6 +659,7 @@ module RiCal
     # determine if time should be excluded due to by rules
     def exclude_time_by_rule?(time)
       #TODO - this is overdoing it in cases like by_month with a frequency longer than a month
+      exclude_time_by_hour(time) ||
       exclude_time_by_month?(time) ||
       exclude_time_by_day?(time) ||
       exclude_time_by_monthday?(time) ||
@@ -666,30 +667,26 @@ module RiCal
       exclude_time_by_weekno?(time)
     end
     
-    def exclude_time_by_month?(time)
-      valid_months = by_list[:bymonth]
-      valid_months && !valid_months.include?(time.month)
+    def exclude_time_by_rule?(time)
+      #TODO - this is overdoing it in cases like by_month with a frequency longer than a month
+      exclude_time_by_value_rule?(:bysecond, time.sec) ||
+      exclude_time_by_value_rule?(:byminute, time.min) ||
+      exclude_time_by_value_rule?(:byhour, time.hour) ||
+      exclude_time_by_value_rule?(:bymonth, time.month) ||
+      exclude_time_by_inclusion_rule?(:byday, time) ||
+      exclude_time_by_inclusion_rule?(:bymonthday, time) ||
+      exclude_time_by_inclusion_rule?(:byyearday, time) ||
+      exclude_time_by_inclusion_rule?(:byweekno, time)
     end
     
-    def exclude_time_by_day?(time)
-      valid_days = by_list[:byday]
-      valid_days && !valid_days.any? {|recurring_day| recurring_day.include?(time)}
+    def exclude_time_by_value_rule?(rule_selector, value)
+      valid = by_list[rule_selector]
+      valid && !valid.include?(value)
     end
     
-    def exclude_time_by_monthday?(time)
-      valid_days = by_list[:bymonthday]
-      valid_days && !valid_days.any? {|recurring_day| recurring_day.include?(time)}
-    end
-    
-    def exclude_time_by_yearday?(time)
-      valid_days = by_list[:byyearday]
-      valid_days && !valid_days.any? {|recurring_day| recurring_day.include?(time)}
-    end
-    
-    
-    def exclude_time_by_weekno?(time)
-      valid_days = by_list[:byweekno]
-      valid_days && !valid_days.any? {|recurring_day| recurring_day.include?(time)}
+    def exclude_time_by_inclusion_rule?(rule_selector, time)
+      valid = by_list[rule_selector]
+      valid && !valid.any? {|rule| rule.include?(time)}
     end
     
     def reset_value(which)
@@ -768,16 +765,16 @@ module RiCal
       end
     end
     
-    def advance_hours(time, enumerator)
+    def advance_hours(time, enumerator, debug=false)
       if freq == 'HOURLY'
         time.advance(:hours => interval)
       elsif hours_list = by_rule_list(:byhour)
         next_hour = hours_list.find {|hr| hr > time.hour}
         if next_hour
-          time.change(:hour => next_hour, :min => time.hour, :sec => time.sec)
+          time.change(:hour => next_hour, :min => time.min, :sec => time.sec)
         else
           advance_days(
-            time.change(:hour => next_hour, :min => enumerator.reset_minute, :sec => enumerator.reset_second),
+            time.change(:hour => enumerator.reset_hour, :min => enumerator.reset_minute, :sec => enumerator.reset_second),
             enumerator
           )
         end
@@ -786,11 +783,13 @@ module RiCal
      end
     end
     
-    def advance_days(time, enumerator)
+    def advance_days(time, enumerator, debug = false)
       if freq == 'DAILY'
         result = time.advance(:days => interval)
         result
-      elsif by_rule_list(:byday) || by_rule_list(:bymonthday) || by_rule_list(:byyearday)
+      elsif by_rule_list(:byday) || 
+            by_rule_list(:bymonthday) ||
+            by_rule_list(:byyearday)
         new_time = time.advance(:days => 1)
         if freq == "WEEKLY" && interval > 1 && new_time.wday == wkst_day
           new_time.advance(:weeks => interval - 1)
