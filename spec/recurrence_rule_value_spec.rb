@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), %w[.. spec_helper])
+require File.join(File.dirname(__FILE__), 'spec_helper')
 
 require 'lib/recurrence_rule_value'
 require 'rubygems'

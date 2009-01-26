@@ -1,5 +1,5 @@
-require File.join(File.dirname(__FILE__), %w[.. spec_helper])
-require File.join(File.dirname(__FILE__), %w[.. .. lib date_time_value])
+require File.join(File.dirname(__FILE__), %w[spec_helper])
+require File.join(File.dirname(__FILE__), %w[.. lib date_time_value])
 
 describe RiCal::DateTimeValue do
 
