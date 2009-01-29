@@ -28,7 +28,7 @@ describe RiCal::Parser do
 
       describe "property characteristics" do
         before(:each) do
-          @entity = RiCal::Parser.parse(StringIO.new(parse_input))
+          @entity = RiCal::Parser.parse(StringIO.new(parse_input)).first
           @prop = @entity.send("#{ruby_prop_name.downcase}_property".to_sym)
         end
 
@@ -104,7 +104,7 @@ describe RiCal::Parser do
       end
 
       it "should parse an event and return a Vevent" do
-        cal = RiCal::Parser.parse(StringIO.new("BEGIN:VEVENT\nEND:VEVENT"))
+        cal = RiCal::Parser.parse(StringIO.new("BEGIN:VEVENT\nEND:VEVENT")).first
         cal.should be_kind_of(RiCal::Vevent)
       end
 
@@ -226,8 +226,8 @@ describe RiCal::Parser do
         parser.parse
       end
 
-      it "should parse a calendar and return a Vcalendar" do
-        cal = RiCal::Parser.parse(StringIO.new("BEGIN:VCALENDAR\nEND:VCALENDAR"))
+      it "should parse a calendar and return an array of 1 Vcalendar" do
+        cal = RiCal::Parser.parse(StringIO.new("BEGIN:VCALENDAR\nEND:VCALENDAR")).first
         cal.should be_kind_of(RiCal::Vcalendar)
       end
 
@@ -251,7 +251,7 @@ describe RiCal::Parser do
 
       describe 'the X property' do
         before(:each) do
-          @x_props = RiCal::Parser.parse(StringIO.new("BEGIN:VCALENDAR\nX-PROP;X-FOO=Y:BAR\nEND:VCALENDAR")).x_properties
+          @x_props = RiCal::Parser.parse(StringIO.new("BEGIN:VCALENDAR\nX-PROP;X-FOO=Y:BAR\nEND:VCALENDAR")).first.x_properties
           @x_prop = @x_props["X-PROP"]
         end 
 

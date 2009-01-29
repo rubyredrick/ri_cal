@@ -5,7 +5,6 @@ module RiCal
   VERSION = '0.0.1'
   LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
   PATH = ::File.dirname(LIBPATH) + ::File::SEPARATOR
-  # :startdoc:
 
   # Returns the version string for the library.
   #
@@ -41,6 +40,21 @@ module RiCal
 
     Dir.glob(search_me).sort.each {|rb| require rb}
   end
+  
+  # :startdoc:
+  
+  # Parse an io stream and return an array of iCalendar entities.
+  # Normally this will be an array of RiCal::Vcalendar instances
+  def self.parse(io)
+    Parser.new(io).parse
+  end
+  
+  # Parse a string and return an array of iCalendar entities.
+  # see RiCal.parse
+  def self.parse_string(string)
+    parse(StringIO.new(string))
+  end
+  
 
 end  # module RiCal
 

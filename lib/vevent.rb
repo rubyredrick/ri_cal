@@ -6,7 +6,7 @@ module RiCal
     text_property "geo"
     #TODO: should parse alt-rep parameter
     text_property "location"
-    named_property "class", "security-class"
+    single_named_property "class", "security-class"
     array_properties "categories", "resources"
     integer_properties "priority", "sequence"
     date_time_or_date_properties "dtend", "dtstart", "recurrence-id"
