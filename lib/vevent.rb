@@ -2,21 +2,43 @@ require File.expand_path(File.join(File.dirname(__FILE__), 'ventity'))
 
 module RiCal
   class Vevent < Ventity
-    text_properties "attach", "comment", "description", "status", "summary", "contact", "uid", "request-status"
-    text_property "geo"
-    #TODO: should parse alt-rep parameter
-    text_property "location"
-    single_named_property "class", "security-class"
-    array_properties "categories", "resources"
-    integer_properties "priority", "sequence"
-    date_time_or_date_properties "dtend", "dtstart", "recurrence-id"
-    duration_property "duration"
-    text_property "transp"
-    text_property "related-to"
-    cal_address_properties "attendee", "organizer"
-    uri_property "url"
-    date_list_properties "exdate", "rdate"
-    recurrence_rule_properties "exrule", "rrule"
-    date_time_properties "created", "dtstamp", "last-modified"
+    # The following are optional but must not occur more than once RFC2445 - p52-53
+    property "class", :ruby_name => "security-class"
+    property "created", :type => DateTimeValue
+    property "description"
+    property "dtstart", :type => 'date_time_or_date'
+    property "geo"
+    property "last-modified", :type => DateTimeValue
+    property "location"
+    property "organizer", :type => CalAddressValue
+    property "priority", :type => IntegerValue
+    property "dtstamp", :type => DateTimeValue
+    property "sequence", :type => IntegerValue
+    property "status"
+    property "summary"
+    property "transp"
+    property "uid"
+    property "url", :type => UriValue
+    property "recurrence-id", :type => 'date_time_or_date'
+    
+    # Either 'dtend' or 'duration' may appear in a 'eventprop' but 'dtend' and 'duration' may not
+    # occur in the same 'eventprop'  RFC 2445 p 53
+
+    property "dtend", :type => 'date_time_or_date'
+    property "duration", :type => DurationValue
+
+    # the following are optional and MAY occur more than once RFC 2445 p 53
+    property "attach", :multi => true
+    property "attendee", :type => CalAddressValue, :multi => true
+    property "categories", :type => ArrayValue, :multi => true
+    property "comment", :multi => true
+    property "contact", :multi => true
+    property "exdate", :type => DateListValue, :multi => true
+    property "rdate", :type => DateListValue, :multi => true
+    property "exrule", :type => RecurrenceRuleValue, :multi => true
+    property "request-status", :multi => true
+    property "related-to", :multi => true
+    property "resources", :type => ArrayValue, :multi => true
+    property "rrule", :type => RecurrenceRuleValue, :multi => true
    end
 end
