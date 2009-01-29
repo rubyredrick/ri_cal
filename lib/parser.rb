@@ -93,7 +93,15 @@ class RiCal::Parser
   end
   
   def parse
-    first_line = separate_line(next_line)
+    result = []
+    while start_line = next_line
+      result << parse_one(start_line)
+    end
+    result
+  end
+  
+  def parse_one(start_line)
+    first_line = separate_line(start_line)
     invalid unless first_line[:name] == "BEGIN"
     case first_line[:value]
     when "VCALENDAR"
