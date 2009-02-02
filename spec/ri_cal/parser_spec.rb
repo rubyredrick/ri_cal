@@ -1,14 +1,4 @@
-require File.join(File.dirname(__FILE__), 'spec_helper')
-
-require 'lib/parser'
-require 'lib/vcalendar'
-require 'lib/vevent'
-require 'lib/vjournal'
-require 'lib/vfreebusy'
-require 'lib/vtimezone'
-require 'lib/valarm'
-require 'lib/property_value'
-require 'lib/ext/core_extensions'
+require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
 describe RiCal::Parser do
   

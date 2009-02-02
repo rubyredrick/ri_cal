@@ -1,5 +1,4 @@
-require File.join(File.dirname(__FILE__), 'spec_helper')
-require File.join(File.dirname(__FILE__), %w[.. lib property_value])
+require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
 describe RiCal::PropertyValue do
 

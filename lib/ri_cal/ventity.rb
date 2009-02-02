@@ -1,5 +1,3 @@
-require File.expand_path(File.join(File.dirname(__FILE__), 'text_value'))
-
 # code stolen from ActiveSupport Gem
 unless  String.instance_methods.include?("camelize")
   class String
@@ -11,6 +9,14 @@ end
 
 module RiCal
   class Ventity
+    
+    def self.mutually_exclusive *prop_names
+      mutually_exclusive_properties << prop_names
+    end
+    
+    def self.mutually_exclusive_properties
+      @mutually_exclusive_properties ||= []
+    end
 
     def self.property_map
       @property_map ||= {}
@@ -127,6 +133,13 @@ module RiCal
 
     def add_x_property(prop)
       x_properties[prop.name] = prop
+    end
+    
+    def valid?
+      self.class.mutually_exclusive_properties.each do |mutex_set|
+        return false if mutex_set.inject(0) { |sum, prop| send(prop.to_sym) ? sum + 1 : sum } > 1
+      end
+      true
     end
 
   end

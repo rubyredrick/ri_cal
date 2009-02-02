@@ -1,4 +1,3 @@
-require File.join(File.dirname(__FILE__), 'property_value')
 module RiCal
 
   class DateTimeValue < PropertyValue

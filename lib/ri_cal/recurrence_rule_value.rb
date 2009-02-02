@@ -1,5 +1,3 @@
-require File.expand_path(File.join(File.dirname(__FILE__), "property_value"))
-
 require 'rubygems'
 require 'activesupport'
 
@@ -659,16 +657,6 @@ module RiCal
     # determine if time should be excluded due to by rules
     def exclude_time_by_rule?(time)
       #TODO - this is overdoing it in cases like by_month with a frequency longer than a month
-      exclude_time_by_hour(time) ||
-      exclude_time_by_month?(time) ||
-      exclude_time_by_day?(time) ||
-      exclude_time_by_monthday?(time) ||
-      exclude_time_by_yearday?(time) ||
-      exclude_time_by_weekno?(time)
-    end
-    
-    def exclude_time_by_rule?(time)
-      #TODO - this is overdoing it in cases like by_month with a frequency longer than a month
       exclude_time_by_value_rule?(:bysecond, time.sec) ||
       exclude_time_by_value_rule?(:byminute, time.min) ||
       exclude_time_by_value_rule?(:byhour, time.hour) ||
@@ -839,33 +827,6 @@ module RiCal
       )
     end
         
-    def expanding_by_rules
-      case freq
-      when "YEARLY"
-        [:bymonth, :byweekno, :byyearday, :bymonthday, :byday, :byhour, :byminute, :bysecond]
-      when "MONTHLY"
-        [:byweekno, :byyearday, :bymonthday, :byday, :byhour, :byminute, :bysecond]
-      when "WEEKLY"
-        [:byday, :byhour, :byminute, :bysecond]
-      when "DAILY"
-        [:byhour, :byminute, :bysecond]
-      when "HOURLY"
-        [:byminute, :bysecond]
-      when "MINUTELY"
-        [:bysecond] 
-      when "SECONDLY"
-        []
-      end      
-    end
-    
-    def active_expanding_by_rules
-      expanding_by_rules.select {|rule| by_list.has_key?(rule)}
-    end
-    
-    def filtering_by_rules
-      [:bymonth, :byweekno, :byyearday, :bymonthday, :byday, :byhour, :byminute, :bysecond] - expanding_by_rules
-    end
-
     private
     
     def by_list
