@@ -1,11 +1,3 @@
-require 'lib/vcalendar'
-require 'lib/valarm'
-require 'lib/vevent'
-require 'lib/vfreebusy'
-require 'lib/vjournal'
-require 'lib/vtimezone'
-require 'lib/vtodo'
-
 class RiCal::Parser
   def next_line
     result = nil

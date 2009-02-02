@@ -1,6 +1,5 @@
-require File.expand_path(File.join(File.dirname(__FILE__), 'ventity'))
-
 module RiCal
+  # 
   class Vevent < Ventity
     # The following are optional but must not occur more than once RFC2445 - p52-53
     property "class", :ruby_name => "security-class"
@@ -26,6 +25,7 @@ module RiCal
 
     property "dtend", :type => 'date_time_or_date'
     property "duration", :type => DurationValue
+    mutually_exclusive "dtend", "duration"
 
     # the following are optional and MAY occur more than once RFC 2445 p 53
     property "attach", :multi => true

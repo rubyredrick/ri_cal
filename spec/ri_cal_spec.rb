@@ -1,5 +1,4 @@
 require File.join(File.dirname(__FILE__), %w[spec_helper])
-require File.join(File.dirname(__FILE__), %w[.. lib parser])
 
 describe RiCal do
   

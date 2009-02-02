@@ -1,23 +1,5 @@
-class RiCal::PropertyValue
-end
-
-%w{
-  text_value 
-  array_value 
-  integer_value 
-  date_value 
-  date_time_value 
-  duration_value
-  cal_address_value
-  uri_value
-  date_list_value
-  recurrence_rule_value
-  }.each do |sub|
-    require File.expand_path(File.join(File.dirname(__FILE__), sub))
-  end
-
 module RiCal
-
+  
   class PropertyValue
 
     attr_accessor :name, :params, :value

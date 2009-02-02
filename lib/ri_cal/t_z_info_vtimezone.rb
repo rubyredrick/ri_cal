@@ -1,7 +1,6 @@
-require File.join(File.dirname(__FILE__), 'vtimezone')
-
 # A wrapper class for a Timezone implemented by the TZInfo Gem
 # (or Rails)
+
 class RiCal::TZInfoVtimezone < RiCal::Vtimezone
   attr_reader :tzinfo_timezone
 

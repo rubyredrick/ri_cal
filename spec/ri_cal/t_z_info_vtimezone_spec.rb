@@ -1,7 +1,6 @@
-require File.join(File.dirname(__FILE__), 'spec_helper')
+require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 require 'rubygems'
 require 'tzinfo'
-require 'lib/t_z_info_vtimezone'
 
 describe RiCal::TZInfoVtimezone do
 
