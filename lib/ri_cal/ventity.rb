@@ -10,17 +10,17 @@ end
 module RiCal
   class Ventity
     
-    def self.mutually_exclusive *prop_names
-      mutually_exclusive_properties << prop_names
-    end
-    
-    def self.mutually_exclusive_properties
-      @mutually_exclusive_properties ||= []
-    end
-
-    def self.property_map
-      @property_map ||= {}
-    end
+    # def self.mutually_exclusive *prop_names
+    #   mutually_exclusive_properties << prop_names
+    # end
+    # 
+    # def self.mutually_exclusive_properties
+    #   @mutually_exclusive_properties ||= []
+    # end
+    # 
+    # def self.property_map
+    #   @property_map ||= {}
+    # end
     
     # prop_types = %w{text array integer duration cal_address uri date_list recurrence_rule date_time}
     # prop_types.each do |type|
@@ -50,49 +50,49 @@ module RiCal
     #   instance_eval(source, __FILE__, source_line)
     # end
 
-    def self.property(name, options = {})
-      options = {:type => TextValue, :ruby_name => name}.merge(options)
-      if options[:type] == 'date_time_or_date'
-        named_property(
-          name,
-          options[:ruby_name],
-          options[:multi],
-          options[:type]
-        ) {|line| DateTimeValue.from_separated_line(line) }
-      else
-        named_property(name, options[:ruby_name], options[:multi], options[:type])
-      end
-    end
-
-    def self.named_property(name, ruby_name, multi, type = TextValue, &block)
-      ruby_name = ruby_name.tr("-", "_")
-      property = "#{ruby_name.downcase}_property"
-      if multi
-        class_eval "def #{property};@#{property} ||= [];end", __FILE__, __LINE__
-      else
-        attr_accessor property.to_sym
-      end
-
-      unless instance_methods(false).include?(ruby_name.downcase)
-        if multi
-          class_eval "def #{ruby_name.downcase};#{ruby_name.downcase}_property.map {|prop| prop.value};end", __FILE__, __LINE__
-        else
-          class_eval "def #{ruby_name.downcase};#{ruby_name.downcase}_property.value;end", __FILE__, __LINE__
-        end
-      end
-
-      if block_given?
-        evaluator = lambda(&block)
-      else
-        evaluator = lambda {|line| type.new(line) }
-      end
-      if multi
-        self.property_map[name.upcase] = lambda {|entity, line| 
-          entity.send("#{property}".to_sym) << evaluator.call(line) }
-      else
-        self.property_map[name.upcase] = lambda {|entity, line| entity.send("#{property}=".to_sym, evaluator.call(line)) }
-      end
-    end
+    # def self.property(name, options = {})
+    #   options = {:type => TextValue, :ruby_name => name}.merge(options)
+    #   if options[:type] == 'date_time_or_date'
+    #     named_property(
+    #       name,
+    #       options[:ruby_name],
+    #       options[:multi],
+    #       options[:type]
+    #     ) {|line| DateTimeValue.from_separated_line(line) }
+    #   else
+    #     named_property(name, options[:ruby_name], options[:multi], options[:type])
+    #   end
+    # end
+    # 
+    # def self.named_property(name, ruby_name, multi, type = TextValue, &block)
+    #   ruby_name = ruby_name.tr("-", "_")
+    #   property = "#{ruby_name.downcase}_property"
+    #   if multi
+    #     class_eval "def #{property};@#{property} ||= [];end", __FILE__, __LINE__
+    #   else
+    #     attr_accessor property.to_sym
+    #   end
+    # 
+    #   unless instance_methods(false).include?(ruby_name.downcase)
+    #     if multi
+    #       class_eval "def #{ruby_name.downcase};#{ruby_name.downcase}_property.map {|prop| prop.value};end", __FILE__, __LINE__
+    #     else
+    #       class_eval "def #{ruby_name.downcase};#{ruby_name.downcase}_property.value;end", __FILE__, __LINE__
+    #     end
+    #   end
+    # 
+    #   if block_given?
+    #     evaluator = lambda(&block)
+    #   else
+    #     evaluator = lambda {|line| type.new(line) }
+    #   end
+    #   if multi
+    #     self.property_map[name.upcase] = lambda {|entity, line| 
+    #       entity.send("#{property}".to_sym) << evaluator.call(line) }
+    #   else
+    #     self.property_map[name.upcase] = lambda {|entity, line| entity.send("#{property}=".to_sym, evaluator.call(line)) }
+    #   end
+    # end
 
     def self.entity_name
       @entity_name ||= to_s.split("::").last.upcase
@@ -117,9 +117,9 @@ module RiCal
     end
 
     def process_line(parser, line)
-      creator = self.class.property_map[line[:name]]
-      if creator
-        creator.call(self, line)
+      setter = self.class.property_setter[line[:name]]
+      if setter
+        send(setter, line)
       else 
         self.add_x_property(TextValue.new(line))
       end
@@ -136,10 +136,7 @@ module RiCal
     end
     
     def valid?
-      self.class.mutually_exclusive_properties.each do |mutex_set|
-        return false if mutex_set.inject(0) { |sum, prop| send(prop.to_sym) ? sum + 1 : sum } > 1
-      end
-      true
+      !mutual_exclusion_violation
     end
 
   end
