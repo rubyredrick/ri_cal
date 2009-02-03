@@ -117,7 +117,7 @@ module RiCal
     end
 
     def process_line(parser, line)
-      setter = self.class.property_setter[line[:name]]
+      setter = self.class.property_parser[line[:name]]
       if setter
         send(setter, line)
       else 
