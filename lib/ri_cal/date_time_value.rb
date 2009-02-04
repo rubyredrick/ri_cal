@@ -8,7 +8,11 @@ module RiCal
       else
         DateValue.new(line)
       end
-    end 
+    end
+    
+    def self.convert(ruby_object)
+      ruby_object.to_ri_cal_date_time_value
+    end
 
     def tzid
       params && params[:tzid]

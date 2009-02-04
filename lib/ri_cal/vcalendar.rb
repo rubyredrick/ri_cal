@@ -35,15 +35,15 @@ module RiCal
       @method_property
     end
 
-    # set the the METHOD property
+    # set the METHOD property
     # property value should be an instance of RiCal::TextValue
     def method_property=(property_value)
-      method_property = property_value
+      @method_property = property_value
     end
 
     # set the value of the METHOD property
     def icalendar_method=(ruby_value)
-      method_property= TextValue.convert(ruby_value)
+      self.method_property= TextValue.convert(ruby_value)
     end
 
     # return the value of the METHOD property
@@ -68,15 +68,15 @@ module RiCal
       @prodid_property ||= TextValue.convert("-//com.denhaven2/NONSGML ri_cal gem//E")
     end
 
-    # set the the PRODID property
+    # set the PRODID property
     # property value should be an instance of RiCal::TextValue
     def prodid_property=(property_value)
-      prodid_property = property_value
+      @prodid_property = property_value
     end
 
     # set the value of the PRODID property
     def prodid=(ruby_value)
-      prodid_property= TextValue.convert(ruby_value)
+      self.prodid_property= TextValue.convert(ruby_value)
     end
 
     # return the value of the PRODID property

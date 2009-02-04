@@ -13,15 +13,15 @@ module RiCal
       @class_property
     end
 
-    # set the the CLASS property
+    # set the CLASS property
     # property value should be an instance of RiCal::TextValue
     def class_property=(property_value)
-      class_property = property_value
+      @class_property = property_value
     end
 
     # set the value of the CLASS property
     def security_class=(ruby_value)
-      class_property= TextValue.convert(ruby_value)
+      self.class_property= TextValue.convert(ruby_value)
     end
 
     # return the value of the CLASS property
@@ -46,15 +46,15 @@ module RiCal
       @completed_property
     end
 
-    # set the the COMPLETED property
+    # set the COMPLETED property
     # property value should be an instance of RiCal::DateTimeValue
     def completed_property=(property_value)
-      completed_property = property_value
+      @completed_property = property_value
     end
 
     # set the value of the COMPLETED property
     def completed=(ruby_value)
-      completed_property= DateTimeValue.convert(ruby_value)
+      self.completed_property= DateTimeValue.convert(ruby_value)
     end
 
     # return the value of the COMPLETED property
@@ -79,15 +79,15 @@ module RiCal
       @created_property
     end
 
-    # set the the CREATED property
+    # set the CREATED property
     # property value should be an instance of RiCal::DateTimeValue
     def created_property=(property_value)
-      created_property = property_value
+      @created_property = property_value
     end
 
     # set the value of the CREATED property
     def created=(ruby_value)
-      created_property= DateTimeValue.convert(ruby_value)
+      self.created_property= DateTimeValue.convert(ruby_value)
     end
 
     # return the value of the CREATED property
@@ -112,15 +112,15 @@ module RiCal
       @description_property
     end
 
-    # set the the DESCRIPTION property
+    # set the DESCRIPTION property
     # property value should be an instance of RiCal::TextValue
     def description_property=(property_value)
-      description_property = property_value
+      @description_property = property_value
     end
 
     # set the value of the DESCRIPTION property
     def description=(ruby_value)
-      description_property= TextValue.convert(ruby_value)
+      self.description_property= TextValue.convert(ruby_value)
     end
 
     # return the value of the DESCRIPTION property
@@ -145,15 +145,15 @@ module RiCal
       @dtstamp_property
     end
 
-    # set the the DTSTAMP property
+    # set the DTSTAMP property
     # property value should be an instance of RiCal::DateTimeValue
     def dtstamp_property=(property_value)
-      dtstamp_property = property_value
+      @dtstamp_property = property_value
     end
 
     # set the value of the DTSTAMP property
     def dtstamp=(ruby_value)
-      dtstamp_property= DateTimeValue.convert(ruby_value)
+      self.dtstamp_property= DateTimeValue.convert(ruby_value)
     end
 
     # return the value of the DTSTAMP property
@@ -178,15 +178,15 @@ module RiCal
       @dtstart_property
     end
 
-    # set the the DTSTART property
+    # set the DTSTART property
     # property value should be an instance of either RiCal::DateTimeValue or RiCall::DateValue
     def dtstart_property=(property_value)
-      dtstart_property = property_value
+      @dtstart_property = property_value
     end
 
     # set the value of the DTSTART property
     def dtstart=(ruby_value)
-      dtstart_property= DateTimeValue.convert(ruby_value)
+      self.dtstart_property= DateTimeValue.convert(ruby_value)
     end
 
     # return the value of the DTSTART property
@@ -211,15 +211,15 @@ module RiCal
       @geo_property
     end
 
-    # set the the GEO property
+    # set the GEO property
     # property value should be an instance of RiCal::GeoValue
     def geo_property=(property_value)
-      geo_property = property_value
+      @geo_property = property_value
     end
 
     # set the value of the GEO property
     def geo=(ruby_value)
-      geo_property= GeoValue.convert(ruby_value)
+      self.geo_property= GeoValue.convert(ruby_value)
     end
 
     # return the value of the GEO property
@@ -244,15 +244,15 @@ module RiCal
       @last_modified_property
     end
 
-    # set the the LAST-MODIFIED property
+    # set the LAST-MODIFIED property
     # property value should be an instance of RiCal::DateTimeValue
     def last_modified_property=(property_value)
-      last_modified_property = property_value
+      @last_modified_property = property_value
     end
 
     # set the value of the LAST-MODIFIED property
     def last_modified=(ruby_value)
-      last_modified_property= DateTimeValue.convert(ruby_value)
+      self.last_modified_property= DateTimeValue.convert(ruby_value)
     end
 
     # return the value of the LAST-MODIFIED property
@@ -277,15 +277,15 @@ module RiCal
       @location_property
     end
 
-    # set the the LOCATION property
+    # set the LOCATION property
     # property value should be an instance of RiCal::TextValue
     def location_property=(property_value)
-      location_property = property_value
+      @location_property = property_value
     end
 
     # set the value of the LOCATION property
     def location=(ruby_value)
-      location_property= TextValue.convert(ruby_value)
+      self.location_property= TextValue.convert(ruby_value)
     end
 
     # return the value of the LOCATION property
@@ -310,15 +310,15 @@ module RiCal
       @organizer_property
     end
 
-    # set the the ORGANIZER property
+    # set the ORGANIZER property
     # property value should be an instance of RiCal::CalAddressValue
     def organizer_property=(property_value)
-      organizer_property = property_value
+      @organizer_property = property_value
     end
 
     # set the value of the ORGANIZER property
     def organizer=(ruby_value)
-      organizer_property= CalAddressValue.convert(ruby_value)
+      self.organizer_property= CalAddressValue.convert(ruby_value)
     end
 
     # return the value of the ORGANIZER property
@@ -343,15 +343,15 @@ module RiCal
       @percent_complete_property
     end
 
-    # set the the PERCENT-COMPLETE property
+    # set the PERCENT-COMPLETE property
     # property value should be an instance of RiCal::IntegerValue
     def percent_complete_property=(property_value)
-      percent_complete_property = property_value
+      @percent_complete_property = property_value
     end
 
     # set the value of the PERCENT-COMPLETE property
     def percent_complete=(ruby_value)
-      percent_complete_property= IntegerValue.convert(ruby_value)
+      self.percent_complete_property= IntegerValue.convert(ruby_value)
     end
 
     # return the value of the PERCENT-COMPLETE property
@@ -376,15 +376,15 @@ module RiCal
       @priority_property
     end
 
-    # set the the PRIORITY property
+    # set the PRIORITY property
     # property value should be an instance of RiCal::IntegerValue
     def priority_property=(property_value)
-      priority_property = property_value
+      @priority_property = property_value
     end
 
     # set the value of the PRIORITY property
     def priority=(ruby_value)
-      priority_property= IntegerValue.convert(ruby_value)
+      self.priority_property= IntegerValue.convert(ruby_value)
     end
 
     # return the value of the PRIORITY property
@@ -409,15 +409,15 @@ module RiCal
       @recurrence_id_property
     end
 
-    # set the the RECURRENCE-ID property
+    # set the RECURRENCE-ID property
     # property value should be an instance of either RiCal::DateTimeValue or RiCall::DateValue
     def recurrence_id_property=(property_value)
-      recurrence_id_property = property_value
+      @recurrence_id_property = property_value
     end
 
     # set the value of the RECURRENCE-ID property
     def recurrence_id=(ruby_value)
-      recurrence_id_property= DateTimeValue.convert(ruby_value)
+      self.recurrence_id_property= DateTimeValue.convert(ruby_value)
     end
 
     # return the value of the RECURRENCE-ID property
@@ -442,15 +442,15 @@ module RiCal
       @sequence_property
     end
 
-    # set the the SEQUENCE property
+    # set the SEQUENCE property
     # property value should be an instance of RiCal::IntegerValue
     def sequence_property=(property_value)
-      sequence_property = property_value
+      @sequence_property = property_value
     end
 
     # set the value of the SEQUENCE property
     def sequence=(ruby_value)
-      sequence_property= IntegerValue.convert(ruby_value)
+      self.sequence_property= IntegerValue.convert(ruby_value)
     end
 
     # return the value of the SEQUENCE property
@@ -475,15 +475,15 @@ module RiCal
       @status_property
     end
 
-    # set the the STATUS property
+    # set the STATUS property
     # property value should be an instance of RiCal::TextValue
     def status_property=(property_value)
-      status_property = property_value
+      @status_property = property_value
     end
 
     # set the value of the STATUS property
     def status=(ruby_value)
-      status_property= TextValue.convert(ruby_value)
+      self.status_property= TextValue.convert(ruby_value)
     end
 
     # return the value of the STATUS property
@@ -508,15 +508,15 @@ module RiCal
       @summary_property
     end
 
-    # set the the SUMMARY property
+    # set the SUMMARY property
     # property value should be an instance of RiCal::TextValue
     def summary_property=(property_value)
-      summary_property = property_value
+      @summary_property = property_value
     end
 
     # set the value of the SUMMARY property
     def summary=(ruby_value)
-      summary_property= TextValue.convert(ruby_value)
+      self.summary_property= TextValue.convert(ruby_value)
     end
 
     # return the value of the SUMMARY property
@@ -541,15 +541,15 @@ module RiCal
       @uid_property
     end
 
-    # set the the UID property
+    # set the UID property
     # property value should be an instance of RiCal::TextValue
     def uid_property=(property_value)
-      uid_property = property_value
+      @uid_property = property_value
     end
 
     # set the value of the UID property
     def uid=(ruby_value)
-      uid_property= TextValue.convert(ruby_value)
+      self.uid_property= TextValue.convert(ruby_value)
     end
 
     # return the value of the UID property
@@ -574,15 +574,15 @@ module RiCal
       @url_property
     end
 
-    # set the the URL property
+    # set the URL property
     # property value should be an instance of RiCal::UriValue
     def url_property=(property_value)
-      url_property = property_value
+      @url_property = property_value
     end
 
     # set the value of the URL property
     def url=(ruby_value)
-      url_property= UriValue.convert(ruby_value)
+      self.url_property= UriValue.convert(ruby_value)
     end
 
     # return the value of the URL property
@@ -607,15 +607,16 @@ module RiCal
       @due_property
     end
 
-    # set the the DUE property
+    # set the DUE property
     # property value should be an instance of either RiCal::DateTimeValue or RiCall::DateValue
     def due_property=(property_value)
-      due_property = property_value
+      @due_property = property_value
+      @duration_property = nil
     end
 
     # set the value of the DUE property
     def due=(ruby_value)
-      due_property= DateTimeValue.convert(ruby_value)
+      self.due_property= DateTimeValue.convert(ruby_value)
     end
 
     # return the value of the DUE property
@@ -640,15 +641,16 @@ module RiCal
       @duration_property
     end
 
-    # set the the DURATION property
+    # set the DURATION property
     # property value should be an instance of RiCal::DurationValue
     def duration_property=(property_value)
-      duration_property = property_value
+      @duration_property = property_value
+      @due_property = nil
     end
 
     # set the value of the DURATION property
     def duration=(ruby_value)
-      duration_property= DurationValue.convert(ruby_value)
+      self.duration_property= DurationValue.convert(ruby_value)
     end
 
     # return the value of the DURATION property
@@ -682,7 +684,7 @@ module RiCal
     # set the value of the ATTACH property
     # one or more instances of Uri may be passed to this method
     def attach=(*ruby_values)
-      attach_property = ruby_values.map {|val| UriValue.convert(val)}
+      @attach_property = ruby_values.map {|val| UriValue.convert(val)}
     end
 
     # return the value of the ATTACH property
@@ -715,7 +717,7 @@ module RiCal
     # set the value of the ATTENDEE property
     # one or more instances of CalAddress may be passed to this method
     def attendee=(*ruby_values)
-      attendee_property = ruby_values.map {|val| CalAddressValue.convert(val)}
+      @attendee_property = ruby_values.map {|val| CalAddressValue.convert(val)}
     end
 
     # return the value of the ATTENDEE property
@@ -748,7 +750,7 @@ module RiCal
     # set the value of the CATEGORIES property
     # one or more instances of Array may be passed to this method
     def categories=(*ruby_values)
-      categories_property = ruby_values.map {|val| ArrayValue.convert(val)}
+      @categories_property = ruby_values.map {|val| ArrayValue.convert(val)}
     end
 
     # return the value of the CATEGORIES property
@@ -781,7 +783,7 @@ module RiCal
     # set the value of the COMMENT property
     # one or more instances of String may be passed to this method
     def comment=(*ruby_values)
-      comment_property = ruby_values.map {|val| TextValue.convert(val)}
+      @comment_property = ruby_values.map {|val| TextValue.convert(val)}
     end
 
     # return the value of the COMMENT property
@@ -814,7 +816,7 @@ module RiCal
     # set the value of the CONTACT property
     # one or more instances of String may be passed to this method
     def contact=(*ruby_values)
-      contact_property = ruby_values.map {|val| TextValue.convert(val)}
+      @contact_property = ruby_values.map {|val| TextValue.convert(val)}
     end
 
     # return the value of the CONTACT property
@@ -847,7 +849,7 @@ module RiCal
     # set the value of the EXDATE property
     # one or more instances of DateList may be passed to this method
     def exdate=(*ruby_values)
-      exdate_property = ruby_values.map {|val| DateListValue.convert(val)}
+      @exdate_property = ruby_values.map {|val| DateListValue.convert(val)}
     end
 
     # return the value of the EXDATE property
@@ -880,7 +882,7 @@ module RiCal
     # set the value of the EXRULE property
     # one or more instances of RecurrenceRule may be passed to this method
     def exrule=(*ruby_values)
-      exrule_property = ruby_values.map {|val| RecurrenceRuleValue.convert(val)}
+      @exrule_property = ruby_values.map {|val| RecurrenceRuleValue.convert(val)}
     end
 
     # return the value of the EXRULE property
@@ -910,7 +912,7 @@ module RiCal
     # set the value of the REQUEST-STATUS property
     # one or more instances of String may be passed to this method
     def request_status=(*ruby_values)
-      request_status_property = ruby_values.map {|val| TextValue.convert(val)}
+      @request_status_property = ruby_values.map {|val| TextValue.convert(val)}
     end
 
     # return the value of the REQUEST-STATUS property
@@ -943,7 +945,7 @@ module RiCal
     # set the value of the RELATED-TO property
     # one or more instances of String may be passed to this method
     def related_to=(*ruby_values)
-      related_to_property = ruby_values.map {|val| TextValue.convert(val)}
+      @related_to_property = ruby_values.map {|val| TextValue.convert(val)}
     end
 
     # return the value of the RELATED-TO property
@@ -976,7 +978,7 @@ module RiCal
     # set the value of the RESOURCES property
     # one or more instances of Array may be passed to this method
     def resources=(*ruby_values)
-      resources_property = ruby_values.map {|val| ArrayValue.convert(val)}
+      @resources_property = ruby_values.map {|val| ArrayValue.convert(val)}
     end
 
     # return the value of the RESOURCES property
@@ -1009,7 +1011,7 @@ module RiCal
     # set the value of the RDATE property
     # one or more instances of DateList may be passed to this method
     def rdate=(*ruby_values)
-      rdate_property = ruby_values.map {|val| DateListValue.convert(val)}
+      @rdate_property = ruby_values.map {|val| DateListValue.convert(val)}
     end
 
     # return the value of the RDATE property
@@ -1042,7 +1044,7 @@ module RiCal
     # set the value of the RRULE property
     # one or more instances of RecurrenceRule may be passed to this method
     def rrule=(*ruby_values)
-      rrule_property = ruby_values.map {|val| RecurrenceRuleValue.convert(val)}
+      @rrule_property = ruby_values.map {|val| RecurrenceRuleValue.convert(val)}
     end
 
     # return the value of the RRULE property

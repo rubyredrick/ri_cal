@@ -157,7 +157,7 @@ class VEntityUpdater
         comment("set the value of the #{name.upcase} property")
         comment("one or more instances of #{describe_type(type)} may be passed to this method")
         indent("def #{ruby_name.downcase}=(*ruby_values)")
-        indent("  #{property} = ruby_values.map {|val| #{type_class(type)}.convert(val)}")
+        indent("  @#{property} = ruby_values.map {|val| #{type_class(type)}.convert(val)}")
         indent("end")
       end
       blank_line
@@ -182,15 +182,20 @@ class VEntityUpdater
       indent("end")      
       unless (options["constant_value"])      
         blank_line
-        comment("set the the #{name.upcase} property")
+        comment("set the #{name.upcase} property")
         comment("property value should be an instance of #{describe_property(type)}")
         indent("def #{property}=(property_value)")
-        indent("  #{property} = property_value")
+        indent("  @#{property} = property_value")
+        if conflicts
+          conflicts.each do |conflict|
+            indent("  @#{conflict}_property = nil")
+          end
+        end           
         indent("end")
         blank_line
         comment("set the value of the #{name.upcase} property")
         indent("def #{ruby_name.downcase}=(ruby_value)")
-        indent("  #{property}= #{type_class(type)}.convert(ruby_value)")
+        indent("  self.#{property}= #{type_class(type)}.convert(ruby_value)")
         indent("end")
       end
       blank_line
@@ -219,20 +224,17 @@ class VEntityUpdater
   end  
 
   def generate_support_methods
-    @outfile.puts
+    blank_line
     indent("def self.property_parser")
     indent("  #{@property_map.inspect}")
     indent("end")
-    @outfile.puts
+    blank_line
     indent("def mutual_exclusion_violation")
     if mutually_exclusive_properties.empty?
       indent("  false")
     else
-      # self.class.mutually_exclusive_properties.each do |mutex_set|
-      #   return false if mutex_set.inject(0) { |sum, prop| send(prop.to_sym) ? sum + 1 : sum } > 1
-      # end
       mutually_exclusive_properties.each do |mutex_set|
-         indent("  return true if #{mutex_set.inspect}.inject(0) {|sum, prop| send(prop) ? sum + 1 : sum} > 1")
+        indent("  return true if #{mutex_set.inspect}.inject(0) {|sum, prop| send(prop) ? sum + 1 : sum} > 1")
       end
       indent("  false")
     end

@@ -9,3 +9,9 @@ class Array
     join(",")
   end
 end
+
+class String
+  def to_ri_cal_date_time_value
+    RiCal::DateTimeValue.from_separated_line(:value => self)
+  end
+end
