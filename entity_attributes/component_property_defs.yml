@@ -19,12 +19,10 @@ attach:
     purpose: The property provides the capability to associate a document object with a calendar component.
     type: Uri
     rfc_ref: '4.8.1.1 pp 77-78'
-    multi: *    
 categories:
     purpose: This property defines the categories for a calendar component.
     type: Array
     array_type: Text
-    multi: *
     rfc_ref: '4.8.1.2 pp 78-79'
 class:
     ruby_name: security_class
@@ -32,7 +30,6 @@ class:
     rfc_ref: '4.8.1.3 pp 79-80'   
 comment:
     purpose: This property specifies non-processing information intended to provide a comment to the calendar user.
-    multi: *
     rfc_ref: '4.8.1.4 pp 80-81'
 description:
     purpose: This property provides a more complete description of the calendar component, than that provided by the "SUMMARY" property.
@@ -55,7 +52,6 @@ priority:
 resources:
     purpose: This property defines the equipment or resources anticipated for an activity specified by a calendar entity.
     type: 'Array'
-    multi: *
     rfc_ref: '4.8.1.10 pp 87-88'
 status:
     purpose: This property defines a short summary or subject for the calendar component.
@@ -72,7 +68,6 @@ dtend:
     purpose: This property specifies the date and time that a calendar component ends.
     type: date_time_or_date
     rfc_ref: '4.8.2.2 pp 91-92'
-    conflicts_with: duration
 due:
     purpose: This property defines the date and time that a to-do is expected to be completed.
     type: date_time_or_date
@@ -84,7 +79,6 @@ dtstart:
 duration:
     purpose: This property specifies a positive duration of time.
     type: Duration
-    conflicts_with: dtend
     rfc_ref: '4.8.2.5 pp 94-95'
 freebusy:
     purpose: This property defines one or more free or busy time intervals.
@@ -115,11 +109,9 @@ tzurl:
 attendee:
     purpose: The property defines an 'Attendee' within a calendar component.
     type: CalAddress
-    multi: *
     rfc_ref: '4.8.4.1 pp 102-104'   
 contact:
     purpose: The property is used to represent contact information oralternately a reference to contact information associated with the calendar component.
-    multi: *
     rfc_ref: '4.8.4.2 pp 104-106'   
 organizer:
     purpose: The property defines the organizer for a calendar component.
@@ -131,7 +123,6 @@ recurrence-id:
     rfc_ref: '4.8.4.4 pp 107-109'   
 related-to:
     purpose: The property is used to represent a relationship or reference between one calendar component and another.
-    multi: *
     rfc_ref: '4.8.4.5 pp 109-110'   
 url:
     purpose: This property defines a Uniform Resource Locator (URL) associated with the iCalendar object.
@@ -143,22 +134,18 @@ uid:
 exdate:
     purpose: This property defines the list of date/time exceptions for a recurring calendar component.
     type: 'DateList'
-    multi: *
     rfc_ref: '4.8.5.1 pp 112-114'   
 exrule:
     purpose: This property defines a rule or repeating pattern for an exception to a recurrence set.
     type: 'RecurrenceRule'
-    multi: *
     rfc_ref: '4.8.5.2 pp 114-125'   
 rdate:
     purpose: This property defines the list of date/times for a recurring calendar component.
     type: 'DateList'
-    multi: *
     rfc_ref: '4.8.5.3 pp 115-117'   
 rrule:
     purpose: This property defines a rule or repeating pattern for recurring events, to-dos, or time zone definitions.
     type: 'RecurrenceRule'
-    multi: *
     rfc_ref: '4.8.5.4 pp 117-125'
 action:
     purpose: This property defines the action to be invoked when an alarm is triggered
