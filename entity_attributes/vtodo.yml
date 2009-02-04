@@ -1,24 +1,25 @@
 - class
+- completed
 - created
 - description
-- dtstart 
+- dtstamp
+- dtstart
 - geo
 - last-modified
 - location
 - organizer
+- percent-complete
 - priority
-- dtstamp
+- recurrence-id
 - sequence
 - status
 - summary
-- transp
 - uid
 - url
-- recurrence-id
-- dtend:
+- due:
     conflicts_with: duration
 - duration:
-    conflicts_with: dtend
+    conflicts_with: due
 - attach:
     multi: *
 - attendee:
@@ -31,8 +32,6 @@
     multi: *
 - exdate:
     multi: *
-- rdate:
-    multi: *
 - exrule:
     multi: *
 - request-status:
@@ -40,6 +39,8 @@
 - related-to:
     multi: *
 - resources:
+    multi: *
+- rdate:
     multi: *
 - rrule:
     multi: *
