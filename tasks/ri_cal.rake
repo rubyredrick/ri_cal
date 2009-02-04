@@ -2,16 +2,28 @@ require 'active_support'
 require 'yaml'
 
 class VEntityUpdater
-  def initialize(target)
+  def initialize(target, defs_file)
     @target = target
     @name=File.basename(target).sub(".rb","")
     @indent = ""
     @property_map = {}
+    @property_defs = YAML.load_file(defs_file)
   end
   
-  def property(prop_def_hash)
-    name = prop_def_hash.keys[0]
-    options = {'type' => 'Text', 'ruby_name' => name}.merge(prop_def_hash[name] || {})
+  def property(prop_name_or_hash)
+    if Hash === prop_name_or_hash
+      name = prop_name_or_hash.keys[0]
+      override_options = prop_name_or_hash[name] || {}
+    else
+      name = prop_name_or_hash
+      override_options = {}
+    end
+    standard_options = @property_defs[name]
+    unless standard_options
+      puts "**** WARNING, no definition found for property #{name}"
+      standard_options = {}
+    end
+    options = {'type' => 'Text', 'ruby_name' => name}.merge(standard_options).merge(override_options)
     named_property(name, options)
   end
   
@@ -19,8 +31,10 @@ class VEntityUpdater
     @outfile.puts("#{@indent}#{string}")
   end
   
-  def comment(string)
-    indent("\# #{string}")
+  def comment(*strings)
+    strings.each do |string|
+      indent("\# #{string}")
+    end
   end
   
   def no_doc(string)
@@ -50,84 +64,141 @@ class VEntityUpdater
       "RiCal::#{type}Value"
     end
   end
+
+  def type_class(type)
+    if type == 'date_time_or_date'
+       "DateTimeValue"
+     else
+       "#{type}Value"
+     end
+   end
+    
+  def cast_value(ruby_val, type)
+    "#{type_class(type)}.convert(#{ruby_val.inspect})"
+  end
+  
+  def lazy_init_var(var, options)
+    const_val = options["constant_value"]
+    default_val = options["default_value"]
+    if options["multi"]
+      puts("*** Warning default_value of #{default_val} for multi-value property #{name} ignored") if default_val
+      puts("*** Warning const_value of #{const_val} for multi-value property #{name} ignored") if const_val
+      if var
+        "@#{var} ||= []"
+      else
+        "[]"
+      end     
+    else
+      puts("*** Warning default_value of #{default_val} for property #{name} with constant_value of #{const_val}") if const_val && default_val
+      init_val =  const_val || default_val
+      if init_val
+        if var
+          "@#{var} ||= #{cast_value(init_val, options["type"])}"
+        else
+          init_val.inspect
+        end
+      else
+        "@#{var}"
+      end
+    end
+  end
   
   def named_property(name, options)
-    puts "options=#{options.inspect}"
+    puts options.inspect if name == "calscale"
     ruby_name = options['ruby_name']
     multi = options['multi']
     type = options['type']
     rfc_ref = options['rfc_ref']
     conflicts = options['conflicts_with']
+    options.keys.each do |opt_key|
+      unless %w{
+        ruby_name 
+        type 
+        multi 
+        rfc_ref 
+        conflicts_with 
+        purpose 
+        constant_value
+        default_value
+        }.include?(opt_key)
+        puts "**** WARNING: unprocessed option key #{opt_key} for property #{name}"
+      end
+    end
     if conflicts
       mutually_exclusive(name, *conflicts)
     end
-    puts "named_property(#{name.inspect}, #{ruby_name.inspect}, #{multi.inspect}, #{type.inspect}, #{rfc_ref.inspect})"
     ruby_name = ruby_name.tr("-", "_")
     property = "#{name.tr("-", "_").downcase}_property"
     @property_map[name.upcase] = :"#{property}_from_string"
     if type == 'date_time_or_date'
       line_evaluator = "DateTimeValue.from_separated_line(line)"
-      type_class = "DateTimeValue"
     else
-      type_class = "#{type}Value"
-      line_evaluator = "#{type_class}.new(line)"
+      line_evaluator = "#{type_class(type)}.new(line)"
     end
     blank_line
     if multi
-      comment("return the the #{name.upcase} property")
-      comment("which will be an array of instances of #{describe_property(type)}")
-      comment("see RFC 2445 #{rfc_ref}") if rfc_ref
-      indent("def #{property}")
-      indent("  @#{property} ||= []")
-      indent("end")      
-      blank_line
-      comment("set the the #{name.upcase} property")
-      comment("one or more instances of #{describe_property(type)} may be passed to this method")
-      indent("def #{property}=(*property_values)")
-      indent("  #{property}= property_values")
+      comment(
+        "return the the #{name.upcase} property",
+        "which will be an array of instances of #{describe_property(type)}"
+      )
+      comment("", "[purpose (from RFC 2445)]", options["purpose"]) if options["purpose"]
+      comment("", "see RFC 2445 #{rfc_ref}") if rfc_ref
+      indent("def #{property}")     
+      indent("  #{lazy_init_var(property,options)}")
       indent("end")
+      unless (options["constant_value"])      
+        blank_line
+        comment("set the the #{name.upcase} property")
+        comment("one or more instances of #{describe_property(type)} may be passed to this method")
+        indent("def #{property}=(*property_values)")
+        indent("  #{property}= property_values")
+        indent("end")
+        blank_line
+        comment("set the value of the #{name.upcase} property")
+        comment("one or more instances of #{describe_type(type)} may be passed to this method")
+        indent("def #{ruby_name.downcase}=(*ruby_values)")
+        indent("  #{property} = ruby_values.map {|val| #{type_class(type)}.convert(val)}")
+        indent("end")
+      end
       blank_line
       comment("return the value of the #{name.upcase} property")
       comment("which will be an array of instances of #{describe_type(type)}")
       indent("def #{ruby_name.downcase}")
-      indent("  #{property}.map {|prop| prop.value}")
+      indent("  #{property}.map {|prop| value_of_property(prop)}")
       indent("end")
       blank_line
-      comment("set the value of the #{name.upcase} property")
-      comment("one or more instances of #{describe_type(type)} may be passed to this method")
-      indent("def #{ruby_name.downcase}=(*ruby_values)")
-      indent("  #{property} = ruby_values.map {|val| #{type_class}.convert(val)}")
-      indent("end")
-      blank_line
-      no_doc("def #{property}_from_string(line)")
+    no_doc("def #{property}_from_string(line)")
       indent("  #{property} << #{line_evaluator}")
       indent("end")      
     else
-      comment("return the the #{name.upcase} property")
-      comment("which will be an instances of #{describe_property(type)}")
-      comment("see RFC 2445 #{rfc_ref}") if rfc_ref
+      comment(
+        "return the the #{name.upcase} property",
+        "which will be an instances of #{describe_property(type)}"
+      )
+      comment("", "[purpose (from RFC 2445)]", options["purpose"]) if options["purpose"]
+      comment("", "see RFC 2445 #{rfc_ref}") if rfc_ref
       indent("def #{property}")
-      indent("  @#{property} ||= []")
+      indent("  #{lazy_init_var(property,options)}")
       indent("end")      
-      blank_line
-      comment("set the the #{name.upcase} property")
-      comment("property_value should be an instance of #{describe_property(type)} may be passed to this method")
-      indent("def #{property}=(property_values)")
-      indent("  #{property} = property_value")
-      indent("end")
+      unless (options["constant_value"])      
+        blank_line
+        comment("set the the #{name.upcase} property")
+        comment("property value should be an instance of #{describe_property(type)}")
+        indent("def #{property}=(property_value)")
+        indent("  #{property} = property_value")
+        indent("end")
+        blank_line
+        comment("set the value of the #{name.upcase} property")
+        indent("def #{ruby_name.downcase}=(ruby_value)")
+        indent("  #{property}= #{type_class(type)}.convert(ruby_value)")
+        indent("end")
+      end
       blank_line
       comment("return the value of the #{name.upcase} property")
       comment("which will be an instance of #{describe_type(type)}")
       indent("def #{ruby_name.downcase}")
-      indent("  #{property}.value")
+      indent("  value_of_property(#{property})")
       indent("end")
-      blank_line
-      comment("set the value of the #{name.upcase} property")
-      indent("def #{ruby_name.downcase}=(*ruby_values)")
-      indent("  #{property}= #{type_class}.convert(ruby_val)")
-      indent("end")
-      blank_line
-      indent("attr_accessor :#{property}")
       blank_line
       no_doc("def #{property}_from_string(line)")
       indent("  @#{property} = #{line_evaluator}")
@@ -215,12 +286,15 @@ end
 
 def updateTask srcGlob, taskSymbol
   targetDir = File.join(File.dirname(__FILE__), '..', 'lib', 'ri_cal')
+  defsFile = File.join(File.dirname(__FILE__), '..', 'entity_attributes', 'component_property_defs.yml')
   FileList[srcGlob].each do |f|
-    target = File.join targetDir, File.basename(f).sub(".yml", ".rb")
-    file target => [f] do |t|
-      VEntityUpdater.new(target).update
+    unless f == defsFile
+      target = File.join targetDir, File.basename(f).sub(".yml", ".rb")
+      file target => [f, defsFile, __FILE__] do |t|
+        VEntityUpdater.new(target, defsFile).update
+      end
+      task taskSymbol => target
     end
-    task taskSymbol => target
   end
 end
 
@@ -228,7 +302,7 @@ end
 namespace :rical do
 
   desc '(RE)Generate VEntity attributes'
-  task :update_attributes do |t|
+  task :gen_entities do |t|
   end
   
   updateTask File.join(File.dirname(__FILE__), '..', '/entity_attributes', '*.yml'), :update_attributes

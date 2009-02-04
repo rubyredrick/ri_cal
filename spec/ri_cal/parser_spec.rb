@@ -109,7 +109,7 @@ describe RiCal::Parser do
       end
 
       #RFC 2445 section 4.8.1.1 pp 77
-      describe_multi_property("VEVENT", "ATTACH", {"FMTTYPE" => "application/postscript"}, "FMTTYPE=application/postscript:ftp//xyzCorp.com/put/reports/r-960812.ps")
+      describe_multi_property("VEVENT", "ATTACH", {"FMTTYPE" => "application/postscript"}, "FMTTYPE=application/postscript:ftp//xyzCorp.com/put/reports/r-960812.ps", RiCal::UriValue)
 
       #RFC 2445 section 4.8.1.2 pp 78
       describe_multi_property("VEVENT", "CATEGORIES", {"LANGUAGE" => "us-EN"}, %w{APPOINTMENT EDUCATION}, RiCal::ArrayValue)
@@ -124,7 +124,7 @@ describe RiCal::Parser do
       describe_property("VEVENT", "DESCRIPTION", {"X-FOO" => "BAR"}, "Event description")
       
       #RFC 2445 section 4.8.1.6 pp 82
-      describe_property("VEVENT", "GEO", {"X-FOO" => "BAR"}, "37.386013;-122.082932")
+      describe_property("VEVENT", "GEO", {"X-FOO" => "BAR"}, "37.386013;-122.082932", RiCal::GeoValue)
       
       #RFC 2445 section 4.8.1.7 pp 84
       describe_property("VEVENT", "LOCATION", {"ALTREP" => "\"http://xyzcorp.com/conf-rooms/f123.vcf\""}, "Conference Room - F123, Bldg. 002")
