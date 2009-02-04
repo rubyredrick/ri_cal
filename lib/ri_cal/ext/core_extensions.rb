@@ -12,6 +12,10 @@ end
 
 class String
   def to_ri_cal_date_time_value
-    RiCal::DateTimeValue.from_separated_line(:value => self)
+    RiCal::DateTimeValue.from_string(self)
+  end
+  
+  def to_ri_cal_duration_value
+    RiCal::DurationValue.from_string(self)
   end
 end
