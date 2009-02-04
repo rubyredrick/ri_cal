@@ -1,0 +1,9 @@
+- calscale:
+    rfc_ref: "4.7.1 p 73"
+- method:
+    ruby_name: icalendar_method
+    rfc_ref: "4.7.2 p 74-75"
+- prodid:
+    rfc_ref: '4.7.3 pp 75-76'
+- version:
+    rfc_ref: '4.7.4 pp 76-77'
