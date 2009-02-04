@@ -138,6 +138,11 @@ module RiCal
     def valid?
       !mutual_exclusion_violation
     end
-
+    
+    # return the value of a property if it exists
+    # otherwise return nil
+    def value_of_property(property)
+      property ? property.value : nil
+    end
   end
 end
