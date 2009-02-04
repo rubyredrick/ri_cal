@@ -1,5 +1,5 @@
 module RiCal
-  class Vcalendar < Ventity
+  class Calendar < Component
     # BEGIN GENERATED ATTRIBUTE CODE
 
     # return the the CALSCALE property
@@ -120,6 +120,10 @@ module RiCal
       false
     end
     # END GENERATED ATTRIBUTE CODE
+    
+    def self.entity_name #:nodoc:
+      "VCALENDAR"
+    end
 
   end
 end
