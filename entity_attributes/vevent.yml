@@ -1,0 +1,94 @@
+- class:
+    ruby_name: security_class
+    rfc_ref: '4.8.1.3 pp 79-80'   
+- created:
+    type: DateTime
+    rfc_ref: '4.8.7.1 pp 129-130'   
+- description:
+    rfc_ref: '4.8.1.5 pp 81-82'
+- dtstart: 
+    type: date_time_or_date
+    rfc_ref: '4.8.2.4 pp 93-94'
+- geo:
+    rfc_ref: '4.8.1.6 pp 82-83'
+- last-modified:
+    type: DateTime
+    rfc_ref: '4.8.7.3 p 131'   
+- location:
+    rfc_ref: '4.8.1.7 pp 84'
+- organizer:
+    type: CalAddress
+    rfc_ref: '4.8.4.3 pp 106-107'   
+- priority:
+    type: Integer
+    rfc_ref: '4.8.1.9 pp 85-87'
+- dtstamp:
+   type: DateTime
+   rfc_ref: '4.8.7.2 pp 130-131'   
+- sequence:
+   type: Integer
+   rfc_ref: '4.8.7.4 pp 131-133'   
+- status:
+    rfc_ref: '4.8.1.11 pp 80-89'
+- summary:
+    rfc_ref: '4.8.1.12 pp 89-90'
+- transp:
+    rfc_ref: '4.8.2.7 pp 96-97'
+- uid:
+    rfc_ref: '4.8.4.7 pp 111-112'   
+- url:
+    type: Uri
+    rfc_ref: '4.8.4.6 pp 110-111'   
+- recurrence-id:
+    type: date_time_or_date
+    rfc_ref: '4.8.4.4 pp 107-109'   
+- dtend:
+    type: date_time_or_date
+    rfc_ref: '4.8.2.2 pp 91-92'
+    conflicts_with: duration
+- duration:
+    type: Duration
+    conflicts_with: dtend
+    rfc_ref: '4.8.2.5 pp 94-95'
+- attach:
+   multi: *
+- attendee:
+   type: CalAddress
+   multi: *
+   rfc_ref: '4.8.4.1 pp 102-104'   
+- categories:
+    type: Array
+    multi: *
+    rfc_ref: '4.8.1.4 pp 78-79'
+- comment:
+   multi: *
+   rfc_ref: '4.8.1.4 pp 80-81'
+- contact:
+   multi: *
+   rfc_ref: '4.8.4.2 pp 104-106'   
+- exdate:
+   type: 'DateList'
+   multi: *
+   rfc_ref: '4.8.5.1 pp 112-114'   
+- rdate:
+   type: 'DateList'
+   multi: *
+   rfc_ref: '4.8.5.3 pp 115-117'   
+- exrule:
+   type: 'RecurrenceRule'
+   multi: *
+   rfc_ref: '4.8.5.2 pp 114-125'   
+- request-status:
+   multi: *
+   rfc_ref: '4.8.8.2 pp 134-136'   
+- related-to:
+   multi: *
+   rfc_ref: '4.8.4.5 pp 109-110'   
+- resources:
+   type: 'Array'
+   multi: *
+   rfc_ref: '4.8.1.10 pp 87-88'
+- rrule:
+   type: 'RecurrenceRule'
+   multi: *
+   rfc_ref: '4.8.5.4 pp 117-117'   

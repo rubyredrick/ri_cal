@@ -234,7 +234,7 @@ describe RiCal::Parser do
       describe_property("VCALENDAR", "CALSCALE", {"X-FOO" => "Y"}, "GREGORIAN")
 
       # RFC 2445, section 4.6  section 4.7.2, pp 74-75
-      describe_property("VCALENDAR", "METHOD", {"X-FOO" => "Y"}, "REQUEST")
+      describe_named_property("VCALENDAR", "METHOD", 'icalendar_method', {"X-FOO" => "Y"}, "REQUEST", false)
 
       # RFC 2445, section 4.6, pp 51-52, section 4.7.3, p 75-76
       describe_property("VCALENDAR", "PRODID", {"X-FOO" => "Y"}, "-//ABC CORPORATION//NONSGML/ My Product//EN")
