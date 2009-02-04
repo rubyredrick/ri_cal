@@ -121,7 +121,7 @@ module RiCal
       if setter
         send(setter, line)
       else 
-        self.add_x_property(TextValue.new(line))
+        self.add_x_property(TextValue.new(line), line[:name])
       end
     end
 
@@ -131,8 +131,8 @@ module RiCal
       @x_properties ||= {}
     end
 
-    def add_x_property(prop)
-      x_properties[prop.name] = prop
+    def add_x_property(prop, name)
+      x_properties[name] = prop
     end
     
     def valid?

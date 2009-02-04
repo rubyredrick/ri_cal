@@ -7,5 +7,9 @@ module RiCal
     def self.convert(ruby_object)
       ruby_object.to_ri_cal_duration_value
     end
+    
+    def to_ri_cal_duration_value
+      self
+    end
   end
 end

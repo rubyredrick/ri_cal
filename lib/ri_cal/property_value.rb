@@ -2,10 +2,8 @@ module RiCal
   
   class PropertyValue
 
-    attr_accessor :name, :params, :value
-    #TODO get rid of the name attribute
+    attr_accessor :params, :value
     def initialize(separated_line)
-      self.name = separated_line[:name]
       self.params = separated_line[:params]
       self.value = separated_line[:value]
     end

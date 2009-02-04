@@ -34,10 +34,6 @@ describe RiCal::Parser do
           @prop.class.should == type
         end
 
-        it "should have the right name" do
-          @prop.name.should == prop_text.upcase
-        end
-
         it "should have the right value" do
           @prop.value.should == value
         end
@@ -257,10 +253,6 @@ describe RiCal::Parser do
 
         it "should be a TextValue" do
           @x_prop.should be_kind_of(RiCal::TextValue)
-        end
-
-        it "should have the right name" do
-          @x_prop.name.should == "X-PROP"
         end
 
         it "should have the right value" do
