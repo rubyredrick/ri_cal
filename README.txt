@@ -1,14 +1,20 @@
-rfc2445
+== RI_CAL -- a new implementation of RFC2445 in Ruby
+
     by Rick DeNatale
     http://talklikeaduck.denhaven2.com
 
 == DESCRIPTION:
 
-A new Ruby implementation of RFC2445 iCalendar
+A new Ruby implementation of RFC2445 iCalendar.
+
+The existing Ruby iCalendar libraries (e.g. icalendar, vpim) provide for parsing and generating icalendar files,
+but do not support important things like enumerating occurrences of repeating events.
+
+This is a clean-slate implementation of RFC2445.
 
 == FEATURES/PROBLEMS:
 
-* FIXME (list of features or problems)
+* All examples of recurring events in RFC 2445 are handled. RSpec examples are provided for them. 
 
 == SYNOPSIS:
 
