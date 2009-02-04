@@ -42,6 +42,15 @@ class VEntityUpdater
     end
   end
   
+  def describe_property(type)
+    case type
+    when 'date_time_or_date'
+      "either RiCal::DateTimeValue or RiCall::DateValue"
+    else
+      "RiCal::#{type}Value"
+    end
+  end
+  
   def named_property(name, options)
     puts "options=#{options.inspect}"
     ruby_name = options['ruby_name']
@@ -54,7 +63,7 @@ class VEntityUpdater
     end
     puts "named_property(#{name.inspect}, #{ruby_name.inspect}, #{multi.inspect}, #{type.inspect}, #{rfc_ref.inspect})"
     ruby_name = ruby_name.tr("-", "_")
-    property = "#{ruby_name.downcase}_property"
+    property = "#{name.tr("-", "_").downcase}_property"
     @property_map[name.upcase] = :"#{property}_from_string"
     if type == 'date_time_or_date'
       line_evaluator = "DateTimeValue.from_separated_line(line)"
@@ -65,35 +74,55 @@ class VEntityUpdater
     end
     blank_line
     if multi
+      comment("return the the #{name.upcase} property")
+      comment("which will be an array of instances of #{describe_property(type)}")
+      comment("see RFC 2445 #{rfc_ref}") if rfc_ref
+      indent("def #{property}")
+      indent("  @#{property} ||= []")
+      indent("end")      
+      blank_line
+      comment("set the the #{name.upcase} property")
+      comment("one or more instances of #{describe_property(type)} may be passed to this method")
+      indent("def #{property}=(*property_values)")
+      indent("  #{property}= property_values")
+      indent("end")
+      blank_line
       comment("return the value of the #{name.upcase} property")
       comment("which will be an array of instances of #{describe_type(type)}")
-      comment("see RFC 2445 #{rfc_ref}") if rfc_ref
       indent("def #{ruby_name.downcase}")
       indent("  #{property}.map {|prop| prop.value}")
       indent("end")
       blank_line
-      comment("set the #{name.upcase} property")
+      comment("set the value of the #{name.upcase} property")
       comment("one or more instances of #{describe_type(type)} may be passed to this method")
       indent("def #{ruby_name.downcase}=(*ruby_values)")
-      indent("  #{property}= ruby_values.map {|val| #{type_class}.convert(val)}")
+      indent("  #{property} = ruby_values.map {|val| #{type_class}.convert(val)}")
       indent("end")
-      blank_line
-      no_doc("def #{property}")
-      indent("  @#{property} ||= []")
-      indent("end")      
       blank_line
       no_doc("def #{property}_from_string(line)")
       indent("  #{property} << #{line_evaluator}")
       indent("end")      
     else
+      comment("return the the #{name.upcase} property")
+      comment("which will be an instances of #{describe_property(type)}")
+      comment("see RFC 2445 #{rfc_ref}") if rfc_ref
+      indent("def #{property}")
+      indent("  @#{property} ||= []")
+      indent("end")      
+      blank_line
+      comment("set the the #{name.upcase} property")
+      comment("property_value should be an instance of #{describe_property(type)} may be passed to this method")
+      indent("def #{property}=(property_values)")
+      indent("  #{property} = property_value")
+      indent("end")
+      blank_line
       comment("return the value of the #{name.upcase} property")
       comment("which will be an instance of #{describe_type(type)}")
-      comment("see RFC 2445 #{rfc_ref}") if rfc_ref
       indent("def #{ruby_name.downcase}")
       indent("  #{property}.value")
       indent("end")
       blank_line
-      comment("set the #{name.upcase} property")
+      comment("set the value of the #{name.upcase} property")
       indent("def #{ruby_name.downcase}=(*ruby_values)")
       indent("  #{property}= #{type_class}.convert(ruby_val)")
       indent("end")
