@@ -1,6 +1,5 @@
 module RiCal
-  # 
-  class Vevent < Ventity
+  class Todo < Component
     # BEGIN GENERATED ATTRIBUTE CODE
 
     # return the the CLASS property
@@ -33,6 +32,39 @@ module RiCal
 
     def class_property_from_string(line) # :nodoc:
       @class_property = TextValue.new(line)
+    end
+
+
+    # return the the COMPLETED property
+    # which will be an instances of RiCal::DateTimeValue
+    # 
+    # [purpose (from RFC 2445)]
+    # This property specifies the date and time that a to-do was actually completed.
+    # 
+    # see RFC 2445 4.8.2.1 pp 90-91
+    def completed_property
+      @completed_property
+    end
+
+    # set the COMPLETED property
+    # property value should be an instance of RiCal::DateTimeValue
+    def completed_property=(property_value)
+      @completed_property = property_value
+    end
+
+    # set the value of the COMPLETED property
+    def completed=(ruby_value)
+      self.completed_property= DateTimeValue.convert(ruby_value)
+    end
+
+    # return the value of the COMPLETED property
+    # which will be an instance of DateTime
+    def completed
+      value_of_property(completed_property)
+    end
+
+    def completed_property_from_string(line) # :nodoc:
+      @completed_property = DateTimeValue.new(line)
     end
 
 
@@ -99,6 +131,39 @@ module RiCal
 
     def description_property_from_string(line) # :nodoc:
       @description_property = TextValue.new(line)
+    end
+
+
+    # return the the DTSTAMP property
+    # which will be an instances of RiCal::DateTimeValue
+    # 
+    # [purpose (from RFC 2445)]
+    # This property indicates the date/time that the instance of the iCalendar object was created.
+    # 
+    # see RFC 2445 4.8.7.2 pp 130-131
+    def dtstamp_property
+      @dtstamp_property
+    end
+
+    # set the DTSTAMP property
+    # property value should be an instance of RiCal::DateTimeValue
+    def dtstamp_property=(property_value)
+      @dtstamp_property = property_value
+    end
+
+    # set the value of the DTSTAMP property
+    def dtstamp=(ruby_value)
+      self.dtstamp_property= DateTimeValue.convert(ruby_value)
+    end
+
+    # return the value of the DTSTAMP property
+    # which will be an instance of DateTime
+    def dtstamp
+      value_of_property(dtstamp_property)
+    end
+
+    def dtstamp_property_from_string(line) # :nodoc:
+      @dtstamp_property = DateTimeValue.new(line)
     end
 
 
@@ -267,6 +332,39 @@ module RiCal
     end
 
 
+    # return the the PERCENT-COMPLETE property
+    # which will be an instances of RiCal::IntegerValue
+    # 
+    # [purpose (from RFC 2445)]
+    # This property is used by an assignee or delegatee of a to-do to convey the percent completion of a to-do to the Organizer.
+    # 
+    # see RFC 2445 4.8.1.8 pp 85
+    def percent_complete_property
+      @percent_complete_property
+    end
+
+    # set the PERCENT-COMPLETE property
+    # property value should be an instance of RiCal::IntegerValue
+    def percent_complete_property=(property_value)
+      @percent_complete_property = property_value
+    end
+
+    # set the value of the PERCENT-COMPLETE property
+    def percent_complete=(ruby_value)
+      self.percent_complete_property= IntegerValue.convert(ruby_value)
+    end
+
+    # return the value of the PERCENT-COMPLETE property
+    # which will be an instance of Integer
+    def percent_complete
+      value_of_property(percent_complete_property)
+    end
+
+    def percent_complete_property_from_string(line) # :nodoc:
+      @percent_complete_property = IntegerValue.new(line)
+    end
+
+
     # return the the PRIORITY property
     # which will be an instances of RiCal::IntegerValue
     # 
@@ -300,36 +398,36 @@ module RiCal
     end
 
 
-    # return the the DTSTAMP property
-    # which will be an instances of RiCal::DateTimeValue
+    # return the the RECURRENCE-ID property
+    # which will be an instances of either RiCal::DateTimeValue or RiCall::DateValue
     # 
     # [purpose (from RFC 2445)]
-    # This property indicates the date/time that the instance of the iCalendar object was created.
+    # This property is used in conjunction with the "UID" and "SEQUENCE" property to identify a specific instance of a recurring "VEVENT", "VTODO" or "VJOURNAL" calendar component. The property value is the effective value of the "DTSTART" property of the recurrence instance.
     # 
-    # see RFC 2445 4.8.7.2 pp 130-131
-    def dtstamp_property
-      @dtstamp_property
+    # see RFC 2445 4.8.4.4 pp 107-109
+    def recurrence_id_property
+      @recurrence_id_property
     end
 
-    # set the DTSTAMP property
-    # property value should be an instance of RiCal::DateTimeValue
-    def dtstamp_property=(property_value)
-      @dtstamp_property = property_value
+    # set the RECURRENCE-ID property
+    # property value should be an instance of either RiCal::DateTimeValue or RiCall::DateValue
+    def recurrence_id_property=(property_value)
+      @recurrence_id_property = property_value
     end
 
-    # set the value of the DTSTAMP property
-    def dtstamp=(ruby_value)
-      self.dtstamp_property= DateTimeValue.convert(ruby_value)
+    # set the value of the RECURRENCE-ID property
+    def recurrence_id=(ruby_value)
+      self.recurrence_id_property= DateTimeValue.convert(ruby_value)
     end
 
-    # return the value of the DTSTAMP property
-    # which will be an instance of DateTime
-    def dtstamp
-      value_of_property(dtstamp_property)
+    # return the value of the RECURRENCE-ID property
+    # which will be an instance of either DateTime or Date
+    def recurrence_id
+      value_of_property(recurrence_id_property)
     end
 
-    def dtstamp_property_from_string(line) # :nodoc:
-      @dtstamp_property = DateTimeValue.new(line)
+    def recurrence_id_property_from_string(line) # :nodoc:
+      @recurrence_id_property = DateTimeValue.from_separated_line(line)
     end
 
 
@@ -432,39 +530,6 @@ module RiCal
     end
 
 
-    # return the the TRANSP property
-    # which will be an instances of RiCal::TextValue
-    # 
-    # [purpose (from RFC 2445)]
-    # This property defines whether an event is transparent or not to busy time searches.
-    # 
-    # see RFC 2445 4.8.2.7 pp 96-97
-    def transp_property
-      @transp_property
-    end
-
-    # set the TRANSP property
-    # property value should be an instance of RiCal::TextValue
-    def transp_property=(property_value)
-      @transp_property = property_value
-    end
-
-    # set the value of the TRANSP property
-    def transp=(ruby_value)
-      self.transp_property= TextValue.convert(ruby_value)
-    end
-
-    # return the value of the TRANSP property
-    # which will be an instance of String
-    def transp
-      value_of_property(transp_property)
-    end
-
-    def transp_property_from_string(line) # :nodoc:
-      @transp_property = TextValue.new(line)
-    end
-
-
     # return the the UID property
     # which will be an instances of RiCal::TextValue
     # 
@@ -531,70 +596,37 @@ module RiCal
     end
 
 
-    # return the the RECURRENCE-ID property
+    # return the the DUE property
     # which will be an instances of either RiCal::DateTimeValue or RiCall::DateValue
     # 
     # [purpose (from RFC 2445)]
-    # This property is used in conjunction with the "UID" and "SEQUENCE" property to identify a specific instance of a recurring "VEVENT", "VTODO" or "VJOURNAL" calendar component. The property value is the effective value of the "DTSTART" property of the recurrence instance.
+    # This property defines the date and time that a to-do is expected to be completed.
     # 
-    # see RFC 2445 4.8.4.4 pp 107-109
-    def recurrence_id_property
-      @recurrence_id_property
+    # see RFC 2445 4.8.2.3 pp 92-93
+    def due_property
+      @due_property
     end
 
-    # set the RECURRENCE-ID property
+    # set the DUE property
     # property value should be an instance of either RiCal::DateTimeValue or RiCall::DateValue
-    def recurrence_id_property=(property_value)
-      @recurrence_id_property = property_value
-    end
-
-    # set the value of the RECURRENCE-ID property
-    def recurrence_id=(ruby_value)
-      self.recurrence_id_property= DateTimeValue.convert(ruby_value)
-    end
-
-    # return the value of the RECURRENCE-ID property
-    # which will be an instance of either DateTime or Date
-    def recurrence_id
-      value_of_property(recurrence_id_property)
-    end
-
-    def recurrence_id_property_from_string(line) # :nodoc:
-      @recurrence_id_property = DateTimeValue.from_separated_line(line)
-    end
-
-
-    # return the the DTEND property
-    # which will be an instances of either RiCal::DateTimeValue or RiCall::DateValue
-    # 
-    # [purpose (from RFC 2445)]
-    # This property specifies the date and time that a calendar component ends.
-    # 
-    # see RFC 2445 4.8.2.2 pp 91-92
-    def dtend_property
-      @dtend_property
-    end
-
-    # set the DTEND property
-    # property value should be an instance of either RiCal::DateTimeValue or RiCall::DateValue
-    def dtend_property=(property_value)
-      @dtend_property = property_value
+    def due_property=(property_value)
+      @due_property = property_value
       @duration_property = nil
     end
 
-    # set the value of the DTEND property
-    def dtend=(ruby_value)
-      self.dtend_property= DateTimeValue.convert(ruby_value)
+    # set the value of the DUE property
+    def due=(ruby_value)
+      self.due_property= DateTimeValue.convert(ruby_value)
     end
 
-    # return the value of the DTEND property
+    # return the value of the DUE property
     # which will be an instance of either DateTime or Date
-    def dtend
-      value_of_property(dtend_property)
+    def due
+      value_of_property(due_property)
     end
 
-    def dtend_property_from_string(line) # :nodoc:
-      @dtend_property = DateTimeValue.from_separated_line(line)
+    def due_property_from_string(line) # :nodoc:
+      @due_property = DateTimeValue.from_separated_line(line)
     end
 
 
@@ -613,7 +645,7 @@ module RiCal
     # property value should be an instance of RiCal::DurationValue
     def duration_property=(property_value)
       @duration_property = property_value
-      @dtend_property = nil
+      @due_property = nil
     end
 
     # set the value of the DURATION property
@@ -830,39 +862,6 @@ module RiCal
       exdate_property << DateListValue.new(line)
     end
 
-    # return the the RDATE property
-    # which will be an array of instances of RiCal::DateListValue
-    # 
-    # [purpose (from RFC 2445)]
-    # This property defines the list of date/times for a recurring calendar component.
-    # 
-    # see RFC 2445 4.8.5.3 pp 115-117
-    def rdate_property
-      @rdate_property ||= []
-    end
-
-    # set the the RDATE property
-    # one or more instances of RiCal::DateListValue may be passed to this method
-    def rdate_property=(*property_values)
-      rdate_property= property_values
-    end
-
-    # set the value of the RDATE property
-    # one or more instances of DateList may be passed to this method
-    def rdate=(*ruby_values)
-      @rdate_property = ruby_values.map {|val| DateListValue.convert(val)}
-    end
-
-    # return the value of the RDATE property
-    # which will be an array of instances of DateList
-    def rdate
-      rdate_property.map {|prop| value_of_property(prop)}
-    end
-
-    def rdate_property_from_string(line) # :nodoc:
-      rdate_property << DateListValue.new(line)
-    end
-
     # return the the EXRULE property
     # which will be an array of instances of RiCal::RecurrenceRuleValue
     # 
@@ -992,6 +991,39 @@ module RiCal
       resources_property << ArrayValue.new(line)
     end
 
+    # return the the RDATE property
+    # which will be an array of instances of RiCal::DateListValue
+    # 
+    # [purpose (from RFC 2445)]
+    # This property defines the list of date/times for a recurring calendar component.
+    # 
+    # see RFC 2445 4.8.5.3 pp 115-117
+    def rdate_property
+      @rdate_property ||= []
+    end
+
+    # set the the RDATE property
+    # one or more instances of RiCal::DateListValue may be passed to this method
+    def rdate_property=(*property_values)
+      rdate_property= property_values
+    end
+
+    # set the value of the RDATE property
+    # one or more instances of DateList may be passed to this method
+    def rdate=(*ruby_values)
+      @rdate_property = ruby_values.map {|val| DateListValue.convert(val)}
+    end
+
+    # return the value of the RDATE property
+    # which will be an array of instances of DateList
+    def rdate
+      rdate_property.map {|prop| value_of_property(prop)}
+    end
+
+    def rdate_property_from_string(line) # :nodoc:
+      rdate_property << DateListValue.new(line)
+    end
+
     # return the the RRULE property
     # which will be an array of instances of RiCal::RecurrenceRuleValue
     # 
@@ -1026,14 +1058,18 @@ module RiCal
     end
 
     def self.property_parser
-      {"RELATED-TO"=>:related_to_property_from_string, "RDATE"=>:rdate_property_from_string, "DTEND"=>:dtend_property_from_string, "DTSTART"=>:dtstart_property_from_string, "TRANSP"=>:transp_property_from_string, "DTSTAMP"=>:dtstamp_property_from_string, "LOCATION"=>:location_property_from_string, "EXRULE"=>:exrule_property_from_string, "CONTACT"=>:contact_property_from_string, "URL"=>:url_property_from_string, "LAST-MODIFIED"=>:last_modified_property_from_string, "RESOURCES"=>:resources_property_from_string, "EXDATE"=>:exdate_property_from_string, "ATTACH"=>:attach_property_from_string, "UID"=>:uid_property_from_string, "SEQUENCE"=>:sequence_property_from_string, "CATEGORIES"=>:categories_property_from_string, "RECURRENCE-ID"=>:recurrence_id_property_from_string, "SUMMARY"=>:summary_property_from_string, "GEO"=>:geo_property_from_string, "CLASS"=>:class_property_from_string, "RRULE"=>:rrule_property_from_string, "STATUS"=>:status_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "PRIORITY"=>:priority_property_from_string, "ORGANIZER"=>:organizer_property_from_string, "CREATED"=>:created_property_from_string, "REQUEST-STATUS"=>:request_status_property_from_string, "COMMENT"=>:comment_property_from_string, "DURATION"=>:duration_property_from_string, "DESCRIPTION"=>:description_property_from_string}
+      {"RDATE"=>:rdate_property_from_string, "RELATED-TO"=>:related_to_property_from_string, "DTSTART"=>:dtstart_property_from_string, "DTSTAMP"=>:dtstamp_property_from_string, "LOCATION"=>:location_property_from_string, "EXRULE"=>:exrule_property_from_string, "CONTACT"=>:contact_property_from_string, "URL"=>:url_property_from_string, "LAST-MODIFIED"=>:last_modified_property_from_string, "COMPLETED"=>:completed_property_from_string, "RESOURCES"=>:resources_property_from_string, "EXDATE"=>:exdate_property_from_string, "ATTACH"=>:attach_property_from_string, "UID"=>:uid_property_from_string, "SEQUENCE"=>:sequence_property_from_string, "PERCENT-COMPLETE"=>:percent_complete_property_from_string, "CATEGORIES"=>:categories_property_from_string, "SUMMARY"=>:summary_property_from_string, "RECURRENCE-ID"=>:recurrence_id_property_from_string, "GEO"=>:geo_property_from_string, "CLASS"=>:class_property_from_string, "RRULE"=>:rrule_property_from_string, "STATUS"=>:status_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "PRIORITY"=>:priority_property_from_string, "ORGANIZER"=>:organizer_property_from_string, "CREATED"=>:created_property_from_string, "REQUEST-STATUS"=>:request_status_property_from_string, "COMMENT"=>:comment_property_from_string, "DURATION"=>:duration_property_from_string, "DUE"=>:due_property_from_string, "DESCRIPTION"=>:description_property_from_string}
     end
 
     def mutual_exclusion_violation
-      return true if [:dtend_property, :duration_property].inject(0) {|sum, prop| send(prop) ? sum + 1 : sum} > 1
+      return true if [:due_property, :duration_property].inject(0) {|sum, prop| send(prop) ? sum + 1 : sum} > 1
       false
     end
     # END GENERATED ATTRIBUTE CODE
-
-   end
+    
+    def self.entity_name #:nodoc:
+      "VTODO"
+    end
+    
+  end
 end

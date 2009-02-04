@@ -2,10 +2,10 @@ require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 require 'rubygems'
 require 'tzinfo'
 
-describe RiCal::TZInfoVtimezone do
+describe RiCal::TZInfoTimezone do
 
   it "should produce an rfc representation" do
-    tz = RiCal::TZInfoVtimezone.new(TZInfo::Timezone.get("America/New_York"))
+    tz = RiCal::TZInfoTimezone.new(TZInfo::Timezone.get("America/New_York"))
     rez = tz.to_rfc2445_string(tz.local_to_utc(DateTime.parse("Apr 10, 1997")),
     tz.local_to_utc(DateTime.parse("Apr 6, 1998")))
     rez.should == <<-ENDDATA

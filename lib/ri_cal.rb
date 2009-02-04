@@ -43,7 +43,7 @@ module RiCal
   # :startdoc:
   
   # Parse an io stream and return an array of iCalendar entities.
-  # Normally this will be an array of RiCal::Vcalendar instances
+  # Normally this will be an array of RiCal::Calendar instances
   def self.parse(io)
     Parser.new(io).parse
   end
@@ -57,10 +57,10 @@ module RiCal
 
 end  # module RiCal
 
-class RiCal::Vtimezone;end
+class RiCal::Timezone;end
 
 require File.join(File.dirname(__FILE__), *%w[ri_cal property_value])
-require File.join(File.dirname(__FILE__), *%w[ri_cal ventity])
+require File.join(File.dirname(__FILE__), *%w[ri_cal component])
 RiCal.require_all_libs_relative_to(__FILE__)
 
 # EOF

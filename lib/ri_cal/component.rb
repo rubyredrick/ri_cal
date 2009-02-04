@@ -8,7 +8,7 @@ unless  String.instance_methods.include?("camelize")
 end
 
 module RiCal
-  class Ventity
+  class Component
     
     # def self.mutually_exclusive *prop_names
     #   mutually_exclusive_properties << prop_names
@@ -93,10 +93,6 @@ module RiCal
     #     self.property_map[name.upcase] = lambda {|entity, line| entity.send("#{property}=".to_sym, evaluator.call(line)) }
     #   end
     # end
-
-    def self.entity_name
-      @entity_name ||= to_s.split("::").last.upcase
-    end
 
     def self.from_parser(parser)
       entity = self.new

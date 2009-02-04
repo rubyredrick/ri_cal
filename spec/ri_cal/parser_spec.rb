@@ -95,13 +95,13 @@ describe RiCal::Parser do
     describe "parsing an event" do
       it "should parse an event" do
         parser = RiCal::Parser.new(StringIO.new("BEGIN:VEVENT"))
-        RiCal::Vevent.should_receive(:from_parser).with(parser)
+        RiCal::Event.should_receive(:from_parser).with(parser)
         parser.parse
       end
 
-      it "should parse an event and return a Vevent" do
+      it "should parse an event and return a Event" do
         cal = RiCal::Parser.parse(StringIO.new("BEGIN:VEVENT\nEND:VEVENT")).first
-        cal.should be_kind_of(RiCal::Vevent)
+        cal.should be_kind_of(RiCal::Event)
       end
 
       #RFC 2445 section 4.8.1.1 pp 77
@@ -125,7 +125,7 @@ describe RiCal::Parser do
       #RFC 2445 section 4.8.1.7 pp 84
       describe_property("VEVENT", "LOCATION", {"ALTREP" => "\"http://xyzcorp.com/conf-rooms/f123.vcf\""}, "Conference Room - F123, Bldg. 002")
       
-      #RFC 2445 section 4.8.1.8 PERCENT-COMPLETE does not apply to VEvents
+      #RFC 2445 section 4.8.1.8 PERCENT-COMPLETE does not apply to Events
       
       #RFC 2445 section 4.8.1.9 pp 84
       describe_property("VEVENT", "PRIORITY", {"X-FOO" => "BAR"}, 1, RiCal::IntegerValue)
@@ -139,13 +139,13 @@ describe RiCal::Parser do
       #RFC 2445 section 4.8.1.12 pp 89
       describe_property("VEVENT", "SUMMARY", {"X-FOO" => "BAR"}, "Department Party")
       
-      #RFC 2445 section 4.8.2.1 COMPLETED does not apply to VEvents
+      #RFC 2445 section 4.8.2.1 COMPLETED does not apply to Events
       
       #RFC 2445 section 4.8.2.2 DTEND p91
       describe_property("VEVENT", "DTEND", {"X-FOO" => "BAR"}, "19970714", RiCal::DateValue)
       describe_property("VEVENT", "DTEND", {"X-FOO" => "BAR"}, "19970714T235959Z", RiCal::DateTimeValue)
 
-      #RFC 2445 section 4.8.2.3 DUE does not apply to VEvents
+      #RFC 2445 section 4.8.2.3 DUE does not apply to Events
       
       #RFC 2445 section 4.8.2.4 DTSTART p93
       describe_property("VEVENT", "DTSTART", {"X-FOO" => "BAR"}, "19970714", RiCal::DateValue)
@@ -154,7 +154,7 @@ describe RiCal::Parser do
       #RFC 2445 section 4.8.2.5 DURATION p94
       describe_property("VEVENT", "DURATION", {"X-FOO" => "BAR"}, "19970714", RiCal::DurationValue)
 
-      #RFC 2445 section 4.8.2.6 FREEBUSY does not apply to VEvents
+      #RFC 2445 section 4.8.2.6 FREEBUSY does not apply to Events
       
       #RFC 2445 section 4.8.2.4 TRANSP p93
       describe_property("VEVENT", "TRANSP", {"X-FOO" => "BAR"}, "OPAQUE")
@@ -218,13 +218,13 @@ describe RiCal::Parser do
 
       it "should parse a calendar" do
         parser = RiCal::Parser.new(StringIO.new("BEGIN:VCALENDAR"))
-        RiCal::Vcalendar.should_receive(:from_parser).with(parser)
+        RiCal::Calendar.should_receive(:from_parser).with(parser)
         parser.parse
       end
 
-      it "should parse a calendar and return an array of 1 Vcalendar" do
+      it "should parse a calendar and return an array of 1 Calendar" do
         cal = RiCal::Parser.parse(StringIO.new("BEGIN:VCALENDAR\nEND:VCALENDAR")).first
-        cal.should be_kind_of(RiCal::Vcalendar)
+        cal.should be_kind_of(RiCal::Calendar)
       end
 
       # RFC 2445, section 4.6 section 4.7.1, pp 73-74
@@ -267,31 +267,31 @@ describe RiCal::Parser do
 
     it "should parse a to-do" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VTODO"))
-      RiCal::Vtodo.should_receive(:from_parser).with(parser)
+      RiCal::Todo.should_receive(:from_parser).with(parser)
       parser.parse
     end
 
     it "should parse a journal entry" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VJOURNAL"))
-      RiCal::Vjournal.should_receive(:from_parser).with(parser)
+      RiCal::Journal.should_receive(:from_parser).with(parser)
       parser.parse
     end
 
     it "should parse a free/busy component" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VFREEBUSY"))
-      RiCal::Vfreebusy.should_receive(:from_parser).with(parser)
+      RiCal::Freebusy.should_receive(:from_parser).with(parser)
       parser.parse
     end
 
     it "should parse a timezone component" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VTIMEZONE"))
-      RiCal::Vtimezone.should_receive(:from_parser).with(parser)
+      RiCal::Timezone.should_receive(:from_parser).with(parser)
       parser.parse
     end
 
     it "should parse an alarm component" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VALARM"))
-      RiCal::Valarm.should_receive(:from_parser).with(parser)
+      RiCal::Alarm.should_receive(:from_parser).with(parser)
       parser.parse
     end
   end

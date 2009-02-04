@@ -1,10 +1,10 @@
 require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
-describe RiCal::Vevent do
+describe RiCal::Event do
 
   describe "with both dtend and duration specified" do
     before(:each) do
-      @it = RiCal::Vevent.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\nDURATION:H1\nEND:VEVENT").first
+      @it = RiCal::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\nDURATION:H1\nEND:VEVENT").first
     end
     
     it "should be invalid" do
@@ -14,7 +14,7 @@ describe RiCal::Vevent do
 
   describe "with a duration property" do
     before(:each) do
-      @it = RiCal::Vevent.parse_string("BEGIN:VEVENT\nDURATION:H1\nEND:VEVENT").first
+      @it = RiCal::Event.parse_string("BEGIN:VEVENT\nDURATION:H1\nEND:VEVENT").first
     end
 
     it "should have a duration property" do
@@ -38,7 +38,7 @@ describe RiCal::Vevent do
 
   describe "with a dtend property" do
     before(:each) do
-      @it = RiCal::Vevent.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\nEND:VEVENT").first
+      @it = RiCal::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\nEND:VEVENT").first
     end
 
     it "should have a duration property" do

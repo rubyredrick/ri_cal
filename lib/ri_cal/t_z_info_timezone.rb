@@ -1,7 +1,7 @@
 # A wrapper class for a Timezone implemented by the TZInfo Gem
 # (or Rails)
 
-class RiCal::TZInfoVtimezone < RiCal::Vtimezone
+class RiCal::TZInfoTimezone < RiCal::Timezone
   attr_reader :tzinfo_timezone
 
   def initialize(tzinfo_timezone)

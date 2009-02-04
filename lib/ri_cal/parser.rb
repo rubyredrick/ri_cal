@@ -97,19 +97,19 @@ class RiCal::Parser
     invalid unless first_line[:name] == "BEGIN"
     case first_line[:value]
     when "VCALENDAR"
-      RiCal::Vcalendar.from_parser(self)
+      RiCal::Calendar.from_parser(self)
     when "VEVENT"
-      RiCal::Vevent.from_parser(self)
+      RiCal::Event.from_parser(self)
     when "VTODO"
-      RiCal::Vtodo.from_parser(self)
+      RiCal::Todo.from_parser(self)
     when "VJOURNAL"
-      RiCal::Vjournal.from_parser(self)
+      RiCal::Journal.from_parser(self)
     when "VFREEBUSY"
-      RiCal::Vfreebusy.from_parser(self)
+      RiCal::Freebusy.from_parser(self)
     when "VTIMEZONE"
-      RiCal::Vtimezone.from_parser(self)
+      RiCal::Timezone.from_parser(self)
     when "VALARM"
-      RiCal::Valarm.from_parser(self)
+      RiCal::Alarm.from_parser(self)
     else
       invalid
     end

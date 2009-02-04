@@ -256,7 +256,7 @@ class VEntityUpdater
             @indent = "#{ruby_in_line.match(/^\s*/)[0]}  "
             ruby_out_file.puts(ruby_in_line)
             indent(pre_tag)
-            YAML.load_file(File.join(File.dirname(__FILE__), '..', 'entity_attributes', "#{@name}.yml")).each do |att_def|
+            YAML.load_file(File.join(File.dirname(__FILE__), '..', 'component_attributes', "#{@name}.yml")).each do |att_def|
               property(att_def)
             end
             generate_support_methods
@@ -288,7 +288,7 @@ end
 
 def updateTask srcGlob, taskSymbol
   targetDir = File.join(File.dirname(__FILE__), '..', 'lib', 'ri_cal')
-  defsFile = File.join(File.dirname(__FILE__), '..', 'entity_attributes', 'component_property_defs.yml')
+  defsFile = File.join(File.dirname(__FILE__), '..', 'component_attributes', 'component_property_defs.yml')
   FileList[srcGlob].each do |f|
     unless f == defsFile
       target = File.join targetDir, File.basename(f).sub(".yml", ".rb")
@@ -307,6 +307,6 @@ namespace :rical do
   task :gen_entities do |t|
   end
   
-  updateTask File.join(File.dirname(__FILE__), '..', '/entity_attributes', '*.yml'), :update_attributes
+  updateTask File.join(File.dirname(__FILE__), '..', '/component_attributes', '*.yml'), :update_attributes
 
 end  # namespace :rical
