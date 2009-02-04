@@ -11,4 +11,29 @@ describe RiCal::Vevent do
       @it.should_not be_valid
     end
   end
+
+  describe "with a duration property" do
+    before(:each) do
+      @it = RiCal::Vevent.parse_string("BEGIN:VEVENT\nDURATION:H1\nEND:VEVENT").first
+    end
+
+    it "should have a duration property" do
+      @it.duration_property.should be
+    end
+    
+    it "should have a duration of 1 Hour" do
+      @it.duration_property.value.should == "H1"
+    end
+    
+    it "should reset the duration property if the dtend property is set" do
+      @it.dtend_property = "19970101".to_ri_cal_date_time_value
+      @it.duration_property.should be_nil
+    end
+    
+    it "should reset the duration property if the dtend ruby value is set" do
+      @it.dtend = "19970101"
+      @it.duration_property.should == nil
+    end
+  end
+  
 end
