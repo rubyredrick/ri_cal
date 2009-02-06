@@ -17,12 +17,11 @@ module RiCal
         parms = (separated_line[:params] ||{}).dup
         if match[10] == "Z"
           raise Exception.new("Invalid time, cannot combine Zulu with timezone reference") if parms[:tzid]
-          parms[:tzid] = "UTC"
+          parms['TZID'] = "UTC"
         end
-        DateTimeValue.new(separated_line.merge(:value => time, :params => parms ))
+        DateTimeValue.new(separated_line.merge(:params => parms))
       else
-        date = Date.civil(match[1].to_i, match[2].to_i, match[3].to_i)
-        DateValue.new(separated_line.merge(:value => date))
+        DateValue.new(separated_line)
       end
     end
     

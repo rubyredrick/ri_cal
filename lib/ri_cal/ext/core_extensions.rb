@@ -1,3 +1,4 @@
+require 'date'
 class Object
   def to_rfc2445_string
     to_s
@@ -17,5 +18,23 @@ class String
   
   def to_ri_cal_duration_value
     RiCal::DurationValue.from_string(self)
+  end
+end
+
+class Date
+  def to_ri_cal_date_time_value
+    RiCal::DateValue.from_date(self)
+  end
+end
+
+class DateTime
+  def to_ri_cal_date_time_value
+    RiCal::DateTimeValue.from_time(self)
+  end
+end
+
+class Time
+  def to_ri_cal_date_time_value
+    RiCal::DateTimeValue.from_time(self)
   end
 end
