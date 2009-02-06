@@ -45,7 +45,9 @@ describe RiCal::Parser do
         end
 
         it "should have the right parameters" do
-          @prop.params.should == params
+          params.each do | key, value |
+            @prop.params[key].should == value
+          end
         end
       end
 

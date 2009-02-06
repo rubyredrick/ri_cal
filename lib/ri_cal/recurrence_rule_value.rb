@@ -1,6 +1,4 @@
 require 'rubygems'
-require 'activesupport'
-
 module RiCal
   class RecurrenceRuleValue < PropertyValue
     
@@ -10,8 +8,8 @@ module RiCal
       def initialize(recurrence_rule, start_time, setpos_list)
         self.recurrence_rule = recurrence_rule
         # datetime conversion stolen from ActiveSupport time#to_date_time
-        self.next_time = recurrence_rule.adjust_start(start_time.to_datetime)
-        self.start_time = start_time.to_datetime
+        self.next_time = recurrence_rule.adjust_start(start_time.to_ri_cal_date_time_value)
+        self.start_time = start_time.to_ri_cal_date_time_value
         @count = 0
         @setpos_list = setpos_list
         @setpos = 1
@@ -20,10 +18,12 @@ module RiCal
         @reset_hour = recurrence_rule.reset_hour || start_time.hour
         @reset_day = recurrence_rule.reset_day || start_time.day
         @reset_month = recurrence_rule.reset_month || start_time.month
+        @next_occurrence_count = 0
       end
       
       def next_occurrence
         while true
+          @next_occurrence_count += 1
           result = next_time
           self.next_time = recurrence_rule.advance(result, self)
           if @setpos_list
@@ -38,6 +38,8 @@ module RiCal
               return recurrence_rule.exhausted?(@count, result) ? nil : result
             end
           else
+            debugger unless DateTimeValue === result
+            debugger unless DateTimeValue === start_time
             if result >= start_time
               @count += 1              
               return recurrence_rule.exhausted?(@count, result) ? nil : result
@@ -519,17 +521,9 @@ module RiCal
     end
 
     def set_until(until_value)
-      @until = date_time_from_value(until_value)
+      @until = until_value && until_value.to_ri_cal_date_time_value
     end
     
-    def date_time_from_value(value)
-      if value
-         value.to_datetime
-      else
-        nil
-      end
-    end
-
     def interval
       @interval ||= 1
     end
@@ -612,7 +606,7 @@ module RiCal
     end
     
     def exhausted?(count, time)
-      (@count && count > @count) || (@until && time > @until)
+      (@count && count > @count) || (@until && (time > @until))
     end
     
     def start_of_week(time)
@@ -646,9 +640,10 @@ module RiCal
       end
     end
     
+    
     def advance(time, enumerator)
-      time = advance_seconds(time, enumerator)
-      while exclude_time_by_rule?(time) && (!@until || time <= @until)
+      time = advance_seconds(time, enumerator)     
+      while exclude_time_by_rule?(time) && (!@until || (time <= @until))
         time = advance_seconds(time, enumerator)
       end
       time
@@ -716,8 +711,45 @@ module RiCal
     def reset_month
       reset_value(:bymonth)
     end
-
+    
     def advance_seconds(time, enumerator)
+      res = advance_seconds1(time, enumerator)
+      debugger unless DateTimeValue === res
+      res
+    end
+
+    def advance_minutes(time, enumerator)
+      res = advance_minutes1(time, enumerator)
+      debugger unless DateTimeValue === res
+      res
+    end
+
+    def advance_hours(time, enumerator)
+      res = advance_hours1(time, enumerator)
+      debugger unless DateTimeValue === res
+      res
+    end
+
+    def advance_days(time, enumerator)
+      res = advance_days1(time, enumerator)
+      debugger unless DateTimeValue === res
+      res
+    end
+
+    def advance_weeks(time, enumerator)
+      res = advance_weeks1(time, enumerator)
+      debugger unless DateTimeValue === res
+      res
+    end
+    
+
+    def advance_months(time, enumerator)
+      res = advance_months1(time, enumerator)
+      debugger unless DateTimeValue === res
+      res
+    end
+    
+    def advance_seconds1(time, enumerator)
       if freq == 'SECONDLY'
         time.advance(:seconds => interval)
       elsif seconds_list = by_rule_list(:bysecond)
@@ -735,7 +767,7 @@ module RiCal
       end
     end
         
-    def advance_minutes(time, enumerator)
+    def advance_minutes1(time, enumerator)
       if freq == 'MINUTELY'
         time.advance(:minutes => interval)
       elsif minutes_list = by_rule_list(:byminute)
@@ -753,7 +785,7 @@ module RiCal
       end
     end
     
-    def advance_hours(time, enumerator, debug=false)
+    def advance_hours1(time, enumerator, debug=false)
       if freq == 'HOURLY'
         time.advance(:hours => interval)
       elsif hours_list = by_rule_list(:byhour)
@@ -771,7 +803,7 @@ module RiCal
      end
     end
     
-    def advance_days(time, enumerator, debug = false)
+    def advance_days1(time, enumerator, debug = false)
       if freq == 'DAILY'
         result = time.advance(:days => interval)
         result
@@ -793,7 +825,7 @@ module RiCal
       end
     end
     
-    def advance_weeks(time, enumerator)
+    def advance_weeks1(time, enumerator)
       if freq == 'WEEKLY'
         time.advance(:days => 7 * interval)
       else
@@ -801,7 +833,7 @@ module RiCal
       end
     end
     
-    def advance_months(time, enumerator)
+    def advance_months1(time, enumerator)
       if freq == 'MONTHLY'
         return time.advance(:months => interval)
       elsif months_list = by_rule_list(:bymonth)
