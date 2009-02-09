@@ -1,5 +1,9 @@
 module RiCal
-  # 
+  # An Event (VEVENT) calendar component groups properties describing a scheduled event.
+  # Events may have multiple occurrences
+  #
+  # Events may also contain one or more ALARM subcomponents
+  # TODO: implement alarm subcomponents
   class Event < Component
     # BEGIN GENERATED ATTRIBUTE CODE
 

@@ -1,5 +1,5 @@
 module RiCal
-  class Timezone
+  class Timezone < Component
 
     def self.entity_name #:nodoc:
       "VTIMEZONE"

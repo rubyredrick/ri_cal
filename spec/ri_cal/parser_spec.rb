@@ -97,7 +97,7 @@ describe RiCal::Parser do
     describe "parsing an event" do
       it "should parse an event" do
         parser = RiCal::Parser.new(StringIO.new("BEGIN:VEVENT"))
-        RiCal::Event.should_receive(:from_parser).with(parser)
+        RiCal::Event.should_receive(:from_parser).with(parser, nil)
         parser.parse
       end
 
@@ -220,7 +220,7 @@ describe RiCal::Parser do
 
       it "should parse a calendar" do
         parser = RiCal::Parser.new(StringIO.new("BEGIN:VCALENDAR"))
-        RiCal::Calendar.should_receive(:from_parser).with(parser)
+        RiCal::Calendar.should_receive(:from_parser).with(parser, nil)
         parser.parse
       end
 
@@ -269,31 +269,31 @@ describe RiCal::Parser do
 
     it "should parse a to-do" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VTODO"))
-      RiCal::Todo.should_receive(:from_parser).with(parser)
+      RiCal::Todo.should_receive(:from_parser).with(parser, nil)
       parser.parse
     end
 
     it "should parse a journal entry" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VJOURNAL"))
-      RiCal::Journal.should_receive(:from_parser).with(parser)
+      RiCal::Journal.should_receive(:from_parser).with(parser, nil)
       parser.parse
     end
 
     it "should parse a free/busy component" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VFREEBUSY"))
-      RiCal::Freebusy.should_receive(:from_parser).with(parser)
+      RiCal::Freebusy.should_receive(:from_parser).with(parser, nil)
       parser.parse
     end
 
     it "should parse a timezone component" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VTIMEZONE"))
-      RiCal::Timezone.should_receive(:from_parser).with(parser)
+      RiCal::Timezone.should_receive(:from_parser).with(parser, nil)
       parser.parse
     end
 
     it "should parse an alarm component" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VALARM"))
-      RiCal::Alarm.should_receive(:from_parser).with(parser)
+      RiCal::Alarm.should_receive(:from_parser).with(parser, nil)
       parser.parse
     end
   end

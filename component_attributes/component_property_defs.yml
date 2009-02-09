@@ -98,7 +98,7 @@ tzoffsetfrom:
     purpose: This property specifies the offset which is in use prior to this time zone observance
     type: UtcOffset
     rfc_ref: '4.8.3.3 pp 99-100'
-tzoffsetfrom:
+tzoffsetto:
     purpose: This property specifies the offset which is in use in this time zone observance
     type: UtcOffset
     rfc_ref: '4.8.3.4 pp 100-101'

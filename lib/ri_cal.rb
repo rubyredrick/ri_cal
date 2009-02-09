@@ -57,7 +57,9 @@ module RiCal
 
 end  # module RiCal
 
-class RiCal::Timezone;end
+class RiCal::Component;end
+class RiCal::Timezone < RiCal::Component;end
+class RiCal::TimezonePeriod < RiCal::Component;end
 
 require File.join(File.dirname(__FILE__), *%w[ri_cal property_value])
 require File.join(File.dirname(__FILE__), *%w[ri_cal component])
