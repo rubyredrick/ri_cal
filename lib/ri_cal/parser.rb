@@ -87,31 +87,45 @@ class RiCal::Parser
   def parse
     result = []
     while start_line = next_line
-      result << parse_one(start_line)
+      @parent_stack = []
+      result << parse_one(start_line, nil)
     end
     result
   end
-  
-  def parse_one(start_line)
-    first_line = separate_line(start_line)
+
+  # TODO: Need to parse non-standard component types (iana-tokey or x-name)
+  def parse_one(start, parent_component)
+
+    @parent_stack << parent_component
+    if Hash === start
+      first_line = start
+    else
+      first_line = separate_line(start)
+    end
     invalid unless first_line[:name] == "BEGIN"
-    case first_line[:value]
+    result = case first_line[:value]
     when "VCALENDAR"
-      RiCal::Calendar.from_parser(self)
+      RiCal::Calendar.from_parser(self, parent_component)
     when "VEVENT"
-      RiCal::Event.from_parser(self)
+      RiCal::Event.from_parser(self, parent_component)
     when "VTODO"
-      RiCal::Todo.from_parser(self)
+      RiCal::Todo.from_parser(self, parent_component)
     when "VJOURNAL"
-      RiCal::Journal.from_parser(self)
+      RiCal::Journal.from_parser(self, parent_component)
     when "VFREEBUSY"
-      RiCal::Freebusy.from_parser(self)
+      RiCal::Freebusy.from_parser(self, parent_component)
     when "VTIMEZONE"
-      RiCal::Timezone.from_parser(self)
+      RiCal::Timezone.from_parser(self, parent_component)
     when "VALARM"
-      RiCal::Alarm.from_parser(self)
+      RiCal::Alarm.from_parser(self, parent_component)
+    when "DAYLIGHT"
+      RiCal::DaylightPeriod.from_parser(self, parent_component)
+    when "STANDARD"
+      RiCal::StandardPeriod.from_parser(self, parent_component)
     else
       invalid
     end
+    @parent_stack.pop
+    result
   end
 end

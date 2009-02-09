@@ -1,6 +1,13 @@
 require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
 describe RiCal::Event do
+  
+  describe ".entity_name" do
+    it "should be VEVENT" do
+      RiCal::Event.entity_name.should == "VEVENT"
+    end
+  end
+  
 
   describe "with both dtend and duration specified" do
     before(:each) do
@@ -54,5 +61,20 @@ describe RiCal::Event do
       @it.duration = "H1".to_ri_cal_duration_value
       @it.dtend_property.should be_nil
     end
+  end
+  
+  describe "with a nested alarm component" do
+    before(:each) do
+      @it = RiCal::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\n\nBEGIN:VALARM\nEND:VALARM\nEND:VEVENT").first
+    end
+    
+    it "should have one alarm" do
+      @it.alarms.length.should == 1
+    end
+    
+    it "which should be an Alarm component" do
+      @it.alarms.first.should be_kind_of RiCal::Alarm
+    end
+
   end
 end

@@ -1,4 +1,9 @@
 module RiCal
+  # A Todo (VTODO) calendar component groups properties describing a to-do
+  # Todos may have multiple occurrences
+  #
+  # Todos may also contain one or more ALARM subcomponents
+  # TODO: implement alarm subcomponents
   class Todo < Component
     # BEGIN GENERATED ATTRIBUTE CODE
 
