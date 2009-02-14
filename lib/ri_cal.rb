@@ -34,7 +34,6 @@ module RiCal
   #
   def self.require_all_libs_relative_to( fname, dir = nil )
     dir ||= ::File.basename(fname, '.*')
-    puts "require_all_libs_relative_to(#{fname.inspect}, #{dir.inspect})"
     search_me = ::File.expand_path(
         ::File.join(::File.dirname(fname), dir, '**', '*.rb'))
     Dir.glob(search_me).sort.each {|rb| require rb}
@@ -60,6 +59,7 @@ end  # module RiCal
 class RiCal::Component;end
 class RiCal::Timezone < RiCal::Component;end
 class RiCal::TimezonePeriod < RiCal::Component;end
+module RiCal::OccurrenceEnumerator;end
 
 require File.join(File.dirname(__FILE__), *%w[ri_cal property_value])
 require File.join(File.dirname(__FILE__), *%w[ri_cal component])

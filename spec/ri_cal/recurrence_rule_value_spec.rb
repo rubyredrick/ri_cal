@@ -406,14 +406,14 @@ describe RiCal::RecurrenceRuleValue do
           rrule = RiCal::RecurrenceRuleValue.new(
           :value => rrule_string
           )
-          enum = rrule.enumerator(DateTime.parse(dtstart_string))
+          enum = rrule.enumerator(mock("EventValue", :dtstart => DateTime.parse(dtstart_string), :dtend => nil, :duration => nil))
           RiCal::DateTimeValue.debug = debug
           @it = (1..iterations).collect {|i| enum.next_occurrence}.compact
         end
 
         it "should produce the correct occurrences" do
           #TODO - Fix this to use the timezone
-          @it.should == (expectation.map {|str| str.gsub(/E.T$/,'').to_ri_cal_date_time_value})
+          @it.map {|o_hash| o_hash[:start]}.should == (expectation.map {|str| str.gsub(/E.T$/,'').to_ri_cal_date_time_value})
         end
       end
     end

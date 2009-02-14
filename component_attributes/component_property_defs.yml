@@ -133,7 +133,7 @@ uid:
     rfc_ref: '4.8.4.7 pp 111-112'   
 exdate:
     purpose: This property defines the list of date/time exceptions for a recurring calendar component.
-    type: 'DateList'
+    type: 'OccurrenceList'
     rfc_ref: '4.8.5.1 pp 112-114'   
 exrule:
     purpose: This property defines a rule or repeating pattern for an exception to a recurrence set.
@@ -141,7 +141,7 @@ exrule:
     rfc_ref: '4.8.5.2 pp 114-125'   
 rdate:
     purpose: This property defines the list of date/times for a recurring calendar component.
-    type: 'DateList'
+    type: 'OccurrenceList'
     rfc_ref: '4.8.5.3 pp 115-117'   
 rrule:
     purpose: This property defines a rule or repeating pattern for recurring events, to-dos, or time zone definitions.

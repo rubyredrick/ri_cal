@@ -1,6 +1,13 @@
 require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
 describe RiCal::PropertyValue do
+  
+  describe ".initialize" do
+    
+    it "should reject a value starting with ';'" do
+      lambda {RiCal::PropertyValue.new(:value => ";bogus")}.should raise_error {|err| err.message.should == "Invalid property value \";bogus\""}
+    end
+  end
 
   describe "#date_or_date_time" do
 

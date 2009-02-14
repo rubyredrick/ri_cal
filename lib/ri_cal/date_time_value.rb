@@ -37,6 +37,17 @@ module RiCal
       end
     end
     
+    def to_ri_cal_date_time_value
+      self
+    end
+    
+    def duration_until(end_time)
+      #TODO: this should calculate a duration
+      #  if end_time is nil => nil
+      #  otherwise convert end_time to a DateTimeValue and compute the difference
+      end_time
+    end
+    
     def to_s
       "ri_cal:#{@value}"
     end

@@ -4,12 +4,13 @@ module RiCal
 
     attr_accessor :params, :value
     def initialize(separated_line)
+      val = separated_line[:value]
+       raise "Invalid property value #{val.inspect}" if val.kind_of?(String) && /^;/.match(val)
       self.params = separated_line[:params]
-      self.value = separated_line[:value]
+      self.value = val
     end
     
     def self.date_or_date_time(separated_line)
-
       match = separated_line[:value].match(/(\d\d\d\d)(\d\d)(\d\d)((T?)((\d\d)(\d\d)(\d\d))(Z?))?/)
       raise Exception.new("Invalid date") unless match
       if match[5] == "T" # date-time

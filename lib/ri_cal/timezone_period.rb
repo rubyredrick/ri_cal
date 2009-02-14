@@ -137,7 +137,7 @@ module RiCal
     end
 
     # return the the RDATE property
-    # which will be an array of instances of RiCal::DateListValue
+    # which will be an array of instances of RiCal::OccurrenceListValue
     # 
     # [purpose (from RFC 2445)]
     # This property defines the list of date/times for a recurring calendar component.
@@ -148,25 +148,25 @@ module RiCal
     end
 
     # set the the RDATE property
-    # one or more instances of RiCal::DateListValue may be passed to this method
+    # one or more instances of RiCal::OccurrenceListValue may be passed to this method
     def rdate_property=(*property_values)
       rdate_property= property_values
     end
 
     # set the value of the RDATE property
-    # one or more instances of DateList may be passed to this method
+    # one or more instances of OccurrenceList may be passed to this method
     def rdate=(*ruby_values)
-      @rdate_property = ruby_values.map {|val| DateListValue.convert(val)}
+      @rdate_property = ruby_values.map {|val| OccurrenceListValue.convert(val)}
     end
 
     # return the value of the RDATE property
-    # which will be an array of instances of DateList
+    # which will be an array of instances of OccurrenceList
     def rdate
       rdate_property.map {|prop| value_of_property(prop)}
     end
 
     def rdate_property_from_string(line) # :nodoc:
-      rdate_property << DateListValue.new(line)
+      rdate_property << OccurrenceListValue.new(line)
     end
 
     # return the the RRULE property

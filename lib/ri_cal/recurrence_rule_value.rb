@@ -3,13 +3,13 @@ module RiCal
   class RecurrenceRuleValue < PropertyValue
     
     class OccurrenceEnumerator
-      attr_accessor :start_time, :next_time, :recurrence_rule
+      attr_accessor :start_time, :duration, :next_time, :recurrence_rule
       attr_reader :reset_second, :reset_minute, :reset_hour, :reset_day, :reset_month
-      def initialize(recurrence_rule, start_time, setpos_list)
+      def initialize(recurrence_rule, component, setpos_list)
         self.recurrence_rule = recurrence_rule
-        # datetime conversion stolen from ActiveSupport time#to_date_time
-        self.next_time = recurrence_rule.adjust_start(start_time.to_ri_cal_date_time_value)
-        self.start_time = start_time.to_ri_cal_date_time_value
+        self.start_time = component.dtstart.to_ri_cal_date_time_value
+        self.next_time = recurrence_rule.adjust_start(self.start_time)
+        self.duration = component.dtend && self.start_time.duration_until(component.dtend.to_ri_cal_date_time_value)
         @count = 0
         @setpos_list = setpos_list
         @setpos = 1
@@ -19,6 +19,10 @@ module RiCal
         @reset_day = recurrence_rule.reset_day || start_time.day
         @reset_month = recurrence_rule.reset_month || start_time.month
         @next_occurrence_count = 0
+      end
+      
+      def result_hash(date_time_value)
+        {:start => date_time_value, :end => nil}
       end
       
       def next_occurrence
@@ -35,14 +39,14 @@ module RiCal
             end
             if (result == start_time) || (result > start_time && @setpos_list.include?(result_setpos))
               @count += 1
-              return recurrence_rule.exhausted?(@count, result) ? nil : result
+              return recurrence_rule.exhausted?(@count, result) ? nil : result_hash(result)
             end
           else
             debugger unless DateTimeValue === result
             debugger unless DateTimeValue === start_time
             if result >= start_time
               @count += 1              
-              return recurrence_rule.exhausted?(@count, result) ? nil : result
+              return recurrence_rule.exhausted?(@count, result) ? nil : result_hash(result)
             end
           end
         end
@@ -51,7 +55,7 @@ module RiCal
     
     class NegativeSetposEnumerator < OccurrenceEnumerator
 
-      def initialize(recurrence_rule, start_time, setpos_list)
+      def initialize(recurrence_rule, component, setpos_list)
         super
         @current_set = []
         @valids = []
@@ -62,7 +66,7 @@ module RiCal
           result = advance
           if result >= start_time
             @count += 1
-            return recurrence_rule.exhausted?(@count, result) ? nil : result
+            return recurrence_rule.exhausted?(@count, result) ? nil : result_hash(result)
           end
         end
       end
@@ -94,11 +98,11 @@ module RiCal
       end
     end
     
-    def OccurrenceEnumerator.for(recurrence_rule, start_time, setpos_list)
+    def OccurrenceEnumerator.for(recurrence_rule, component, setpos_list)
       if !setpos_list || setpos_list.all? {|setpos| setpos > 1}
-        self.new(recurrence_rule, start_time, setpos_list)
+        self.new(recurrence_rule, component, setpos_list)
       else
-        NegativeSetposEnumerator.new(recurrence_rule, start_time, setpos_list)
+        NegativeSetposEnumerator.new(recurrence_rule, start_time, end_time, setpos_list)
       end
     end
     
@@ -373,6 +377,7 @@ module RiCal
     
     def add_part_to_hash(hash, part)
       part_name, value = part.split("=")
+      puts "part=#{part.inspect}" unless part_name
       attribute = part_name.downcase.to_sym
       errors << "Repeated rule part #{attribute} last occurrence was used" if hash[attribute]
       case attribute
@@ -601,8 +606,8 @@ module RiCal
       end
     end
 
-    def enumerator(start_time)
-      OccurrenceEnumerator.for(self, start_time, by_list[:bysetpos])
+    def enumerator(component)
+      OccurrenceEnumerator.for(self, component, by_list[:bysetpos])
     end
     
     def exhausted?(count, time)

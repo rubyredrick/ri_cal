@@ -8,6 +8,15 @@ describe RiCal::Event do
     end
   end
   
+  describe "with an rrule" do
+    before(:each) do
+      @it = RiCal::Event.parse_string("BEGIN:VEVENT\nRRULE:FREQ=DAILY\nEND:VEVENT").first
+    end
+    
+    it "should have an array of rrules" do
+      @it.rrule.should be_kind_of Array
+    end
+  end
 
   describe "with both dtend and duration specified" do
     before(:each) do

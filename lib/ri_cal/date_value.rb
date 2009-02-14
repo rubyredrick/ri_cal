@@ -26,6 +26,22 @@ module RiCal
       Date.parse(@date_time_value.strftime("%Y%m%d"))
     end
     
+    def to_ri_cal_date_time_value
+      DateTimeValue.new(:value => @date_time_value)
+    end    
+    
+    def to_ri_cal_date_value
+      self
+    end    
+    
+    def duration_until(end_time)
+      #TODO: this should calculate a duration
+      #  if end_time is nil => nil
+      #  otherwise convert end_time to a DateValue and compute the difference
+      end_time
+    end
+    
+    
   end
 
 end
