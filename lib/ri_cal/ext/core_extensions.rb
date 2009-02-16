@@ -19,7 +19,17 @@ class String
   def to_ri_cal_duration_value
     RiCal::DurationValue.from_string(self)
   end
+
+  # code stolen from ActiveSupport Gem
+  unless  String.instance_methods.include?("camelize")
+      def camelize
+        self.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+      end
+  end
 end
+
+
+
 
 class Date
   def to_ri_cal_date_time_value

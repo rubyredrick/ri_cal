@@ -1,12 +1,3 @@
-# code stolen from ActiveSupport Gem
-unless  String.instance_methods.include?("camelize")
-  class String
-    def camelize
-      self.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
-    end
-  end
-end
-
 module RiCal
   class Component
     
