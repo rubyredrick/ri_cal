@@ -1,4 +1,10 @@
 module RiCal
+  
+  autoload :Component, 'lib/ri_cal/component.rb'
+  autoload :Timezone, 'lib/ri_cal/timezone.rb'
+  autoload :TimezonePeriod, 'lib/ri_cal/timezone_period.rb'
+  autoload :OccurrenceEnumerator, 'lib/ri_cal/occurrence_enumerator.rb'
+  
 
   # :stopdoc:
   VERSION = '0.0.1'
@@ -60,11 +66,6 @@ module RiCal
   
 
 end  # module RiCal
-
-class RiCal::Component;end
-class RiCal::Timezone < RiCal::Component;end
-class RiCal::TimezonePeriod < RiCal::Component;end
-module RiCal::OccurrenceEnumerator;end
 
 require File.join(File.dirname(__FILE__), *%w[ri_cal property_value])
 require File.join(File.dirname(__FILE__), *%w[ri_cal component])
