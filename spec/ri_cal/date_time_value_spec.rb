@@ -12,6 +12,36 @@ describe RiCal::DateTimeValue do
     end
   end
   
+  describe "subtracting one date-time from another" do
+    
+    it "should produce the right DurationValue" do
+      dt1 = RiCal::DateTimeValue.new(:value => "19980118T230000")
+      dt2 = RiCal::DateTimeValue.new(:value => "19980119T010000")
+      @it = dt2 - dt1
+      @it.should == RiCal::DurationValue.new(:value => "+PT2H")
+    end      
+  end
+  
+  describe "adding a DurationValue to a DateTimeValue" do
+
+    it "should produce the right DateTimeValue" do
+      dt1 = RiCal::DateTimeValue.new(:value => "19980118T230000")
+      duration = RiCal::DurationValue.new(:value => "+PT2H")
+      @it = dt1 + duration
+      @it.should == RiCal::DateTimeValue.new(:value => "19980119T010000")
+    end
+  end
+
+  describe "subtracting a DurationValue from a DateTimeValue" do
+
+    it "should produce the right DateTimeValue" do
+      dt1 = RiCal::DateTimeValue.new(:value => "19980119T010000")
+      duration = RiCal::DurationValue.new(:value => "+PT2H")
+      @it = dt1 - duration
+      @it.should == RiCal::DateTimeValue.new(:value => "19980118T230000")
+    end
+  end
+
   describe ".convert(rubyobject)" do
     describe "for a Time instance of  Feb 05 19:17:11"
     before(:each) do

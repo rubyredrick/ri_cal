@@ -2,14 +2,14 @@ require 'rubygems'
 module RiCal
   class RecurrenceRuleValue < PropertyValue
     
-    class OccurrenceEnumerator
+    class Enumerator
       attr_accessor :start_time, :duration, :next_time, :recurrence_rule
       attr_reader :reset_second, :reset_minute, :reset_hour, :reset_day, :reset_month
       def initialize(recurrence_rule, component, setpos_list)
         self.recurrence_rule = recurrence_rule
-        self.start_time = component.dtstart.to_ri_cal_date_time_value
+        self.start_time = component.default_start_time
+        self.duration = component.default_duration
         self.next_time = recurrence_rule.adjust_start(self.start_time)
-        self.duration = component.dtend && self.start_time.duration_until(component.dtend.to_ri_cal_date_time_value)
         @count = 0
         @setpos_list = setpos_list
         @setpos = 1
@@ -53,7 +53,7 @@ module RiCal
       end
     end
     
-    class NegativeSetposEnumerator < OccurrenceEnumerator
+    class NegativeSetposEnumerator < Enumerator
 
       def initialize(recurrence_rule, component, setpos_list)
         super
@@ -98,7 +98,7 @@ module RiCal
       end
     end
     
-    def OccurrenceEnumerator.for(recurrence_rule, component, setpos_list)
+    def Enumerator.for(recurrence_rule, component, setpos_list)
       if !setpos_list || setpos_list.all? {|setpos| setpos > 1}
         self.new(recurrence_rule, component, setpos_list)
       else
@@ -607,7 +607,7 @@ module RiCal
     end
 
     def enumerator(component)
-      OccurrenceEnumerator.for(self, component, by_list[:bysetpos])
+      Enumerator.for(self, component, by_list[:bysetpos])
     end
     
     def exhausted?(count, time)

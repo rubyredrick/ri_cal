@@ -6,6 +6,7 @@ module RiCal
   # TODO: implement alarm subcomponents
   class Event < Component
     include OccurrenceEnumerator
+
     include Properties::Event
     
     def self.entity_name #:nodoc:

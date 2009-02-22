@@ -6,7 +6,7 @@ module RiCal
     def initialize(separated_line)
       val = separated_line[:value]
        raise "Invalid property value #{val.inspect}" if val.kind_of?(String) && /^;/.match(val)
-      self.params = separated_line[:params]
+      self.params = separated_line[:params] || {}
       self.value = val
     end
     

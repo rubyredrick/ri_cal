@@ -406,7 +406,7 @@ describe RiCal::RecurrenceRuleValue do
           rrule = RiCal::RecurrenceRuleValue.new(
           :value => rrule_string
           )
-          enum = rrule.enumerator(mock("EventValue", :dtstart => DateTime.parse(dtstart_string), :dtend => nil, :duration => nil))
+          enum = rrule.enumerator(mock("EventValue", :default_start_time => DateTime.parse(dtstart_string).to_ri_cal_date_time_value, :default_duration => nil))
           RiCal::DateTimeValue.debug = debug
           @it = (1..iterations).collect {|i| enum.next_occurrence}.compact
         end

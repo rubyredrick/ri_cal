@@ -2,7 +2,15 @@ module RiCal
   # OccurrenceEnumerator provides common methods for CalendarComponents that support recurrence
   # i.e. Event, Journal, Todo, and TimezonePeriod
   module OccurrenceEnumerator
-    
+
+    def default_duration     
+      dtend && dtstart.to_ri_cal_date_time_value.duration_until(dtend)
+    end
+
+    def default_start_time
+      dtstart && dtstart.to_ri_cal_date_time_value
+    end
+
     class EmptyRulesEnumerator
       def self.next_occurrence
         nil

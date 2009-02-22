@@ -45,7 +45,23 @@ module RiCal
       #TODO: this should calculate a duration
       #  if end_time is nil => nil
       #  otherwise convert end_time to a DateTimeValue and compute the difference
-      end_time
+      end_time  && RiCal::DurationValue.from_datetimes(to_datetime, end_time.to_datetime)
+    end
+    
+    def subtract_from_date_time_value(dtvalue)
+      RiCal::DurationValue.from_datetimes(to_datetime,dtvalue.to_datetime)
+    end
+    
+    def add_to_date_time_value(date_time_value)
+      raise ArgumentError.new("Cannot add #{date_time_value} to #{self}")
+    end
+    
+    def -(other)
+      other.subtract_from_date_time_value(self)
+    end
+    
+    def +(other)
+      other.add_to_date_time_value(self)
     end
     
     def to_s
