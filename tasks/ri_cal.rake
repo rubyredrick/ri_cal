@@ -66,17 +66,17 @@ class VEntityUpdater
   def describe_property(type)
     case type
     when 'date_time_or_date'
-      "either RiCal::DateTimeValue or RiCall::DateValue"
+      "either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date"
     else
-      "RiCal::#{type}Value"
+      "RiCal::PropertyValue#{type}"
     end
   end
 
   def type_class(type)
     if type == 'date_time_or_date'
-       "DateTimeValue"
+       "RiCal::PropertyValue::DateTime"
      else
-       "#{type}Value"
+       "RiCal::PropertyValue::#{type}"
      end
    end
     
@@ -137,7 +137,7 @@ class VEntityUpdater
     property = "#{name.tr("-", "_").downcase}_property"
     @property_map[name.upcase] = :"#{property}_from_string"
     if type == 'date_time_or_date'
-      line_evaluator = "DateTimeValue.from_separated_line(line)"
+      line_evaluator = "RiCal::PropertyValue::DateTime.from_separated_line(line)"
     else
       line_evaluator = "#{type_class(type)}.new(line)"
     end

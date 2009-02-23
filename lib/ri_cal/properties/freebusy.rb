@@ -5,7 +5,7 @@ module RiCal
     module Freebusy
 
       # return the the CONTACT property
-      # which will be an instances of RiCal::TextValue
+      # which will be an instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # The property is used to represent contact information oralternately a reference to contact information associated with the calendar component.
@@ -16,14 +16,14 @@ module RiCal
       end
 
       # set the CONTACT property
-      # property value should be an instance of RiCal::TextValue
+      # property value should be an instance of RiCal::PropertyValueText
       def contact_property=(property_value)
         @contact_property = property_value
       end
 
       # set the value of the CONTACT property
       def contact=(ruby_value)
-        self.contact_property= TextValue.convert(ruby_value)
+        self.contact_property= RiCal::PropertyValue::Text.convert(ruby_value)
       end
 
       # return the value of the CONTACT property
@@ -33,12 +33,12 @@ module RiCal
       end
 
       def contact_property_from_string(line) # :nodoc:
-        @contact_property = TextValue.new(line)
+        @contact_property = RiCal::PropertyValue::Text.new(line)
       end
 
 
       # return the the DTSTART property
-      # which will be an instances of either RiCal::DateTimeValue or RiCall::DateValue
+      # which will be an instances of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
       # 
       # [purpose (from RFC 2445)]
       # This property specifies when the calendar component begins.
@@ -49,14 +49,14 @@ module RiCal
       end
 
       # set the DTSTART property
-      # property value should be an instance of either RiCal::DateTimeValue or RiCall::DateValue
+      # property value should be an instance of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
       def dtstart_property=(property_value)
         @dtstart_property = property_value
       end
 
       # set the value of the DTSTART property
       def dtstart=(ruby_value)
-        self.dtstart_property= DateTimeValue.convert(ruby_value)
+        self.dtstart_property= RiCal::PropertyValue::DateTime.convert(ruby_value)
       end
 
       # return the value of the DTSTART property
@@ -66,12 +66,12 @@ module RiCal
       end
 
       def dtstart_property_from_string(line) # :nodoc:
-        @dtstart_property = DateTimeValue.from_separated_line(line)
+        @dtstart_property = RiCal::PropertyValue::DateTime.from_separated_line(line)
       end
 
 
       # return the the DTEND property
-      # which will be an instances of either RiCal::DateTimeValue or RiCall::DateValue
+      # which will be an instances of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
       # 
       # [purpose (from RFC 2445)]
       # This property specifies the date and time that a calendar component ends.
@@ -82,14 +82,14 @@ module RiCal
       end
 
       # set the DTEND property
-      # property value should be an instance of either RiCal::DateTimeValue or RiCall::DateValue
+      # property value should be an instance of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
       def dtend_property=(property_value)
         @dtend_property = property_value
       end
 
       # set the value of the DTEND property
       def dtend=(ruby_value)
-        self.dtend_property= DateTimeValue.convert(ruby_value)
+        self.dtend_property= RiCal::PropertyValue::DateTime.convert(ruby_value)
       end
 
       # return the value of the DTEND property
@@ -99,12 +99,12 @@ module RiCal
       end
 
       def dtend_property_from_string(line) # :nodoc:
-        @dtend_property = DateTimeValue.from_separated_line(line)
+        @dtend_property = RiCal::PropertyValue::DateTime.from_separated_line(line)
       end
 
 
       # return the the DURATION property
-      # which will be an instances of RiCal::DurationValue
+      # which will be an instances of RiCal::PropertyValueDuration
       # 
       # [purpose (from RFC 2445)]
       # This property specifies a positive duration of time.
@@ -115,14 +115,14 @@ module RiCal
       end
 
       # set the DURATION property
-      # property value should be an instance of RiCal::DurationValue
+      # property value should be an instance of RiCal::PropertyValueDuration
       def duration_property=(property_value)
         @duration_property = property_value
       end
 
       # set the value of the DURATION property
       def duration=(ruby_value)
-        self.duration_property= DurationValue.convert(ruby_value)
+        self.duration_property= RiCal::PropertyValue::Duration.convert(ruby_value)
       end
 
       # return the value of the DURATION property
@@ -132,12 +132,12 @@ module RiCal
       end
 
       def duration_property_from_string(line) # :nodoc:
-        @duration_property = DurationValue.new(line)
+        @duration_property = RiCal::PropertyValue::Duration.new(line)
       end
 
 
       # return the the DTSTAMP property
-      # which will be an instances of RiCal::DateTimeValue
+      # which will be an instances of RiCal::PropertyValueDateTime
       # 
       # [purpose (from RFC 2445)]
       # This property indicates the date/time that the instance of the iCalendar object was created.
@@ -148,14 +148,14 @@ module RiCal
       end
 
       # set the DTSTAMP property
-      # property value should be an instance of RiCal::DateTimeValue
+      # property value should be an instance of RiCal::PropertyValueDateTime
       def dtstamp_property=(property_value)
         @dtstamp_property = property_value
       end
 
       # set the value of the DTSTAMP property
       def dtstamp=(ruby_value)
-        self.dtstamp_property= DateTimeValue.convert(ruby_value)
+        self.dtstamp_property= RiCal::PropertyValue::DateTime.convert(ruby_value)
       end
 
       # return the value of the DTSTAMP property
@@ -165,12 +165,12 @@ module RiCal
       end
 
       def dtstamp_property_from_string(line) # :nodoc:
-        @dtstamp_property = DateTimeValue.new(line)
+        @dtstamp_property = RiCal::PropertyValue::DateTime.new(line)
       end
 
 
       # return the the ORGANIZER property
-      # which will be an instances of RiCal::CalAddressValue
+      # which will be an instances of RiCal::PropertyValueCalAddress
       # 
       # [purpose (from RFC 2445)]
       # The property defines the organizer for a calendar component.
@@ -181,14 +181,14 @@ module RiCal
       end
 
       # set the ORGANIZER property
-      # property value should be an instance of RiCal::CalAddressValue
+      # property value should be an instance of RiCal::PropertyValueCalAddress
       def organizer_property=(property_value)
         @organizer_property = property_value
       end
 
       # set the value of the ORGANIZER property
       def organizer=(ruby_value)
-        self.organizer_property= CalAddressValue.convert(ruby_value)
+        self.organizer_property= RiCal::PropertyValue::CalAddress.convert(ruby_value)
       end
 
       # return the value of the ORGANIZER property
@@ -198,12 +198,12 @@ module RiCal
       end
 
       def organizer_property_from_string(line) # :nodoc:
-        @organizer_property = CalAddressValue.new(line)
+        @organizer_property = RiCal::PropertyValue::CalAddress.new(line)
       end
 
 
       # return the the UID property
-      # which will be an instances of RiCal::TextValue
+      # which will be an instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # This property defines the persistent, globally unique identifier for the calendar component.
@@ -214,14 +214,14 @@ module RiCal
       end
 
       # set the UID property
-      # property value should be an instance of RiCal::TextValue
+      # property value should be an instance of RiCal::PropertyValueText
       def uid_property=(property_value)
         @uid_property = property_value
       end
 
       # set the value of the UID property
       def uid=(ruby_value)
-        self.uid_property= TextValue.convert(ruby_value)
+        self.uid_property= RiCal::PropertyValue::Text.convert(ruby_value)
       end
 
       # return the value of the UID property
@@ -231,12 +231,12 @@ module RiCal
       end
 
       def uid_property_from_string(line) # :nodoc:
-        @uid_property = TextValue.new(line)
+        @uid_property = RiCal::PropertyValue::Text.new(line)
       end
 
 
       # return the the URL property
-      # which will be an instances of RiCal::UriValue
+      # which will be an instances of RiCal::PropertyValueUri
       # 
       # [purpose (from RFC 2445)]
       # This property defines a Uniform Resource Locator (URL) associated with the iCalendar object.
@@ -247,14 +247,14 @@ module RiCal
       end
 
       # set the URL property
-      # property value should be an instance of RiCal::UriValue
+      # property value should be an instance of RiCal::PropertyValueUri
       def url_property=(property_value)
         @url_property = property_value
       end
 
       # set the value of the URL property
       def url=(ruby_value)
-        self.url_property= UriValue.convert(ruby_value)
+        self.url_property= RiCal::PropertyValue::Uri.convert(ruby_value)
       end
 
       # return the value of the URL property
@@ -264,12 +264,12 @@ module RiCal
       end
 
       def url_property_from_string(line) # :nodoc:
-        @url_property = UriValue.new(line)
+        @url_property = RiCal::PropertyValue::Uri.new(line)
       end
 
 
       # return the the ATTENDEE property
-      # which will be an array of instances of RiCal::CalAddressValue
+      # which will be an array of instances of RiCal::PropertyValueCalAddress
       # 
       # [purpose (from RFC 2445)]
       # The property defines an 'Attendee' within a calendar component.
@@ -280,7 +280,7 @@ module RiCal
       end
 
       # set the the ATTENDEE property
-      # one or more instances of RiCal::CalAddressValue may be passed to this method
+      # one or more instances of RiCal::PropertyValueCalAddress may be passed to this method
       def attendee_property=(*property_values)
         attendee_property= property_values
       end
@@ -288,7 +288,7 @@ module RiCal
       # set the value of the ATTENDEE property
       # one or more instances of CalAddress may be passed to this method
       def attendee=(*ruby_values)
-        @attendee_property = ruby_values.map {|val| CalAddressValue.convert(val)}
+        @attendee_property = ruby_values.map {|val| RiCal::PropertyValue::CalAddress.convert(val)}
       end
 
       # return the value of the ATTENDEE property
@@ -298,11 +298,11 @@ module RiCal
       end
 
       def attendee_property_from_string(line) # :nodoc:
-        attendee_property << CalAddressValue.new(line)
+        attendee_property << RiCal::PropertyValue::CalAddress.new(line)
       end
 
       # return the the COMMENT property
-      # which will be an array of instances of RiCal::TextValue
+      # which will be an array of instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # This property specifies non-processing information intended to provide a comment to the calendar user.
@@ -313,7 +313,7 @@ module RiCal
       end
 
       # set the the COMMENT property
-      # one or more instances of RiCal::TextValue may be passed to this method
+      # one or more instances of RiCal::PropertyValueText may be passed to this method
       def comment_property=(*property_values)
         comment_property= property_values
       end
@@ -321,7 +321,7 @@ module RiCal
       # set the value of the COMMENT property
       # one or more instances of String may be passed to this method
       def comment=(*ruby_values)
-        @comment_property = ruby_values.map {|val| TextValue.convert(val)}
+        @comment_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(val)}
       end
 
       # return the value of the COMMENT property
@@ -331,11 +331,11 @@ module RiCal
       end
 
       def comment_property_from_string(line) # :nodoc:
-        comment_property << TextValue.new(line)
+        comment_property << RiCal::PropertyValue::Text.new(line)
       end
 
       # return the the FREEBUSY property
-      # which will be an array of instances of RiCal::PeriodValue
+      # which will be an array of instances of RiCal::PropertyValuePeriod
       # 
       # [purpose (from RFC 2445)]
       # This property defines one or more free or busy time intervals.
@@ -346,7 +346,7 @@ module RiCal
       end
 
       # set the the FREEBUSY property
-      # one or more instances of RiCal::PeriodValue may be passed to this method
+      # one or more instances of RiCal::PropertyValuePeriod may be passed to this method
       def freebusy_property=(*property_values)
         freebusy_property= property_values
       end
@@ -354,7 +354,7 @@ module RiCal
       # set the value of the FREEBUSY property
       # one or more instances of Period may be passed to this method
       def freebusy=(*ruby_values)
-        @freebusy_property = ruby_values.map {|val| PeriodValue.convert(val)}
+        @freebusy_property = ruby_values.map {|val| RiCal::PropertyValue::Period.convert(val)}
       end
 
       # return the value of the FREEBUSY property
@@ -364,11 +364,11 @@ module RiCal
       end
 
       def freebusy_property_from_string(line) # :nodoc:
-        freebusy_property << PeriodValue.new(line)
+        freebusy_property << RiCal::PropertyValue::Period.new(line)
       end
 
       # return the the REQUEST-STATUS property
-      # which will be an array of instances of RiCal::TextValue
+      # which will be an array of instances of RiCal::PropertyValueText
       # 
       # see RFC 2445 4.8.8.2 pp 134-136
       def request_status_property
@@ -376,7 +376,7 @@ module RiCal
       end
 
       # set the the REQUEST-STATUS property
-      # one or more instances of RiCal::TextValue may be passed to this method
+      # one or more instances of RiCal::PropertyValueText may be passed to this method
       def request_status_property=(*property_values)
         request_status_property= property_values
       end
@@ -384,7 +384,7 @@ module RiCal
       # set the value of the REQUEST-STATUS property
       # one or more instances of String may be passed to this method
       def request_status=(*ruby_values)
-        @request_status_property = ruby_values.map {|val| TextValue.convert(val)}
+        @request_status_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(val)}
       end
 
       # return the value of the REQUEST-STATUS property
@@ -394,7 +394,7 @@ module RiCal
       end
 
       def request_status_property_from_string(line) # :nodoc:
-        request_status_property << TextValue.new(line)
+        request_status_property << RiCal::PropertyValue::Text.new(line)
       end
 
       module ClassMethods

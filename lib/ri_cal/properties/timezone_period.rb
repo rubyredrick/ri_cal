@@ -5,7 +5,7 @@ module RiCal
     module TimezonePeriod
 
       # return the the DTSTART property
-      # which will be an instances of either RiCal::DateTimeValue or RiCall::DateValue
+      # which will be an instances of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
       # 
       # [purpose (from RFC 2445)]
       # This property specifies when the calendar component begins.
@@ -16,14 +16,14 @@ module RiCal
       end
 
       # set the DTSTART property
-      # property value should be an instance of either RiCal::DateTimeValue or RiCall::DateValue
+      # property value should be an instance of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
       def dtstart_property=(property_value)
         @dtstart_property = property_value
       end
 
       # set the value of the DTSTART property
       def dtstart=(ruby_value)
-        self.dtstart_property= DateTimeValue.convert(ruby_value)
+        self.dtstart_property= RiCal::PropertyValue::DateTime.convert(ruby_value)
       end
 
       # return the value of the DTSTART property
@@ -33,12 +33,12 @@ module RiCal
       end
 
       def dtstart_property_from_string(line) # :nodoc:
-        @dtstart_property = DateTimeValue.from_separated_line(line)
+        @dtstart_property = RiCal::PropertyValue::DateTime.from_separated_line(line)
       end
 
 
       # return the the TZOFFSETTO property
-      # which will be an instances of RiCal::UtcOffsetValue
+      # which will be an instances of RiCal::PropertyValueUtcOffset
       # 
       # [purpose (from RFC 2445)]
       # This property specifies the offset which is in use in this time zone observance
@@ -49,14 +49,14 @@ module RiCal
       end
 
       # set the TZOFFSETTO property
-      # property value should be an instance of RiCal::UtcOffsetValue
+      # property value should be an instance of RiCal::PropertyValueUtcOffset
       def tzoffsetto_property=(property_value)
         @tzoffsetto_property = property_value
       end
 
       # set the value of the TZOFFSETTO property
       def tzoffsetto=(ruby_value)
-        self.tzoffsetto_property= UtcOffsetValue.convert(ruby_value)
+        self.tzoffsetto_property= RiCal::PropertyValue::UtcOffset.convert(ruby_value)
       end
 
       # return the value of the TZOFFSETTO property
@@ -66,12 +66,12 @@ module RiCal
       end
 
       def tzoffsetto_property_from_string(line) # :nodoc:
-        @tzoffsetto_property = UtcOffsetValue.new(line)
+        @tzoffsetto_property = RiCal::PropertyValue::UtcOffset.new(line)
       end
 
 
       # return the the TZOFFSETFROM property
-      # which will be an instances of RiCal::UtcOffsetValue
+      # which will be an instances of RiCal::PropertyValueUtcOffset
       # 
       # [purpose (from RFC 2445)]
       # This property specifies the offset which is in use prior to this time zone observance
@@ -82,14 +82,14 @@ module RiCal
       end
 
       # set the TZOFFSETFROM property
-      # property value should be an instance of RiCal::UtcOffsetValue
+      # property value should be an instance of RiCal::PropertyValueUtcOffset
       def tzoffsetfrom_property=(property_value)
         @tzoffsetfrom_property = property_value
       end
 
       # set the value of the TZOFFSETFROM property
       def tzoffsetfrom=(ruby_value)
-        self.tzoffsetfrom_property= UtcOffsetValue.convert(ruby_value)
+        self.tzoffsetfrom_property= RiCal::PropertyValue::UtcOffset.convert(ruby_value)
       end
 
       # return the value of the TZOFFSETFROM property
@@ -99,12 +99,12 @@ module RiCal
       end
 
       def tzoffsetfrom_property_from_string(line) # :nodoc:
-        @tzoffsetfrom_property = UtcOffsetValue.new(line)
+        @tzoffsetfrom_property = RiCal::PropertyValue::UtcOffset.new(line)
       end
 
 
       # return the the COMMENT property
-      # which will be an array of instances of RiCal::TextValue
+      # which will be an array of instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # This property specifies non-processing information intended to provide a comment to the calendar user.
@@ -115,7 +115,7 @@ module RiCal
       end
 
       # set the the COMMENT property
-      # one or more instances of RiCal::TextValue may be passed to this method
+      # one or more instances of RiCal::PropertyValueText may be passed to this method
       def comment_property=(*property_values)
         comment_property= property_values
       end
@@ -123,7 +123,7 @@ module RiCal
       # set the value of the COMMENT property
       # one or more instances of String may be passed to this method
       def comment=(*ruby_values)
-        @comment_property = ruby_values.map {|val| TextValue.convert(val)}
+        @comment_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(val)}
       end
 
       # return the value of the COMMENT property
@@ -133,11 +133,11 @@ module RiCal
       end
 
       def comment_property_from_string(line) # :nodoc:
-        comment_property << TextValue.new(line)
+        comment_property << RiCal::PropertyValue::Text.new(line)
       end
 
       # return the the RDATE property
-      # which will be an array of instances of RiCal::OccurrenceListValue
+      # which will be an array of instances of RiCal::PropertyValueOccurrenceList
       # 
       # [purpose (from RFC 2445)]
       # This property defines the list of date/times for a recurring calendar component.
@@ -148,7 +148,7 @@ module RiCal
       end
 
       # set the the RDATE property
-      # one or more instances of RiCal::OccurrenceListValue may be passed to this method
+      # one or more instances of RiCal::PropertyValueOccurrenceList may be passed to this method
       def rdate_property=(*property_values)
         rdate_property= property_values
       end
@@ -156,7 +156,7 @@ module RiCal
       # set the value of the RDATE property
       # one or more instances of OccurrenceList may be passed to this method
       def rdate=(*ruby_values)
-        @rdate_property = ruby_values.map {|val| OccurrenceListValue.convert(val)}
+        @rdate_property = ruby_values.map {|val| RiCal::PropertyValue::OccurrenceList.convert(val)}
       end
 
       # return the value of the RDATE property
@@ -166,11 +166,11 @@ module RiCal
       end
 
       def rdate_property_from_string(line) # :nodoc:
-        rdate_property << OccurrenceListValue.new(line)
+        rdate_property << RiCal::PropertyValue::OccurrenceList.new(line)
       end
 
       # return the the RRULE property
-      # which will be an array of instances of RiCal::RecurrenceRuleValue
+      # which will be an array of instances of RiCal::PropertyValueRecurrenceRule
       # 
       # [purpose (from RFC 2445)]
       # This property defines a rule or repeating pattern for recurring events, to-dos, or time zone definitions.
@@ -181,7 +181,7 @@ module RiCal
       end
 
       # set the the RRULE property
-      # one or more instances of RiCal::RecurrenceRuleValue may be passed to this method
+      # one or more instances of RiCal::PropertyValueRecurrenceRule may be passed to this method
       def rrule_property=(*property_values)
         rrule_property= property_values
       end
@@ -189,7 +189,7 @@ module RiCal
       # set the value of the RRULE property
       # one or more instances of RecurrenceRule may be passed to this method
       def rrule=(*ruby_values)
-        @rrule_property = ruby_values.map {|val| RecurrenceRuleValue.convert(val)}
+        @rrule_property = ruby_values.map {|val| RiCal::PropertyValue::RecurrenceRule.convert(val)}
       end
 
       # return the value of the RRULE property
@@ -199,11 +199,11 @@ module RiCal
       end
 
       def rrule_property_from_string(line) # :nodoc:
-        rrule_property << RecurrenceRuleValue.new(line)
+        rrule_property << RiCal::PropertyValue::RecurrenceRule.new(line)
       end
 
       # return the the TZNAME property
-      # which will be an array of instances of RiCal::TextValue
+      # which will be an array of instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # This property specifies the customary designation for a time zone description.
@@ -214,7 +214,7 @@ module RiCal
       end
 
       # set the the TZNAME property
-      # one or more instances of RiCal::TextValue may be passed to this method
+      # one or more instances of RiCal::PropertyValueText may be passed to this method
       def tzname_property=(*property_values)
         tzname_property= property_values
       end
@@ -222,7 +222,7 @@ module RiCal
       # set the value of the TZNAME property
       # one or more instances of String may be passed to this method
       def tzname=(*ruby_values)
-        @tzname_property = ruby_values.map {|val| TextValue.convert(val)}
+        @tzname_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(val)}
       end
 
       # return the value of the TZNAME property
@@ -232,7 +232,7 @@ module RiCal
       end
 
       def tzname_property_from_string(line) # :nodoc:
-        tzname_property << TextValue.new(line)
+        tzname_property << RiCal::PropertyValue::Text.new(line)
       end
 
       module ClassMethods

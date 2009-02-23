@@ -5,14 +5,14 @@ module RiCal
     module Calendar
 
       # return the the CALSCALE property
-      # which will be an instances of RiCal::TextValue
+      # which will be an instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # This property defines the calendar scale used for the calendar information specified in the calendar object.
       # 
       # see RFC 2445 4.7.1 p 73
       def calscale_property
-        @calscale_property ||= TextValue.convert("GREGORIAN")
+        @calscale_property ||= RiCal::PropertyValue::Text.convert("GREGORIAN")
       end
 
       # return the value of the CALSCALE property
@@ -22,12 +22,12 @@ module RiCal
       end
 
       def calscale_property_from_string(line) # :nodoc:
-        @calscale_property = TextValue.new(line)
+        @calscale_property = RiCal::PropertyValue::Text.new(line)
       end
 
 
       # return the the METHOD property
-      # which will be an instances of RiCal::TextValue
+      # which will be an instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # This property defines the iCalendar object method associated with the calendar object
@@ -38,14 +38,14 @@ module RiCal
       end
 
       # set the METHOD property
-      # property value should be an instance of RiCal::TextValue
+      # property value should be an instance of RiCal::PropertyValueText
       def method_property=(property_value)
         @method_property = property_value
       end
 
       # set the value of the METHOD property
       def icalendar_method=(ruby_value)
-        self.method_property= TextValue.convert(ruby_value)
+        self.method_property= RiCal::PropertyValue::Text.convert(ruby_value)
       end
 
       # return the value of the METHOD property
@@ -55,30 +55,30 @@ module RiCal
       end
 
       def method_property_from_string(line) # :nodoc:
-        @method_property = TextValue.new(line)
+        @method_property = RiCal::PropertyValue::Text.new(line)
       end
 
 
       # return the the PRODID property
-      # which will be an instances of RiCal::TextValue
+      # which will be an instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # This property specifies the identifier for the product that created the iCalendar object.
       # 
       # see RFC 2445 4.7.3 pp 75-76
       def prodid_property
-        @prodid_property ||= TextValue.convert("-//com.denhaven2/NONSGML ri_cal gem//E")
+        @prodid_property ||= RiCal::PropertyValue::Text.convert("-//com.denhaven2/NONSGML ri_cal gem//E")
       end
 
       # set the PRODID property
-      # property value should be an instance of RiCal::TextValue
+      # property value should be an instance of RiCal::PropertyValueText
       def prodid_property=(property_value)
         @prodid_property = property_value
       end
 
       # set the value of the PRODID property
       def prodid=(ruby_value)
-        self.prodid_property= TextValue.convert(ruby_value)
+        self.prodid_property= RiCal::PropertyValue::Text.convert(ruby_value)
       end
 
       # return the value of the PRODID property
@@ -88,19 +88,19 @@ module RiCal
       end
 
       def prodid_property_from_string(line) # :nodoc:
-        @prodid_property = TextValue.new(line)
+        @prodid_property = RiCal::PropertyValue::Text.new(line)
       end
 
 
       # return the the VERSION property
-      # which will be an instances of RiCal::TextValue
+      # which will be an instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # This property specifies the identifier corresponding to thehighest version number or the minimum and maximum range of the iCalendar specification that is required in order to interpret the iCalendar object.
       # 
       # see RFC 2445 4.7.4 pp 76-77
       def version_property
-        @version_property ||= TextValue.convert("2.0")
+        @version_property ||= RiCal::PropertyValue::Text.convert("2.0")
       end
 
       # return the value of the VERSION property
@@ -110,7 +110,7 @@ module RiCal
       end
 
       def version_property_from_string(line) # :nodoc:
-        @version_property = TextValue.new(line)
+        @version_property = RiCal::PropertyValue::Text.new(line)
       end
 
 

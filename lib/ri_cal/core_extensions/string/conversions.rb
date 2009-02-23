@@ -3,11 +3,11 @@ module RiCal
     module String
       module Conversions
         def to_ri_cal_date_time_value
-          RiCal::DateTimeValue.from_string(self)
+          RiCal::PropertyValue::DateTime.from_string(self)
         end
 
         def to_ri_cal_duration_value
-          RiCal::DurationValue.from_string(self)
+          RiCal::PropertyValue::Duration.from_string(self)
         end
 
         # code stolen from ActiveSupport Gem

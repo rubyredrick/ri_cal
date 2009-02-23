@@ -1,17 +1,17 @@
-require File.join(File.dirname(__FILE__), %w[.. spec_helper])
+require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 # RFC 2445 Section 4.3.9 pp 39-40
-describe RiCal::PeriodValue do
+describe RiCal::PropertyValue::Period do
   
   before(:each) do
-    @start_dt = RiCal::DateTimeValue.new(:value => "19970101T180000Z")
-    @end_dt = RiCal::DateTimeValue.new(:value => "19970102T070000Z")
-    @duration = RiCal::DurationValue.from_datetimes(@start_dt.to_datetime, @end_dt.to_datetime)
+    @start_dt = RiCal::PropertyValue::DateTime.new(:value => "19970101T180000Z")
+    @end_dt = RiCal::PropertyValue::DateTime.new(:value => "19970102T070000Z")
+    @duration = RiCal::PropertyValue::Duration.from_datetimes(@start_dt.to_datetime, @end_dt.to_datetime)
   end
   
   describe "with an explicit period" do
     before(:each) do
-      @it = RiCal::PeriodValue.new(:value => "#{@start_dt.value}/#{@end_dt.value}")
+      @it = RiCal::PropertyValue::Period.new(:value => "#{@start_dt.value}/#{@end_dt.value}")
     end
     
     it "should have the correct dtstart value" do
@@ -29,7 +29,7 @@ describe RiCal::PeriodValue do
   
   describe "with a start time and period" do
     before(:each) do
-      @it = RiCal::PeriodValue.new(:value => "#{@start_dt.value}/#{@duration.value}")
+      @it = RiCal::PropertyValue::Period.new(:value => "#{@start_dt.value}/#{@duration.value}")
     end
     
     it "should have the correct dtstart value" do

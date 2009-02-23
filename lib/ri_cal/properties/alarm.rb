@@ -5,7 +5,7 @@ module RiCal
     module Alarm
 
       # return the the ACTION property
-      # which will be an instances of RiCal::TextValue
+      # which will be an instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # This property defines the action to be invoked when an alarm is triggered
@@ -16,14 +16,14 @@ module RiCal
       end
 
       # set the ACTION property
-      # property value should be an instance of RiCal::TextValue
+      # property value should be an instance of RiCal::PropertyValueText
       def action_property=(property_value)
         @action_property = property_value
       end
 
       # set the value of the ACTION property
       def action=(ruby_value)
-        self.action_property= TextValue.convert(ruby_value)
+        self.action_property= RiCal::PropertyValue::Text.convert(ruby_value)
       end
 
       # return the value of the ACTION property
@@ -33,12 +33,12 @@ module RiCal
       end
 
       def action_property_from_string(line) # :nodoc:
-        @action_property = TextValue.new(line)
+        @action_property = RiCal::PropertyValue::Text.new(line)
       end
 
 
       # return the the DESCRIPTION property
-      # which will be an instances of RiCal::TextValue
+      # which will be an instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # This property provides a more complete description of the calendar component, than that provided by the "SUMMARY" property.
@@ -49,14 +49,14 @@ module RiCal
       end
 
       # set the DESCRIPTION property
-      # property value should be an instance of RiCal::TextValue
+      # property value should be an instance of RiCal::PropertyValueText
       def description_property=(property_value)
         @description_property = property_value
       end
 
       # set the value of the DESCRIPTION property
       def description=(ruby_value)
-        self.description_property= TextValue.convert(ruby_value)
+        self.description_property= RiCal::PropertyValue::Text.convert(ruby_value)
       end
 
       # return the value of the DESCRIPTION property
@@ -66,12 +66,12 @@ module RiCal
       end
 
       def description_property_from_string(line) # :nodoc:
-        @description_property = TextValue.new(line)
+        @description_property = RiCal::PropertyValue::Text.new(line)
       end
 
 
       # return the the TRIGGER property
-      # which will be an instances of RiCal::duration_or_utc_date_timeValue
+      # which will be an instances of RiCal::PropertyValueduration_or_utc_date_time
       # 
       # [purpose (from RFC 2445)]
       # This property specifies when an alarm will trigger.
@@ -82,14 +82,14 @@ module RiCal
       end
 
       # set the TRIGGER property
-      # property value should be an instance of RiCal::duration_or_utc_date_timeValue
+      # property value should be an instance of RiCal::PropertyValueduration_or_utc_date_time
       def trigger_property=(property_value)
         @trigger_property = property_value
       end
 
       # set the value of the TRIGGER property
       def trigger=(ruby_value)
-        self.trigger_property= duration_or_utc_date_timeValue.convert(ruby_value)
+        self.trigger_property= RiCal::PropertyValue::duration_or_utc_date_time.convert(ruby_value)
       end
 
       # return the value of the TRIGGER property
@@ -99,12 +99,12 @@ module RiCal
       end
 
       def trigger_property_from_string(line) # :nodoc:
-        @trigger_property = duration_or_utc_date_timeValue.new(line)
+        @trigger_property = RiCal::PropertyValue::duration_or_utc_date_time.new(line)
       end
 
 
       # return the the DURATION property
-      # which will be an instances of RiCal::DurationValue
+      # which will be an instances of RiCal::PropertyValueDuration
       # 
       # [purpose (from RFC 2445)]
       # This property specifies a positive duration of time.
@@ -115,14 +115,14 @@ module RiCal
       end
 
       # set the DURATION property
-      # property value should be an instance of RiCal::DurationValue
+      # property value should be an instance of RiCal::PropertyValueDuration
       def duration_property=(property_value)
         @duration_property = property_value
       end
 
       # set the value of the DURATION property
       def duration=(ruby_value)
-        self.duration_property= DurationValue.convert(ruby_value)
+        self.duration_property= RiCal::PropertyValue::Duration.convert(ruby_value)
       end
 
       # return the value of the DURATION property
@@ -132,12 +132,12 @@ module RiCal
       end
 
       def duration_property_from_string(line) # :nodoc:
-        @duration_property = DurationValue.new(line)
+        @duration_property = RiCal::PropertyValue::Duration.new(line)
       end
 
 
       # return the the REPEAT property
-      # which will be an instances of RiCal::IntegerValue
+      # which will be an instances of RiCal::PropertyValueInteger
       # 
       # [purpose (from RFC 2445)]
       # This property defines the number of times the alarm should be repeated, after the initial trigger.
@@ -148,14 +148,14 @@ module RiCal
       end
 
       # set the REPEAT property
-      # property value should be an instance of RiCal::IntegerValue
+      # property value should be an instance of RiCal::PropertyValueInteger
       def repeat_property=(property_value)
         @repeat_property = property_value
       end
 
       # set the value of the REPEAT property
       def repeat=(ruby_value)
-        self.repeat_property= IntegerValue.convert(ruby_value)
+        self.repeat_property= RiCal::PropertyValue::Integer.convert(ruby_value)
       end
 
       # return the value of the REPEAT property
@@ -165,12 +165,12 @@ module RiCal
       end
 
       def repeat_property_from_string(line) # :nodoc:
-        @repeat_property = IntegerValue.new(line)
+        @repeat_property = RiCal::PropertyValue::Integer.new(line)
       end
 
 
       # return the the SUMMARY property
-      # which will be an instances of RiCal::TextValue
+      # which will be an instances of RiCal::PropertyValueText
       # 
       # [purpose (from RFC 2445)]
       # This property defines a short summary or subject for the calendar component.
@@ -181,14 +181,14 @@ module RiCal
       end
 
       # set the SUMMARY property
-      # property value should be an instance of RiCal::TextValue
+      # property value should be an instance of RiCal::PropertyValueText
       def summary_property=(property_value)
         @summary_property = property_value
       end
 
       # set the value of the SUMMARY property
       def summary=(ruby_value)
-        self.summary_property= TextValue.convert(ruby_value)
+        self.summary_property= RiCal::PropertyValue::Text.convert(ruby_value)
       end
 
       # return the value of the SUMMARY property
@@ -198,12 +198,12 @@ module RiCal
       end
 
       def summary_property_from_string(line) # :nodoc:
-        @summary_property = TextValue.new(line)
+        @summary_property = RiCal::PropertyValue::Text.new(line)
       end
 
 
       # return the the ATTENDEE property
-      # which will be an array of instances of RiCal::CalAddressValue
+      # which will be an array of instances of RiCal::PropertyValueCalAddress
       # 
       # [purpose (from RFC 2445)]
       # The property defines an 'Attendee' within a calendar component.
@@ -214,7 +214,7 @@ module RiCal
       end
 
       # set the the ATTENDEE property
-      # one or more instances of RiCal::CalAddressValue may be passed to this method
+      # one or more instances of RiCal::PropertyValueCalAddress may be passed to this method
       def attendee_property=(*property_values)
         attendee_property= property_values
       end
@@ -222,7 +222,7 @@ module RiCal
       # set the value of the ATTENDEE property
       # one or more instances of CalAddress may be passed to this method
       def attendee=(*ruby_values)
-        @attendee_property = ruby_values.map {|val| CalAddressValue.convert(val)}
+        @attendee_property = ruby_values.map {|val| RiCal::PropertyValue::CalAddress.convert(val)}
       end
 
       # return the value of the ATTENDEE property
@@ -232,11 +232,11 @@ module RiCal
       end
 
       def attendee_property_from_string(line) # :nodoc:
-        attendee_property << CalAddressValue.new(line)
+        attendee_property << RiCal::PropertyValue::CalAddress.new(line)
       end
 
       # return the the ATTACH property
-      # which will be an array of instances of RiCal::UriValue
+      # which will be an array of instances of RiCal::PropertyValueUri
       # 
       # [purpose (from RFC 2445)]
       # The property provides the capability to associate a document object with a calendar component.
@@ -247,7 +247,7 @@ module RiCal
       end
 
       # set the the ATTACH property
-      # one or more instances of RiCal::UriValue may be passed to this method
+      # one or more instances of RiCal::PropertyValueUri may be passed to this method
       def attach_property=(*property_values)
         attach_property= property_values
       end
@@ -255,7 +255,7 @@ module RiCal
       # set the value of the ATTACH property
       # one or more instances of Uri may be passed to this method
       def attach=(*ruby_values)
-        @attach_property = ruby_values.map {|val| UriValue.convert(val)}
+        @attach_property = ruby_values.map {|val| RiCal::PropertyValue::Uri.convert(val)}
       end
 
       # return the value of the ATTACH property
@@ -265,7 +265,7 @@ module RiCal
       end
 
       def attach_property_from_string(line) # :nodoc:
-        attach_property << UriValue.new(line)
+        attach_property << RiCal::PropertyValue::Uri.new(line)
       end
 
       module ClassMethods

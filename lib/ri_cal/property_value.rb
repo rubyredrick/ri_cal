@@ -1,15 +1,14 @@
 module RiCal
-  
   class PropertyValue
 
     attr_accessor :params, :value
     def initialize(separated_line)
       val = separated_line[:value]
-       raise "Invalid property value #{val.inspect}" if val.kind_of?(String) && /^;/.match(val)
+      raise "Invalid property value #{val.inspect}" if val.kind_of?(String) && /^;/.match(val)
       self.params = separated_line[:params] || {}
       self.value = val
     end
-    
+
     def self.date_or_date_time(separated_line)
       match = separated_line[:value].match(/(\d\d\d\d)(\d\d)(\d\d)((T?)((\d\d)(\d\d)(\d\d))(Z?))?/)
       raise Exception.new("Invalid date") unless match
@@ -20,16 +19,20 @@ module RiCal
           raise Exception.new("Invalid time, cannot combine Zulu with timezone reference") if parms[:tzid]
           parms['TZID'] = "UTC"
         end
-        DateTimeValue.new(separated_line.merge(:params => parms))
+        PropertyValue::DateTime.new(separated_line.merge(:params => parms))
       else
-        DateValue.new(separated_line)
+        PropertyValue::Date.new(separated_line)
       end
     end
-    
+
     def self.from_string(string)
       new(:value => string)
     end
 
   end
+end
 
+Dir[File.dirname(__FILE__) + "/property_value/*.rb"].sort.each do |path|
+  filename = File.basename(path)
+  require "lib/ri_cal/property_value/#{filename}"
 end

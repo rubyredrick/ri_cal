@@ -21,8 +21,8 @@ describe RiCal::PropertyValue do
         @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714")
       end
 
-      it "should return a DateValue" do
-        @prop.should be_kind_of(RiCal::DateValue)
+      it "should return a PropertyValue::Date" do
+        @prop.should be_kind_of(RiCal::PropertyValue::Date)
       end
       
       it "should set the correct date" do
@@ -36,8 +36,8 @@ describe RiCal::PropertyValue do
           @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714T123456")
         end
 
-        it "should return a DateTimeValue" do
-          @prop.should be_kind_of(RiCal::DateTimeValue)
+        it "should return a PropertyValue::DateTime" do
+          @prop.should be_kind_of(RiCal::PropertyValue::DateTime)
         end
         
         it "should have the right ruby value" do
@@ -58,8 +58,8 @@ describe RiCal::PropertyValue do
           @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714T123456Z")
         end
 
-        it "should return a DateTimeValue" do
-          @prop.should be_kind_of(RiCal::DateTimeValue)
+        it "should return a PropertyValue::DateTime" do
+          @prop.should be_kind_of(RiCal::PropertyValue::DateTime)
         end
         
         it "should have the right value" do
@@ -81,8 +81,8 @@ describe RiCal::PropertyValue do
           @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714T123456", :params => {'TZID' => 'US-Eastern'})
         end
 
-        it "should return a DateTimeValue" do
-          @prop.should be_kind_of(RiCal::DateTimeValue)
+        it "should return a PropertyValue::DateTime" do
+          @prop.should be_kind_of(RiCal::PropertyValue::DateTime)
         end
         
         it "should have the right value" do

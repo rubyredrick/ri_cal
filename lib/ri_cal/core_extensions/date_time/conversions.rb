@@ -3,7 +3,7 @@ module RiCal
     module DateTime
       module Conversions
         def to_ri_cal_date_time_value
-          RiCal::DateTimeValue.from_time(self)
+          RiCal::PropertyValue::DateTime.from_time(self)
         end
       end
     end

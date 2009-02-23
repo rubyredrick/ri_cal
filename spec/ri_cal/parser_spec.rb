@@ -2,15 +2,15 @@ require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
 describe RiCal::Parser do
   
-  def self.describe_property(entity_name, prop_name, params, value, type = RiCal::TextValue)
+  def self.describe_property(entity_name, prop_name, params, value, type = RiCal::PropertyValue::Text)
     describe_named_property(entity_name, prop_name, prop_name, params, value, false, type)
   end
     
-  def self.describe_multi_property(entity_name, prop_name, params, value, type = RiCal::TextValue)
+  def self.describe_multi_property(entity_name, prop_name, params, value, type = RiCal::PropertyValue::Text)
     describe_named_property(entity_name, prop_name, prop_name, params, value, true, type)
   end
     
-  def self.describe_named_property(entity_name, prop_text, prop_name, params, value, multi, type = RiCal::TextValue)
+  def self.describe_named_property(entity_name, prop_text, prop_name, params, value, multi, type = RiCal::PropertyValue::Text)
     ruby_value_name = prop_name.tr("-", "_").downcase
     ruby_prop_name = "#{prop_text.tr('-', '_').downcase}_property"
     describe "#{prop_name} with value of #{value.inspect}" do
@@ -107,10 +107,10 @@ describe RiCal::Parser do
       end
 
       #RFC 2445 section 4.8.1.1 pp 77
-      describe_multi_property("VEVENT", "ATTACH", {"FMTTYPE" => "application/postscript"}, "FMTTYPE=application/postscript:ftp//xyzCorp.com/put/reports/r-960812.ps", RiCal::UriValue)
+      describe_multi_property("VEVENT", "ATTACH", {"FMTTYPE" => "application/postscript"}, "FMTTYPE=application/postscript:ftp//xyzCorp.com/put/reports/r-960812.ps", RiCal::PropertyValue::Uri)
 
       #RFC 2445 section 4.8.1.2 pp 78
-      describe_multi_property("VEVENT", "CATEGORIES", {"LANGUAGE" => "us-EN"}, %w{APPOINTMENT EDUCATION}, RiCal::ArrayValue)
+      describe_multi_property("VEVENT", "CATEGORIES", {"LANGUAGE" => "us-EN"}, %w{APPOINTMENT EDUCATION}, RiCal::PropertyValue::Array)
 
       #RFC 2445 section 4.8.1.3 pp 79
       describe_named_property("VEVENT", "CLASS", "security_class", {"X-FOO" => "BAR"}, "PUBLIC", false)
@@ -122,7 +122,7 @@ describe RiCal::Parser do
       describe_property("VEVENT", "DESCRIPTION", {"X-FOO" => "BAR"}, "Event description")
       
       #RFC 2445 section 4.8.1.6 pp 82
-      describe_property("VEVENT", "GEO", {"X-FOO" => "BAR"}, "37.386013;-122.082932", RiCal::GeoValue)
+      describe_property("VEVENT", "GEO", {"X-FOO" => "BAR"}, "37.386013;-122.082932", RiCal::PropertyValue::Geo)
       
       #RFC 2445 section 4.8.1.7 pp 84
       describe_property("VEVENT", "LOCATION", {"ALTREP" => "\"http://xyzcorp.com/conf-rooms/f123.vcf\""}, "Conference Room - F123, Bldg. 002")
@@ -130,10 +130,10 @@ describe RiCal::Parser do
       #RFC 2445 section 4.8.1.8 PERCENT-COMPLETE does not apply to Events
       
       #RFC 2445 section 4.8.1.9 pp 84
-      describe_property("VEVENT", "PRIORITY", {"X-FOO" => "BAR"}, 1, RiCal::IntegerValue)
+      describe_property("VEVENT", "PRIORITY", {"X-FOO" => "BAR"}, 1, RiCal::PropertyValue::Integer)
 
       #RFC 2445 section 4.8.1.10 pp 87
-      describe_multi_property("VEVENT", "RESOURCES", {"X-FOO" => "BAR"}, %w{Easel Projector VCR}, RiCal::ArrayValue)
+      describe_multi_property("VEVENT", "RESOURCES", {"X-FOO" => "BAR"}, %w{Easel Projector VCR}, RiCal::PropertyValue::Array)
 
       #RFC 2445 section 4.8.1.11 pp 88
       describe_property("VEVENT", "STATUS", {"X-FOO" => "BAR"}, "CONFIRMED")
@@ -144,17 +144,17 @@ describe RiCal::Parser do
       #RFC 2445 section 4.8.2.1 COMPLETED does not apply to Events
       
       #RFC 2445 section 4.8.2.2 DTEND p91
-      describe_property("VEVENT", "DTEND", {"X-FOO" => "BAR"}, "19970714", RiCal::DateValue)
-      describe_property("VEVENT", "DTEND", {"X-FOO" => "BAR"}, "19970714T235959Z", RiCal::DateTimeValue)
+      describe_property("VEVENT", "DTEND", {"X-FOO" => "BAR"}, "19970714", RiCal::PropertyValue::Date)
+      describe_property("VEVENT", "DTEND", {"X-FOO" => "BAR"}, "19970714T235959Z", RiCal::PropertyValue::DateTime)
 
       #RFC 2445 section 4.8.2.3 DUE does not apply to Events
       
       #RFC 2445 section 4.8.2.4 DTSTART p93
-      describe_property("VEVENT", "DTSTART", {"X-FOO" => "BAR"}, "19970714", RiCal::DateValue)
-      describe_property("VEVENT", "DTSTART", {"X-FOO" => "BAR"}, "19970714T235959Z", RiCal::DateTimeValue)
+      describe_property("VEVENT", "DTSTART", {"X-FOO" => "BAR"}, "19970714", RiCal::PropertyValue::Date)
+      describe_property("VEVENT", "DTSTART", {"X-FOO" => "BAR"}, "19970714T235959Z", RiCal::PropertyValue::DateTime)
 
       #RFC 2445 section 4.8.2.5 DURATION p94
-      describe_property("VEVENT", "DURATION", {"X-FOO" => "BAR"}, "19970714", RiCal::DurationValue)
+      describe_property("VEVENT", "DURATION", {"X-FOO" => "BAR"}, "19970714", RiCal::PropertyValue::Duration)
 
       #RFC 2445 section 4.8.2.6 FREEBUSY does not apply to Events
       
@@ -164,53 +164,53 @@ describe RiCal::Parser do
       #      and that this property can be specified at most once
       
       #RFC 2445 section 4.8.4.1 ATTENDEE p102
-      describe_multi_property("VEVENT", "ATTENDEE", {"X-FOO" => "BAR"}, "MAILTO:jane_doe@host.com", RiCal::CalAddressValue)
+      describe_multi_property("VEVENT", "ATTENDEE", {"X-FOO" => "BAR"}, "MAILTO:jane_doe@host.com", RiCal::PropertyValue::CalAddress)
       #TO-DO need to handle param values
       
       #RFC 2445 section 4.8.4.2 CONTACT p104
       describe_multi_property("VEVENT", "CONTACT", {"X-FOO" => "BAR"}, "Contact info")
       
       #RFC 2445 section 4.8.4.3 ORGANIZER p106
-      describe_property("VEVENT", "ORGANIZER", {"X-FOO" => "BAR", "CN" => "John Smith"}, "MAILTO:jsmith@host1.com", RiCal::CalAddressValue)
+      describe_property("VEVENT", "ORGANIZER", {"X-FOO" => "BAR", "CN" => "John Smith"}, "MAILTO:jsmith@host1.com", RiCal::PropertyValue::CalAddress)
       #TO-DO need to handle param values     
       
       #RFC 2445 section 4.8.4.4 RECURRENCE-ID p107
-      describe_property("VEVENT", "RECURRENCE-ID", {"X-FOO" => "BAR", "VALUE" => "DATE"}, "19970714", RiCal::DateValue)
-      describe_property("VEVENT", "RECURRENCE-ID", {"X-FOO" => "BAR", "VALUE" => "DATE-TIME"}, "19970714T235959Z", RiCal::DateTimeValue)
+      describe_property("VEVENT", "RECURRENCE-ID", {"X-FOO" => "BAR", "VALUE" => "DATE"}, "19970714", RiCal::PropertyValue::Date)
+      describe_property("VEVENT", "RECURRENCE-ID", {"X-FOO" => "BAR", "VALUE" => "DATE-TIME"}, "19970714T235959Z", RiCal::PropertyValue::DateTime)
       #TO-DO need to handle parameters
       
       #RFC 2445 section 4.8.4.5 RELATED-TO p109
       describe_multi_property("VEVENT", "RELATED-TO", {"X-FOO" => "BAR"}, "<jsmith.part7.19960817T083000.xyzMail@host3.com")
       
       #RFC 2445 section 4.8.4.6 URL p110
-      describe_property("VEVENT", "URL", {"X-FOO" => "BAR"}, "http://abc.com/pub/calendars/jsmith/mytime.ics", RiCal::UriValue)
+      describe_property("VEVENT", "URL", {"X-FOO" => "BAR"}, "http://abc.com/pub/calendars/jsmith/mytime.ics", RiCal::PropertyValue::Uri)
       
       #RFC 2445 section 4.8.4.7 UID p111
       describe_property("VEVENT", "UID", {"X-FOO" => "BAR"}, "19960401T080045Z-4000F192713-0052@host1.com")
             
       #RFC 2445 section 4.8.5.1 EXDATE p112
-      describe_multi_property("VEVENT", "EXDATE", {"X-FOO" => "BAR"}, %w{19960402T010000Z 19960403T010000Z 19960404T010000Z}, RiCal::OccurrenceListValue)
+      describe_multi_property("VEVENT", "EXDATE", {"X-FOO" => "BAR"}, %w{19960402T010000Z 19960403T010000Z 19960404T010000Z}, RiCal::PropertyValue::OccurrenceList)
 
       #RFC 2445 section 4.8.5.2 EXRULE p114
-      describe_multi_property("VEVENT", "EXRULE", {"X-FOO" => "BAR"}, "FREQ=DAILY;COUNT=10", RiCal::RecurrenceRuleValue)
+      describe_multi_property("VEVENT", "EXRULE", {"X-FOO" => "BAR"}, "FREQ=DAILY;COUNT=10", RiCal::PropertyValue::RecurrenceRule)
 
       #RFC 2445 section 4.8.5.3 RDATE p115
-      describe_multi_property("VEVENT", "RDATE", {"X-FOO" => "BAR"}, %w{19960402T010000Z 19960403T010000Z 19960404T010000Z}, RiCal::OccurrenceListValue)
+      describe_multi_property("VEVENT", "RDATE", {"X-FOO" => "BAR"}, %w{19960402T010000Z 19960403T010000Z 19960404T010000Z}, RiCal::PropertyValue::OccurrenceList)
 
       #RFC 2445 section 4.8.5.2 RRULE p117
-      describe_multi_property("VEVENT", "RRULE", {"X-FOO" => "BAR"}, "FREQ=DAILY;COUNT=10", RiCal::RecurrenceRuleValue)
+      describe_multi_property("VEVENT", "RRULE", {"X-FOO" => "BAR"}, "FREQ=DAILY;COUNT=10", RiCal::PropertyValue::RecurrenceRule)
 
       #RFC 2445 section 4.8.7.1 CREATED p129
-      describe_property("VEVENT", "CREATED", {"X-FOO" => "BAR"}, "19960329T133000Z", RiCal::DateTimeValue)
+      describe_property("VEVENT", "CREATED", {"X-FOO" => "BAR"}, "19960329T133000Z", RiCal::PropertyValue::DateTime)
  
       #RFC 2445 section 4.8.7.2 DTSTAMP p129
-      describe_property("VEVENT", "DTSTAMP", {"X-FOO" => "BAR"}, "19971210T080000Z", RiCal::DateTimeValue)
+      describe_property("VEVENT", "DTSTAMP", {"X-FOO" => "BAR"}, "19971210T080000Z", RiCal::PropertyValue::DateTime)
 
       #RFC 2445 section 4.8.7.3 LAST-MODIFIED p131
-      describe_property("VEVENT", "LAST-MODIFIED", {"X-FOO" => "BAR"}, "19960817T133000Z", RiCal::DateTimeValue)
+      describe_property("VEVENT", "LAST-MODIFIED", {"X-FOO" => "BAR"}, "19960817T133000Z", RiCal::PropertyValue::DateTime)
 
       #RFC 2445 section 4.8.7.3 SEQUENCE p131
-      describe_property("VEVENT", "SEQUENCE", {"X-FOO" => "BAR"}, 2, RiCal::IntegerValue)
+      describe_property("VEVENT", "SEQUENCE", {"X-FOO" => "BAR"}, 2, RiCal::PropertyValue::Integer)
 
       #RFC 2445 section 4.8.8.2 REQUEST-STATUS p131
       describe_multi_property("VEVENT", "REQUEST-STATUS", {"X-FOO" => "BAR"}, "2.0;Success")
@@ -253,8 +253,8 @@ describe RiCal::Parser do
           @x_prop = @x_props["X-PROP"]
         end 
 
-        it "should be a TextValue" do
-          @x_prop.should be_kind_of(RiCal::TextValue)
+        it "should be a PropertyValue::Text" do
+          @x_prop.should be_kind_of(RiCal::PropertyValue::Text)
         end
 
         it "should have the right value" do

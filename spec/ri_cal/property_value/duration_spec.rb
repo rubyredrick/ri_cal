@@ -1,7 +1,7 @@
-require File.join(File.dirname(__FILE__), %w[.. spec_helper])
+require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 require 'date'
 
-describe RiCal::DurationValue do
+describe RiCal::PropertyValue::Duration do
   
   describe "with various values" do
     def value_expectations(dv, values = {})
@@ -14,27 +14,27 @@ describe RiCal::DurationValue do
     end
     
     it ".+P7W should have represent 7 weeks" do
-      value_expectations(RiCal::DurationValue.new(:value => "+P7W"), :weeks => 7)
+      value_expectations(RiCal::PropertyValue::Duration.new(:value => "+P7W"), :weeks => 7)
     end
     
     it ".P15DT5H0M20S should have represent 15 days, 5 hours and 20 seconds" do
-      value_expectations(RiCal::DurationValue.new(:value => "P15DT5H0M20S"), :days => 15, :hours => 5, :seconds => 20)
+      value_expectations(RiCal::PropertyValue::Duration.new(:value => "P15DT5H0M20S"), :days => 15, :hours => 5, :seconds => 20)
     end
     
     it ".+P2D should have represent 2 days" do
-      value_expectations(RiCal::DurationValue.new(:value => "+P2D"), :days => 2)
+      value_expectations(RiCal::PropertyValue::Duration.new(:value => "+P2D"), :days => 2)
     end
     
     it ".+PT3H should have represent 3 hours" do
-      value_expectations(RiCal::DurationValue.new(:value => "+PT3H"), :hours => 3)
+      value_expectations(RiCal::PropertyValue::Duration.new(:value => "+PT3H"), :hours => 3)
     end
     
     it ".+PT15M should have represent 15 minutes" do
-      value_expectations(RiCal::DurationValue.new(:value => "+PT15M"), :minutes => 15)
+      value_expectations(RiCal::PropertyValue::Duration.new(:value => "+PT15M"), :minutes => 15)
     end
     
     it ".+PT45S should have represent 45 seconds" do
-      value_expectations(RiCal::DurationValue.new(:value => "+PT45S"), :seconds => 45)
+      value_expectations(RiCal::PropertyValue::Duration.new(:value => "+PT45S"), :seconds => 45)
     end
   end
   
@@ -42,14 +42,14 @@ describe RiCal::DurationValue do
     
     describe "starting at 11:00 pm, and ending at 1:01:02 am the next day" do
       before(:each) do
-        @it = RiCal::DurationValue.from_datetimes(
+        @it = RiCal::PropertyValue::Duration.from_datetimes(
                       DateTime.parse("9/1/2008 23:00"), 
                       DateTime.parse("9/2/2008 1:01:02")
                   ) 
       end
 
       it "should produce a duration" do
-        @it.class.should == RiCal::DurationValue
+        @it.class.should == RiCal::PropertyValue::Duration
       end
       
       it "should have a value of '+P2H1M2S'" do
