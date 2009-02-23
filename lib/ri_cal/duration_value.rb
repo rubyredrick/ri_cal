@@ -39,17 +39,18 @@ module RiCal
       if match
         @sign = match[1] == '-' ? -1 : 1
         match[2].scan(/(\d+)([DHMSW])/) do |digits, unit|
+          number = digits.to_i
           case unit
           when 'D'
-            @days = digits.to_i
+            @days = number
           when 'H'
-            @hours = digits.to_i
+            @hours = number
           when 'M'
-            @minutes = digits.to_i
+            @minutes = number
           when 'S'
-            @seconds = digits.to_i
+            @seconds = number
           when 'W'
-            @weeks = digits.to_i
+            @weeks = number
           end
         end
       end

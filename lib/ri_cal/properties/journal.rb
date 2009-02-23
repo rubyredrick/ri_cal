@@ -29,7 +29,7 @@ module RiCal
       # return the value of the CLASS property
       # which will be an instance of String
       def security_class
-        value_of_property(class_property)
+        class_property ? class_property.value : property
       end
 
       def class_property_from_string(line) # :nodoc:
@@ -62,7 +62,7 @@ module RiCal
       # return the value of the CREATED property
       # which will be an instance of DateTime
       def created
-        value_of_property(created_property)
+        created_property ? created_property.value : property
       end
 
       def created_property_from_string(line) # :nodoc:
@@ -95,7 +95,7 @@ module RiCal
       # return the value of the DESCRIPTION property
       # which will be an instance of String
       def description
-        value_of_property(description_property)
+        description_property ? description_property.value : property
       end
 
       def description_property_from_string(line) # :nodoc:
@@ -128,7 +128,7 @@ module RiCal
       # return the value of the DTSTART property
       # which will be an instance of either DateTime or Date
       def dtstart
-        value_of_property(dtstart_property)
+        dtstart_property ? dtstart_property.value : property
       end
 
       def dtstart_property_from_string(line) # :nodoc:
@@ -161,7 +161,7 @@ module RiCal
       # return the value of the DTSTAMP property
       # which will be an instance of DateTime
       def dtstamp
-        value_of_property(dtstamp_property)
+        dtstamp_property ? dtstamp_property.value : property
       end
 
       def dtstamp_property_from_string(line) # :nodoc:
@@ -194,7 +194,7 @@ module RiCal
       # return the value of the LAST-MODIFIED property
       # which will be an instance of DateTime
       def last_modified
-        value_of_property(last_modified_property)
+        last_modified_property ? last_modified_property.value : property
       end
 
       def last_modified_property_from_string(line) # :nodoc:
@@ -227,7 +227,7 @@ module RiCal
       # return the value of the ORGANIZER property
       # which will be an instance of CalAddress
       def organizer
-        value_of_property(organizer_property)
+        organizer_property ? organizer_property.value : property
       end
 
       def organizer_property_from_string(line) # :nodoc:
@@ -260,7 +260,7 @@ module RiCal
       # return the value of the RECURRENCE-ID property
       # which will be an instance of either DateTime or Date
       def recurrence_id
-        value_of_property(recurrence_id_property)
+        recurrence_id_property ? recurrence_id_property.value : property
       end
 
       def recurrence_id_property_from_string(line) # :nodoc:
@@ -293,7 +293,7 @@ module RiCal
       # return the value of the SEQUENCE property
       # which will be an instance of Integer
       def sequence
-        value_of_property(sequence_property)
+        sequence_property ? sequence_property.value : property
       end
 
       def sequence_property_from_string(line) # :nodoc:
@@ -326,7 +326,7 @@ module RiCal
       # return the value of the STATUS property
       # which will be an instance of String
       def status
-        value_of_property(status_property)
+        status_property ? status_property.value : property
       end
 
       def status_property_from_string(line) # :nodoc:
@@ -359,7 +359,7 @@ module RiCal
       # return the value of the SUMMARY property
       # which will be an instance of String
       def summary
-        value_of_property(summary_property)
+        summary_property ? summary_property.value : property
       end
 
       def summary_property_from_string(line) # :nodoc:
@@ -392,7 +392,7 @@ module RiCal
       # return the value of the UID property
       # which will be an instance of String
       def uid
-        value_of_property(uid_property)
+        uid_property ? uid_property.value : property
       end
 
       def uid_property_from_string(line) # :nodoc:
@@ -425,7 +425,7 @@ module RiCal
       # return the value of the URL property
       # which will be an instance of Uri
       def url
-        value_of_property(url_property)
+        url_property ? url_property.value : property
       end
 
       def url_property_from_string(line) # :nodoc:
@@ -459,7 +459,7 @@ module RiCal
       # return the value of the ATTACH property
       # which will be an array of instances of Uri
       def attach
-        attach_property.map {|prop| value_of_property(prop)}
+        attach_property.map {|prop| prop ? prop.value : prop}
       end
 
       def attach_property_from_string(line) # :nodoc:
@@ -492,7 +492,7 @@ module RiCal
       # return the value of the ATTENDEE property
       # which will be an array of instances of CalAddress
       def attendee
-        attendee_property.map {|prop| value_of_property(prop)}
+        attendee_property.map {|prop| prop ? prop.value : prop}
       end
 
       def attendee_property_from_string(line) # :nodoc:
@@ -525,7 +525,7 @@ module RiCal
       # return the value of the CATEGORIES property
       # which will be an array of instances of Array
       def categories
-        categories_property.map {|prop| value_of_property(prop)}
+        categories_property.map {|prop| prop ? prop.value : prop}
       end
 
       def categories_property_from_string(line) # :nodoc:
@@ -558,7 +558,7 @@ module RiCal
       # return the value of the COMMENT property
       # which will be an array of instances of String
       def comment
-        comment_property.map {|prop| value_of_property(prop)}
+        comment_property.map {|prop| prop ? prop.value : prop}
       end
 
       def comment_property_from_string(line) # :nodoc:
@@ -591,7 +591,7 @@ module RiCal
       # return the value of the CONTACT property
       # which will be an array of instances of String
       def contact
-        contact_property.map {|prop| value_of_property(prop)}
+        contact_property.map {|prop| prop ? prop.value : prop}
       end
 
       def contact_property_from_string(line) # :nodoc:
@@ -624,7 +624,7 @@ module RiCal
       # return the value of the EXDATE property
       # which will be an array of instances of OccurrenceList
       def exdate
-        exdate_property.map {|prop| value_of_property(prop)}
+        exdate_property.map {|prop| prop ? prop.value : prop}
       end
 
       def exdate_property_from_string(line) # :nodoc:
@@ -657,7 +657,7 @@ module RiCal
       # return the value of the EXRULE property
       # which will be an array of instances of RecurrenceRule
       def exrule
-        exrule_property.map {|prop| value_of_property(prop)}
+        exrule_property.map {|prop| prop ? prop.value : prop}
       end
 
       def exrule_property_from_string(line) # :nodoc:
@@ -690,7 +690,7 @@ module RiCal
       # return the value of the RELATED-TO property
       # which will be an array of instances of String
       def related_to
-        related_to_property.map {|prop| value_of_property(prop)}
+        related_to_property.map {|prop| prop ? prop.value : prop}
       end
 
       def related_to_property_from_string(line) # :nodoc:
@@ -723,7 +723,7 @@ module RiCal
       # return the value of the RDATE property
       # which will be an array of instances of OccurrenceList
       def rdate
-        rdate_property.map {|prop| value_of_property(prop)}
+        rdate_property.map {|prop| prop ? prop.value : prop}
       end
 
       def rdate_property_from_string(line) # :nodoc:
@@ -756,7 +756,7 @@ module RiCal
       # return the value of the RRULE property
       # which will be an array of instances of RecurrenceRule
       def rrule
-        rrule_property.map {|prop| value_of_property(prop)}
+        rrule_property.map {|prop| prop ? prop.value : prop}
       end
 
       def rrule_property_from_string(line) # :nodoc:
@@ -786,7 +786,7 @@ module RiCal
       # return the value of the REQUEST-STATUS property
       # which will be an array of instances of String
       def request_status
-        request_status_property.map {|prop| value_of_property(prop)}
+        request_status_property.map {|prop| prop ? prop.value : prop}
       end
 
       def request_status_property_from_string(line) # :nodoc:

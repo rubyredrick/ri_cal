@@ -32,16 +32,15 @@ module RiCal
     
     def to_ri_cal_date_value
       self
-    end    
-    
-    def duration_until(end_time)
-      #TODO: this should calculate a duration
-      #  if end_time is nil => nil
-      #  otherwise convert end_time to a DateValue and compute the difference
-      end_time
     end
     
-    
+    # TODO: consider if this should be a period rather than a hash
+    def occurrence_hash(default_duration)
+      date_time = self.to_ri_cal_date_time_value
+      {:start => date_time, 
+       :end => date_time.advance(:hours => 24, :seconds => -1)}
+    end
+        
   end
 
 end

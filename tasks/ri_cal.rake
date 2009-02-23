@@ -111,7 +111,6 @@ class VEntityUpdater
   end
   
   def named_property(name, options)
-    puts options.inspect if name == "calscale"
     ruby_name = options['ruby_name']
     multi = options['multi']
     type = options['type']
@@ -171,7 +170,7 @@ class VEntityUpdater
       comment("return the value of the #{name.upcase} property")
       comment("which will be an array of instances of #{describe_type(type)}")
       indent("def #{ruby_name.downcase}")
-      indent("  #{property}.map {|prop| value_of_property(prop)}")
+      indent("  #{property}.map {|prop| prop ? prop.value : prop}")
       indent("end")
       blank_line
     no_doc("def #{property}_from_string(line)")
@@ -209,7 +208,7 @@ class VEntityUpdater
       comment("return the value of the #{name.upcase} property")
       comment("which will be an instance of #{describe_type(type)}")
       indent("def #{ruby_name.downcase}")
-      indent("  value_of_property(#{property})")
+      indent("  #{property} ? #{property}.value : property")
       indent("end")
       blank_line
       no_doc("def #{property}_from_string(line)")
@@ -279,7 +278,6 @@ class VEntityUpdater
 end
 
 def updateTask srcGlob, taskSymbol
-  puts "updateTask #{srcGlob.inspect}, #{taskSymbol.inspect}"
   targetDir = File.join(File.dirname(__FILE__), '..', 'lib', 'ri_cal', 'properties')
   defsFile = File.join(File.dirname(__FILE__), '..', 'component_attributes', 'component_property_defs.yml')
   FileList[srcGlob].each do |f|
@@ -288,7 +286,6 @@ def updateTask srcGlob, taskSymbol
       file target => [f, defsFile, __FILE__] do |t|
         VEntityUpdater.new(target, defsFile).update
       end
-      puts "task #{taskSymbol.inspect} => #{target.inspect}"
       task taskSymbol => target
     end
   end

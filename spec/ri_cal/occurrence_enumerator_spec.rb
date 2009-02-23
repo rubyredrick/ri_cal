@@ -44,7 +44,7 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
       end
       
       it "should return an instance of RiCal::OccurrenceEnumerator::OccurrenceMerger" do
-        @merger.for(@component, [@rrule1, @rrule2]).should be_kind_of RiCal::OccurrenceEnumerator::OccurrenceMerger
+        @merger.for(@component, [@rrule1, @rrule2]).should be_kind_of(RiCal::OccurrenceEnumerator::OccurrenceMerger)
       end
       
       it "should pass the component to the enumerator instantiation" do

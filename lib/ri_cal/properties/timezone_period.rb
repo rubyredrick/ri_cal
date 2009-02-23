@@ -29,7 +29,7 @@ module RiCal
       # return the value of the DTSTART property
       # which will be an instance of either DateTime or Date
       def dtstart
-        value_of_property(dtstart_property)
+        dtstart_property ? dtstart_property.value : property
       end
 
       def dtstart_property_from_string(line) # :nodoc:
@@ -62,7 +62,7 @@ module RiCal
       # return the value of the TZOFFSETTO property
       # which will be an instance of UtcOffset
       def tzoffsetto
-        value_of_property(tzoffsetto_property)
+        tzoffsetto_property ? tzoffsetto_property.value : property
       end
 
       def tzoffsetto_property_from_string(line) # :nodoc:
@@ -95,7 +95,7 @@ module RiCal
       # return the value of the TZOFFSETFROM property
       # which will be an instance of UtcOffset
       def tzoffsetfrom
-        value_of_property(tzoffsetfrom_property)
+        tzoffsetfrom_property ? tzoffsetfrom_property.value : property
       end
 
       def tzoffsetfrom_property_from_string(line) # :nodoc:
@@ -129,7 +129,7 @@ module RiCal
       # return the value of the COMMENT property
       # which will be an array of instances of String
       def comment
-        comment_property.map {|prop| value_of_property(prop)}
+        comment_property.map {|prop| prop ? prop.value : prop}
       end
 
       def comment_property_from_string(line) # :nodoc:
@@ -162,7 +162,7 @@ module RiCal
       # return the value of the RDATE property
       # which will be an array of instances of OccurrenceList
       def rdate
-        rdate_property.map {|prop| value_of_property(prop)}
+        rdate_property.map {|prop| prop ? prop.value : prop}
       end
 
       def rdate_property_from_string(line) # :nodoc:
@@ -195,7 +195,7 @@ module RiCal
       # return the value of the RRULE property
       # which will be an array of instances of RecurrenceRule
       def rrule
-        rrule_property.map {|prop| value_of_property(prop)}
+        rrule_property.map {|prop| prop ? prop.value : prop}
       end
 
       def rrule_property_from_string(line) # :nodoc:
@@ -228,7 +228,7 @@ module RiCal
       # return the value of the TZNAME property
       # which will be an array of instances of String
       def tzname
-        tzname_property.map {|prop| value_of_property(prop)}
+        tzname_property.map {|prop| prop ? prop.value : prop}
       end
 
       def tzname_property_from_string(line) # :nodoc:

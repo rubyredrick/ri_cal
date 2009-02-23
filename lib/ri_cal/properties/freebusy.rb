@@ -29,7 +29,7 @@ module RiCal
       # return the value of the CONTACT property
       # which will be an instance of String
       def contact
-        value_of_property(contact_property)
+        contact_property ? contact_property.value : property
       end
 
       def contact_property_from_string(line) # :nodoc:
@@ -62,7 +62,7 @@ module RiCal
       # return the value of the DTSTART property
       # which will be an instance of either DateTime or Date
       def dtstart
-        value_of_property(dtstart_property)
+        dtstart_property ? dtstart_property.value : property
       end
 
       def dtstart_property_from_string(line) # :nodoc:
@@ -95,7 +95,7 @@ module RiCal
       # return the value of the DTEND property
       # which will be an instance of either DateTime or Date
       def dtend
-        value_of_property(dtend_property)
+        dtend_property ? dtend_property.value : property
       end
 
       def dtend_property_from_string(line) # :nodoc:
@@ -128,7 +128,7 @@ module RiCal
       # return the value of the DURATION property
       # which will be an instance of Duration
       def duration
-        value_of_property(duration_property)
+        duration_property ? duration_property.value : property
       end
 
       def duration_property_from_string(line) # :nodoc:
@@ -161,7 +161,7 @@ module RiCal
       # return the value of the DTSTAMP property
       # which will be an instance of DateTime
       def dtstamp
-        value_of_property(dtstamp_property)
+        dtstamp_property ? dtstamp_property.value : property
       end
 
       def dtstamp_property_from_string(line) # :nodoc:
@@ -194,7 +194,7 @@ module RiCal
       # return the value of the ORGANIZER property
       # which will be an instance of CalAddress
       def organizer
-        value_of_property(organizer_property)
+        organizer_property ? organizer_property.value : property
       end
 
       def organizer_property_from_string(line) # :nodoc:
@@ -227,7 +227,7 @@ module RiCal
       # return the value of the UID property
       # which will be an instance of String
       def uid
-        value_of_property(uid_property)
+        uid_property ? uid_property.value : property
       end
 
       def uid_property_from_string(line) # :nodoc:
@@ -260,7 +260,7 @@ module RiCal
       # return the value of the URL property
       # which will be an instance of Uri
       def url
-        value_of_property(url_property)
+        url_property ? url_property.value : property
       end
 
       def url_property_from_string(line) # :nodoc:
@@ -294,7 +294,7 @@ module RiCal
       # return the value of the ATTENDEE property
       # which will be an array of instances of CalAddress
       def attendee
-        attendee_property.map {|prop| value_of_property(prop)}
+        attendee_property.map {|prop| prop ? prop.value : prop}
       end
 
       def attendee_property_from_string(line) # :nodoc:
@@ -327,7 +327,7 @@ module RiCal
       # return the value of the COMMENT property
       # which will be an array of instances of String
       def comment
-        comment_property.map {|prop| value_of_property(prop)}
+        comment_property.map {|prop| prop ? prop.value : prop}
       end
 
       def comment_property_from_string(line) # :nodoc:
@@ -360,7 +360,7 @@ module RiCal
       # return the value of the FREEBUSY property
       # which will be an array of instances of Period
       def freebusy
-        freebusy_property.map {|prop| value_of_property(prop)}
+        freebusy_property.map {|prop| prop ? prop.value : prop}
       end
 
       def freebusy_property_from_string(line) # :nodoc:
@@ -390,7 +390,7 @@ module RiCal
       # return the value of the REQUEST-STATUS property
       # which will be an array of instances of String
       def request_status
-        request_status_property.map {|prop| value_of_property(prop)}
+        request_status_property.map {|prop| prop ? prop.value : prop}
       end
 
       def request_status_property_from_string(line) # :nodoc:

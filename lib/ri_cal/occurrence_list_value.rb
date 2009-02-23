@@ -12,11 +12,14 @@ module RiCal
         @index = 0
       end
 
-      def result_hash(date_time_value)
-        {:start => date_time_value, :end => nil}
-      end
-
       def next_occurrence
+        if @index < occurrence_list.length
+          result = occurrence_list[@index].occurrence_hash(default_duration)
+          @index += 1
+          result
+        else
+          nil
+        end
       end
     end
 

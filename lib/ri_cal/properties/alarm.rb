@@ -29,7 +29,7 @@ module RiCal
       # return the value of the ACTION property
       # which will be an instance of String
       def action
-        value_of_property(action_property)
+        action_property ? action_property.value : property
       end
 
       def action_property_from_string(line) # :nodoc:
@@ -62,7 +62,7 @@ module RiCal
       # return the value of the DESCRIPTION property
       # which will be an instance of String
       def description
-        value_of_property(description_property)
+        description_property ? description_property.value : property
       end
 
       def description_property_from_string(line) # :nodoc:
@@ -95,7 +95,7 @@ module RiCal
       # return the value of the TRIGGER property
       # which will be an instance of duration_or_utc_date_time
       def trigger
-        value_of_property(trigger_property)
+        trigger_property ? trigger_property.value : property
       end
 
       def trigger_property_from_string(line) # :nodoc:
@@ -128,7 +128,7 @@ module RiCal
       # return the value of the DURATION property
       # which will be an instance of Duration
       def duration
-        value_of_property(duration_property)
+        duration_property ? duration_property.value : property
       end
 
       def duration_property_from_string(line) # :nodoc:
@@ -161,7 +161,7 @@ module RiCal
       # return the value of the REPEAT property
       # which will be an instance of Integer
       def repeat
-        value_of_property(repeat_property)
+        repeat_property ? repeat_property.value : property
       end
 
       def repeat_property_from_string(line) # :nodoc:
@@ -194,7 +194,7 @@ module RiCal
       # return the value of the SUMMARY property
       # which will be an instance of String
       def summary
-        value_of_property(summary_property)
+        summary_property ? summary_property.value : property
       end
 
       def summary_property_from_string(line) # :nodoc:
@@ -228,7 +228,7 @@ module RiCal
       # return the value of the ATTENDEE property
       # which will be an array of instances of CalAddress
       def attendee
-        attendee_property.map {|prop| value_of_property(prop)}
+        attendee_property.map {|prop| prop ? prop.value : prop}
       end
 
       def attendee_property_from_string(line) # :nodoc:
@@ -261,7 +261,7 @@ module RiCal
       # return the value of the ATTACH property
       # which will be an array of instances of Uri
       def attach
-        attach_property.map {|prop| value_of_property(prop)}
+        attach_property.map {|prop| prop ? prop.value : prop}
       end
 
       def attach_property_from_string(line) # :nodoc:

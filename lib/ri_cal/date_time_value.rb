@@ -173,10 +173,15 @@ module RiCal
     
     def ==(other)
       if self.class === other
-        value == other.value && params == other.params
+        self.value == other.value && self.params == other.params
       else
-        debugger
+        super
       end
+    end
+    
+    # TODO: consider if this should be a period rather than a hash    
+    def occurrence_hash(default_duration)
+      {:start => self, :end => (default_duration ? self + default_duration : nil)}
     end
     
     def method_missing(selector, *args)

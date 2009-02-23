@@ -18,7 +18,7 @@ module RiCal
       # return the value of the CALSCALE property
       # which will be an instance of String
       def calscale
-        value_of_property(calscale_property)
+        calscale_property ? calscale_property.value : property
       end
 
       def calscale_property_from_string(line) # :nodoc:
@@ -51,7 +51,7 @@ module RiCal
       # return the value of the METHOD property
       # which will be an instance of String
       def icalendar_method
-        value_of_property(method_property)
+        method_property ? method_property.value : property
       end
 
       def method_property_from_string(line) # :nodoc:
@@ -84,7 +84,7 @@ module RiCal
       # return the value of the PRODID property
       # which will be an instance of String
       def prodid
-        value_of_property(prodid_property)
+        prodid_property ? prodid_property.value : property
       end
 
       def prodid_property_from_string(line) # :nodoc:
@@ -106,7 +106,7 @@ module RiCal
       # return the value of the VERSION property
       # which will be an instance of String
       def version
-        value_of_property(version_property)
+        version_property ? version_property.value : property
       end
 
       def version_property_from_string(line) # :nodoc:

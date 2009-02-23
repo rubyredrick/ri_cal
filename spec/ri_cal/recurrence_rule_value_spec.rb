@@ -316,7 +316,7 @@ describe RiCal::RecurrenceRuleValue do
 
     it "should handle multiple parts" do
       @it = RiCal::RecurrenceRuleValue.new(:freq => "daily", :count => 10, :interval => 2).to_ical
-      @it.should match /^FREQ=DAILY;/
+      @it.should match(/^FREQ=DAILY;/)
       parts = @it.split(';')
       parts.should include("COUNT=10")
       parts.should include("INTERVAL=2")
@@ -1738,7 +1738,7 @@ describe RiCal::RecurrenceRuleValue::RecurringDay do
 
     it "should not include other Mondays" do
       [10, 17, 24].each do |day|
-        @it.should_not include Date.parse("Nov #{day} 2008")
+        @it.should_not include(Date.parse("Nov #{day} 2008"))
       end
     end
   end
@@ -1764,16 +1764,16 @@ describe RiCal::RecurrenceRuleValue::RecurringDay do
 
     it "should not include other Mondays" do
       [1, 8, 15, 22].each do |day|
-        @it.should_not include Date.parse("Dec #{day} 2008")
+        @it.should_not include(Date.parse("Dec #{day} 2008"))
       end
     end
 
     it "should match February 28 for a non leap year when appropriate" do
-      @it.should include Date.parse("Feb 28 2005")
+      @it.should include(Date.parse("Feb 28 2005"))
     end
 
     it "should match February 29 for a non leap year when appropriate" do
-      @it.should include Date.parse("Feb 29 1988")
+      @it.should include(Date.parse("Feb 29 1988"))
     end
   end
 end
@@ -1829,11 +1829,11 @@ describe RiCal::RecurrenceRuleValue::RecurringYearDay do
     end
 
     it "should include January 20 in a non-leap year" do
-      @it.should include Date.new(2007, 1, 20)
+      @it.should include(Date.new(2007, 1, 20))
     end
 
     it "should include January 20 in a leap year" do
-      @it.should include Date.new(2008, 1, 20)
+      @it.should include(Date.new(2008, 1, 20))
     end
   end
 
@@ -1843,11 +1843,11 @@ describe RiCal::RecurrenceRuleValue::RecurringYearDay do
     end
 
     it "should include March 1 in a non-leap year" do
-      @it.should include Date.new(2007, 3, 1)
+      @it.should include(Date.new(2007, 3, 1))
     end
 
     it "should include February 29 in a leap year" do
-      @it.should include Date.new(2008, 2, 29)
+      @it.should include(Date.new(2008, 2, 29))
     end
   end
 
@@ -1857,11 +1857,11 @@ describe RiCal::RecurrenceRuleValue::RecurringYearDay do
     end
 
     it "should include December 31 in a non-leap year" do
-      @it.should include Date.new(2007,12, 31)
+      @it.should include(Date.new(2007,12, 31))
     end
 
     it "should include December 31 in a leap year" do
-      @it.should include Date.new(2008,12, 31)
+      @it.should include(Date.new(2008,12, 31))
     end
   end
 
@@ -1871,11 +1871,11 @@ describe RiCal::RecurrenceRuleValue::RecurringYearDay do
     end
 
     it "should include January 1 in a non-leap year" do
-      @it.should include Date.new(2007,1, 1)
+      @it.should include(Date.new(2007,1, 1))
     end
 
     it "should include January 2 in a leap year" do
-      @it.should include Date.new(2008,1, 2)
+      @it.should include(Date.new(2008,1, 2))
     end
   end
 
@@ -1885,11 +1885,11 @@ describe RiCal::RecurrenceRuleValue::RecurringYearDay do
     end
 
     it "should not include January 1 in a non-leap year" do
-      @it.should_not include Date.new(2007,1, 1)
+      @it.should_not include(Date.new(2007,1, 1))
     end
 
     it "should include January 1 in a leap year" do
-      @it.should include Date.new(2008,1, 1)
+      @it.should include(Date.new(2008,1, 1))
     end
   end
 end

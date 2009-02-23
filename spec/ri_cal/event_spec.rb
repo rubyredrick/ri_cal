@@ -14,7 +14,7 @@ describe RiCal::Event do
     end
     
     it "should have an array of rrules" do
-      @it.rrule.should be_kind_of Array
+      @it.rrule.should be_kind_of(Array)
     end
   end
 
@@ -82,7 +82,7 @@ describe RiCal::Event do
     end
     
     it "which should be an Alarm component" do
-      @it.alarms.first.should be_kind_of RiCal::Alarm
+      @it.alarms.first.should be_kind_of(RiCal::Alarm)
     end
 
   end
