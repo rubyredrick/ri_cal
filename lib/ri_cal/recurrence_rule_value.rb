@@ -1,7 +1,7 @@
 require 'rubygems'
 module RiCal
   class RecurrenceRuleValue < PropertyValue
-    
+
     class Enumerator
       attr_accessor :start_time, :duration, :next_time, :recurrence_rule
       attr_reader :reset_second, :reset_minute, :reset_hour, :reset_day, :reset_month
@@ -20,39 +20,46 @@ module RiCal
         @reset_month = recurrence_rule.reset_month || start_time.month
         @next_occurrence_count = 0
       end
-      
+
       def result_hash(date_time_value)
         {:start => date_time_value, :end => nil}
       end
       
+      def result_passes_setpos_filter?(result)
+        result_setpos = @setpos
+        if recurrence_rule.in_same_set?(result, next_time)
+          @setpos += 1
+        else
+          @setpos = 1
+        end
+        if (result == start_time) || (result > start_time && @setpos_list.include?(result_setpos))
+          return true
+        else
+          return false
+        end
+      end
+      
+      def result_passes_filters?(result)
+        if @setpos_list
+          result_passes_setpos_filter?(result)
+        else 
+          result >= start_time
+        end
+      end
+
       def next_occurrence
         while true
           @next_occurrence_count += 1
           result = next_time
           self.next_time = recurrence_rule.advance(result, self)
-          if @setpos_list
-            result_setpos = @setpos
-            if recurrence_rule.in_same_set?(result, next_time)
-              @setpos += 1
-            else
-              @setpos = 1
-            end
-            if (result == start_time) || (result > start_time && @setpos_list.include?(result_setpos))
-              @count += 1
-              return recurrence_rule.exhausted?(@count, result) ? nil : result_hash(result)
-            end
-          else
-            debugger unless DateTimeValue === result
-            debugger unless DateTimeValue === start_time
-            if result >= start_time
-              @count += 1              
-              return recurrence_rule.exhausted?(@count, result) ? nil : result_hash(result)
-            end
+          if result_passes_filters?(result)
+            @count += 1              
+            return recurrence_rule.exhausted?(@count, result) ? nil : result_hash(result)
           end
         end
       end
     end
-    
+
     class NegativeSetposEnumerator < Enumerator
 
       def initialize(recurrence_rule, component, setpos_list)
@@ -70,7 +77,7 @@ module RiCal
           end
         end
       end
-      
+
       def advance
         if @valids.empty?
           fill_set
@@ -83,7 +90,7 @@ module RiCal
         end
         @current_set[@valids.shift]
       end
-        
+
 
       def fill_set
         @current_set = [next_time]
@@ -97,7 +104,7 @@ module RiCal
         end
       end
     end
-    
+
     def Enumerator.for(recurrence_rule, component, setpos_list)
       if !setpos_list || setpos_list.all? {|setpos| setpos > 1}
         self.new(recurrence_rule, component, setpos_list)
@@ -105,7 +112,7 @@ module RiCal
         NegativeSetposEnumerator.new(recurrence_rule, start_time, end_time, setpos_list)
       end
     end
-    
+
     module MonthLengthCalculator
       def leap_year(year)
         year % 4 == 0 && (year % 400 == 0 || year % 100 != 0)
@@ -117,7 +124,7 @@ module RiCal
         date_or_time.month == 2 && leap_year(year) ? raw + 1 : raw
       end
     end
-    
+
     module WeekNumCalculator
       # From RFC 2445 page 43:
       # A week is defined as a seven day period, starting on the day of the week defined to be the
@@ -166,11 +173,11 @@ module RiCal
         end
         result
       end
-      
+
       def convert_wday(wday)
         wday == 0 ? 7 : wday
       end
-      
+
       def iso_week(date_or_time, wkst)
         debug = wkst > 1 
         iso_year = date_or_time.year
@@ -191,7 +198,7 @@ module RiCal
         end
         [iso_year, (date - week_one_start).to_i / 7 + 1]
       end
-      
+
       def week_num(date_or_time, wkst, debug=false)
         iso_week(date_or_time, wkst)[1]
       end
@@ -200,9 +207,9 @@ module RiCal
     # Instances of RecurringDay are used to represent values in BYDAY recurrence rule parts
     #
     class RecurringDay 
-      
+
       include MonthLengthCalculator 
-      
+
       DayNames = %w{SU MO TU WE TH FR SA} unless defined? DayNames
       day_nums = {}
       unless defined? DayNums
@@ -216,7 +223,7 @@ module RiCal
         @rrule = rrule
         wd_match = source.match(/([+-]?\d*)(SU|MO|TU|WE|TH|FR|SA)/)
         if wd_match
-          @day, @ord = wd_match[2], wd_match[1]
+          @day, @ordinal = wd_match[2], wd_match[1]
         end
       end
 
@@ -229,49 +236,29 @@ module RiCal
       end
 
       def to_a
-        [@day, @ord]
+        [@day, @ordinal]
       end
 
       def to_s
-        "#{@ord}#{@day}"
+        "#{@ordinal}#{@day}"
       end
 
-      def order_match(date_or_time)
-        if @ord == ""
+      def ordinal_match(date_or_time)
+        if @ordinal == ""
           true
         else
-          n = @ord.to_i
+          n = @ordinal.to_i
           if @rrule.freq == "YEARLY"
-            if n > 0
-              first_of_year = Date.new(date_or_time.year, 1, 1)
-              first_in_year = first_of_year + (DayNums[@day] - first_of_year.wday + 7) % 7
-              @last_year = date_or_time.year
-              target = first_in_year + (7*(n - 1))
-            else
-              twentyfifth_of_year = Date.new(date_or_time.year, 12, 25)
-              last_in_year = twentyfifth_of_year + (DayNums[@day] - twentyfifth_of_year.wday + 7) % 7
-              target = last_in_year + (7 * (n + 1))
-            end
+            date_or_time.nth_wday_in_year?(n, DayNums[@day]) 
           else
-            first_of_month = Date.new(date_or_time.year, date_or_time.month, 1)
-            first_in_month = first_of_month + (DayNums[@day] - first_of_month.wday)
-            first_in_month += 7 if first_in_month.month != first_of_month.month
-            if n > 0
-              target = first_in_month + (7*(n - 1))
-            else
-              possible = first_in_month +  21
-              possible += 7 while possible.month == first_in_month.month
-              last_in_month = possible - 7
-              target = last_in_month - (7*(n.abs - 1))
-            end
+            date_or_time.nth_wday_in_month?(n, DayNums[@day])
           end
-          Date.new(date_or_time.year, date_or_time.mon, date_or_time.day) == target
         end
       end
 
       # Determine if a particular date, time, or date_time is included in the recurrence
       def include?(date_or_time)
-        date_or_time.wday == DayNums[@day] && order_match(date_or_time)
+        date_or_time.wday == DayNums[@day] && ordinal_match(date_or_time)
       end
     end
 
@@ -293,16 +280,16 @@ module RiCal
         source.to_s
       end
     end
-    
+
     # Instances of RecurringMonthDay represent BYMONTHDAY parts in recurrence rules
     class RecurringMonthDay < RecurringNumberedSpan
-      
+
       include MonthLengthCalculator
-      
+
       def last
         31
       end
-      
+
       def target_for(date_or_time)
         if @source > 0
           @source
@@ -310,24 +297,24 @@ module RiCal
           days_in_month(date_or_time) + @source + 1
         end
       end
-      
+
       def include?(date_or_time)
         date_or_time.mday == target_for(date_or_time)
       end
     end
 
     class RecurringYearDay < RecurringNumberedSpan
-      
+
       include MonthLengthCalculator
-      
+
       def last
         366
       end
-            
+
       def length_of_year(year)
         leap_year(year) ? 366 : 365
       end 
-      
+
       def include?(date_or_time)
         if @source > 0
           target = @source
@@ -340,11 +327,11 @@ module RiCal
 
     class RecurringNumberedWeek < RecurringNumberedSpan
       include WeekNumCalculator
-      
+
       def last
         53
       end
-      
+
       def include?(date_or_time, wkst=1)
         week_num(date_or_time, wkst) == @source
       end
@@ -356,7 +343,7 @@ module RiCal
       super
       initialize_from_hash(value_hash) unless value_hash[:value]
     end
-    
+
     def initialize_from_hash(value_hash)
       self.freq = value_hash[:freq]
       self.wkst = value_hash[:wkst]
@@ -365,7 +352,7 @@ module RiCal
       self.interval = value_hash[:interval]
       set_by_lists(value_hash)
     end
-    
+
     def value=(string)
       if string
         @value = string
@@ -374,7 +361,7 @@ module RiCal
         initialize_from_hash(value_hash)
       end
     end
-    
+
     def add_part_to_hash(hash, part)
       part_name, value = part.split("=")
       puts "part=#{part.inspect}" unless part_name
@@ -396,7 +383,7 @@ module RiCal
       hash[attribute] = value
       hash
     end
-    
+
     def validate
       @errors = []
       validate_termination
@@ -494,11 +481,11 @@ module RiCal
     def freq
       @freq.upcase
     end
-    
+
     def wkst
       @wkst || 'MO'
     end
-    
+
     def wkst_day
       @wkst_day ||= (%w{SU MO TU WE FR SA}.index(wkst) || 1)
     end
@@ -514,7 +501,7 @@ module RiCal
       set_count(count_value)
       @until = nil unless count_value.nil?
     end
-    
+
     def set_count(count_value)
       @count = count_value
     end
@@ -528,7 +515,7 @@ module RiCal
     def set_until(until_value)
       @until = until_value && until_value.to_ri_cal_date_time_value
     end
-    
+
     def interval
       @interval ||= 1
     end
@@ -562,7 +549,7 @@ module RiCal
       result << "WKST=#{wkst}" unless wkst == "MO"
       result.join(";")
     end
-    
+
     # if the recurrence rule has a bysetpos part we need to search starting with the
     # first time in the frequency period containing the start time specified by DTSTART
     def adjust_start(start_time)
@@ -609,15 +596,15 @@ module RiCal
     def enumerator(component)
       Enumerator.for(self, component, by_list[:bysetpos])
     end
-    
+
     def exhausted?(count, time)
       (@count && count > @count) || (@until && (time > @until))
     end
-    
+
     def start_of_week(time)
       time.advance(:days => - (wkst_day - time.wday + 7) % 7)
     end
-    
+
     def in_same_set?(time1, time2)
       case freq
       when "SECONDLY"
@@ -644,8 +631,8 @@ module RiCal
         time1.year == time2.year 
       end
     end
-    
-    
+
+
     def advance(time, enumerator)
       time = advance_seconds(time, enumerator)     
       while exclude_time_by_rule?(time) && (!@until || (time <= @until))
@@ -653,7 +640,7 @@ module RiCal
       end
       time
     end
-    
+
     # determine if time should be excluded due to by rules
     def exclude_time_by_rule?(time)
       #TODO - this is overdoing it in cases like by_month with a frequency longer than a month
@@ -666,17 +653,17 @@ module RiCal
       exclude_time_by_inclusion_rule?(:byyearday, time) ||
       exclude_time_by_inclusion_rule?(:byweekno, time)
     end
-    
+
     def exclude_time_by_value_rule?(rule_selector, value)
       valid = by_list[rule_selector]
       valid && !valid.include?(value)
     end
-    
+
     def exclude_time_by_inclusion_rule?(rule_selector, time)
       valid = by_list[rule_selector]
       valid && !valid.any? {|rule| rule.include?(time)}
     end
-    
+
     def reset_value(which)
       if list = by_rule_list(which)
         list.first #Note that [].first => nil
@@ -684,15 +671,15 @@ module RiCal
         nil
       end
     end
-    
+
     def reset_second
       reset_value(:bysecond)
     end
-      
+
     def reset_minute
       reset_value(:byminute)
     end
-      
+
     def reset_hour
       reset_value(:byhour)
     end
@@ -704,7 +691,7 @@ module RiCal
         nil
       end
     end
-    
+
     def by_rule_list(which)
       if @by_list
         @by_list[which]
@@ -716,7 +703,7 @@ module RiCal
     def reset_month
       reset_value(:bymonth)
     end
-    
+
     def advance_seconds(time, enumerator)
       res = advance_seconds1(time, enumerator)
       debugger unless DateTimeValue === res
@@ -746,14 +733,14 @@ module RiCal
       debugger unless DateTimeValue === res
       res
     end
-    
+
 
     def advance_months(time, enumerator)
       res = advance_months1(time, enumerator)
       debugger unless DateTimeValue === res
       res
     end
-    
+
     def advance_seconds1(time, enumerator)
       if freq == 'SECONDLY'
         time.advance(:seconds => interval)
@@ -763,15 +750,15 @@ module RiCal
           time.change(:sec => next_second)
         else
           advance_minutes(
-            time.change(:sec => enumerator.reset_second),
-            enumerator
-            )
+          time.change(:sec => enumerator.reset_second),
+          enumerator
+          )
         end
       else
         advance_minutes(time, enumerator)
       end
     end
-        
+
     def advance_minutes1(time, enumerator)
       if freq == 'MINUTELY'
         time.advance(:minutes => interval)
@@ -781,15 +768,15 @@ module RiCal
           time.change(:min => next_minute, :sec => time.sec)
         else
           advance_hours(
-            time.change(:min => minutes_list.first, :sec => enumerator.reset_second),
-            enumerator
+          time.change(:min => minutes_list.first, :sec => enumerator.reset_second),
+          enumerator
           )
         end
       else
         advance_hours(time, enumerator)
       end
     end
-    
+
     def advance_hours1(time, enumerator, debug=false)
       if freq == 'HOURLY'
         time.advance(:hours => interval)
@@ -799,22 +786,22 @@ module RiCal
           time.change(:hour => next_hour, :min => time.min, :sec => time.sec)
         else
           advance_days(
-            time.change(:hour => enumerator.reset_hour, :min => enumerator.reset_minute, :sec => enumerator.reset_second),
-            enumerator
+          time.change(:hour => enumerator.reset_hour, :min => enumerator.reset_minute, :sec => enumerator.reset_second),
+          enumerator
           )
         end
       else
-       advance_days(time, enumerator)
-     end
+        advance_days(time, enumerator)
+      end
     end
-    
+
     def advance_days1(time, enumerator, debug = false)
       if freq == 'DAILY'
         result = time.advance(:days => interval)
         result
       elsif by_rule_list(:byday) || 
-            by_rule_list(:bymonthday) ||
-            by_rule_list(:byyearday)
+        by_rule_list(:bymonthday) ||
+        by_rule_list(:byyearday)
         new_time = time.advance(:days => 1)
         if freq == "WEEKLY" && interval > 1 && new_time.wday == wkst_day
           new_time.advance(:weeks => interval - 1)
@@ -829,7 +816,7 @@ module RiCal
         advance_weeks(time, enumerator)
       end
     end
-    
+
     def advance_weeks1(time, enumerator)
       if freq == 'WEEKLY'
         time.advance(:days => 7 * interval)
@@ -837,7 +824,7 @@ module RiCal
         advance_months(time, enumerator)
       end
     end
-    
+
     def advance_months1(time, enumerator)
       if freq == 'MONTHLY'
         return time.advance(:months => interval)
@@ -845,11 +832,11 @@ module RiCal
         next_month = months_list.find {|month| month > time.month}
         if next_month
           return time.change(
-            :month => next_month, 
-            :day => time.day, 
-            :hour => time.hour,
-            :min => time.min,
-            :sec => time.sec
+          :month => next_month, 
+          :day => time.day, 
+          :hour => time.hour,
+          :min => time.min,
+          :sec => time.sec
           )
         end
       end
@@ -863,9 +850,9 @@ module RiCal
       :sec => enumerator.reset_second
       )
     end
-        
+
     private
-    
+
     def by_list
       @by_list ||= {}
     end
