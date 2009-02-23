@@ -113,102 +113,9 @@ module RiCal
       end
     end
 
-    module MonthLengthCalculator
-      def leap_year(year)
-        year % 4 == 0 && (year % 400 == 0 || year % 100 != 0)
-      end 
-
-      def days_in_month(date_or_time)
-        year = date_or_time.year
-        raw = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][date_or_time.month]
-        date_or_time.month == 2 && leap_year(year) ? raw + 1 : raw
-      end
-    end
-
-    module WeekNumCalculator
-      # From RFC 2445 page 43:
-      # A week is defined as a seven day period, starting on the day of the week defined to be the
-      # week start (see WKST). Week number one of the calendar year is the first week which contains 
-      # at least four (4) days in that calendar
-      # year.
-      # 
-      # Note that wkst uses the ruby definition, with Sunday = 0 
-      #
-      # A good article about calculating ISO week number is at
-      # http://www.boyet.com/Articles/PublishedArticles/CalculatingtheISOweeknumb.html
-      #
-      # RFC 2445 generalizes the notion of ISO week by allowing the start of the week to vary.
-      # In order to adopt the algorithm in the referenced article, we must determine, for each
-      # wkst value, the day in January which must be contained in week 1 of the year.
-      # 
-      # For a given wkst week 1 for a year is the first week which
-      #   1) Starts with a day with a wday of wkst
-      #   2) Contains a majority (4 or more) of days in that year
-      # 
-      # If end of prior Dec, start of Jan          Week 1 starts on For WKST =
-
-      # MO TU WE TH FR SA SU MO TU WE TH FR SA SU  MO    TU    WE    TH    FR    SA    SU      
-      # 01 02 03 04 05 06 07 08 09 10 11 12 13 14 01-07 02-08 03-09 04-10 05-11 06-12 07-13
-      # 31 01 02 03 04 05 06 07 08 09 10 11 12 13 31-06 01-07 02-08 03-09 04-10 05-11 06-12
-      # 30 31 01 02 03 04 05 06 07 08 09 10 11 12 30-05 31-06 01-07 02-08 03-09 04-10 05-11
-      # 29 30 31 01 02 03 04 05 06 07 08 09 10 11 29-04 30-05 31-06 01-07 02-08 03-09 04-10
-      # 28 29 30 31 01 02 03 04 05 06 07 08 09 10 04-10 29-04 30-05 31-06 01-07 02-08 03-09
-      # 27 28 29 30 31 01 02 03 04 05 06 07 08 09 03-09 04-10 29-04 30-05 31-06 01-07 02-08
-      # 26 27 28 29 30 31 01 02 03 04 05 06 07 08 02-08 03-09 04-10 29-04 30-05 31-06 01-07
-      # 25 26 27 28 29 30 31 01 02 03 04 05 06 07 01-07 02-08 03-09 04-10 29-04 30-05 31-06
-      #                     Week 1 must contain     4     4     4     4     ?     ?     ?  
-      #
-      # So for a wkst of FR, SA, or SU, there is no date which MUST be contained in the 1st week
-      # We'll have to brute force that
-
-      def week_one(year, wkst)
-        if (1..4).include?(wkst)
-          # return the date of the wkst day which is less than or equal to jan4th
-          jan4th = Date.new(year, 1, 4)
-          result = jan4th - (convert_wday(jan4th.wday) - convert_wday(wkst))
-        else
-          # return the date of the wkst day which is greater than or equal to Dec 31 of the prior year
-          dec29th = Date.new(year-1, 12, 29)
-          result = dec29th + convert_wday(wkst) - convert_wday(dec29th.wday)
-        end
-        result
-      end
-
-      def convert_wday(wday)
-        wday == 0 ? 7 : wday
-      end
-
-      def iso_week(date_or_time, wkst)
-        debug = wkst > 1 
-        iso_year = date_or_time.year
-        date = Date.new(date_or_time.year, date_or_time.month, date_or_time.mday)
-        if (date > Date.new(iso_year, 12, 29))
-          week_one_start = week_one(iso_year + 1, wkst)
-          if date < week_one_start
-            week_one_start = week_one(iso_year, wkst)
-          else
-            iso_year += 1
-          end
-        else
-          week_one_start = week_one(iso_year, wkst)
-          if (date < week_one_start)
-            iso_year -= 1
-            week_one_start = week_one(iso_year, wkst)
-          end
-        end
-        [iso_year, (date - week_one_start).to_i / 7 + 1]
-      end
-
-      def week_num(date_or_time, wkst, debug=false)
-        iso_week(date_or_time, wkst)[1]
-      end
-    end
-
     # Instances of RecurringDay are used to represent values in BYDAY recurrence rule parts
     #
     class RecurringDay 
-
-      include MonthLengthCalculator 
 
       DayNames = %w{SU MO TU WE TH FR SA} unless defined? DayNames
       day_nums = {}
@@ -284,8 +191,6 @@ module RiCal
     # Instances of RecurringMonthDay represent BYMONTHDAY parts in recurrence rules
     class RecurringMonthDay < RecurringNumberedSpan
 
-      include MonthLengthCalculator
-
       def last
         31
       end
@@ -294,7 +199,7 @@ module RiCal
         if @source > 0
           @source
         else
-          days_in_month(date_or_time) + @source + 1
+          date_or_time.days_in_month + @source + 1
         end
       end
 
@@ -305,14 +210,17 @@ module RiCal
 
     class RecurringYearDay < RecurringNumberedSpan
 
-      include MonthLengthCalculator
-
       def last
         366
       end
+      
+      def leap_year?(year)
+        year % 4 == 0 && (year % 400 == 0 || year % 100 != 0)
+      end 
+      
 
       def length_of_year(year)
-        leap_year(year) ? 366 : 365
+        leap_year?(year) ? 366 : 365
       end 
 
       def include?(date_or_time)
@@ -326,14 +234,12 @@ module RiCal
     end
 
     class RecurringNumberedWeek < RecurringNumberedSpan
-      include WeekNumCalculator
-
       def last
         53
       end
 
       def include?(date_or_time, wkst=1)
-        week_num(date_or_time, wkst) == @source
+        date_or_time.iso_week_num(wkst) == @source
       end
     end
 
