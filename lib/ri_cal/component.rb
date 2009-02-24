@@ -1,6 +1,8 @@
 module RiCal
   class Component
-    
+
+    autoload :Timezone, 'lib/ri_cal/component/timezone.rb'
+        
     def initialize(parent)
       @parent = parent
     end
@@ -70,4 +72,9 @@ module RiCal
       property ? property.value : nil
     end
   end
+end
+
+Dir[File.dirname(__FILE__) + "/component/*.rb"].sort.each do |path|
+  filename = File.basename(path)
+  require "lib/ri_cal/component/#{filename}"
 end

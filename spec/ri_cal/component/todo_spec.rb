@@ -1,10 +1,10 @@
-require File.join(File.dirname(__FILE__), %w[.. spec_helper])
+require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
-describe RiCal::Todo do
+describe RiCal::Component::Todo do
 
   describe "with both due and duration specified" do
     before(:each) do
-      @it = RiCal::Todo.parse_string("BEGIN:VTODO\nDUE:19970903T190000Z\nDURATION:H1\nEND:VTODO").first
+      @it = RiCal::Component::Todo.parse_string("BEGIN:VTODO\nDUE:19970903T190000Z\nDURATION:H1\nEND:VTODO").first
     end
     
     it "should be invalid" do
@@ -14,7 +14,7 @@ describe RiCal::Todo do
 
   describe "with a duration property" do
     before(:each) do
-      @it = RiCal::Todo.parse_string("BEGIN:VTODO\nDURATION:H1\nEND:VTODO").first
+      @it = RiCal::Component::Todo.parse_string("BEGIN:VTODO\nDURATION:H1\nEND:VTODO").first
     end
 
     it "should have a duration property" do
@@ -38,7 +38,7 @@ describe RiCal::Todo do
 
   describe "with a due property" do
     before(:each) do
-      @it = RiCal::Todo.parse_string("BEGIN:VTODO\nDUE:19970903T190000Z\nEND:VTODO").first
+      @it = RiCal::Component::Todo.parse_string("BEGIN:VTODO\nDUE:19970903T190000Z\nEND:VTODO").first
     end
 
     it "should have a due property" do

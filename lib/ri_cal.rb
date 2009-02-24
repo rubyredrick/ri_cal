@@ -1,7 +1,6 @@
 module RiCal
   
   autoload :Component, 'lib/ri_cal/component.rb'
-  autoload :Timezone, 'lib/ri_cal/timezone.rb'
   autoload :TimezonePeriod, 'lib/ri_cal/timezone_period.rb'
   autoload :OccurrenceEnumerator, 'lib/ri_cal/occurrence_enumerator.rb'
   
@@ -53,7 +52,7 @@ module RiCal
   # :startdoc:
   
   # Parse an io stream and return an array of iCalendar entities.
-  # Normally this will be an array of RiCal::Calendar instances
+  # Normally this will be an array of RiCal::Component::Calendar instances
   def self.parse(io)
     Parser.new(io).parse
   end

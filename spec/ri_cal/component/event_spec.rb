@@ -1,16 +1,16 @@
-require File.join(File.dirname(__FILE__), %w[.. spec_helper])
+require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
-describe RiCal::Event do
+describe RiCal::Component::Event do
   
   describe ".entity_name" do
     it "should be VEVENT" do
-      RiCal::Event.entity_name.should == "VEVENT"
+      RiCal::Component::Event.entity_name.should == "VEVENT"
     end
   end
   
   describe "with an rrule" do
     before(:each) do
-      @it = RiCal::Event.parse_string("BEGIN:VEVENT\nRRULE:FREQ=DAILY\nEND:VEVENT").first
+      @it = RiCal::Component::Event.parse_string("BEGIN:VEVENT\nRRULE:FREQ=DAILY\nEND:VEVENT").first
     end
     
     it "should have an array of rrules" do
@@ -20,7 +20,7 @@ describe RiCal::Event do
 
   describe "with both dtend and duration specified" do
     before(:each) do
-      @it = RiCal::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\nDURATION:H1\nEND:VEVENT").first
+      @it = RiCal::Component::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\nDURATION:H1\nEND:VEVENT").first
     end
     
     it "should be invalid" do
@@ -30,7 +30,7 @@ describe RiCal::Event do
 
   describe "with a duration property" do
     before(:each) do
-      @it = RiCal::Event.parse_string("BEGIN:VEVENT\nDURATION:H1\nEND:VEVENT").first
+      @it = RiCal::Component::Event.parse_string("BEGIN:VEVENT\nDURATION:H1\nEND:VEVENT").first
     end
 
     it "should have a duration property" do
@@ -54,7 +54,7 @@ describe RiCal::Event do
 
   describe "with a dtend property" do
     before(:each) do
-      @it = RiCal::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\nEND:VEVENT").first
+      @it = RiCal::Component::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\nEND:VEVENT").first
     end
 
     it "should have a duration property" do
@@ -74,7 +74,7 @@ describe RiCal::Event do
   
   describe "with a nested alarm component" do
     before(:each) do
-      @it = RiCal::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\n\nBEGIN:VALARM\nEND:VALARM\nEND:VEVENT").first
+      @it = RiCal::Component::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\n\nBEGIN:VALARM\nEND:VALARM\nEND:VEVENT").first
     end
     
     it "should have one alarm" do
@@ -82,7 +82,7 @@ describe RiCal::Event do
     end
     
     it "which should be an Alarm component" do
-      @it.alarms.first.should be_kind_of(RiCal::Alarm)
+      @it.alarms.first.should be_kind_of(RiCal::Component::Alarm)
     end
 
   end
