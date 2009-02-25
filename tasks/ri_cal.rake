@@ -15,6 +15,7 @@ class VEntityUpdater
     @indent = ""
     @property_map = {}
     @property_defs = YAML.load_file(defs_file)
+    @all_props = []
   end
   
   def property(prop_name_or_hash)
@@ -111,6 +112,7 @@ class VEntityUpdater
   end
   
   def named_property(name, options)
+    @all_props << name
     ruby_name = options['ruby_name']
     multi = options['multi']
     type = options['type']
@@ -208,7 +210,7 @@ class VEntityUpdater
       comment("return the value of the #{name.upcase} property")
       comment("which will be an instance of #{describe_type(type)}")
       indent("def #{ruby_name.downcase}")
-      indent("  #{property} ? #{property}.value : property")
+      indent("  #{property} ? #{property}.value : nil")
       indent("end")
       blank_line
       no_doc("def #{property}_from_string(line)")
@@ -230,6 +232,13 @@ class VEntityUpdater
   end  
 
   def generate_support_methods
+    blank_line
+    indent("def initialize_copy(o)")
+    indent("  super")
+    @all_props.each do |prop_name|
+      indent("  @#{prop_name}_property = @{prop_name}_property.dup")
+    end
+    indent("end")
     blank_line
     indent("module ClassMethods")
     indent("  def property_parser")

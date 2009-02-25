@@ -9,6 +9,7 @@ module RiCal
           self.start_time = component.default_start_time
           self.duration = component.default_duration
           self.next_time = recurrence_rule.adjust_start(self.start_time)
+          @bounded = recurrence_rule.bounded?
           @count = 0
           @setpos_list = setpos_list
           @setpos = 1
@@ -18,6 +19,10 @@ module RiCal
           @reset_day = recurrence_rule.reset_day || start_time.day
           @reset_month = recurrence_rule.reset_month || start_time.month
           @next_occurrence_count = 0
+        end
+        
+        def bounded?
+          @bounded
         end
 
         def result_hash(date_time_value)

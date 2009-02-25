@@ -277,6 +277,10 @@ module RiCal
       def exhausted?(count, time)
         (@count && count > @count) || (@until && (time > @until))
       end
+      
+      def bounded?
+        @count || @until
+      end
 
       def start_of_week(time)
         time.advance(:days => - (wkst_day - time.wday + 7) % 7)

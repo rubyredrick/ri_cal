@@ -1,7 +1,79 @@
 require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
+# Note that this is more of a functional spec
 describe RiCal::OccurrenceEnumerator do
   
+  Fr13Unbounded_Zulu = <<-TEXT
+BEGIN:VEVENT
+DTSTART:19970902T090000Z
+EXDATE:19970902T090000Z
+RRULE:FREQ=MONTHLY;BYDAY=FR;BYMONTHDAY=13
+END:VEVENT
+TEXT
+
+ Fr13Unbounded_Eastern = <<-TEXT
+BEGIN:VEVENT
+DTSTART;TZID=US-Eastern:19970902T090000
+EXDATE;TZID=US-Eastern:19970902T090000
+RRULE:FREQ=MONTHLY;BYDAY=FR;BYMONTHDAY=13
+END:VEVENT
+TEXT
+  
+  describe ".occurrences" do
+    describe "with an unbounded component" do
+      before(:each) do
+        @it = RiCal.parse_string(Fr13Unbounded_Zulu).first
+        @expected_five = [
+          "2/13/1998 9:00 AM  UTC",
+          "3/13/1998 9:00 AM  UTC",
+          "11/13/1998 9:00 AM UTC",
+          "8/13/1999 9:00 AM  UTC",
+          "10/13/2000 9:00 AM UTC",
+          ].map {|s| DateTime.parse(s)}
+      end
+      
+      it "should raise an ArgumentError with no options to limit result" do
+        lambda {@it.occurrences}.should raise_error(ArgumentError)
+      end
+      
+      it "should have the right five occurrences when :count => 5 option is used" do
+        @it.occurrences(:count => 5).map {|occ| occ[:start].to_ruby_value}.should == @expected_five
+      end
+      
+    end
+  end
+    
+
+  describe ".each" do
+    describe " for Every Friday the 13th, forever" do
+      before(:each) do
+        event = RiCal.parse_string(Fr13Unbounded_Zulu).first
+        @result = []
+        event.each do |occurrence|
+          break if @result.length >= 5
+          @result << occurrence[:start].to_ruby_value
+        end
+      end
+
+      it "should have the right first six occurrences" do
+        # TODO - Need to properly deal with timezones
+        expected = [
+          # "2/13/1998 9:00 AM EST",
+          # "3/13/1998 9:00 AM EST",
+          # "11/13/1998 9:00 AM EST",
+          # "8/13/1999 9:00 AM EDT",
+          # "10/13/2000 9:00 AM EST",
+          "2/13/1998 9:00 AM  UTC",
+          "3/13/1998 9:00 AM  UTC",
+          "11/13/1998 9:00 AM UTC",
+          "8/13/1999 9:00 AM  UTC",
+          "10/13/2000 9:00 AM UTC",
+          ].map {|s| DateTime.parse(s)}
+        @result.should == expected
+      end
+
+    end
+  end
 end
 
 describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
@@ -37,8 +109,8 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
     describe "with multiple rrules" do
       before(:each) do
         @component = mock("component", :dtstart => :dtstart_value)
-        @enum1 = mock("rrule_enumerator1", :next_occurrence => :occ1)
-        @enum2 = mock("rrule_enumerator2", :next_occurrence => :occ2)
+        @enum1 = mock("rrule_enumerator1", :next_occurrence => :occ1, :bounded? => true)
+        @enum2 = mock("rrule_enumerator2", :next_occurrence => :occ2, :bounded? => true)
         @rrule1 = mock("rrule", :enumerator => @enum1)
         @rrule2 = mock("rrule", :enumerator => @enum2)
       end
@@ -48,8 +120,8 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
       end
       
       it "should pass the component to the enumerator instantiation" do
-        @rrule1.should_receive(:enumerator).with(@component)
-        @rrule2.should_receive(:enumerator).with(@component)
+        @rrule1.should_receive(:enumerator).with(@component).and_return(@enum1)
+        @rrule2.should_receive(:enumerator).with(@component).and_return(@enum2)
         @merger.for(@component, [@rrule1, @rrule2])
       end
       
@@ -65,8 +137,8 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
 
     describe "with unique nexts" do
       before(:each) do
-        @enum1 = mock("rrule_enumerator1", :next_occurrence => 3)
-        @enum2 = mock("rrule_enumerator2", :next_occurrence => 2)
+        @enum1 = mock("rrule_enumerator1", :next_occurrence => 3, :bounded? => true)
+        @enum2 = mock("rrule_enumerator2", :next_occurrence => 2, :bounded? => true)
         @rrule1 = mock("rrule", :enumerator => @enum1)
         @rrule2 = mock("rrule", :enumerator => @enum2)
         @it = @merger.new(0, [@rrule1, @rrule2])
@@ -95,8 +167,8 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
     
     describe "with duplicated nexts" do
       before(:each) do
-        @enum1 = mock("rrule_enumerator1", :next_occurrence => 2)
-        @enum2 = mock("rrule_enumerator2", :next_occurrence => 2)
+        @enum1 = mock("rrule_enumerator1", :next_occurrence => 2, :bounded? => true)
+        @enum2 = mock("rrule_enumerator2", :next_occurrence => 2, :bounded? => true)
         @rrule1 = mock("rrule", :enumerator => @enum1)
         @rrule2 = mock("rrule", :enumerator => @enum2)
         @it = @merger.new(0, [@rrule1, @rrule2])
@@ -123,8 +195,8 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
     
     describe "with all enumerators at end" do
       before(:each) do
-        @enum1 = mock("rrule_enumerator1", :next_occurrence => nil)
-        @enum2 = mock("rrule_enumerator2", :next_occurrence => nil)
+        @enum1 = mock("rrule_enumerator1", :next_occurrence => nil, :bounded? => true)
+        @enum2 = mock("rrule_enumerator2", :next_occurrence => nil, :bounded? => true)
         @rrule1 = mock("rrule", :enumerator => @enum1)
         @rrule2 = mock("rrule", :enumerator => @enum2)
         @it = @merger.new(0, [@rrule1, @rrule2])

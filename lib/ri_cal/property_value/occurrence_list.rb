@@ -3,11 +3,11 @@ module RiCal
     class OccurrenceList < Array
       class Enumerator
 
-        attr_accessor :default_duration
+        attr_accessor :default_duration, :occurrence_list
 
         # TODO: the component parameter should always be the parent
-        def initialize(occurrence_list_value, component)
-          self.occurrence_list = occurrence_list_value
+        def initialize(occurrences, component)
+          self.occurrence_list = occurrences
           self.default_duration = component.default_duration
           @index = 0
         end
@@ -33,6 +33,10 @@ module RiCal
         when 'PERIOD'
         end
       end
+    end
+    
+    def enumerator(component)
+      OccurrenceList::Enumerator.new(@elements, component)
     end
   end
 end

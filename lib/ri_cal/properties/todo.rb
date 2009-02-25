@@ -29,7 +29,7 @@ module RiCal
       # return the value of the CLASS property
       # which will be an instance of String
       def security_class
-        class_property ? class_property.value : property
+        class_property ? class_property.value : nil
       end
 
       def class_property_from_string(line) # :nodoc:
@@ -62,7 +62,7 @@ module RiCal
       # return the value of the COMPLETED property
       # which will be an instance of DateTime
       def completed
-        completed_property ? completed_property.value : property
+        completed_property ? completed_property.value : nil
       end
 
       def completed_property_from_string(line) # :nodoc:
@@ -95,7 +95,7 @@ module RiCal
       # return the value of the CREATED property
       # which will be an instance of DateTime
       def created
-        created_property ? created_property.value : property
+        created_property ? created_property.value : nil
       end
 
       def created_property_from_string(line) # :nodoc:
@@ -128,7 +128,7 @@ module RiCal
       # return the value of the DESCRIPTION property
       # which will be an instance of String
       def description
-        description_property ? description_property.value : property
+        description_property ? description_property.value : nil
       end
 
       def description_property_from_string(line) # :nodoc:
@@ -161,7 +161,7 @@ module RiCal
       # return the value of the DTSTAMP property
       # which will be an instance of DateTime
       def dtstamp
-        dtstamp_property ? dtstamp_property.value : property
+        dtstamp_property ? dtstamp_property.value : nil
       end
 
       def dtstamp_property_from_string(line) # :nodoc:
@@ -194,7 +194,7 @@ module RiCal
       # return the value of the DTSTART property
       # which will be an instance of either DateTime or Date
       def dtstart
-        dtstart_property ? dtstart_property.value : property
+        dtstart_property ? dtstart_property.value : nil
       end
 
       def dtstart_property_from_string(line) # :nodoc:
@@ -227,7 +227,7 @@ module RiCal
       # return the value of the GEO property
       # which will be an instance of Geo
       def geo
-        geo_property ? geo_property.value : property
+        geo_property ? geo_property.value : nil
       end
 
       def geo_property_from_string(line) # :nodoc:
@@ -260,7 +260,7 @@ module RiCal
       # return the value of the LAST-MODIFIED property
       # which will be an instance of DateTime
       def last_modified
-        last_modified_property ? last_modified_property.value : property
+        last_modified_property ? last_modified_property.value : nil
       end
 
       def last_modified_property_from_string(line) # :nodoc:
@@ -293,7 +293,7 @@ module RiCal
       # return the value of the LOCATION property
       # which will be an instance of String
       def location
-        location_property ? location_property.value : property
+        location_property ? location_property.value : nil
       end
 
       def location_property_from_string(line) # :nodoc:
@@ -326,7 +326,7 @@ module RiCal
       # return the value of the ORGANIZER property
       # which will be an instance of CalAddress
       def organizer
-        organizer_property ? organizer_property.value : property
+        organizer_property ? organizer_property.value : nil
       end
 
       def organizer_property_from_string(line) # :nodoc:
@@ -359,7 +359,7 @@ module RiCal
       # return the value of the PERCENT-COMPLETE property
       # which will be an instance of Integer
       def percent_complete
-        percent_complete_property ? percent_complete_property.value : property
+        percent_complete_property ? percent_complete_property.value : nil
       end
 
       def percent_complete_property_from_string(line) # :nodoc:
@@ -392,7 +392,7 @@ module RiCal
       # return the value of the PRIORITY property
       # which will be an instance of Integer
       def priority
-        priority_property ? priority_property.value : property
+        priority_property ? priority_property.value : nil
       end
 
       def priority_property_from_string(line) # :nodoc:
@@ -425,7 +425,7 @@ module RiCal
       # return the value of the RECURRENCE-ID property
       # which will be an instance of either DateTime or Date
       def recurrence_id
-        recurrence_id_property ? recurrence_id_property.value : property
+        recurrence_id_property ? recurrence_id_property.value : nil
       end
 
       def recurrence_id_property_from_string(line) # :nodoc:
@@ -458,7 +458,7 @@ module RiCal
       # return the value of the SEQUENCE property
       # which will be an instance of Integer
       def sequence
-        sequence_property ? sequence_property.value : property
+        sequence_property ? sequence_property.value : nil
       end
 
       def sequence_property_from_string(line) # :nodoc:
@@ -491,7 +491,7 @@ module RiCal
       # return the value of the STATUS property
       # which will be an instance of String
       def status
-        status_property ? status_property.value : property
+        status_property ? status_property.value : nil
       end
 
       def status_property_from_string(line) # :nodoc:
@@ -524,7 +524,7 @@ module RiCal
       # return the value of the SUMMARY property
       # which will be an instance of String
       def summary
-        summary_property ? summary_property.value : property
+        summary_property ? summary_property.value : nil
       end
 
       def summary_property_from_string(line) # :nodoc:
@@ -557,7 +557,7 @@ module RiCal
       # return the value of the UID property
       # which will be an instance of String
       def uid
-        uid_property ? uid_property.value : property
+        uid_property ? uid_property.value : nil
       end
 
       def uid_property_from_string(line) # :nodoc:
@@ -590,7 +590,7 @@ module RiCal
       # return the value of the URL property
       # which will be an instance of Uri
       def url
-        url_property ? url_property.value : property
+        url_property ? url_property.value : nil
       end
 
       def url_property_from_string(line) # :nodoc:
@@ -624,7 +624,7 @@ module RiCal
       # return the value of the DUE property
       # which will be an instance of either DateTime or Date
       def due
-        due_property ? due_property.value : property
+        due_property ? due_property.value : nil
       end
 
       def due_property_from_string(line) # :nodoc:
@@ -658,7 +658,7 @@ module RiCal
       # return the value of the DURATION property
       # which will be an instance of Duration
       def duration
-        duration_property ? duration_property.value : property
+        duration_property ? duration_property.value : nil
       end
 
       def duration_property_from_string(line) # :nodoc:

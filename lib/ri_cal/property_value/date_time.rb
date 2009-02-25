@@ -133,6 +133,10 @@ module RiCal
       def to_datetime
         @date_time_value
       end
+      
+      def to_ruby_value
+        to_datetime
+      end
 
       alias_method :ruby_value, :to_datetime
 

@@ -2,6 +2,8 @@ module RiCal
   # OccurrenceEnumerator provides common methods for CalendarComponents that support recurrence
   # i.e. Event, Journal, Todo, and TimezonePeriod
   module OccurrenceEnumerator
+    
+    include Enumerable
 
     def default_duration     
       dtend && dtstart.to_ri_cal_date_time_value.duration_until(dtend)
@@ -33,6 +35,7 @@ module RiCal
       
       def initialize(component, rules)
         self.enumerators = rules.map {|rrule| rrule.enumerator(component)}
+        @bounded = enumerators.all? {|enumerator| enumerator.bounded?}
         self.nexts = @enumerators.map {|enumerator| enumerator.next_occurrence}
       end
       
@@ -44,22 +47,74 @@ module RiCal
         end
         result
       end
+      
+      def bounded?
+        @bounded
+      end
     end
     
     # EnumerationInstance holds the values needed during the enumeration of occurrences for a component.
     class EnumerationInstance
-      def initialize(options, component)
+      include Enumerable
+      
+      def initialize(component, options = {})
         @component = component
         @start = options[:starting]
         @cutoff = options[:before]
-        @rrules = OccurrenceMerger.for(@component, @component.rrule)
-        @exrules = OccurrenceMerger.for(@component, @component.exrule)
+        @count = options[:count]
+        @rrules = OccurrenceMerger.for(@component, [@component.rrule_property, @component.rdate_property].flatten.compact)
+        @exrules = OccurrenceMerger.for(@component, [@component.exrule_property, @component.exdate_property].flatten.compact)
+      end
+      
+      # return the next exclusion which starts at the same time or after the start time of the occurrence
+      # return nil if this exhausts the exclusion rules
+      def exclusion_for(occurrence)
+        while (@next_exclusion && @next_exclusion[:start] < occurrence[:start])
+          @next_exclusion = @exrules.next_occurrence
+        end
+        @next_exclusion
+      end
+
+      # TODO: Need to research this, I beleive that this should also take the end time into account,
+      #       but I need to research
+      def exclusion_match?(occurrence, exclusion)
+        exclusion && occurrence[:start] == occurrence[:start]
+      end
+      
+      def exclude?(occurrence)
+        exclusion_match?(occurrence, exclusion_for(occurrence))
       end
       
       # yield each occurrence to a block
       # some components may be open-ended, e.g. have no COUNT or DTEND 
-      def each_occurrence
+      def each
+        occurrence = @rrules.next_occurrence
+        yielded = 0
+        @next_exclusion = @exrules.next_occurrence
+        while (occurrence)
+          if (@cutoff && occurrence[:start] >= @cutoff) || (@count && yielded >= @count)
+            occurrence = nil
+          else
+            unless exclude?(occurrence)
+              yielded += 1
+              yield occurrence
+#              yield @component.recurrence(occurrence)
+            end
+            occurrence = @rrules.next_occurrence
+          end
+        end
       end
+      
+      def bounded?
+        @rrules.bounded? || @count || @cutoff
+      end
+      
+      def to_a
+        raise ArgumentError.new("This component is unbounded, cannot produce an array of occurrences!") unless bounded?
+        super
+      end
+      
+      alias_method :entries, :to_a
     end
     
     # return an array of occurrences according to the options parameter
@@ -68,7 +123,11 @@ module RiCal
     # * starting
     # * before
     def occurrences(options={})
-      EnumerationInstance.new(options, self).occurrences      
+      EnumerationInstance.new(self, options).to_a    
     end
+    
+    def each(&block)
+      EnumerationInstance.new(self).each(&block)
+    end     
   end
 end
