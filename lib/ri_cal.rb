@@ -1,8 +1,10 @@
 module RiCal
   
-  autoload :Component, 'lib/ri_cal/component.rb'
-  autoload :TimezonePeriod, 'lib/ri_cal/timezone_period.rb'
-  autoload :OccurrenceEnumerator, 'lib/ri_cal/occurrence_enumerator.rb'
+  my_dir =  File.dirname(__FILE__)
+  
+  autoload :Component, "#{my_dir}/ri_cal/component.rb"
+  autoload :TimezonePeriod, "#{my_dir}/ri_cal/properties/timezone_period.rb"
+  autoload :OccurrenceEnumerator, "#{my_dir}/ri_cal/occurrence_enumerator.rb"
   
 
   # :stopdoc:
@@ -38,15 +40,10 @@ module RiCal
   # the _filename_ does not have to be equivalent to the directory.
   #
   def self.require_all_libs_relative_to( fname, dir = nil )
-    # propdir ::File.basename(fname, 'ri_cal', "properties")
-    # search_me = ::File.expand_path(
-    # ::File.join(::File.dirname(fname), propdir, '*.rb'))
-    # Dir.glob(search_me).sort.each {|rb| require rb}
     dir ||= ::File.basename(fname, '.*')
-    search_me = ::File.expand_path(
-    ::File.join(::File.dirname(fname), dir, '**', '*.rb'))
-    Dir.glob(search_me).grep(%r{/properties/}).each {|rb| require rb}
-    Dir.glob(search_me).sort.each {|rb| require rb}
+    search_me = ::File.expand_path(::File.join(::File.dirname(fname), dir, '**', '*.rb'))
+    Dir.glob(search_me).sort.each {|rb|
+      require rb}
   end
   
   # :startdoc:
@@ -66,8 +63,8 @@ module RiCal
 
 end  # module RiCal
 
-require File.join(File.dirname(__FILE__), *%w[ri_cal property_value])
-require File.join(File.dirname(__FILE__), *%w[ri_cal component])
+# require File.join(File.dirname(__FILE__), *%w[ri_cal property_value])
+# require File.join(File.dirname(__FILE__), *%w[ri_cal component])
 RiCal.require_all_libs_relative_to(__FILE__)
 
 # EOF

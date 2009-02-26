@@ -2,7 +2,7 @@ module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
       # Instances of RecurringMonthDay represent BYMONTHDAY parts in recurrence rules
-      class RecurringMonthDay < NumberedSpan
+      class RecurringMonthDay < NumberedSpan # :nodoc:
 
         def last
           31

@@ -1,13 +1,15 @@
 module RiCal
   class PropertyValue
+    # RiCal::PropertyValue::CalAddress represents an icalendar Duration property value
+    # which is defined in 
     # rfc 2445 section 4.3.6 p 37
     class Duration < PropertyValue
 
-      def self.value_part(unit, diff)
+      def self.value_part(unit, diff) # :nodoc:
         (diff == 0) ? nil : "#{diff}#{unit}"
       end
 
-      def self.from_datetimes(start, finish, sign='+')
+      def self.from_datetimes(start, finish, sign='+') # :nodoc:
         if start > finish
           from_datetimes(finish, start, '-')
         else
@@ -28,11 +30,11 @@ module RiCal
         end
       end
 
-      def self.convert(ruby_object)
+      def self.convert(ruby_object) # :nodoc:
         ruby_object.to_ri_cal_duration_value
       end
 
-      def value=(string)
+      def value=(string) # :nodoc:
         super
         match = /([+-])?P(.*)$/.match(string)
         @days = @hours = @minutes = @seconds = @weeks = 0
@@ -56,38 +58,42 @@ module RiCal
         end
       end
 
-      def days
+      def days # :nodoc:
         @days * @sign
       end
 
-      def weeks
+      def weeks # :nodoc:
         @weeks * @sign
       end
 
-      def hours
+      def hours # :nodoc:
         @hours * @sign
       end
 
-      def minutes
+      def minutes # :nodoc:
         @minutes * @sign
       end
 
-      def seconds
+      def seconds # :nodoc:
         @seconds * @sign
       end
 
+      # Determine whether another object is an equivalent RiCal::PropertyValue::Duration
       def ==(other)
         other.kind_of?(PropertyValue::Duration) && value == other.value
       end
 
+      # Returns the receiver
       def to_ri_cal_duration_value
         self
       end
 
+      # Double-dispatch method to support RiCal::PropertyValue::DateTime.-
       def subtract_from_date_time_value(date_time_value)
         date_time_value.advance(:weeks => -weeks, :days => -days, :hours => -hours, :minutes => -minutes, :seconds => -seconds)
       end
 
+      # Double-dispatch method to support RiCal::PropertyValue::DateTime.+
       def add_to_date_time_value(date_time_value)
         date_time_value.advance(:weeks => weeks, :days => days, :hours => hours, :minutes => minutes, :seconds => seconds)
       end

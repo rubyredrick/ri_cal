@@ -1,4 +1,4 @@
-require 'lib/ri_cal/core_extensions/array/conversions'
+require "#{File.dirname(__FILE__)}/array/conversions.rb"
 class Array
   include RiCal::CoreExtensions::Array::Conversions
 end

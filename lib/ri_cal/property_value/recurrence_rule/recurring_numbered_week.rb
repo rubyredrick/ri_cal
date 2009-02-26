@@ -1,7 +1,7 @@
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
-      class RecurringNumberedWeek < NumberedSpan
+      class RecurringNumberedWeek < NumberedSpan # :nodoc:
         def last
           53
         end

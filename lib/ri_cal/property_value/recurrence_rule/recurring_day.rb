@@ -4,7 +4,7 @@ module RiCal
 
       # Instances of RecurringDay are used to represent values in BYDAY recurrence rule parts
       #
-      class RecurringDay 
+      class RecurringDay # :nodoc: 
 
         DayNames = %w{SU MO TU WE TH FR SA} unless defined? DayNames
         day_nums = {}

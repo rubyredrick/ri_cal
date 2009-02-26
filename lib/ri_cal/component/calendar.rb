@@ -2,6 +2,8 @@ require File.join(File.dirname(__FILE__), %w[.. properties calendar.rb])
 
 module RiCal
   class Component
+    #
+    # to see the property accessing methods for this class see the RiCal::Properties::Calendar module
     class Calendar < Component
       include RiCal::Properties::Calendar    
 

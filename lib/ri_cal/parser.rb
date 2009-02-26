@@ -1,4 +1,4 @@
-class RiCal::Parser
+class RiCal::Parser # :nodoc:
   def next_line
     result = nil
     begin
@@ -8,6 +8,8 @@ class RiCal::Parser
         result = "#{result}#{@buffer.lstrip}"
         @buffer = nil
       end
+    rescue EOFError
+      return nil
     ensure
       return result
     end

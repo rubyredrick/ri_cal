@@ -10,6 +10,6 @@ module RiCal
 end
 
 
-%w[timezone_period.rb daylight_period.rb standard_period.rb].each do |filename|
-  require "lib/ri_cal/component/timezone/#{filename}"
+%w[timezone_period.rb daylight_period.rb standard_period.rb].each do |filename|  
+  require "#{File.dirname(__FILE__)}/timezone/#{filename}"
 end

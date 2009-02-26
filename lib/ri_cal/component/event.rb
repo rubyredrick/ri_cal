@@ -6,7 +6,9 @@ module RiCal
     # Events may have multiple occurrences
     #
     # Events may also contain one or more ALARM subcomponents
-    # TODO: implement alarm subcomponents
+    #
+    # to see the property accessing methods for this class see the RiCal::Properties::Event module
+    # to see the methods for enumerating occurrences of recurring events see the RiCal::OccurrenceEnumerator module
     class Event < Component
       include OccurrenceEnumerator
 

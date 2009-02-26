@@ -4,16 +4,21 @@ end
 
 module RiCal
   class PropertyValue
+    # RiCal::PropertyValue::RecurrenceRule represents an icalendar Recurrence Rule property value
+    # which is defined in 
+    # rfc 2445 section 4.3.10 pp 40-45
     class RecurrenceRule < PropertyValue
+      
+      include Validations
 
       attr_reader :count, :until
 
-      def initialize(value_hash)
+      def initialize(value_hash) # :nodoc:
         super
         initialize_from_hash(value_hash) unless value_hash[:value]
       end
 
-      def initialize_from_hash(value_hash)
+      def initialize_from_hash(value_hash) # :nodoc:
         self.freq = value_hash[:freq]
         self.wkst = value_hash[:wkst]
         set_count(value_hash[:count])
@@ -22,7 +27,7 @@ module RiCal
         set_by_lists(value_hash)
       end
 
-      def value=(string)
+      def value=(string) # :nodoc:
         if string
           @value = string
           parts = string.split(";")
@@ -31,7 +36,7 @@ module RiCal
         end
       end
 
-      def add_part_to_hash(hash, part)
+      def add_part_to_hash(hash, part) # :nodoc:
         part_name, value = part.split("=")
         puts "part=#{part.inspect}" unless part_name
         attribute = part_name.downcase.to_sym
@@ -53,160 +58,88 @@ module RiCal
         hash
       end
 
-      def validate
-        @errors = []
-        validate_termination
-        validate_freq
-        validate_interval
-        validate_int_by_list(:bysecond, (0..59))
-        validate_int_by_list(:byminute, (0..59))
-        validate_int_by_list(:byhour, (0..23))
-        validate_int_by_list(:bymonth, (1..12))
-        validate_bysetpos
-        validate_byday_list
-        validate_bymonthday_list
-        validate_byyearday_list
-        validate_byweekno_list
-        validate_wkst
-      end
 
-      def validate_termination
-        errors << "COUNT and UNTIL cannot both be specified" if @count && @until
-      end
-
-      def validate_freq
-        if @freq
-          unless %w{
-            SECONDLY MINUTELY HOURLY DAILY
-            WEEKLY MONTHLY YEARLY
-            }.include?(@freq.upcase)
-            errors <<  "Invalid frequency '#{@freq}'"
-          end
-        else
-          errors << "RecurrenceRule must have a value for FREQ"
-        end
-      end
-
-      def validate_interval
-        if @interval
-          errors << "interval must be a positive integer" unless @interval > 0
-        end
-      end
-
-      def validate_wkst
-        errors << "#{wkst.inspect} is invalid for wkst" unless %w{MO TU WE TH FR SA SU}.include?(wkst)
-      end
-
-      def validate_int_by_list(which, test)
-        vals = by_list[which] || []
-        vals.each do |val|
-          errors << "#{val} is invalid for #{which}" unless test === val
-        end
-      end
-
-      def validate_bysetpos
-        vals = by_list[:bysetpos] || []
-        vals.each do |val|
-          errors << "#{val} is invalid for bysetpos" unless (-366..-1) === val  || (1..366) === val
-        end
-        unless vals.empty?
-          errors << "bysetpos cannot be used without another by_xxx rule part" unless by_list.length > 1
-        end
-      end
-
-      def validate_byday_list
-        days = by_list[:byday] || []
-        days.each do |day|
-          errors << "#{day.source.inspect} is not a valid day" unless day.valid?
-        end
-      end
-
-      def validate_bymonthday_list
-        days = by_list[:bymonthday] || []
-        days.each do |day|
-          errors << "#{day.source.inspect} is not a valid month day" unless day.valid?
-        end
-      end
-
-      def validate_byyearday_list
-        days = by_list[:byyearday] || []
-        days.each do |day|
-          errors << "#{day.source.inspect} is not a valid year day" unless day.valid?
-        end
-      end
-
-      def validate_byweekno_list
-        days = by_list[:byweekno] || []
-        days.each do |day|
-          errors << "#{day.source.inspect} is not a valid week number" unless day.valid?
-        end
-      end
-
+      # Set the frequency of the recurrence rule
+      # freq_value:: a String which should be in %w[SECONDLY MINUTELY HOURLY DAILY WEEKLY MONTHLY YEARLY]
+      # 
+      # This method resets the receivers list of errors
       def freq=(freq_value)
         reset_errors
         @freq = freq_value
       end
 
+      # return the frequency of the rule which will be a string 
       def freq
         @freq.upcase
       end
 
+      # return the starting week day for the recurrence rule, which for a valid instance will be one of
+      # "SU", "MO", "TU", "WE", "TH", "FR", or "SA"
       def wkst
         @wkst || 'MO'
       end
 
-      def wkst_day
+      def wkst_day # :nodoc:
         @wkst_day ||= (%w{SU MO TU WE FR SA}.index(wkst) || 1)
       end
 
+      # Set the starting week day for the recurrence rule, which should  be one of
+      # "SU", "MO", "TU", "WE", "TH", "FR", or "SA" for the instance to be valid.
+      # The parameter is however case-insensitive.
+      # 
+      # This method resets the receivers list of errors
       def wkst=(value)
         reset_errors
         @wkst = value
         @wkst_day = nil
       end
 
+      # Set the count parameter of the recurrence rule, the count value will be converted to an integer using to_i
+      # 
+      # This method resets the receivers list of errors
       def count=(count_value)
         reset_errors
         set_count(count_value)
         @until = nil unless count_value.nil?
       end
 
-      def set_count(count_value)
+      def set_count(count_value) # :nodoc:
         @count = count_value
       end
 
-      def until=(until_value, init=false)
+      # Set the until parameter of the recurrence rule
+      #
+      # until_value:: the value to be set, this may be either a string in RFC 2446 Date or DateTime value format
+      # Or a Date, Time, DateTime, RiCal::PropertyValue::Date, or RiCal::PropertyValue::DateTime
+      #
+      # This method resets the receivers list of errors
+      def until=(until_value)
         reset_errors
         set_until
         @count = nil unless until_value.nil?
       end
 
-      def set_until(until_value)
+      def set_until(until_value) # :nodoc:
         @until = until_value && until_value.to_ri_cal_date_time_value
       end
 
+      # return the INTERVAL parameter of the recurrence rule
+      # This returns an Integer
       def interval
         @interval ||= 1
       end
 
+      # Set the INTERVAL parameter of the recurrence rule
+      #
+      # interval_value:: an Integer
+      #
+      # This method resets the receivers list of errors
       def interval=(interval_value)
         reset_errors
         @interval = interval_value
       end
 
-      def errors
-        @errors ||= []
-      end
-
-      def reset_errors
-        @errors = nil
-      end
-
-      def valid?
-        validate if @errors.nil?
-        errors.empty?
-      end
-
+      # Return a string containing the RFC 2445 representation of the recurrence rule
       def to_ical
         result = ["FREQ=#{freq}"]
         result << "COUNT=#{count}" if count
@@ -219,7 +152,7 @@ module RiCal
         result.join(";")
       end
       
-      def Enumerator.for(recurrence_rule, component, setpos_list)
+      def Enumerator.for(recurrence_rule, component, setpos_list) # :nodoc:
         if !setpos_list || setpos_list.all? {|setpos| setpos > 1}
           self.new(recurrence_rule, component, setpos_list)
         else
@@ -229,7 +162,7 @@ module RiCal
 
       # if the recurrence rule has a bysetpos part we need to search starting with the
       # first time in the frequency period containing the start time specified by DTSTART
-      def adjust_start(start_time)
+      def adjust_start(start_time) # :nodoc:
         if by_list[:bysetpos]
           case freq
           when "SECONDLY"
@@ -270,23 +203,20 @@ module RiCal
         end
       end
 
-      def enumerator(component)
+      def enumerator(component) # :nodoc:
         Enumerator.for(self, component, by_list[:bysetpos])
       end
 
-      def exhausted?(count, time)
+      def exhausted?(count, time) # :nodoc:
         (@count && count > @count) || (@until && (time > @until))
       end
       
+      # Predicate to determine if the receiver generates a bounded or infinite set of occurrences
       def bounded?
         @count || @until
       end
 
-      def start_of_week(time)
-        time.advance(:days => - (wkst_day - time.wday + 7) % 7)
-      end
-
-      def in_same_set?(time1, time2)
+      def in_same_set?(time1, time2) # :nodoc:
         case freq
         when "SECONDLY"
           [time1.year, time1.month, time1.day, time1.hour, time1.min, time1.sec] ==
@@ -314,7 +244,7 @@ module RiCal
       end
 
 
-      def advance(time, enumerator)
+      def advance(time, enumerator) # :nodoc:
         time = advance_seconds(time, enumerator)     
         while exclude_time_by_rule?(time) && (!@until || (time <= @until))
           time = advance_seconds(time, enumerator)
@@ -323,7 +253,7 @@ module RiCal
       end
 
       # determine if time should be excluded due to by rules
-      def exclude_time_by_rule?(time)
+      def exclude_time_by_rule?(time) # :nodoc:
         #TODO - this is overdoing it in cases like by_month with a frequency longer than a month
         exclude_time_by_value_rule?(:bysecond, time.sec) ||
         exclude_time_by_value_rule?(:byminute, time.min) ||
@@ -335,17 +265,17 @@ module RiCal
         exclude_time_by_inclusion_rule?(:byweekno, time)
       end
 
-      def exclude_time_by_value_rule?(rule_selector, value)
+      def exclude_time_by_value_rule?(rule_selector, value) # :nodoc:
         valid = by_list[rule_selector]
         valid && !valid.include?(value)
       end
 
-      def exclude_time_by_inclusion_rule?(rule_selector, time)
+      def exclude_time_by_inclusion_rule?(rule_selector, time) # :nodoc:
         valid = by_list[rule_selector]
         valid && !valid.any? {|rule| rule.include?(time)}
       end
 
-      def reset_value(which)
+      def reset_value(which) # :nodoc:
         if list = by_rule_list(which)
           list.first #Note that [].first => nil
         else
@@ -353,19 +283,19 @@ module RiCal
         end
       end
 
-      def reset_second
+      def reset_second # :nodoc:
         reset_value(:bysecond)
       end
 
-      def reset_minute
+      def reset_minute # :nodoc:
         reset_value(:byminute)
       end
 
-      def reset_hour
+      def reset_hour # :nodoc:
         reset_value(:byhour)
       end
 
-      def reset_day
+      def reset_day # :nodoc:
         if @by_list && (@by_list[:byday] || @by_list[:bymonthday] || @by_list[:byyearday])
           1
         else
@@ -373,7 +303,7 @@ module RiCal
         end
       end
 
-      def by_rule_list(which)
+      def by_rule_list(which) # :nodoc:
         if @by_list
           @by_list[which]
         else
@@ -381,11 +311,11 @@ module RiCal
         end
       end
 
-      def reset_month
+      def reset_month # :nodoc:
         reset_value(:bymonth)
       end
 
-      def advance_seconds(time, enumerator)
+      def advance_seconds(time, enumerator) # :nodoc:
         if freq == 'SECONDLY'
           time.advance(:seconds => interval)
         elsif seconds_list = by_rule_list(:bysecond)
@@ -403,7 +333,7 @@ module RiCal
         end
       end
 
-      def advance_minutes(time, enumerator)
+      def advance_minutes(time, enumerator) # :nodoc:
         if freq == 'MINUTELY'
           time.advance(:minutes => interval)
         elsif minutes_list = by_rule_list(:byminute)
@@ -421,7 +351,7 @@ module RiCal
         end
       end
 
-      def advance_hours(time, enumerator, debug=false)
+      def advance_hours(time, enumerator, debug=false) # :nodoc:
         if freq == 'HOURLY'
           time.advance(:hours => interval)
         elsif hours_list = by_rule_list(:byhour)
@@ -439,7 +369,7 @@ module RiCal
         end
       end
 
-      def advance_days(time, enumerator, debug = false)
+      def advance_days(time, enumerator, debug = false) # :nodoc:
         if freq == 'DAILY'
           result = time.advance(:days => interval)
           result
@@ -461,7 +391,7 @@ module RiCal
         end
       end
 
-      def advance_weeks(time, enumerator)
+      def advance_weeks(time, enumerator) # :nodoc:
         if freq == 'WEEKLY'
           time.advance(:days => 7 * interval)
         else
@@ -469,7 +399,7 @@ module RiCal
         end
       end
 
-      def advance_months(time, enumerator)
+      def advance_months(time, enumerator) # :nodoc:
         if freq == 'MONTHLY'
           return time.advance(:months => interval)
         elsif months_list = by_rule_list(:bymonth)

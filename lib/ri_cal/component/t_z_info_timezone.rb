@@ -1,6 +1,5 @@
 # A wrapper class for a Timezone implemented by the TZInfo Gem
-# (or Rails)
-
+# (or by Rails)
 class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
   attr_reader :tzinfo_timezone
 
@@ -29,7 +28,7 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
     result.join("\n")
   end
 
-  def add_period(result, this_period, prev_period)
+  def add_period(result, this_period, prev_period) # :nodoc:
     if this_period.dst?
       which = 'DAYLIGHT'
       offset_from  = this_period.utc_offset
@@ -47,7 +46,7 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
     result << "END:#{which}"
   end
 
-  def format_rfc2445_offset(seconds)
+  def format_rfc2445_offset(seconds) # :nodoc:
     abs_seconds = seconds.abs
     h = (abs_seconds/3600).floor
     m = (abs_seconds - (h * 3600))/60

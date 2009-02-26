@@ -1,7 +1,7 @@
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
-      class Enumerator
+      class Enumerator # :nodoc:
         attr_accessor :start_time, :duration, :next_time, :recurrence_rule
         attr_reader :reset_second, :reset_minute, :reset_hour, :reset_day, :reset_month
         def initialize(recurrence_rule, component, setpos_list)

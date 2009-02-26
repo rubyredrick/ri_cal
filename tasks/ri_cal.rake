@@ -15,7 +15,7 @@ class VEntityUpdater
     @indent = ""
     @property_map = {}
     @property_defs = YAML.load_file(defs_file)
-    @all_props = []
+    @all_props = {}
   end
   
   def property(prop_name_or_hash)
@@ -112,7 +112,6 @@ class VEntityUpdater
   end
   
   def named_property(name, options)
-    @all_props << name
     ruby_name = options['ruby_name']
     multi = options['multi']
     type = options['type']
@@ -137,6 +136,7 @@ class VEntityUpdater
     end
     ruby_name = ruby_name.tr("-", "_")
     property = "#{name.tr("-", "_").downcase}_property"
+    @all_props[property] = name.upcase
     @property_map[name.upcase] = :"#{property}_from_string"
     if type == 'date_time_or_date'
       line_evaluator = "RiCal::PropertyValue::DateTime.from_separated_line(line)"
@@ -159,7 +159,7 @@ class VEntityUpdater
         comment("set the the #{name.upcase} property")
         comment("one or more instances of #{describe_property(type)} may be passed to this method")
         indent("def #{property}=(*property_values)")
-        indent("  #{property}= property_values")
+        indent("  @#{property}= property_values")
         indent("end")
         blank_line
         comment("set the value of the #{name.upcase} property")
@@ -233,10 +233,31 @@ class VEntityUpdater
 
   def generate_support_methods
     blank_line
+    indent("def to_s")
+    indent("  entity_name = self.class.entity_name")
+    indent("  collector = [\"BEGIN:\#{entity_name}\"]")
+    @all_props.each do |prop_attr, prop_name|
+      indent("  collector << prop_string(#{prop_name.inspect}, @#{prop_attr})")
+    end    
+    indent("  collector << \"END:\#{entity_name}\"")
+    indent("  collector.compact.join(\"\\n\")")
+    indent("end")
+    blank_line
+    indent("def ==(o)")
+    indent("  if o.class == self.class")
+    @all_props.keys.each_with_index do |prop_name, i|
+      and_str = i < @all_props.length - 1 ? " &&" : ""
+      indent("  (#{prop_name} == o.#{prop_name})#{and_str}")
+    end
+    indent("  else")
+    indent("     super")
+    indent("  end")
+    indent("end")
+    blank_line
     indent("def initialize_copy(o)")
     indent("  super")
-    @all_props.each do |prop_name|
-      indent("  @#{prop_name}_property = @{prop_name}_property.dup")
+    @all_props.each_key do |prop_name|
+      indent("  #{prop_name} = #{prop_name} && #{prop_name}.dup")
     end
     indent("end")
     blank_line

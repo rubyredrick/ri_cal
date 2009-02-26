@@ -282,7 +282,7 @@ module RiCal
       # set the the ATTENDEE property
       # one or more instances of RiCal::PropertyValueCalAddress may be passed to this method
       def attendee_property=(*property_values)
-        attendee_property= property_values
+        @attendee_property= property_values
       end
 
       # set the value of the ATTENDEE property
@@ -315,7 +315,7 @@ module RiCal
       # set the the COMMENT property
       # one or more instances of RiCal::PropertyValueText may be passed to this method
       def comment_property=(*property_values)
-        comment_property= property_values
+        @comment_property= property_values
       end
 
       # set the value of the COMMENT property
@@ -348,7 +348,7 @@ module RiCal
       # set the the FREEBUSY property
       # one or more instances of RiCal::PropertyValuePeriod may be passed to this method
       def freebusy_property=(*property_values)
-        freebusy_property= property_values
+        @freebusy_property= property_values
       end
 
       # set the value of the FREEBUSY property
@@ -378,7 +378,7 @@ module RiCal
       # set the the REQUEST-STATUS property
       # one or more instances of RiCal::PropertyValueText may be passed to this method
       def request_status_property=(*property_values)
-        request_status_property= property_values
+        @request_status_property= property_values
       end
 
       # set the value of the REQUEST-STATUS property
@@ -395,6 +395,60 @@ module RiCal
 
       def request_status_property_from_string(line) # :nodoc:
         request_status_property << RiCal::PropertyValue::Text.new(line)
+      end
+
+      def to_s
+        entity_name = self.class.entity_name
+        collector = ["BEGIN:#{entity_name}"]
+        collector << prop_string("REQUEST-STATUS", @request_status_property)
+        collector << prop_string("DTSTAMP", @dtstamp_property)
+        collector << prop_string("DTEND", @dtend_property)
+        collector << prop_string("DTSTART", @dtstart_property)
+        collector << prop_string("CONTACT", @contact_property)
+        collector << prop_string("ATTENDEE", @attendee_property)
+        collector << prop_string("UID", @uid_property)
+        collector << prop_string("DURATION", @duration_property)
+        collector << prop_string("URL", @url_property)
+        collector << prop_string("ORGANIZER", @organizer_property)
+        collector << prop_string("FREEBUSY", @freebusy_property)
+        collector << prop_string("COMMENT", @comment_property)
+        collector << "END:#{entity_name}"
+        collector.compact.join("\n")
+      end
+
+      def ==(o)
+        if o.class == self.class
+        (request_status_property == o.request_status_property) &&
+        (dtstamp_property == o.dtstamp_property) &&
+        (dtend_property == o.dtend_property) &&
+        (dtstart_property == o.dtstart_property) &&
+        (contact_property == o.contact_property) &&
+        (attendee_property == o.attendee_property) &&
+        (uid_property == o.uid_property) &&
+        (duration_property == o.duration_property) &&
+        (url_property == o.url_property) &&
+        (organizer_property == o.organizer_property) &&
+        (freebusy_property == o.freebusy_property) &&
+        (comment_property == o.comment_property)
+        else
+           super
+        end
+      end
+
+      def initialize_copy(o)
+        super
+        request_status_property = request_status_property && request_status_property.dup
+        dtstamp_property = dtstamp_property && dtstamp_property.dup
+        dtend_property = dtend_property && dtend_property.dup
+        dtstart_property = dtstart_property && dtstart_property.dup
+        contact_property = contact_property && contact_property.dup
+        attendee_property = attendee_property && attendee_property.dup
+        uid_property = uid_property && uid_property.dup
+        duration_property = duration_property && duration_property.dup
+        url_property = url_property && url_property.dup
+        organizer_property = organizer_property && organizer_property.dup
+        freebusy_property = freebusy_property && freebusy_property.dup
+        comment_property = comment_property && comment_property.dup
       end
 
       module ClassMethods

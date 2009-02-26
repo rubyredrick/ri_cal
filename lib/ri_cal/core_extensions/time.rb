@@ -1,6 +1,6 @@
-require 'lib/ri_cal/core_extensions/time/conversions'
-require 'lib/ri_cal/core_extensions/time/week_day_predicates'
-require 'lib/ri_cal/core_extensions/time/calculations'
+require "#{File.dirname(__FILE__)}/time/conversions.rb"
+require "#{File.dirname(__FILE__)}/time/week_day_predicates.rb"
+require "#{File.dirname(__FILE__)}/time/calculations.rb"
 class Time
   include RiCal::CoreExtensions::Time::WeekDayPredicates
   include RiCal::CoreExtensions::Time::Calculations  

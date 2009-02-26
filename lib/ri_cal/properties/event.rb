@@ -647,7 +647,7 @@ module RiCal
       # set the the ATTACH property
       # one or more instances of RiCal::PropertyValueUri may be passed to this method
       def attach_property=(*property_values)
-        attach_property= property_values
+        @attach_property= property_values
       end
 
       # set the value of the ATTACH property
@@ -680,7 +680,7 @@ module RiCal
       # set the the ATTENDEE property
       # one or more instances of RiCal::PropertyValueCalAddress may be passed to this method
       def attendee_property=(*property_values)
-        attendee_property= property_values
+        @attendee_property= property_values
       end
 
       # set the value of the ATTENDEE property
@@ -713,7 +713,7 @@ module RiCal
       # set the the CATEGORIES property
       # one or more instances of RiCal::PropertyValueArray may be passed to this method
       def categories_property=(*property_values)
-        categories_property= property_values
+        @categories_property= property_values
       end
 
       # set the value of the CATEGORIES property
@@ -746,7 +746,7 @@ module RiCal
       # set the the COMMENT property
       # one or more instances of RiCal::PropertyValueText may be passed to this method
       def comment_property=(*property_values)
-        comment_property= property_values
+        @comment_property= property_values
       end
 
       # set the value of the COMMENT property
@@ -779,7 +779,7 @@ module RiCal
       # set the the CONTACT property
       # one or more instances of RiCal::PropertyValueText may be passed to this method
       def contact_property=(*property_values)
-        contact_property= property_values
+        @contact_property= property_values
       end
 
       # set the value of the CONTACT property
@@ -812,7 +812,7 @@ module RiCal
       # set the the EXDATE property
       # one or more instances of RiCal::PropertyValueOccurrenceList may be passed to this method
       def exdate_property=(*property_values)
-        exdate_property= property_values
+        @exdate_property= property_values
       end
 
       # set the value of the EXDATE property
@@ -845,7 +845,7 @@ module RiCal
       # set the the RDATE property
       # one or more instances of RiCal::PropertyValueOccurrenceList may be passed to this method
       def rdate_property=(*property_values)
-        rdate_property= property_values
+        @rdate_property= property_values
       end
 
       # set the value of the RDATE property
@@ -878,7 +878,7 @@ module RiCal
       # set the the EXRULE property
       # one or more instances of RiCal::PropertyValueRecurrenceRule may be passed to this method
       def exrule_property=(*property_values)
-        exrule_property= property_values
+        @exrule_property= property_values
       end
 
       # set the value of the EXRULE property
@@ -908,7 +908,7 @@ module RiCal
       # set the the REQUEST-STATUS property
       # one or more instances of RiCal::PropertyValueText may be passed to this method
       def request_status_property=(*property_values)
-        request_status_property= property_values
+        @request_status_property= property_values
       end
 
       # set the value of the REQUEST-STATUS property
@@ -941,7 +941,7 @@ module RiCal
       # set the the RELATED-TO property
       # one or more instances of RiCal::PropertyValueText may be passed to this method
       def related_to_property=(*property_values)
-        related_to_property= property_values
+        @related_to_property= property_values
       end
 
       # set the value of the RELATED-TO property
@@ -974,7 +974,7 @@ module RiCal
       # set the the RESOURCES property
       # one or more instances of RiCal::PropertyValueArray may be passed to this method
       def resources_property=(*property_values)
-        resources_property= property_values
+        @resources_property= property_values
       end
 
       # set the value of the RESOURCES property
@@ -1007,7 +1007,7 @@ module RiCal
       # set the the RRULE property
       # one or more instances of RiCal::PropertyValueRecurrenceRule may be passed to this method
       def rrule_property=(*property_values)
-        rrule_property= property_values
+        @rrule_property= property_values
       end
 
       # set the value of the RRULE property
@@ -1024,6 +1024,154 @@ module RiCal
 
       def rrule_property_from_string(line) # :nodoc:
         rrule_property << RiCal::PropertyValue::RecurrenceRule.new(line)
+      end
+
+      def to_s
+        entity_name = self.class.entity_name
+        collector = ["BEGIN:#{entity_name}"]
+        collector << prop_string("REQUEST-STATUS", @request_status_property)
+        collector << prop_string("EXDATE", @exdate_property)
+        collector << prop_string("TRANSP", @transp_property)
+        collector << prop_string("DTSTAMP", @dtstamp_property)
+        collector << prop_string("CREATED", @created_property)
+        collector << prop_string("CONTACT", @contact_property)
+        collector << prop_string("CATEGORIES", @categories_property)
+        collector << prop_string("DTEND", @dtend_property)
+        collector << prop_string("STATUS", @status_property)
+        collector << prop_string("LAST-MODIFIED", @last_modified_property)
+        collector << prop_string("DTSTART", @dtstart_property)
+        collector << prop_string("RECURRENCE-ID", @recurrence_id_property)
+        collector << prop_string("RESOURCES", @resources_property)
+        collector << prop_string("ATTENDEE", @attendee_property)
+        collector << prop_string("DURATION", @duration_property)
+        collector << prop_string("UID", @uid_property)
+        collector << prop_string("URL", @url_property)
+        collector << prop_string("PRIORITY", @priority_property)
+        collector << prop_string("ORGANIZER", @organizer_property)
+        collector << prop_string("RRULE", @rrule_property)
+        collector << prop_string("DESCRIPTION", @description_property)
+        collector << prop_string("CLASS", @class_property)
+        collector << prop_string("SUMMARY", @summary_property)
+        collector << prop_string("GEO", @geo_property)
+        collector << prop_string("ATTACH", @attach_property)
+        collector << prop_string("SEQUENCE", @sequence_property)
+        collector << prop_string("RELATED-TO", @related_to_property)
+        collector << prop_string("EXRULE", @exrule_property)
+        collector << prop_string("RDATE", @rdate_property)
+        collector << prop_string("LOCATION", @location_property)
+        collector << prop_string("COMMENT", @comment_property)
+        collector << "END:#{entity_name}"
+        collector.compact.join("\n")
+      end
+      
+      def debug_equal(propname, mine, his)
+        rputs "  #{propname} mine=#{mine.inspect}, his=#{his.inspect} #{mine == his}"
+      end
+
+      def ==(o)
+        if o.class == self.class
+          # rputs "comparing #{self} \nand #{o}"
+          # rputs(request_status_property == o.request_status_property)
+          # debug_equal("exdate_property", exdate_property, o.exdate_property)
+          # debug_equal("transp_property", transp_property, o.transp_property)
+          # debug_equal("dtstamp_property", dtstamp_property, o.dtstamp_property)
+          # debug_equal("created_property", created_property, o.created_property)
+          # debug_equal("contact_property", contact_property, o.contact_property)
+          # debug_equal("categories_property", categories_property, o.categories_property)
+          # debug_equal("dtend_property", dtend_property, o.dtend_property)
+          # debug_equal("status_property", status_property, o.status_property)
+          # debug_equal("last_modified_property", last_modified_property, o.last_modified_property)
+          # debug_equal("dtstart_property", dtstart_property, o.dtstart_property)
+          # debug_equal("recurrence_id_property", recurrence_id_property, o.recurrence_id_property)
+          # debug_equal("resources_property", resources_property, o.resources_property)
+          # debug_equal("attendee_property", attendee_property, o.attendee_property)
+          # debug_equal("duration_property", duration_property, o.duration_property)
+          # debug_equal("uid_property", uid_property, o.uid_property)
+          # debug_equal("url_property", url_property, o.url_property)
+          # debug_equal("priority_property", priority_property, o.priority_property)
+          # debug_equal("organizer_property", organizer_property, o.organizer_property)
+          # debug_equal("rrule_property", rrule_property, o.rrule_property)
+          # debug_equal("description_property", description_property, o.description_property)
+          # debug_equal("class_property", class_property, o.class_property)
+          # debug_equal("summary_property", summary_property, o.summary_property)
+          # debug_equal("geo_property", geo_property, o.geo_property)
+          # debug_equal("attach_property", attach_property, o.attach_property)
+          # debug_equal("sequence_property", sequence_property, o.sequence_property)
+          # debug_equal("related_to_property", related_to_property, o.related_to_property)
+          # debug_equal("exrule_property", exrule_property, o.exrule_property)
+          # debug_equal("rdate_property", rdate_property, o.rdate_property)
+          # debug_equal("location_property", location_property, o.location_property)
+          # debug_equal("comment_property", comment_property, o.comment_property)
+          # 
+          (request_status_property == o.request_status_property) &&
+          (exdate_property == o.exdate_property) &&
+          (transp_property == o.transp_property) &&
+          (dtstamp_property == o.dtstamp_property) &&
+          (created_property == o.created_property) &&
+          (contact_property == o.contact_property) &&
+          (categories_property == o.categories_property) &&
+          (dtend_property == o.dtend_property) &&
+          (status_property == o.status_property) &&
+          (last_modified_property == o.last_modified_property) &&
+          (dtstart_property == o.dtstart_property) &&
+          (recurrence_id_property == o.recurrence_id_property) &&
+          (resources_property == o.resources_property) &&
+          (attendee_property == o.attendee_property) &&
+          (duration_property == o.duration_property) &&
+          (uid_property == o.uid_property) &&
+          (url_property == o.url_property) &&
+          (priority_property == o.priority_property) &&
+          (organizer_property == o.organizer_property) &&
+          (rrule_property == o.rrule_property) &&
+          (description_property == o.description_property) &&
+          (class_property == o.class_property) &&
+          (summary_property == o.summary_property) &&
+          (geo_property == o.geo_property) &&
+          (attach_property == o.attach_property) &&
+          (sequence_property == o.sequence_property) &&
+          (related_to_property == o.related_to_property) &&
+          (exrule_property == o.exrule_property) &&
+          (rdate_property == o.rdate_property) &&
+          (location_property == o.location_property) &&
+          (comment_property == o.comment_property)
+        else
+          super
+        end
+      end
+
+      def initialize_copy(o)
+        super
+        request_status_property = request_status_property && request_status_property.dup
+        exdate_property = exdate_property && exdate_property.dup
+        transp_property = transp_property && transp_property.dup
+        dtstamp_property = dtstamp_property && dtstamp_property.dup
+        created_property = created_property && created_property.dup
+        contact_property = contact_property && contact_property.dup
+        categories_property = categories_property && categories_property.dup
+        dtend_property = dtend_property && dtend_property.dup
+        status_property = status_property && status_property.dup
+        last_modified_property = last_modified_property && last_modified_property.dup
+        dtstart_property = dtstart_property && dtstart_property.dup
+        recurrence_id_property = recurrence_id_property && recurrence_id_property.dup
+        resources_property = resources_property && resources_property.dup
+        attendee_property = attendee_property && attendee_property.dup
+        duration_property = duration_property && duration_property.dup
+        uid_property = uid_property && uid_property.dup
+        url_property = url_property && url_property.dup
+        priority_property = priority_property && priority_property.dup
+        organizer_property = organizer_property && organizer_property.dup
+        rrule_property = rrule_property && rrule_property.dup
+        description_property = description_property && description_property.dup
+        class_property = class_property && class_property.dup
+        summary_property = summary_property && summary_property.dup
+        geo_property = geo_property && geo_property.dup
+        attach_property = attach_property && attach_property.dup
+        sequence_property = sequence_property && sequence_property.dup
+        related_to_property = related_to_property && related_to_property.dup
+        exrule_property = exrule_property && exrule_property.dup
+        rdate_property = rdate_property && rdate_property.dup
+        location_property = location_property && location_property.dup
+        comment_property = comment_property && comment_property.dup
       end
 
       module ClassMethods

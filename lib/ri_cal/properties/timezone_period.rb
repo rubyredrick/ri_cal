@@ -117,7 +117,7 @@ module RiCal
       # set the the COMMENT property
       # one or more instances of RiCal::PropertyValueText may be passed to this method
       def comment_property=(*property_values)
-        comment_property= property_values
+        @comment_property= property_values
       end
 
       # set the value of the COMMENT property
@@ -150,7 +150,7 @@ module RiCal
       # set the the RDATE property
       # one or more instances of RiCal::PropertyValueOccurrenceList may be passed to this method
       def rdate_property=(*property_values)
-        rdate_property= property_values
+        @rdate_property= property_values
       end
 
       # set the value of the RDATE property
@@ -183,7 +183,7 @@ module RiCal
       # set the the RRULE property
       # one or more instances of RiCal::PropertyValueRecurrenceRule may be passed to this method
       def rrule_property=(*property_values)
-        rrule_property= property_values
+        @rrule_property= property_values
       end
 
       # set the value of the RRULE property
@@ -216,7 +216,7 @@ module RiCal
       # set the the TZNAME property
       # one or more instances of RiCal::PropertyValueText may be passed to this method
       def tzname_property=(*property_values)
-        tzname_property= property_values
+        @tzname_property= property_values
       end
 
       # set the value of the TZNAME property
@@ -233,6 +233,45 @@ module RiCal
 
       def tzname_property_from_string(line) # :nodoc:
         tzname_property << RiCal::PropertyValue::Text.new(line)
+      end
+
+      def to_s
+        entity_name = self.class.entity_name
+        collector = ["BEGIN:#{entity_name}"]
+        collector << prop_string("TZOFFSETTO", @tzoffsetto_property)
+        collector << prop_string("DTSTART", @dtstart_property)
+        collector << prop_string("RRULE", @rrule_property)
+        collector << prop_string("TZOFFSETFROM", @tzoffsetfrom_property)
+        collector << prop_string("TZNAME", @tzname_property)
+        collector << prop_string("RDATE", @rdate_property)
+        collector << prop_string("COMMENT", @comment_property)
+        collector << "END:#{entity_name}"
+        collector.compact.join("\n")
+      end
+
+      def ==(o)
+        if o.class == self.class
+        (tzoffsetto_property == o.tzoffsetto_property) &&
+        (dtstart_property == o.dtstart_property) &&
+        (rrule_property == o.rrule_property) &&
+        (tzoffsetfrom_property == o.tzoffsetfrom_property) &&
+        (tzname_property == o.tzname_property) &&
+        (rdate_property == o.rdate_property) &&
+        (comment_property == o.comment_property)
+        else
+           super
+        end
+      end
+
+      def initialize_copy(o)
+        super
+        tzoffsetto_property = tzoffsetto_property && tzoffsetto_property.dup
+        dtstart_property = dtstart_property && dtstart_property.dup
+        rrule_property = rrule_property && rrule_property.dup
+        tzoffsetfrom_property = tzoffsetfrom_property && tzoffsetfrom_property.dup
+        tzname_property = tzname_property && tzname_property.dup
+        rdate_property = rdate_property && rdate_property.dup
+        comment_property = comment_property && comment_property.dup
       end
 
       module ClassMethods

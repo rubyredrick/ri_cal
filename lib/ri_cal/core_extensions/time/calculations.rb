@@ -1,18 +1,27 @@
 module RiCal
   module CoreExtensions
     module Time
+      # Provide calculation methods for use by the RiCal gem
+      # This module is included by Time, Date, and DateTime
       module Calculations
+        # A predicate method used to determine if the receiver is within a leap year
         def leap_year?
           year % 4 == 0 && (year % 400 == 0 || year % 100 != 0)
         end 
 
+        # Return the number of days in the month which includes the receiver
         def days_in_month
           raw = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][self.month]
           self.month == 2 && leap_year? ? raw + 1 : raw
         end
 
         # Return the date on which the first iso week with a given starting week day occurs
-        # for a given year
+        # for a given iso year
+        # 
+        # == parameters
+        # year:: the iso year
+        # wkst:: an integer representing the day of the week on which weeks are deemed to start. This uses
+        # the ruby convention where 0 represents Sunday.
         #
         # From RFC 2445 page 43:
         # A week is defined as a seven day period, starting on the day of the week defined to be the
@@ -62,10 +71,17 @@ module RiCal
           result
         end
 
+        # Convert the receivers wday to RFC 2445 format.  Whereas the Ruby time/date classes use
+        # 0 to represent Sunday, RFC 2445 uses 7.
         def self.convert_wday(wday)
           wday == 0 ? 7 : wday
         end
 
+        # Return an array containing the iso year and iso week number for the receiver.
+        # Note that the iso year may be the year before or after the calendar year containing the receiver.
+        # == parameter
+        # wkst:: an integer representing the day of the week on which weeks are deemed to start. This uses
+        # the ruby convention where 0 represents Sunday.
         def iso_year_and_week_num(wkst)
           iso_year = self.year
           date = ::Date.new(self.year, self.month, self.mday)
@@ -86,7 +102,11 @@ module RiCal
           [iso_year, (date - week_one_start).to_i / 7 + 1]
         end
 
-        def iso_week_num(wkst, debug=false)
+        # return the iso week number of the receiver
+        # == parameter
+        # wkst:: an integer representing the day of the week on which weeks are deemed to start. This uses
+        # the ruby convention where 0 represents Sunday.
+        def iso_week_num(wkst)
           iso_year_and_week_num(wkst)[1]
         end
       end

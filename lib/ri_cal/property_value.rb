@@ -1,15 +1,16 @@
 module RiCal
+  # PropertyValue provides common implementation of various RFC 2445 property value types
   class PropertyValue
 
     attr_accessor :params, :value
-    def initialize(separated_line)
+    def initialize(separated_line) # :nodoc:
       val = separated_line[:value]
       raise "Invalid property value #{val.inspect}" if val.kind_of?(String) && /^;/.match(val)
       self.params = separated_line[:params] || {}
       self.value = val
     end
 
-    def self.date_or_date_time(separated_line)
+    def self.date_or_date_time(separated_line) # :nodoc:
       match = separated_line[:value].match(/(\d\d\d\d)(\d\d)(\d\d)((T?)((\d\d)(\d\d)(\d\d))(Z?))?/)
       raise Exception.new("Invalid date") unless match
       if match[5] == "T" # date-time
@@ -25,14 +26,37 @@ module RiCal
       end
     end
 
-    def self.from_string(string)
+    def self.from_string(string) # :nodoc:
       new(:value => string)
     end
+    
+    # Determine if another object is equivalent to the receiver.
+    def ==(o)
+      if o.class == self.class
+        puts " result is #{(value == o.value).inspect}"
+        value == o.value
+      else
+        super
+      end
+    end
+    
+    def visible_params # :nodoc:
+      params
+    end
 
+    # Return a string representing the receiver in RFC 2445 format
+    def to_s
+      if visible_params && !visible_params.empty?
+        "#{visible_params.map {|key, val| ";#{key}=#{val}"}}:#{value}"
+      else
+        ":#{value}"
+      end
+    end
   end
 end
 
 Dir[File.dirname(__FILE__) + "/property_value/*.rb"].sort.each do |path|
   filename = File.basename(path)
-  require "lib/ri_cal/property_value/#{filename}"
+#  require "lib/ri_cal/property_value/#{filename}"
+  require path
 end

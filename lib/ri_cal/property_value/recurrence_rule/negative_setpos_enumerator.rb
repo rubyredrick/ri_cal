@@ -2,7 +2,7 @@ module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
 
-      class NegativeSetposEnumerator < Enumerator
+      class NegativeSetposEnumerator < Enumerator # :nodoc:
 
         def initialize(recurrence_rule, component, setpos_list)
           super

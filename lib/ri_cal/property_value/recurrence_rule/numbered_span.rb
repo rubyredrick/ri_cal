@@ -2,7 +2,7 @@ module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
 
-      class NumberedSpan
+      class NumberedSpan # :nodoc:
         attr_reader :source
         def initialize(source)
           @source = source

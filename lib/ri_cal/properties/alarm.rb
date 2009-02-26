@@ -216,7 +216,7 @@ module RiCal
       # set the the ATTENDEE property
       # one or more instances of RiCal::PropertyValueCalAddress may be passed to this method
       def attendee_property=(*property_values)
-        attendee_property= property_values
+        @attendee_property= property_values
       end
 
       # set the value of the ATTENDEE property
@@ -249,7 +249,7 @@ module RiCal
       # set the the ATTACH property
       # one or more instances of RiCal::PropertyValueUri may be passed to this method
       def attach_property=(*property_values)
-        attach_property= property_values
+        @attach_property= property_values
       end
 
       # set the value of the ATTACH property
@@ -266,6 +266,48 @@ module RiCal
 
       def attach_property_from_string(line) # :nodoc:
         attach_property << RiCal::PropertyValue::Uri.new(line)
+      end
+
+      def to_s
+        entity_name = self.class.entity_name
+        collector = ["BEGIN:#{entity_name}"]
+        collector << prop_string("ACTION", @action_property)
+        collector << prop_string("ATTENDEE", @attendee_property)
+        collector << prop_string("DURATION", @duration_property)
+        collector << prop_string("TRIGGER", @trigger_property)
+        collector << prop_string("DESCRIPTION", @description_property)
+        collector << prop_string("SUMMARY", @summary_property)
+        collector << prop_string("REPEAT", @repeat_property)
+        collector << prop_string("ATTACH", @attach_property)
+        collector << "END:#{entity_name}"
+        collector.compact.join("\n")
+      end
+
+      def ==(o)
+        if o.class == self.class
+        (action_property == o.action_property) &&
+        (attendee_property == o.attendee_property) &&
+        (duration_property == o.duration_property) &&
+        (trigger_property == o.trigger_property) &&
+        (description_property == o.description_property) &&
+        (summary_property == o.summary_property) &&
+        (repeat_property == o.repeat_property) &&
+        (attach_property == o.attach_property)
+        else
+           super
+        end
+      end
+
+      def initialize_copy(o)
+        super
+        action_property = action_property && action_property.dup
+        attendee_property = attendee_property && attendee_property.dup
+        duration_property = duration_property && duration_property.dup
+        trigger_property = trigger_property && trigger_property.dup
+        description_property = description_property && description_property.dup
+        summary_property = summary_property && summary_property.dup
+        repeat_property = repeat_property && repeat_property.dup
+        attach_property = attach_property && attach_property.dup
       end
 
       module ClassMethods

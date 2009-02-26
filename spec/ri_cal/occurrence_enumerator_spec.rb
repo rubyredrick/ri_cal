@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), %w[.. spec_helper])
+require File.join(File.dirname(__FILE__), %w[.. spec_helper.rb])
 
 # Note that this is more of a functional spec
 describe RiCal::OccurrenceEnumerator do
@@ -18,18 +18,26 @@ EXDATE;TZID=US-Eastern:19970902T090000
 RRULE:FREQ=MONTHLY;BYDAY=FR;BYMONTHDAY=13
 END:VEVENT
 TEXT
-  
+
+ Fr13UnboundedZuluExpectedFive = [
+   "19980213T090000Z",
+   "19980313T090000Z",
+   "19981113T090000Z",
+   "19990813T090000Z",
+   "20001013T090000Z"
+   ].map {|start| src = <<-TEXT
+BEGIN:VEVENT
+DTSTART:#{start}
+RECURRENCE-ID:#{start}
+END:VEVENT
+TEXT
+          RiCal.parse_string(src).first
+        }
+
   describe ".occurrences" do
     describe "with an unbounded component" do
       before(:each) do
         @it = RiCal.parse_string(Fr13Unbounded_Zulu).first
-        @expected_five = [
-          "2/13/1998 9:00 AM  UTC",
-          "3/13/1998 9:00 AM  UTC",
-          "11/13/1998 9:00 AM UTC",
-          "8/13/1999 9:00 AM  UTC",
-          "10/13/2000 9:00 AM UTC",
-          ].map {|s| DateTime.parse(s)}
       end
       
       it "should raise an ArgumentError with no options to limit result" do
@@ -37,7 +45,10 @@ TEXT
       end
       
       it "should have the right five occurrences when :count => 5 option is used" do
-        @it.occurrences(:count => 5).map {|occ| occ[:start].to_ruby_value}.should == @expected_five
+        result = @it.occurrences(:count => 5)
+        # result.zip(Fr13UnboundedZuluExpectedFive).each {|act, expected| rputs("expected #{expected.to_s}")
+        # rputs("actual  #{act.to_s}")}
+        result.should == Fr13UnboundedZuluExpectedFive
       end
       
     end
@@ -51,25 +62,13 @@ TEXT
         @result = []
         event.each do |occurrence|
           break if @result.length >= 5
-          @result << occurrence[:start].to_ruby_value
+          @result << occurrence
         end
       end
 
       it "should have the right first six occurrences" do
         # TODO - Need to properly deal with timezones
-        expected = [
-          # "2/13/1998 9:00 AM EST",
-          # "3/13/1998 9:00 AM EST",
-          # "11/13/1998 9:00 AM EST",
-          # "8/13/1999 9:00 AM EDT",
-          # "10/13/2000 9:00 AM EST",
-          "2/13/1998 9:00 AM  UTC",
-          "3/13/1998 9:00 AM  UTC",
-          "11/13/1998 9:00 AM UTC",
-          "8/13/1999 9:00 AM  UTC",
-          "10/13/2000 9:00 AM UTC",
-          ].map {|s| DateTime.parse(s)}
-        @result.should == expected
+        @result.should == Fr13UnboundedZuluExpectedFive
       end
 
     end

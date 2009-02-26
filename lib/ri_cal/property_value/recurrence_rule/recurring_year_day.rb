@@ -1,7 +1,7 @@
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
-      class RecurringYearDay < NumberedSpan
+      class RecurringYearDay < NumberedSpan # :nodoc:
 
         def last
           366

@@ -114,6 +114,36 @@ module RiCal
       end
 
 
+      def to_s
+        entity_name = self.class.entity_name
+        collector = ["BEGIN:#{entity_name}"]
+        collector << prop_string("PRODID", @prodid_property)
+        collector << prop_string("CALSCALE", @calscale_property)
+        collector << prop_string("VERSION", @version_property)
+        collector << prop_string("METHOD", @method_property)
+        collector << "END:#{entity_name}"
+        collector.compact.join("\n")
+      end
+
+      def ==(o)
+        if o.class == self.class
+        (prodid_property == o.prodid_property) &&
+        (calscale_property == o.calscale_property) &&
+        (version_property == o.version_property) &&
+        (method_property == o.method_property)
+        else
+           super
+        end
+      end
+
+      def initialize_copy(o)
+        super
+        prodid_property = prodid_property && prodid_property.dup
+        calscale_property = calscale_property && calscale_property.dup
+        version_property = version_property && version_property.dup
+        method_property = method_property && method_property.dup
+      end
+
       module ClassMethods
         def property_parser
           {"METHOD"=>:method_property_from_string, "VERSION"=>:version_property_from_string, "PRODID"=>:prodid_property_from_string, "CALSCALE"=>:calscale_property_from_string}

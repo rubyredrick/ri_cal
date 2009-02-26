@@ -26,7 +26,7 @@ describe RiCal::PropertyValue do
       end
       
       it "should set the correct date" do
-        @prop.ruby_value.should == Date.parse("Jul 14, 1997")
+        @prop.to_ri_cal_ruby_value.should == Date.parse("Jul 14, 1997")
       end  
     end
     
@@ -41,7 +41,7 @@ describe RiCal::PropertyValue do
         end
         
         it "should have the right ruby value" do
-          @prop.ruby_value.should == DateTime.parse("19970714T123456")
+          @prop.to_ri_cal_ruby_value.should == DateTime.parse("19970714T123456")
         end
         
         it "should have the right value" do
@@ -67,7 +67,7 @@ describe RiCal::PropertyValue do
         end
         
         it "should have the right ruby value" do
-          @prop.ruby_value.should == DateTime.parse("19970714T123456Z")
+          @prop.to_ri_cal_ruby_value.should == DateTime.parse("19970714T123456Z")
         end
         
         it "should have a tzid of UTC" do
@@ -91,7 +91,7 @@ describe RiCal::PropertyValue do
         
         it "should have the right ruby value" do
           #TODO - what do we do about timezone with and without activesupport
-          @prop.ruby_value.should == DateTime.parse("19970714T123456")
+          @prop.to_ri_cal_ruby_value.should == DateTime.parse("19970714T123456")
         end
         
         it "should have the right tzid" do
