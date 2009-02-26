@@ -1,5 +1,11 @@
 module RiCal
-
+  
+  my_dir =  File.dirname(__FILE__)
+  
+  autoload :Component, "#{my_dir}/ri_cal/component.rb"
+  autoload :TimezonePeriod, "#{my_dir}/ri_cal/properties/timezone_period.rb"
+  autoload :OccurrenceEnumerator, "#{my_dir}/ri_cal/occurrence_enumerator.rb"
+  
   # :stopdoc:
   VERSION = '0.0.1'
   LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
@@ -34,16 +40,15 @@ module RiCal
   #
   def self.require_all_libs_relative_to( fname, dir = nil )
     dir ||= ::File.basename(fname, '.*')
-    puts "require_all_libs_relative_to(#{fname.inspect}, #{dir.inspect})"
-    search_me = ::File.expand_path(
-        ::File.join(::File.dirname(fname), dir, '**', '*.rb'))
-    Dir.glob(search_me).sort.each {|rb| require rb}
+    search_me = ::File.expand_path(::File.join(::File.dirname(fname), dir, '**', '*.rb'))
+    Dir.glob(search_me).sort.each {|rb|
+      require rb}
   end
   
   # :startdoc:
   
   # Parse an io stream and return an array of iCalendar entities.
-  # Normally this will be an array of RiCal::Calendar instances
+  # Normally this will be an array of RiCal::Component::Calendar instances
   def self.parse(io)
     Parser.new(io).parse
   end
@@ -57,12 +62,8 @@ module RiCal
 
 end  # module RiCal
 
-class RiCal::Component;end
-class RiCal::Timezone < RiCal::Component;end
-class RiCal::TimezonePeriod < RiCal::Component;end
-
-require File.join(File.dirname(__FILE__), *%w[ri_cal property_value])
-require File.join(File.dirname(__FILE__), *%w[ri_cal component])
+# require File.join(File.dirname(__FILE__), *%w[ri_cal property_value])
+# require File.join(File.dirname(__FILE__), *%w[ri_cal component])
 RiCal.require_all_libs_relative_to(__FILE__)
 
 # EOF

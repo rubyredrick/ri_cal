@@ -1,6 +1,13 @@
 require 'active_support'
 require 'yaml'
 
+# code stolen from ActiveSupport Gem
+unless  String.instance_methods.include?("camelize")
+    def camelize
+      self.gsub(/\/(.?)/) { "::#{$1.upcase}" }.gsub(/(?:^|_)(.)/) { $1.upcase }
+    end
+end
+
 class VEntityUpdater
   def initialize(target, defs_file)
     @target = target
@@ -8,6 +15,7 @@ class VEntityUpdater
     @indent = ""
     @property_map = {}
     @property_defs = YAML.load_file(defs_file)
+    @all_props = {}
   end
   
   def property(prop_name_or_hash)
@@ -59,17 +67,17 @@ class VEntityUpdater
   def describe_property(type)
     case type
     when 'date_time_or_date'
-      "either RiCal::DateTimeValue or RiCall::DateValue"
+      "either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date"
     else
-      "RiCal::#{type}Value"
+      "RiCal::PropertyValue#{type}"
     end
   end
 
   def type_class(type)
     if type == 'date_time_or_date'
-       "DateTimeValue"
+       "RiCal::PropertyValue::DateTime"
      else
-       "#{type}Value"
+       "RiCal::PropertyValue::#{type}"
      end
    end
     
@@ -104,7 +112,6 @@ class VEntityUpdater
   end
   
   def named_property(name, options)
-    puts options.inspect if name == "calscale"
     ruby_name = options['ruby_name']
     multi = options['multi']
     type = options['type']
@@ -129,9 +136,10 @@ class VEntityUpdater
     end
     ruby_name = ruby_name.tr("-", "_")
     property = "#{name.tr("-", "_").downcase}_property"
+    @all_props[property] = name.upcase
     @property_map[name.upcase] = :"#{property}_from_string"
     if type == 'date_time_or_date'
-      line_evaluator = "DateTimeValue.from_separated_line(line)"
+      line_evaluator = "RiCal::PropertyValue::DateTime.from_separated_line(line)"
     else
       line_evaluator = "#{type_class(type)}.new(line)"
     end
@@ -151,7 +159,7 @@ class VEntityUpdater
         comment("set the the #{name.upcase} property")
         comment("one or more instances of #{describe_property(type)} may be passed to this method")
         indent("def #{property}=(*property_values)")
-        indent("  #{property}= property_values")
+        indent("  @#{property}= property_values")
         indent("end")
         blank_line
         comment("set the value of the #{name.upcase} property")
@@ -164,7 +172,7 @@ class VEntityUpdater
       comment("return the value of the #{name.upcase} property")
       comment("which will be an array of instances of #{describe_type(type)}")
       indent("def #{ruby_name.downcase}")
-      indent("  #{property}.map {|prop| value_of_property(prop)}")
+      indent("  #{property}.map {|prop| prop ? prop.value : prop}")
       indent("end")
       blank_line
     no_doc("def #{property}_from_string(line)")
@@ -202,7 +210,7 @@ class VEntityUpdater
       comment("return the value of the #{name.upcase} property")
       comment("which will be an instance of #{describe_type(type)}")
       indent("def #{ruby_name.downcase}")
-      indent("  value_of_property(#{property})")
+      indent("  #{property} ? #{property}.value : nil")
       indent("end")
       blank_line
       no_doc("def #{property}_from_string(line)")
@@ -225,8 +233,42 @@ class VEntityUpdater
 
   def generate_support_methods
     blank_line
-    indent("def self.property_parser")
-    indent("  #{@property_map.inspect}")
+    indent("def to_s")
+    indent("  entity_name = self.class.entity_name")
+    indent("  collector = [\"BEGIN:\#{entity_name}\"]")
+    @all_props.each do |prop_attr, prop_name|
+      indent("  collector << prop_string(#{prop_name.inspect}, @#{prop_attr})")
+    end    
+    indent("  collector << \"END:\#{entity_name}\"")
+    indent("  collector.compact.join(\"\\n\")")
+    indent("end")
+    blank_line
+    indent("def ==(o)")
+    indent("  if o.class == self.class")
+    @all_props.keys.each_with_index do |prop_name, i|
+      and_str = i < @all_props.length - 1 ? " &&" : ""
+      indent("  (#{prop_name} == o.#{prop_name})#{and_str}")
+    end
+    indent("  else")
+    indent("     super")
+    indent("  end")
+    indent("end")
+    blank_line
+    indent("def initialize_copy(o)")
+    indent("  super")
+    @all_props.each_key do |prop_name|
+      indent("  #{prop_name} = #{prop_name} && #{prop_name}.dup")
+    end
+    indent("end")
+    blank_line
+    indent("module ClassMethods")
+    indent("  def property_parser")
+    indent("    #{@property_map.inspect}")
+    indent("  end")
+    indent("end")
+    blank_line
+    indent("def self.included(mod)")
+    indent("  mod.extend ClassMethods")
     indent("end")
     blank_line
     indent("def mutual_exclusion_violation")
@@ -242,56 +284,35 @@ class VEntityUpdater
   end
   
   def update
-    FileUtils.mv @target, @target.sub(".rb",".rbold")    
-    pre_tag = "\# BEGIN GENERATED ATTRIBUTE CODE"
-    post_tag = "\# END GENERATED ATTRIBUTE CODE"
-    state = :find_class_def
-    File.open(File.join(File.dirname(__FILE__), '..', 'lib', 'ri_cal',  "#{@name}.rb"), 'w') do |ruby_out_file|
+    File.open(File.join(File.dirname(__FILE__), '..', 'lib', 'ri_cal',  'properties' , "#{@name}.rb"), 'w') do |ruby_out_file|
       @outfile = ruby_out_file
-      File.foreach(File.join(File.dirname(__FILE__), '..', 'lib', 'ri_cal', "#{@name}.rbold")) do |ruby_in_line|
-        case state
-        when :find_class_def
-          if ruby_in_line =~ /class #{@name.camelize}/
-            state = :generate
-            @indent = "#{ruby_in_line.match(/^\s*/)[0]}  "
-            ruby_out_file.puts(ruby_in_line)
-            indent(pre_tag)
-            YAML.load_file(File.join(File.dirname(__FILE__), '..', 'component_attributes', "#{@name}.yml")).each do |att_def|
-              property(att_def)
-            end
-            generate_support_methods
-            indent(post_tag)
-            state = :found_class_def
-          else
-            ruby_out_file.puts(ruby_in_line)
-          end
-        when :found_class_def
-          if ruby_in_line =~ /#{pre_tag}/
-            state = :skip_old
-          else
-            ruby_out_file.puts(ruby_in_line)
-            state = :finish unless ruby_in_line =~ /^[\s]+$/
-          end
-        when :skip_old
-          if ruby_in_line =~ /#{post_tag}/
-            state = :finish
-          end
-        when :finish
-          ruby_out_file.puts(ruby_in_line)
-        end
+      module_name = @name.camelize
+      class_name = module_name.sub(/Properties$/, "")
+      ruby_out_file.puts("module RiCal")
+      ruby_out_file.puts("  module Properties")
+      @indent = "    "
+      ruby_out_file.puts("    # Properties::#{module_name} provides property accessing methods for the #{class_name} class")
+      ruby_out_file.puts("    # This source file is generated by the  rical:gen_propmodules rake tasks, DO NOT EDIT")
+      ruby_out_file.puts("    module #{module_name}")
+      @indent = "      "
+      YAML.load_file(File.join(File.dirname(__FILE__), '..', 'component_attributes', "#{@name}.yml")).each do |att_def|
+        property(att_def)
       end
-      @outfile = nil            
+      generate_support_methods
+      ruby_out_file.puts("    end")
+      ruby_out_file.puts("  end")
+      ruby_out_file.puts("end")
     end
-    FileUtils.rm @target.sub(".rb",".rbold")    
+    @outfile = nil            
   end
 end
 
 def updateTask srcGlob, taskSymbol
-  targetDir = File.join(File.dirname(__FILE__), '..', 'lib', 'ri_cal')
+  targetDir = File.join(File.dirname(__FILE__), '..', 'lib', 'ri_cal', 'properties')
   defsFile = File.join(File.dirname(__FILE__), '..', 'component_attributes', 'component_property_defs.yml')
   FileList[srcGlob].each do |f|
     unless f == defsFile
-      target = File.join targetDir, File.basename(f).sub(".yml", ".rb")
+      target = File.join targetDir, File.basename(f).gsub(".yml", ".rb")
       file target => [f, defsFile, __FILE__] do |t|
         VEntityUpdater.new(target, defsFile).update
       end
@@ -304,9 +325,9 @@ end
 namespace :rical do
 
   desc '(RE)Generate VEntity attributes'
-  task :gen_entities do |t|
+  task :gen_propmodules do |t|
   end
   
-  updateTask File.join(File.dirname(__FILE__), '..', '/component_attributes', '*.yml'), :update_attributes
+  updateTask File.join(File.dirname(__FILE__), '..', '/component_attributes', '*.yml'), :gen_propmodules
 
 end  # namespace :rical

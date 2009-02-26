@@ -1,6 +1,13 @@
 require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
 describe RiCal::PropertyValue do
+  
+  describe ".initialize" do
+    
+    it "should reject a value starting with ';'" do
+      lambda {RiCal::PropertyValue.new(:value => ";bogus")}.should raise_error {|err| err.message.should == "Invalid property value \";bogus\""}
+    end
+  end
 
   describe "#date_or_date_time" do
 
@@ -14,12 +21,12 @@ describe RiCal::PropertyValue do
         @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714")
       end
 
-      it "should return a DateValue" do
-        @prop.should be_kind_of(RiCal::DateValue)
+      it "should return a PropertyValue::Date" do
+        @prop.should be_kind_of(RiCal::PropertyValue::Date)
       end
       
       it "should set the correct date" do
-        @prop.ruby_value.should == Date.parse("Jul 14, 1997")
+        @prop.to_ri_cal_ruby_value.should == Date.parse("Jul 14, 1997")
       end  
     end
     
@@ -29,12 +36,12 @@ describe RiCal::PropertyValue do
           @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714T123456")
         end
 
-        it "should return a DateTimeValue" do
-          @prop.should be_kind_of(RiCal::DateTimeValue)
+        it "should return a PropertyValue::DateTime" do
+          @prop.should be_kind_of(RiCal::PropertyValue::DateTime)
         end
         
         it "should have the right ruby value" do
-          @prop.ruby_value.should == DateTime.parse("19970714T123456")
+          @prop.to_ri_cal_ruby_value.should == DateTime.parse("19970714T123456")
         end
         
         it "should have the right value" do
@@ -51,8 +58,8 @@ describe RiCal::PropertyValue do
           @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714T123456Z")
         end
 
-        it "should return a DateTimeValue" do
-          @prop.should be_kind_of(RiCal::DateTimeValue)
+        it "should return a PropertyValue::DateTime" do
+          @prop.should be_kind_of(RiCal::PropertyValue::DateTime)
         end
         
         it "should have the right value" do
@@ -60,7 +67,7 @@ describe RiCal::PropertyValue do
         end
         
         it "should have the right ruby value" do
-          @prop.ruby_value.should == DateTime.parse("19970714T123456Z")
+          @prop.to_ri_cal_ruby_value.should == DateTime.parse("19970714T123456Z")
         end
         
         it "should have a tzid of UTC" do
@@ -74,8 +81,8 @@ describe RiCal::PropertyValue do
           @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714T123456", :params => {'TZID' => 'US-Eastern'})
         end
 
-        it "should return a DateTimeValue" do
-          @prop.should be_kind_of(RiCal::DateTimeValue)
+        it "should return a PropertyValue::DateTime" do
+          @prop.should be_kind_of(RiCal::PropertyValue::DateTime)
         end
         
         it "should have the right value" do
@@ -84,7 +91,7 @@ describe RiCal::PropertyValue do
         
         it "should have the right ruby value" do
           #TODO - what do we do about timezone with and without activesupport
-          @prop.ruby_value.should == DateTime.parse("19970714T123456")
+          @prop.to_ri_cal_ruby_value.should == DateTime.parse("19970714T123456")
         end
         
         it "should have the right tzid" do

@@ -1,4 +1,4 @@
-class RiCal::Parser
+class RiCal::Parser # :nodoc:
   def next_line
     result = nil
     begin
@@ -8,6 +8,8 @@ class RiCal::Parser
         result = "#{result}#{@buffer.lstrip}"
         @buffer = nil
       end
+    rescue EOFError
+      return nil
     ensure
       return result
     end
@@ -105,23 +107,23 @@ class RiCal::Parser
     invalid unless first_line[:name] == "BEGIN"
     result = case first_line[:value]
     when "VCALENDAR"
-      RiCal::Calendar.from_parser(self, parent_component)
+      RiCal::Component::Calendar.from_parser(self, parent_component)
     when "VEVENT"
-      RiCal::Event.from_parser(self, parent_component)
+      RiCal::Component::Event.from_parser(self, parent_component)
     when "VTODO"
-      RiCal::Todo.from_parser(self, parent_component)
+      RiCal::Component::Todo.from_parser(self, parent_component)
     when "VJOURNAL"
-      RiCal::Journal.from_parser(self, parent_component)
+      RiCal::Component::Journal.from_parser(self, parent_component)
     when "VFREEBUSY"
-      RiCal::Freebusy.from_parser(self, parent_component)
+      RiCal::Component::Freebusy.from_parser(self, parent_component)
     when "VTIMEZONE"
-      RiCal::Timezone.from_parser(self, parent_component)
+      RiCal::Component::Timezone.from_parser(self, parent_component)
     when "VALARM"
-      RiCal::Alarm.from_parser(self, parent_component)
+      RiCal::Component::Alarm.from_parser(self, parent_component)
     when "DAYLIGHT"
-      RiCal::DaylightPeriod.from_parser(self, parent_component)
+      RiCal::Component::Timezone::DaylightPeriod.from_parser(self, parent_component)
     when "STANDARD"
-      RiCal::StandardPeriod.from_parser(self, parent_component)
+      RiCal::Component::Timezone::StandardPeriod.from_parser(self, parent_component)
     else
       invalid
     end

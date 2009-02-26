@@ -1,2 +1,4 @@
 doc/
 coverage/
+tmp/
+pkg/

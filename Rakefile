@@ -24,5 +24,6 @@ PROJ.ruby_opts = []
 
 PROJ.spec.opts << '--color'
 PROJ.spec.opts << '--format nested'
+require 'metric_fu'
 
 # EOF
