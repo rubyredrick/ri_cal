@@ -2,6 +2,10 @@
 # configured in this Rakefile. The .rake files in the tasks directory
 # are where the options are used.
 
+gem 'rdoc', ">2"
+load 'rdoc'
+
+
 begin
   require 'bones'
   Bones.setup
@@ -24,6 +28,8 @@ PROJ.ruby_opts = []
 
 PROJ.spec.opts << '--color'
 PROJ.spec.opts << '--format nested'
+PROJ.rdoc.opts = ['-SHN','-f', 'darkfish' ]
+
 require 'metric_fu'
 
 # EOF

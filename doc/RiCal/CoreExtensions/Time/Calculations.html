@@ -1,0 +1,571 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Module: RiCal::CoreExtensions::Time::Calculations</title>
+
+	<link rel="stylesheet" href="../../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="module">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../../lib/ri_cal/core_extensions/time/calculations.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/core_extensions/time/calculations.rb">lib/ri_cal/core_extensions/time/calculations.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000046">::convert_wday</a></li>
+					
+					<li><a href="#M000045">::iso_week_one</a></li>
+					
+					<li><a href="#M000044">#days_in_month</a></li>
+					
+					<li><a href="#M000049">#iso_week_num</a></li>
+					
+					<li><a href="#M000047">#iso_year_and_week_num</a></li>
+					
+					<li><a href="#M000043">#leap_year?</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../../History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../../Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../../README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../../docs/draft-ietf-calsify-2446bis-08_txt.html">draft-ietf-calsify-2446bis-08.txt</a></li>
+				
+					<li class="file"><a href="../../../docs/draft-ietf-calsify-rfc2445bis-09_txt.html">draft-ietf-calsify-rfc2445bis-09.txt</a></li>
+				
+					<li class="file"><a href="../../../help/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../../help/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../../help/README_txt.html">README.txt</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../../RiCal.html">RiCal</a></li>
+				
+					<li><a href="../../../RiCal/Component.html">RiCal::Component</a></li>
+				
+					<li><a href="../../../RiCal/Component/Alarm.html">RiCal::Component::Alarm</a></li>
+				
+					<li><a href="../../../RiCal/Component/Calendar.html">RiCal::Component::Calendar</a></li>
+				
+					<li><a href="../../../RiCal/Component/Event.html">RiCal::Component::Event</a></li>
+				
+					<li><a href="../../../RiCal/Component/Freebusy.html">RiCal::Component::Freebusy</a></li>
+				
+					<li><a href="../../../RiCal/Component/Journal.html">RiCal::Component::Journal</a></li>
+				
+					<li><a href="../../../RiCal/Component/TZInfoTimezone.html">RiCal::Component::TZInfoTimezone</a></li>
+				
+					<li><a href="../../../RiCal/Component/Timezone.html">RiCal::Component::Timezone</a></li>
+				
+					<li><a href="../../../RiCal/Component/Timezone/DaylightPeriod.html">RiCal::Component::Timezone::DaylightPeriod</a></li>
+				
+					<li><a href="../../../RiCal/Component/Timezone/StandardPeriod.html">RiCal::Component::Timezone::StandardPeriod</a></li>
+				
+					<li><a href="../../../RiCal/Component/Timezone/TimezonePeriod.html">RiCal::Component::Timezone::TimezonePeriod</a></li>
+				
+					<li><a href="../../../RiCal/Component/Todo.html">RiCal::Component::Todo</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions.html">RiCal::CoreExtensions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Array.html">RiCal::CoreExtensions::Array</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Array/Conversions.html">RiCal::CoreExtensions::Array::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Date.html">RiCal::CoreExtensions::Date</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Date/Conversions.html">RiCal::CoreExtensions::Date::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/DateTime.html">RiCal::CoreExtensions::DateTime</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/DateTime/Conversions.html">RiCal::CoreExtensions::DateTime::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Object.html">RiCal::CoreExtensions::Object</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Object/Conversions.html">RiCal::CoreExtensions::Object::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/String.html">RiCal::CoreExtensions::String</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/String/Conversions.html">RiCal::CoreExtensions::String::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Time.html">RiCal::CoreExtensions::Time</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Time/Calculations.html">RiCal::CoreExtensions::Time::Calculations</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Time/Conversions.html">RiCal::CoreExtensions::Time::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Time/WeekDayPredicates.html">RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
+				
+					<li><a href="../../../RiCal/Event.html">RiCal::Event</a></li>
+				
+					<li><a href="../../../RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
+				
+					<li><a href="../../../RiCal/Properties.html">RiCal::Properties</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Alarm.html">RiCal::Properties::Alarm</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Alarm/ClassMethods.html">RiCal::Properties::Alarm::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Calendar.html">RiCal::Properties::Calendar</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Calendar/ClassMethods.html">RiCal::Properties::Calendar::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Event.html">RiCal::Properties::Event</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Event/ClassMethods.html">RiCal::Properties::Event::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Freebusy.html">RiCal::Properties::Freebusy</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Freebusy/ClassMethods.html">RiCal::Properties::Freebusy::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Journal.html">RiCal::Properties::Journal</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Journal/ClassMethods.html">RiCal::Properties::Journal::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/TimezonePeriod.html">RiCal::Properties::TimezonePeriod</a></li>
+				
+					<li><a href="../../../RiCal/Properties/TimezonePeriod/ClassMethods.html">RiCal::Properties::TimezonePeriod::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Todo.html">RiCal::Properties::Todo</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Todo/ClassMethods.html">RiCal::Properties::Todo::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue.html">RiCal::PropertyValue</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/CalAddress.html">RiCal::PropertyValue::CalAddress</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Date.html">RiCal::PropertyValue::Date</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/DateTime.html">RiCal::PropertyValue::DateTime</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Duration.html">RiCal::PropertyValue::Duration</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Geo.html">RiCal::PropertyValue::Geo</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/OccurrenceList.html">RiCal::PropertyValue::OccurrenceList</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Period.html">RiCal::PropertyValue::Period</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Text.html">RiCal::PropertyValue::Text</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a></li>
+				
+					<li><a href="../../../Array.html">Array</a></li>
+				
+					<li><a href="../../../Date.html">Date</a></li>
+				
+					<li><a href="../../../DateTime.html">DateTime</a></li>
+				
+					<li><a href="../../../Object.html">Object</a></li>
+				
+					<li><a href="../../../String.html">String</a></li>
+				
+					<li><a href="../../../Time.html">Time</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="module">RiCal::CoreExtensions::Time::Calculations</h1>
+
+		<div id="description">
+			<p>
+Provide calculation methods for use by the <a
+href="../../../RiCal.html">RiCal</a> gem This module is included by <a
+href="../Time.html">Time</a>, <a href="../Date.html">Date</a>, and <a
+href="../DateTime.html">DateTime</a>
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="convert-wday-method" class="method-detail ">
+				<a name="M000046"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">convert_wday</span><span
+						class="method-args">(wday)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Convert the receivers wday to RFC 2445 format. Whereas the Ruby time/date
+classes use 0 to represent Sunday, RFC 2445 uses 7.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="convert-wday-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/core_extensions/time/calculations.rb, line 76</span>
+76:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">convert_wday</span>(<span class="ruby-identifier">wday</span>)
+77:           <span class="ruby-identifier">wday</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-value">7</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">wday</span>
+78:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="iso-week-one-method" class="method-detail ">
+				<a name="M000045"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">iso_week_one</span><span
+						class="method-args">(year, wkst)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+MO TU WE TH FR SA SU MO TU WE TH FR SA SU MO TU WE TH FR SA SU 01 02 03 04
+05 06 07 08 09 10 11 12 13 14 01-07 02-08 03-09 04-10 05-11 06-12 07-13 31
+01 02 03 04 05 06 07 08 09 10 11 12 13 31-06 01-07 02-08 03-09 04-10 05-11
+06-12 30 31 01 02 03 04 05 06 07 08 09 10 11 12 30-05 31-06 01-07 02-08
+03-09 04-10 05-11 29 30 31 01 02 03 04 05 06 07 08 09 10 11 29-04 30-05
+31-06 01-07 02-08 03-09 04-10 28 29 30 31 01 02 03 04 05 06 07 08 09 10
+04-10 29-04 30-05 31-06 01-07 02-08 03-09 27 28 29 30 31 01 02 03 04 05 06
+07 08 09 03-09 04-10 29-04 30-05 31-06 01-07 02-08 26 27 28 29 30 31 01 02
+03 04 05 06 07 08 02-08 03-09 04-10 29-04 30-05 31-06 01-07 25 26 27 28 29
+30 31 01 02 03 04 05 06 07 01-07 02-08 03-09 04-10 29-04 30-05 31-06
+</p>
+<pre>
+                    Week 1 must contain     4     4     4     4     ?     ?     ?
+</pre>
+<p>
+So for a wkst of FR, SA, or SU, there is no date which MUST be contained in
+the 1st week We&#8217;ll have to brute force that
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="iso-week-one-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/core_extensions/time/calculations.rb, line 61</span>
+61:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">iso_week_one</span>(<span class="ruby-identifier">year</span>, <span class="ruby-identifier">wkst</span>)
+62:           <span class="ruby-keyword kw">if</span> (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">4</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">wkst</span>)
+63:             <span class="ruby-comment cmt"># return the date of the wkst day which is less than or equal to jan4th</span>
+64:             <span class="ruby-identifier">jan4th</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">year</span>, <span class="ruby-value">1</span>, <span class="ruby-value">4</span>)
+65:             <span class="ruby-identifier">result</span> = <span class="ruby-identifier">jan4th</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">convert_wday</span>(<span class="ruby-identifier">jan4th</span>.<span class="ruby-identifier">wday</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">convert_wday</span>(<span class="ruby-identifier">wkst</span>))
+66:           <span class="ruby-keyword kw">else</span>
+67:             <span class="ruby-comment cmt"># return the date of the wkst day which is greater than or equal to Dec 31 of the prior year</span>
+68:             <span class="ruby-identifier">dec29th</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">year</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>, <span class="ruby-value">12</span>, <span class="ruby-value">29</span>)
+69:             <span class="ruby-identifier">result</span> = <span class="ruby-identifier">dec29th</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">convert_wday</span>(<span class="ruby-identifier">wkst</span>) <span class="ruby-operator">-</span> <span class="ruby-identifier">convert_wday</span>(<span class="ruby-identifier">dec29th</span>.<span class="ruby-identifier">wday</span>)
+70:           <span class="ruby-keyword kw">end</span>
+71:           <span class="ruby-identifier">result</span>
+72:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="days-in-month-method" class="method-detail ">
+				<a name="M000044"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">days_in_month</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Return the number of days in the month which includes the receiver
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="days-in-month-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/core_extensions/time/calculations.rb, line 13</span>
+13:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">days_in_month</span>
+14:           <span class="ruby-identifier">raw</span> = [<span class="ruby-value">0</span>, <span class="ruby-value">31</span>, <span class="ruby-value">28</span>, <span class="ruby-value">31</span>, <span class="ruby-value">30</span>, <span class="ruby-value">31</span>, <span class="ruby-value">30</span>, <span class="ruby-value">31</span>, <span class="ruby-value">31</span>, <span class="ruby-value">30</span>, <span class="ruby-value">31</span>, <span class="ruby-value">30</span>, <span class="ruby-value">31</span>][<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">month</span>]
+15:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">month</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">leap_year?</span> <span class="ruby-value">? </span><span class="ruby-identifier">raw</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">raw</span>
+16:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="iso-week-num-method" class="method-detail ">
+				<a name="M000049"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">iso_week_num</span><span
+						class="method-args">(wkst)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the iso week number of the receiver
+</p>
+<h2>parameter</h2>
+<table>
+<tr><td valign="top">wkst:</td><td>an integer representing the day of the week on which weeks are deemed to
+start. This uses
+
+</td></tr>
+</table>
+<p>
+the ruby convention where 0 represents Sunday.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="iso-week-num-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/core_extensions/time/calculations.rb, line 109</span>
+109:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">iso_week_num</span>(<span class="ruby-identifier">wkst</span>)
+110:           <span class="ruby-identifier">iso_year_and_week_num</span>(<span class="ruby-identifier">wkst</span>)[<span class="ruby-value">1</span>]
+111:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="iso-year-and-week-num-method" class="method-detail ">
+				<a name="M000047"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">iso_year_and_week_num</span><span
+						class="method-args">(wkst)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Return an array containing the iso year and iso week number for the
+receiver. Note that the iso year may be the year before or after the
+calendar year containing the receiver.
+</p>
+<h2>parameter</h2>
+<table>
+<tr><td valign="top">wkst:</td><td>an integer representing the day of the week on which weeks are deemed to
+start. This uses
+
+</td></tr>
+</table>
+<p>
+the ruby convention where 0 represents Sunday.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="iso-year-and-week-num-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/core_extensions/time/calculations.rb, line 85</span>
+ 85:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">iso_year_and_week_num</span>(<span class="ruby-identifier">wkst</span>)
+ 86:           <span class="ruby-identifier">iso_year</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">year</span>
+ 87:           <span class="ruby-identifier">date</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">year</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">month</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">mday</span>)
+ 88:           <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">date</span> <span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Date</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">iso_year</span>, <span class="ruby-value">12</span>, <span class="ruby-value">29</span>))
+ 89:             <span class="ruby-identifier">week_one_start</span> =  <span class="ruby-constant">Calculations</span>.<span class="ruby-identifier">iso_week_one</span>(<span class="ruby-identifier">iso_year</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>, <span class="ruby-identifier">wkst</span>)
+ 90:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">date</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">week_one_start</span>
+ 91:               <span class="ruby-identifier">week_one_start</span> = <span class="ruby-constant">Calculations</span>.<span class="ruby-identifier">iso_week_one</span>(<span class="ruby-identifier">iso_year</span>, <span class="ruby-identifier">wkst</span>)
+ 92:             <span class="ruby-keyword kw">else</span>
+ 93:               <span class="ruby-identifier">iso_year</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+ 94:             <span class="ruby-keyword kw">end</span>
+ 95:           <span class="ruby-keyword kw">else</span>
+ 96:             <span class="ruby-identifier">week_one_start</span> = <span class="ruby-constant">Calculations</span>.<span class="ruby-identifier">iso_week_one</span>(<span class="ruby-identifier">iso_year</span>, <span class="ruby-identifier">wkst</span>)
+ 97:             <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">date</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">week_one_start</span>)
+ 98:               <span class="ruby-identifier">iso_year</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>
+ 99:               <span class="ruby-identifier">week_one_start</span> = <span class="ruby-constant">Calculations</span>.<span class="ruby-identifier">iso_week_one</span>(<span class="ruby-identifier">iso_year</span>, <span class="ruby-identifier">wkst</span>)
+100:             <span class="ruby-keyword kw">end</span>
+101:           <span class="ruby-keyword kw">end</span>
+102:           [<span class="ruby-identifier">iso_year</span>, (<span class="ruby-identifier">date</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">week_one_start</span>).<span class="ruby-identifier">to_i</span> <span class="ruby-operator">/</span> <span class="ruby-value">7</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>]
+103:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="leap-year--method" class="method-detail ">
+				<a name="M000043"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">leap_year?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+A predicate method used to determine if the receiver is within a leap year
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="leap-year--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/core_extensions/time/calculations.rb, line 8</span>
+ 8:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">leap_year?</span>
+ 9:           <span class="ruby-identifier">year</span> <span class="ruby-operator">%</span> <span class="ruby-value">4</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-identifier">year</span> <span class="ruby-operator">%</span> <span class="ruby-value">400</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">year</span> <span class="ruby-operator">%</span> <span class="ruby-value">100</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>)
+10:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

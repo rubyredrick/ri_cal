@@ -1,0 +1,1874 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title> ri_cal's ri_cal-0.0.1 Documentation</title>
+
+	<link type="text/css" media="screen" href="rdoc.css" rel="stylesheet" />
+
+	<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body class="indexpage">
+
+	
+	<h1> ri_cal's ri_cal-0.0.1 Documentation</h1>
+
+	
+	<div id="main">
+		<h2>RI_CAL &#8212; a new implementation of RFC2445 in Ruby</h2>
+<pre>
+    by Rick DeNatale
+    http://talklikeaduck.denhaven2.com
+</pre>
+<h2>DESCRIPTION:</h2>
+<p>
+A new Ruby implementation of RFC2445 iCalendar.
+</p>
+<p>
+The existing Ruby iCalendar libraries (e.g. icalendar, vpim) provide for
+parsing and generating icalendar files, but do not support important things
+like enumerating occurrences of repeating events.
+</p>
+<p>
+This is a clean-slate implementation of RFC2445.
+</p>
+<h2>FEATURES/PROBLEMS:</h2>
+<ul>
+<li>All examples of recurring events in RFC 2445 are handled. RSpec examples
+are provided for them.
+
+</li>
+</ul>
+<h2>SYNOPSIS:</h2>
+<h3>Parsing</h3>
+<p>
+<a href="RiCal.html">RiCal</a> can parse icalendar data from either a
+string or a Ruby io object.
+</p>
+<p>
+The data may consist of one or more icalendar calendars, or one or more
+icalendar compoentns (e.g. one or more VEVENT, or VTODO objects.)
+</p>
+<p>
+In either case the result will be an array of components.
+</p>
+<h4>From a string</h4>
+<pre>
+        RiCal.parse_string &lt;&lt;ENDCAL
+        BEGIN:VCALENDAR
+        X-WR-TIMEZONE:America/New_York
+        PRODID:-//Apple Inc.//iCal 3.0//EN
+        CALSCALE:GREGORIAN
+        X-WR-CALNAME:test
+        VERSION:2.0
+        X-WR-RELCALID:1884C7F8-BC8E-457F-94AC-297871967D5E
+        X-APPLE-CALENDAR-COLOR:#2CA10B
+        BEGIN:VTIMEZONE
+        TZID:US/Eastern
+        BEGIN:DAYLIGHT
+        TZOFFSETFROM:-0500
+        TZOFFSETTO:-0400
+        DTSTART:20070311T020000
+        RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+        TZNAME:EDT
+        END:DAYLIGHT
+        BEGIN:STANDARD
+        TZOFFSETFROM:-0400
+        TZOFFSETTO:-0500
+        DTSTART:20071104T020000
+        RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+        TZNAME:EST
+        END:STANDARD
+        END:VTIMEZONE
+        BEGIN:VEVENT
+        SEQUENCE:5
+        TRANSP:OPAQUE
+        UID:00481E53-9258-4EA7-9F8D-947D3041A3F2
+        DTSTART;TZID=US/Eastern:20090224T090000
+        DTSTAMP:20090225T000908Z
+        SUMMARY:Test Event
+        CREATED:20090225T000839Z
+        DTEND;TZID=US/Eastern:20090224T100000
+        RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20090228T045959Z
+        END:VEVENT
+        END:VCALENDAR
+        ENDCAL
+</pre>
+<table>
+<tr><td valign="top"><b>bold</b>:</td><td>Beware of the initial whitespace in the above example which is for rdoc
+formatting. The parser does not strip initial whitespace from lines in the
+file and will fail.
+
+</td></tr>
+</table>
+<p>
+As already stated the string argument may be a full icalendar format
+calendar, or just one or more subcomponents, e.g.
+</p>
+<p>
+<a
+href="RiCal.html#M000014">RiCal.parse_string</a>(&#8220;BEGIN:VEVENTnDTSTART;TZID=US/Eastern:20090224T090000nSUMMARY:Test
+EventnDTEND;TZID=US/Eastern:20090224T100000nRRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20090228T045959ZnEND:VEVENT&#8221;)
+</p>
+<h4>From an Io</h4>
+<pre>
+        File.open(&quot;path/to/file&quot;, &quot;r&quot;) do |file|
+            components = RiCal.parse(file)
+        end
+</pre>
+<h3>Occurrence Enumeration</h3>
+<p>
+Event, Journal, and Todo components can have recurrences which are defined
+following the RFC 2445 specification. A component with recurrences can
+enumerate those occurrences.
+</p>
+<p>
+These components have common methods for enumeration which are defined in
+the <a
+href="RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a>
+module.
+</p>
+<h4>Obtaining an array of occurrences</h4>
+<p>
+To get an array of occurrences, Use the <a
+href="RiCal/OccurrenceEnumerator.html#M000086">RiCal::OccurrenceEnumerator#occurrences</a>
+method:
+</p>
+<pre>
+        event.occurrences
+</pre>
+<p>
+This method may fail with an argument error, if the component has an
+unbounded recurrence definition. This happens when one or more of its
+RRULES don&#8217;t have a COUNT, or UNTIL part. This may be tested by using
+the <a
+href="RiCal/OccurrenceEnumerator.html#M000088">RiCal::OccurrenceEnumerator#bounded?</a>
+method.
+</p>
+<p>
+In the case of unbounded components, you must either use the :count, or
+:before options of the <a
+href="RiCal/OccurrenceEnumerator.html#M000086">RiCal::OccurrenceEnumerator#occurrences</a>
+method:
+</p>
+<pre>
+        event.occurrences(:count =&gt; 10)
+</pre>
+<p>
+or
+</p>
+<pre>
+  event.occurrences(:before =&gt; Date.today &gt;&gt; 1)
+</pre>
+<p>
+Alternately, you can use the <a
+href="RiCal/OccurrenceEnumerator.html#M000087">RiCal::OccurrenceEnumerator#each</a>
+method, or another Enumerable method (<a
+href="RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a>
+includes Enumerable), and terminate when you wish by breaking out of the
+block.
+</p>
+<pre>
+        event.each do |event|
+           break if some_termination_condition
+           #....
+        end
+</pre>
+<h2>REQUIREMENTS:</h2>
+<ul>
+<li>FIXME (list of requirements)
+
+</li>
+</ul>
+<h2>INSTALL:</h2>
+<p>
+This project was built using the bones gem.
+</p>
+<p>
+For this preview release, I&#8217;m assuming that you received the code
+from my private git repository.
+</p>
+<p>
+You can validate it by running
+</p>
+<pre>
+   rake
+</pre>
+<p>
+which will run all of the specs.
+</p>
+<p>
+If you would like to use it as a gem you can use the bones rake tasks:
+</p>
+<pre>
+   rake gem
+   rake gem:install
+</pre>
+<p>
+The command
+</p>
+<pre>
+   rake -T
+</pre>
+<p>
+will show additional tasks.
+</p>
+<h2>LICENSE:</h2>
+<p>
+Copyright &#169; 2009 Richard J. DeNatale
+</p>
+<p>
+This software and associated documentation files (the
+&#8216;Software&#8217;) is an early access version.
+</p>
+<p>
+A Restricted License is hereby granted, free of charge, to use the Software
+for evaluation and feedback only
+</p>
+<p>
+This license does not grant you the permission to publish, distribute,
+sublicense, or sell copies of the Software.
+</p>
+<p>
+This license applies to previous and future versions of the software, until
+such time as a version is released with a license granting additional
+rights,
+</p>
+<p>
+THE SOFTWARE IS PROVIDED &#8216;AS IS&#8217;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+</p>
+
+	</div>
+	
+
+	
+	
+	<h2>Files</h2>
+	<ul>
+		
+			<li class="file"><a href="History_txt.html">History.txt</a></li>
+		
+			<li class="file"><a href="Manifest_txt.html">Manifest.txt</a></li>
+		
+			<li class="file"><a href="README_txt.html">README.txt</a></li>
+		
+			<li class="file"><a href="docs/draft-ietf-calsify-2446bis-08_txt.html">draft-ietf-calsify-2446bis-08.txt</a></li>
+		
+			<li class="file"><a href="docs/draft-ietf-calsify-rfc2445bis-09_txt.html">draft-ietf-calsify-rfc2445bis-09.txt</a></li>
+		
+			<li class="file"><a href="help/History_txt.html">History.txt</a></li>
+		
+			<li class="file"><a href="help/Manifest_txt.html">Manifest.txt</a></li>
+		
+			<li class="file"><a href="help/README_txt.html">README.txt</a></li>
+		
+	</ul>
+	
+
+	<h2>Classes/Modules</h2>
+	<ul>
+		
+		<li class="module"><a href="RiCal.html">RiCal</a></li>
+		
+		<li class="class"><a href="RiCal/Component.html">RiCal::Component</a></li>
+		
+		<li class="class"><a href="RiCal/Component/Alarm.html">RiCal::Component::Alarm</a></li>
+		
+		<li class="class"><a href="RiCal/Component/Calendar.html">RiCal::Component::Calendar</a></li>
+		
+		<li class="class"><a href="RiCal/Component/Event.html">RiCal::Component::Event</a></li>
+		
+		<li class="class"><a href="RiCal/Component/Freebusy.html">RiCal::Component::Freebusy</a></li>
+		
+		<li class="class"><a href="RiCal/Component/Journal.html">RiCal::Component::Journal</a></li>
+		
+		<li class="class"><a href="RiCal/Component/TZInfoTimezone.html">RiCal::Component::TZInfoTimezone</a></li>
+		
+		<li class="class"><a href="RiCal/Component/Timezone.html">RiCal::Component::Timezone</a></li>
+		
+		<li class="class"><a href="RiCal/Component/Timezone/DaylightPeriod.html">RiCal::Component::Timezone::DaylightPeriod</a></li>
+		
+		<li class="class"><a href="RiCal/Component/Timezone/StandardPeriod.html">RiCal::Component::Timezone::StandardPeriod</a></li>
+		
+		<li class="class"><a href="RiCal/Component/Timezone/TimezonePeriod.html">RiCal::Component::Timezone::TimezonePeriod</a></li>
+		
+		<li class="class"><a href="RiCal/Component/Todo.html">RiCal::Component::Todo</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions.html">RiCal::CoreExtensions</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/Array.html">RiCal::CoreExtensions::Array</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/Array/Conversions.html">RiCal::CoreExtensions::Array::Conversions</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/Date.html">RiCal::CoreExtensions::Date</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/Date/Conversions.html">RiCal::CoreExtensions::Date::Conversions</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/DateTime.html">RiCal::CoreExtensions::DateTime</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/DateTime/Conversions.html">RiCal::CoreExtensions::DateTime::Conversions</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/Object.html">RiCal::CoreExtensions::Object</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/Object/Conversions.html">RiCal::CoreExtensions::Object::Conversions</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/String.html">RiCal::CoreExtensions::String</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/String/Conversions.html">RiCal::CoreExtensions::String::Conversions</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/Time.html">RiCal::CoreExtensions::Time</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/Time/Calculations.html">RiCal::CoreExtensions::Time::Calculations</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/Time/Conversions.html">RiCal::CoreExtensions::Time::Conversions</a></li>
+		
+		<li class="module"><a href="RiCal/CoreExtensions/Time/WeekDayPredicates.html">RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
+		
+		<li class="class"><a href="RiCal/Event.html">RiCal::Event</a></li>
+		
+		<li class="module"><a href="RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
+		
+		<li class="module"><a href="RiCal/Properties.html">RiCal::Properties</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Alarm.html">RiCal::Properties::Alarm</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Alarm/ClassMethods.html">RiCal::Properties::Alarm::ClassMethods</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Calendar.html">RiCal::Properties::Calendar</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Calendar/ClassMethods.html">RiCal::Properties::Calendar::ClassMethods</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Event.html">RiCal::Properties::Event</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Event/ClassMethods.html">RiCal::Properties::Event::ClassMethods</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Freebusy.html">RiCal::Properties::Freebusy</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Freebusy/ClassMethods.html">RiCal::Properties::Freebusy::ClassMethods</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Journal.html">RiCal::Properties::Journal</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Journal/ClassMethods.html">RiCal::Properties::Journal::ClassMethods</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/TimezonePeriod.html">RiCal::Properties::TimezonePeriod</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/TimezonePeriod/ClassMethods.html">RiCal::Properties::TimezonePeriod::ClassMethods</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Todo.html">RiCal::Properties::Todo</a></li>
+		
+		<li class="module"><a href="RiCal/Properties/Todo/ClassMethods.html">RiCal::Properties::Todo::ClassMethods</a></li>
+		
+		<li class="class"><a href="RiCal/PropertyValue.html">RiCal::PropertyValue</a></li>
+		
+		<li class="class"><a href="RiCal/PropertyValue/CalAddress.html">RiCal::PropertyValue::CalAddress</a></li>
+		
+		<li class="class"><a href="RiCal/PropertyValue/Date.html">RiCal::PropertyValue::Date</a></li>
+		
+		<li class="class"><a href="RiCal/PropertyValue/DateTime.html">RiCal::PropertyValue::DateTime</a></li>
+		
+		<li class="class"><a href="RiCal/PropertyValue/Duration.html">RiCal::PropertyValue::Duration</a></li>
+		
+		<li class="class"><a href="RiCal/PropertyValue/Geo.html">RiCal::PropertyValue::Geo</a></li>
+		
+		<li class="class"><a href="RiCal/PropertyValue/OccurrenceList.html">RiCal::PropertyValue::OccurrenceList</a></li>
+		
+		<li class="class"><a href="RiCal/PropertyValue/Period.html">RiCal::PropertyValue::Period</a></li>
+		
+		<li class="class"><a href="RiCal/PropertyValue/RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+		<li class="module"><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+		<li class="class"><a href="RiCal/PropertyValue/Text.html">RiCal::PropertyValue::Text</a></li>
+		
+		<li class="class"><a href="RiCal/PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a></li>
+		
+		<li class="class"><a href="Array.html">Array</a></li>
+		
+		<li class="class"><a href="Date.html">Date</a></li>
+		
+		<li class="class"><a href="DateTime.html">DateTime</a></li>
+		
+		<li class="class"><a href="Object.html">Object</a></li>
+		
+		<li class="class"><a href="String.html">String</a></li>
+		
+		<li class="class"><a href="Time.html">Time</a></li>
+		
+	</ul>
+
+	<h2>Methods</h2>
+	<ul>
+		
+			<li><a href="RiCal/CoreExtensions/Time/Calculations.html#M000046">::convert_wday &mdash; RiCal::CoreExtensions::Time::Calculations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000797">::default_tzid= &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000834">::from_time &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000283">::included &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000576">::included &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000678">::included &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000447">::included &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000900">::included &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000675">::included &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000261">::included &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Time/Calculations.html#M000045">::iso_week_one &mdash; RiCal::CoreExtensions::Time::Calculations</a></li>
+		
+			<li><a href="RiCal/Component/TZInfoTimezone.html#M000024">::new &mdash; RiCal::Component::TZInfoTimezone</a></li>
+		
+			<li><a href="RiCal/Component.html#M000000">::new &mdash; RiCal::Component</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000824">::object_time_zone &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal.html#M000008">::parse &mdash; RiCal</a></li>
+		
+			<li><a href="RiCal.html#M000014">::parse_string &mdash; RiCal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000247">::property_parser &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000816">#+ &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000815">#- &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000861">#<=> &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000670">#== &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000258">#== &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/PropertyValue/Duration.html#M000894">#== &mdash; RiCal::PropertyValue::Duration</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000862">#== &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000532">#== &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000671">#== &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000429">#== &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000280">#== &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000888">#== &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/PropertyValue.html#M000683">#== &mdash; RiCal::PropertyValue</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000189">#action &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000186">#action= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000184">#action_property &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000185">#action_property= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/PropertyValue/Duration.html#M000897">#add_to_date_time_value &mdash; RiCal::PropertyValue::Duration</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000811">#add_to_date_time_value &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/Component.html#M000005">#alarms &mdash; RiCal::Component</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000798">#attach &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000581">#attach &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000157">#attach &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000253">#attach &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000449">#attach &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000794">#attach= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000156">#attach= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000252">#attach= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000446">#attach= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000580">#attach= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000444">#attach_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000250">#attach_property &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Event.html#M000154">#attach_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000792">#attach_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000578">#attach_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000445">#attach_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000155">#attach_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000579">#attach_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000793">#attach_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000251">#attach_property= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000454">#attendee &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000807">#attendee &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000248">#attendee &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Event.html#M000162">#attendee &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000384">#attendee &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000586">#attendee &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000585">#attendee= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000453">#attendee= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000806">#attendee= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000383">#attendee= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000246">#attendee= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Event.html#M000161">#attendee= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000800">#attendee_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000244">#attendee_property &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000378">#attendee_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Event.html#M000159">#attendee_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000583">#attendee_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000451">#attendee_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000452">#attendee_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000382">#attendee_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000245">#attendee_property= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Event.html#M000160">#attendee_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000801">#attendee_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000584">#attendee_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000928">#bounded? &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/OccurrenceEnumerator.html#M000088">#bounded? &mdash; RiCal::OccurrenceEnumerator</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000947">#by_list &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000264">#calscale &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000263">#calscale_property &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/String/Conversions.html#M000042">#camelize &mdash; RiCal::CoreExtensions::String::Conversions</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000820">#categories &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000591">#categories &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000459">#categories &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000167">#categories &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000590">#categories= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000458">#categories= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000166">#categories= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000814">#categories= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000456">#categories_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000812">#categories_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000588">#categories_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000164">#categories_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000165">#categories_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000457">#categories_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000589">#categories_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000813">#categories_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000497">#class_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000686">#class_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000052">#class_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000285">#class_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000687">#class_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000053">#class_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000498">#class_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000286">#class_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000827">#comment &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000596">#comment &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000393">#comment &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000464">#comment &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000172">#comment &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000641">#comment &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Event.html#M000171">#comment= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000595">#comment= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000463">#comment= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000640">#comment= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000826">#comment= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000392">#comment= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000461">#comment_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000593">#comment_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000822">#comment_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000169">#comment_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000633">#comment_property &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000386">#comment_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000391">#comment_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000639">#comment_property= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000462">#comment_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000823">#comment_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000594">#comment_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000170">#comment_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000694">#completed &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000693">#completed= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000691">#completed_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000692">#completed_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000601">#contact &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000177">#contact &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000301">#contact &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000469">#contact &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000833">#contact &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000832">#contact= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000300">#contact= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000600">#contact= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000176">#contact= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000468">#contact= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000830">#contact_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000174">#contact_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000466">#contact_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000598">#contact_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000298">#contact_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000831">#contact_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000467">#contact_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000175">#contact_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000299">#contact_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000599">#contact_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000917">#count= &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000512">#created &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000699">#created &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000062">#created &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000293">#created &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000698">#created= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000292">#created= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000061">#created= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000511">#created= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000059">#created_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000696">#created_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000290">#created_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000509">#created_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000060">#created_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000291">#created_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000697">#created_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000510">#created_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Time/Calculations.html#M000044">#days_in_month &mdash; RiCal::CoreExtensions::Time::Calculations</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000531">#debug_equal &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000302">#description &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000520">#description &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000067">#description &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000704">#description &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000197">#description &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000519">#description= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000297">#description= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000066">#description= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000703">#description= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000193">#description= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000295">#description_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000191">#description_property &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Event.html#M000064">#description_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000517">#description_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000701">#description_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000296">#description_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000702">#description_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000065">#description_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000192">#description_property= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000518">#description_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000147">#dtend &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000326">#dtend &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000436">#dtend &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000146">#dtend= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000435">#dtend= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000322">#dtend= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000432">#dtend_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000144">#dtend_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000320">#dtend_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000434">#dtend_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000145">#dtend_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000321">#dtend_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000709">#dtstamp &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000343">#dtstamp &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Event.html#M000107">#dtstamp &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000530">#dtstamp &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000371">#dtstamp &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000106">#dtstamp= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000708">#dtstamp= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000342">#dtstamp= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000370">#dtstamp= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000529">#dtstamp= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000364">#dtstamp_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000340">#dtstamp_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000706">#dtstamp_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000104">#dtstamp_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000527">#dtstamp_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000341">#dtstamp_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Event.html#M000105">#dtstamp_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000528">#dtstamp_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000365">#dtstamp_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000707">#dtstamp_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000313">#dtstart &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000714">#dtstart &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000308">#dtstart &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000072">#dtstart &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000525">#dtstart &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000614">#dtstart &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000524">#dtstart= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000610">#dtstart= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Event.html#M000071">#dtstart= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000312">#dtstart= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000713">#dtstart= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000307">#dtstart= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000304">#dtstart_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000522">#dtstart_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000711">#dtstart_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000069">#dtstart_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000608">#dtstart_property &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000310">#dtstart_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Event.html#M000070">#dtstart_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000306">#dtstart_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000311">#dtstart_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000609">#dtstart_property= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000712">#dtstart_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000523">#dtstart_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000785">#due &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000784">#due= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000782">#due_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000783">#due_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000220">#duration &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Event.html#M000152">#duration &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000441">#duration &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000335">#duration &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000790">#duration &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000440">#duration= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000219">#duration= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Event.html#M000151">#duration= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000334">#duration= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000789">#duration= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000149">#duration_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000209">#duration_property &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000438">#duration_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000328">#duration_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000787">#duration_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000218">#duration_property= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000788">#duration_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000150">#duration_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000329">#duration_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000439">#duration_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/OccurrenceEnumerator.html#M000087">#each &mdash; RiCal::OccurrenceEnumerator</a></li>
+		
+			<li><a href="RiCal/PropertyValue.html#M000903">#enumerator &mdash; RiCal::PropertyValue</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000950">#errors &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/Component/Calendar.html#M000017">#events &mdash; RiCal::Component::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000474">#exdate &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000606">#exdate &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000844">#exdate &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000182">#exdate &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000473">#exdate= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000181">#exdate= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000605">#exdate= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000840">#exdate= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000603">#exdate_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000179">#exdate_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000471">#exdate_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000836">#exdate_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000180">#exdate_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000837">#exdate_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000604">#exdate_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000472">#exdate_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000204">#exrule &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000850">#exrule &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000618">#exrule &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000484">#exrule &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000483">#exrule= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000849">#exrule= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000613">#exrule= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000203">#exrule= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000611">#exrule_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000201">#exrule_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000481">#exrule_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000846">#exrule_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000848">#exrule_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000202">#exrule_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000482">#exrule_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000612">#exrule_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000406">#freebusy &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000402">#freebusy= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000400">#freebusy_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000401">#freebusy_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Component/Calendar.html#M000020">#freebusys &mdash; RiCal::Component::Calendar</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000913">#freq &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000912">#freq= &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000719">#geo &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000077">#geo &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000318">#geo &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000076">#geo= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000317">#geo= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000718">#geo= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000315">#geo_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000074">#geo_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000716">#geo_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000717">#geo_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000316">#geo_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000075">#geo_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000269">#icalendar_method &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000268">#icalendar_method= &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Component/TZInfoTimezone.html#M000026">#identifier &mdash; RiCal::Component::TZInfoTimezone</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000672">#initialize_copy &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000281">#initialize_copy &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000259">#initialize_copy &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000673">#initialize_copy &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000554">#initialize_copy &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000898">#initialize_copy &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000433">#initialize_copy &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000921">#interval &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000922">#interval= &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Time/Calculations.html#M000049">#iso_week_num &mdash; RiCal::CoreExtensions::Time::Calculations</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Time/Calculations.html#M000047">#iso_year_and_week_num &mdash; RiCal::CoreExtensions::Time::Calculations</a></li>
+		
+			<li><a href="RiCal/Component/Calendar.html#M000019">#journals &mdash; RiCal::Component::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000537">#last_modified &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000082">#last_modified &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000330">#last_modified &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000724">#last_modified &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000536">#last_modified= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000325">#last_modified= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000081">#last_modified= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000723">#last_modified= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000534">#last_modified_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000721">#last_modified_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000079">#last_modified_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000323">#last_modified_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000324">#last_modified_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000535">#last_modified_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000080">#last_modified_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000722">#last_modified_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Time/Calculations.html#M000043">#leap_year? &mdash; RiCal::CoreExtensions::Time::Calculations</a></li>
+		
+			<li><a href="RiCal/Component/TZInfoTimezone.html#M000025">#local_to_utc &mdash; RiCal::Component::TZInfoTimezone</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000338">#location &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000729">#location &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000091">#location &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000337">#location= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000728">#location= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000090">#location= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000084">#location_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000726">#location_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000332">#location_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000727">#location_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000085">#location_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000333">#location_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000867">#method_missing &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000266">#method_property &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000267">#method_property= &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000448">#mutual_exclusion_violation &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000284">#mutual_exclusion_violation &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000577">#mutual_exclusion_violation &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000901">#mutual_exclusion_violation &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000679">#mutual_exclusion_violation &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000256">#mutual_exclusion_violation &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000676">#mutual_exclusion_violation &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000262">#mutual_exclusion_violation &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Time/WeekDayPredicates.html#M000051">#nth_wday_in_month? &mdash; RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Time/WeekDayPredicates.html#M000050">#nth_wday_in_year? &mdash; RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
+		
+			<li><a href="RiCal/OccurrenceEnumerator.html#M000086">#occurrences &mdash; RiCal::OccurrenceEnumerator</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000348">#organizer &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000734">#organizer &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000097">#organizer &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000542">#organizer &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000353">#organizer &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Event.html#M000095">#organizer= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000352">#organizer= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000347">#organizer= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000733">#organizer= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000541">#organizer= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000093">#organizer_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000345">#organizer_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000539">#organizer_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000350">#organizer_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000731">#organizer_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000346">#organizer_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000351">#organizer_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000540">#organizer_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000094">#organizer_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000732">#organizer_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000739">#percent_complete &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000738">#percent_complete= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000736">#percent_complete_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000737">#percent_complete_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000362">#priority &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000102">#priority &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000744">#priority &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000101">#priority= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000357">#priority= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000743">#priority= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000741">#priority_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000099">#priority_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000355">#priority_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000100">#priority_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000356">#priority_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000742">#priority_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000274">#prodid &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000273">#prodid= &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000271">#prodid_property &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000272">#prodid_property= &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar/ClassMethods.html#M000282">#property_parser &mdash; RiCal::Properties::Calendar::ClassMethods</a></li>
+		
+			<li><a href="RiCal/Properties/Event/ClassMethods.html#M000566">#property_parser &mdash; RiCal::Properties::Event::ClassMethods</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm/ClassMethods.html#M000260">#property_parser &mdash; RiCal::Properties::Alarm::ClassMethods</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy/ClassMethods.html#M000443">#property_parser &mdash; RiCal::Properties::Freebusy::ClassMethods</a></li>
+		
+			<li><a href="RiCal/Properties/Journal/ClassMethods.html#M000677">#property_parser &mdash; RiCal::Properties::Journal::ClassMethods</a></li>
+		
+			<li><a href="RiCal/Properties/Todo/ClassMethods.html#M000899">#property_parser &mdash; RiCal::Properties::Todo::ClassMethods</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod/ClassMethods.html#M000674">#property_parser &mdash; RiCal::Properties::TimezonePeriod::ClassMethods</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000876">#rdate &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000195">#rdate &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000637">#rdate &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000479">#rdate &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000654">#rdate &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Event.html#M000194">#rdate= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000875">#rdate= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000478">#rdate= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000636">#rdate= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000649">#rdate= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000873">#rdate_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000634">#rdate_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000476">#rdate_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000647">#rdate_property &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Event.html#M000187">#rdate_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000648">#rdate_property= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000874">#rdate_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000188">#rdate_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000477">#rdate_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000635">#rdate_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000547">#recurrence_id &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000430">#recurrence_id &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000751">#recurrence_id &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000142">#recurrence_id &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000546">#recurrence_id= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000748">#recurrence_id= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000428">#recurrence_id= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000141">#recurrence_id= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000746">#recurrence_id_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000544">#recurrence_id_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000426">#recurrence_id_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000139">#recurrence_id_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000427">#recurrence_id_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000140">#recurrence_id_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000545">#recurrence_id_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000747">#recurrence_id_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000627">#related_to &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000864">#related_to &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000494">#related_to &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000222">#related_to &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000493">#related_to= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000626">#related_to= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000863">#related_to= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000217">#related_to= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000859">#related_to_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000491">#related_to_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000215">#related_to_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000620">#related_to_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000216">#related_to_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000492">#related_to_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000621">#related_to_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000860">#related_to_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000229">#repeat &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000228">#repeat= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000226">#repeat_property &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000227">#repeat_property= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000857">#request_status &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000658">#request_status &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000415">#request_status &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Event.html#M000213">#request_status &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000489">#request_status &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000212">#request_status= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000414">#request_status= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000488">#request_status= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000653">#request_status= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000854">#request_status= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000210">#request_status_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000408">#request_status_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000651">#request_status_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000486">#request_status_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000852">#request_status_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000487">#request_status_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000211">#request_status_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000652">#request_status_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000853">#request_status_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000409">#request_status_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000501">#resources &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000235">#resources &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000871">#resources &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000870">#resources= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000500">#resources= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000234">#resources= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000496">#resources_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000224">#resources_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000868">#resources_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000499">#resources_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000869">#resources_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000225">#resources_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000240">#rrule &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000881">#rrule &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000513">#rrule &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000662">#rrule &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000646">#rrule &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000508">#rrule= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000880">#rrule= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000645">#rrule= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000661">#rrule= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Event.html#M000239">#rrule= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000878">#rrule_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000506">#rrule_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000643">#rrule_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000237">#rrule_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000656">#rrule_property &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000879">#rrule_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000657">#rrule_property= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Event.html#M000238">#rrule_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000644">#rrule_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000507">#rrule_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000057">#security_class &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000689">#security_class &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000504">#security_class &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000288">#security_class &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000688">#security_class= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000503">#security_class= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000056">#security_class= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000287">#security_class= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000552">#sequence &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000379">#sequence &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000760">#sequence &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000112">#sequence &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000759">#sequence= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000111">#sequence= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000551">#sequence= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000375">#sequence= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000549">#sequence_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000373">#sequence_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000753">#sequence_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000109">#sequence_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000754">#sequence_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000110">#sequence_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000374">#sequence_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000550">#sequence_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000948">#set_by_lists &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/Event.html#M000117">#status &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000558">#status &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000765">#status &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000389">#status &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000116">#status= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000388">#status= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000764">#status= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000557">#status= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000555">#status_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000762">#status_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000381">#status_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000114">#status_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000387">#status_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000115">#status_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000763">#status_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000556">#status_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000810">#subtract_from_date_time_value &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/PropertyValue/Duration.html#M000896">#subtract_from_date_time_value &mdash; RiCal::PropertyValue::Duration</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000563">#summary &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000398">#summary &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000122">#summary &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000242">#summary &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000770">#summary &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000562">#summary= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000397">#summary= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000769">#summary= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000121">#summary= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000233">#summary= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000231">#summary_property &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Event.html#M000119">#summary_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000395">#summary_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000560">#summary_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000767">#summary_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000232">#summary_property= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000561">#summary_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000120">#summary_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000768">#summary_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000396">#summary_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Component/Calendar.html#M000021">#timezones &mdash; RiCal::Component::Calendar</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000841">#to_datetime &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000923">#to_ical &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Array/Conversions.html#M000035">#to_rfc2445_string &mdash; RiCal::CoreExtensions::Array::Conversions</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Object/Conversions.html#M000038">#to_rfc2445_string &mdash; RiCal::CoreExtensions::Object::Conversions</a></li>
+		
+			<li><a href="RiCal/Component/TZInfoTimezone.html#M000027">#to_rfc2445_string &mdash; RiCal::Component::TZInfoTimezone</a></li>
+		
+			<li><a href="RiCal/PropertyValue/Date.html#M000756">#to_ri_cal_date_time_value &mdash; RiCal::PropertyValue::Date</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000805">#to_ri_cal_date_time_value &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Time/Conversions.html#M000048">#to_ri_cal_date_time_value &mdash; RiCal::CoreExtensions::Time::Conversions</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Date/Conversions.html#M000036">#to_ri_cal_date_time_value &mdash; RiCal::CoreExtensions::Date::Conversions</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/DateTime/Conversions.html#M000037">#to_ri_cal_date_time_value &mdash; RiCal::CoreExtensions::DateTime::Conversions</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/String/Conversions.html#M000040">#to_ri_cal_date_time_value &mdash; RiCal::CoreExtensions::String::Conversions</a></li>
+		
+			<li><a href="RiCal/PropertyValue/Date.html#M000757">#to_ri_cal_date_value &mdash; RiCal::PropertyValue::Date</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/String/Conversions.html#M000041">#to_ri_cal_duration_value &mdash; RiCal::CoreExtensions::String::Conversions</a></li>
+		
+			<li><a href="RiCal/PropertyValue/Duration.html#M000895">#to_ri_cal_duration_value &mdash; RiCal::PropertyValue::Duration</a></li>
+		
+			<li><a href="RiCal/PropertyValue/Period.html#M000906">#to_ri_cal_period_value &mdash; RiCal::PropertyValue::Period</a></li>
+		
+			<li><a href="RiCal/CoreExtensions/Object/Conversions.html#M000039">#to_ri_cal_ruby_value &mdash; RiCal::CoreExtensions::Object::Conversions</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000842">#to_ri_cal_ruby_value &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/PropertyValue/Date.html#M000755">#to_ri_cal_ruby_value &mdash; RiCal::PropertyValue::Date</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000660">#to_s &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/PropertyValue.html#M000685">#to_s &mdash; RiCal::PropertyValue</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000515">#to_s &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000883">#to_s &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000279">#to_s &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000255">#to_s &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000669">#to_s &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000417">#to_s &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Component/Calendar.html#M000018">#todos &mdash; RiCal::Component::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000410">#transp &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000127">#transp &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000405">#transp= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000126">#transp= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000124">#transp_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000403">#transp_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000125">#transp_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000404">#transp_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000207">#trigger &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000206">#trigger= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000199">#trigger_property &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/Properties/Alarm.html#M000200">#trigger_property= &mdash; RiCal::Properties::Alarm</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000838">#tzid &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000667">#tzname &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000666">#tzname= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000664">#tzname_property &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000665">#tzname_property= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000631">#tzoffsetfrom &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000630">#tzoffsetfrom= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000625">#tzoffsetfrom_property &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000629">#tzoffsetfrom_property= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000623">#tzoffsetto &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000622">#tzoffsetto= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000616">#tzoffsetto_property &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/TimezonePeriod.html#M000617">#tzoffsetto_property= &mdash; RiCal::Properties::TimezonePeriod</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000775">#uid &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000132">#uid &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000569">#uid &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000419">#uid &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000361">#uid &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000360">#uid= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000568">#uid= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000131">#uid= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000774">#uid= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000418">#uid= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000358">#uid_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000565">#uid_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000412">#uid_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000129">#uid_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000772">#uid_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000773">#uid_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000567">#uid_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Event.html#M000130">#uid_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000359">#uid_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000413">#uid_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000919">#until &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000574">#url &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000376">#url &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Event.html#M000137">#url &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000780">#url &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000424">#url &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000136">#url= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000779">#url= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000423">#url= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000573">#url= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000369">#url= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000367">#url_property &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000421">#url_property &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Event.html#M000134">#url_property &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000777">#url_property &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000571">#url_property &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/Properties/Freebusy.html#M000368">#url_property= &mdash; RiCal::Properties::Freebusy</a></li>
+		
+			<li><a href="RiCal/Properties/Todo.html#M000778">#url_property= &mdash; RiCal::Properties::Todo</a></li>
+		
+			<li><a href="RiCal/Event.html#M000135">#url_property= &mdash; RiCal::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Event.html#M000422">#url_property= &mdash; RiCal::Properties::Event</a></li>
+		
+			<li><a href="RiCal/Properties/Journal.html#M000572">#url_property= &mdash; RiCal::Properties::Journal</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000949">#valid? &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/Component.html#M000011">#valid? &mdash; RiCal::Component</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000952">#validate &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000959">#validate_byday_list &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000960">#validate_bymonthday_list &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000958">#validate_bysetpos &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000962">#validate_byweekno_list &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000961">#validate_byyearday_list &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000954">#validate_freq &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000957">#validate_int_by_list &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000955">#validate_interval &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000953">#validate_termination &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule/Validations.html#M000956">#validate_wkst &mdash; RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+		
+			<li><a href="RiCal/PropertyValue/Date.html#M000749">#value &mdash; RiCal::PropertyValue::Date</a></li>
+		
+			<li><a href="RiCal/PropertyValue/DateTime.html#M000818">#value &mdash; RiCal::PropertyValue::DateTime</a></li>
+		
+			<li><a href="RiCal/PropertyValue/OccurrenceList.html#M000902">#value= &mdash; RiCal::PropertyValue::OccurrenceList</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000277">#version &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/Properties/Calendar.html#M000276">#version_property &mdash; RiCal::Properties::Calendar</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000914">#wkst &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/PropertyValue/RecurrenceRule.html#M000916">#wkst= &mdash; RiCal::PropertyValue::RecurrenceRule</a></li>
+		
+			<li><a href="RiCal/Component.html#M000009">#x_properties &mdash; RiCal::Component</a></li>
+		
+	</ul>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+</body>
+</html>

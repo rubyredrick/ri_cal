@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Module: RiCal::OccurrenceEnumerator</title>
+
+	<link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="module">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../lib/ri_cal/occurrence_enumerator.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/occurrence_enumerator.rb">lib/ri_cal/occurrence_enumerator.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+
+			<!-- Namespace Contents -->
+			
+			<div id="namespace-list-section" class="section">
+				<h3 class="section-header">Namespace</h3>
+				<ul class="link-list">
+					
+					<li><span class="type">CLASS</span> <a href="OccurrenceEnumerator/EmptyRulesEnumerator.html">RiCal::OccurrenceEnumerator::EmptyRulesEnumerator</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="OccurrenceEnumerator/EnumerationInstance.html">RiCal::OccurrenceEnumerator::EnumerationInstance</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="OccurrenceEnumerator/OccurrenceMerger.html">RiCal::OccurrenceEnumerator::OccurrenceMerger</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000088">#bounded?</a></li>
+					
+					<li><a href="#M000087">#each</a></li>
+					
+					<li><a href="#M000086">#occurrences</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><span class="include">Enumerable</span></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../docs/draft-ietf-calsify-2446bis-08_txt.html">draft-ietf-calsify-2446bis-08.txt</a></li>
+				
+					<li class="file"><a href="../docs/draft-ietf-calsify-rfc2445bis-09_txt.html">draft-ietf-calsify-rfc2445bis-09.txt</a></li>
+				
+					<li class="file"><a href="../help/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../help/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../help/README_txt.html">README.txt</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../RiCal.html">RiCal</a></li>
+				
+					<li><a href="../RiCal/Component.html">RiCal::Component</a></li>
+				
+					<li><a href="../RiCal/Component/Alarm.html">RiCal::Component::Alarm</a></li>
+				
+					<li><a href="../RiCal/Component/Calendar.html">RiCal::Component::Calendar</a></li>
+				
+					<li><a href="../RiCal/Component/Event.html">RiCal::Component::Event</a></li>
+				
+					<li><a href="../RiCal/Component/Freebusy.html">RiCal::Component::Freebusy</a></li>
+				
+					<li><a href="../RiCal/Component/Journal.html">RiCal::Component::Journal</a></li>
+				
+					<li><a href="../RiCal/Component/TZInfoTimezone.html">RiCal::Component::TZInfoTimezone</a></li>
+				
+					<li><a href="../RiCal/Component/Timezone.html">RiCal::Component::Timezone</a></li>
+				
+					<li><a href="../RiCal/Component/Timezone/DaylightPeriod.html">RiCal::Component::Timezone::DaylightPeriod</a></li>
+				
+					<li><a href="../RiCal/Component/Timezone/StandardPeriod.html">RiCal::Component::Timezone::StandardPeriod</a></li>
+				
+					<li><a href="../RiCal/Component/Timezone/TimezonePeriod.html">RiCal::Component::Timezone::TimezonePeriod</a></li>
+				
+					<li><a href="../RiCal/Component/Todo.html">RiCal::Component::Todo</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions.html">RiCal::CoreExtensions</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/Array.html">RiCal::CoreExtensions::Array</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/Array/Conversions.html">RiCal::CoreExtensions::Array::Conversions</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/Date.html">RiCal::CoreExtensions::Date</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/Date/Conversions.html">RiCal::CoreExtensions::Date::Conversions</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/DateTime.html">RiCal::CoreExtensions::DateTime</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/DateTime/Conversions.html">RiCal::CoreExtensions::DateTime::Conversions</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/Object.html">RiCal::CoreExtensions::Object</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/Object/Conversions.html">RiCal::CoreExtensions::Object::Conversions</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/String.html">RiCal::CoreExtensions::String</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/String/Conversions.html">RiCal::CoreExtensions::String::Conversions</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/Time.html">RiCal::CoreExtensions::Time</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/Time/Calculations.html">RiCal::CoreExtensions::Time::Calculations</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/Time/Conversions.html">RiCal::CoreExtensions::Time::Conversions</a></li>
+				
+					<li><a href="../RiCal/CoreExtensions/Time/WeekDayPredicates.html">RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
+				
+					<li><a href="../RiCal/Event.html">RiCal::Event</a></li>
+				
+					<li><a href="../RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
+				
+					<li><a href="../RiCal/Properties.html">RiCal::Properties</a></li>
+				
+					<li><a href="../RiCal/Properties/Alarm.html">RiCal::Properties::Alarm</a></li>
+				
+					<li><a href="../RiCal/Properties/Alarm/ClassMethods.html">RiCal::Properties::Alarm::ClassMethods</a></li>
+				
+					<li><a href="../RiCal/Properties/Calendar.html">RiCal::Properties::Calendar</a></li>
+				
+					<li><a href="../RiCal/Properties/Calendar/ClassMethods.html">RiCal::Properties::Calendar::ClassMethods</a></li>
+				
+					<li><a href="../RiCal/Properties/Event.html">RiCal::Properties::Event</a></li>
+				
+					<li><a href="../RiCal/Properties/Event/ClassMethods.html">RiCal::Properties::Event::ClassMethods</a></li>
+				
+					<li><a href="../RiCal/Properties/Freebusy.html">RiCal::Properties::Freebusy</a></li>
+				
+					<li><a href="../RiCal/Properties/Freebusy/ClassMethods.html">RiCal::Properties::Freebusy::ClassMethods</a></li>
+				
+					<li><a href="../RiCal/Properties/Journal.html">RiCal::Properties::Journal</a></li>
+				
+					<li><a href="../RiCal/Properties/Journal/ClassMethods.html">RiCal::Properties::Journal::ClassMethods</a></li>
+				
+					<li><a href="../RiCal/Properties/TimezonePeriod.html">RiCal::Properties::TimezonePeriod</a></li>
+				
+					<li><a href="../RiCal/Properties/TimezonePeriod/ClassMethods.html">RiCal::Properties::TimezonePeriod::ClassMethods</a></li>
+				
+					<li><a href="../RiCal/Properties/Todo.html">RiCal::Properties::Todo</a></li>
+				
+					<li><a href="../RiCal/Properties/Todo/ClassMethods.html">RiCal::Properties::Todo::ClassMethods</a></li>
+				
+					<li><a href="../RiCal/PropertyValue.html">RiCal::PropertyValue</a></li>
+				
+					<li><a href="../RiCal/PropertyValue/CalAddress.html">RiCal::PropertyValue::CalAddress</a></li>
+				
+					<li><a href="../RiCal/PropertyValue/Date.html">RiCal::PropertyValue::Date</a></li>
+				
+					<li><a href="../RiCal/PropertyValue/DateTime.html">RiCal::PropertyValue::DateTime</a></li>
+				
+					<li><a href="../RiCal/PropertyValue/Duration.html">RiCal::PropertyValue::Duration</a></li>
+				
+					<li><a href="../RiCal/PropertyValue/Geo.html">RiCal::PropertyValue::Geo</a></li>
+				
+					<li><a href="../RiCal/PropertyValue/OccurrenceList.html">RiCal::PropertyValue::OccurrenceList</a></li>
+				
+					<li><a href="../RiCal/PropertyValue/Period.html">RiCal::PropertyValue::Period</a></li>
+				
+					<li><a href="../RiCal/PropertyValue/RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a></li>
+				
+					<li><a href="../RiCal/PropertyValue/RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+				
+					<li><a href="../RiCal/PropertyValue/Text.html">RiCal::PropertyValue::Text</a></li>
+				
+					<li><a href="../RiCal/PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a></li>
+				
+					<li><a href="../Array.html">Array</a></li>
+				
+					<li><a href="../Date.html">Date</a></li>
+				
+					<li><a href="../DateTime.html">DateTime</a></li>
+				
+					<li><a href="../Object.html">Object</a></li>
+				
+					<li><a href="../String.html">String</a></li>
+				
+					<li><a href="../Time.html">Time</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="module">RiCal::OccurrenceEnumerator</h1>
+
+		<div id="description">
+			<p>
+<a href="OccurrenceEnumerator.html">OccurrenceEnumerator</a> provides
+common methods for CalendarComponents that support recurrence i.e. <a
+href="Event.html">Event</a>, Journal, Todo, and TimezonePeriod
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="bounded--method" class="method-detail ">
+				<a name="M000088"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">bounded?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+A predicate which determines whether the component has a bounded set of
+occurrences
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="bounded--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/occurrence_enumerator.rb, line 141</span>
+141:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">bounded?</span>
+142:       <span class="ruby-constant">EnumerationInstance</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>).<span class="ruby-identifier">bounded?</span>
+143:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="each-method" class="method-detail ">
+				<a name="M000087"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">each</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+execute the block for each occurrence
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="each-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/occurrence_enumerator.rb, line 136</span>
+136:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>) <span class="ruby-comment cmt"># :yields: Component</span>
+137:       <span class="ruby-constant">EnumerationInstance</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>).<span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+138:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="occurrences-method" class="method-detail ">
+				<a name="M000086"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">occurrences</span><span
+						class="method-args">(options={})</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return an array of occurrences according to the options parameter. If a
+component is not bounded, and the number of occurrences to be returned is
+not constrained by either the :before, or :count options an ArgumentError
+will be raised.
+</p>
+<p>
+The components returned will be the same type as the receiver, but will
+have any recurrence properties (rrule, rdate, exrule, exdate) removed since
+they are single occurrences, and will have the recurrence-id property set
+to the occurrences dtstart value. (see RFC 2445 sec 4.8.4.4 pp 107-109)
+</p>
+<p>
+parameter options:
+</p>
+<ul>
+<li>:starting:: a <a href="../Date.html">Date</a>, <a
+href="../Time.html">Time</a>, or <a href="../DateTime.html">DateTime</a>,
+no occurrences starting before this argument will be returned
+
+</li>
+<li>:before:: a <a href="../Date.html">Date</a>, <a
+href="../Time.html">Time</a>, or <a href="../DateTime.html">DateTime</a>,
+no occurrences starting on or after this argument will be returned.
+
+</li>
+<li>:count:: an integer which limits the number of occurrences returned.
+
+</li>
+</ul>
+					
+
+					
+					<div class="method-source-code"
+						id="occurrences-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/occurrence_enumerator.rb, line 131</span>
+131:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">occurrences</span>(<span class="ruby-identifier">options</span>={})
+132:       <span class="ruby-constant">EnumerationInstance</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">options</span>).<span class="ruby-identifier">to_a</span>    
+133:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

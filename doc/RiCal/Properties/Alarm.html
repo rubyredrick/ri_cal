@@ -1,0 +1,1733 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Module: RiCal::Properties::Alarm</title>
+
+	<link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="module">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../lib/ri_cal/properties/alarm.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/properties/alarm.rb">lib/ri_cal/properties/alarm.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+
+			<!-- Namespace Contents -->
+			
+			<div id="namespace-list-section" class="section">
+				<h3 class="section-header">Namespace</h3>
+				<ul class="link-list">
+					
+					<li><span class="type">MODULE</span> <a href="Alarm/ClassMethods.html">RiCal::Properties::Alarm::ClassMethods</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000261">::included</a></li>
+					
+					<li><a href="#M000258">#==</a></li>
+					
+					<li><a href="#M000189">#action</a></li>
+					
+					<li><a href="#M000186">#action=</a></li>
+					
+					<li><a href="#M000184">#action_property</a></li>
+					
+					<li><a href="#M000185">#action_property=</a></li>
+					
+					<li><a href="#M000253">#attach</a></li>
+					
+					<li><a href="#M000252">#attach=</a></li>
+					
+					<li><a href="#M000250">#attach_property</a></li>
+					
+					<li><a href="#M000251">#attach_property=</a></li>
+					
+					<li><a href="#M000248">#attendee</a></li>
+					
+					<li><a href="#M000246">#attendee=</a></li>
+					
+					<li><a href="#M000244">#attendee_property</a></li>
+					
+					<li><a href="#M000245">#attendee_property=</a></li>
+					
+					<li><a href="#M000197">#description</a></li>
+					
+					<li><a href="#M000193">#description=</a></li>
+					
+					<li><a href="#M000191">#description_property</a></li>
+					
+					<li><a href="#M000192">#description_property=</a></li>
+					
+					<li><a href="#M000220">#duration</a></li>
+					
+					<li><a href="#M000219">#duration=</a></li>
+					
+					<li><a href="#M000209">#duration_property</a></li>
+					
+					<li><a href="#M000218">#duration_property=</a></li>
+					
+					<li><a href="#M000259">#initialize_copy</a></li>
+					
+					<li><a href="#M000262">#mutual_exclusion_violation</a></li>
+					
+					<li><a href="#M000229">#repeat</a></li>
+					
+					<li><a href="#M000228">#repeat=</a></li>
+					
+					<li><a href="#M000226">#repeat_property</a></li>
+					
+					<li><a href="#M000227">#repeat_property=</a></li>
+					
+					<li><a href="#M000242">#summary</a></li>
+					
+					<li><a href="#M000233">#summary=</a></li>
+					
+					<li><a href="#M000231">#summary_property</a></li>
+					
+					<li><a href="#M000232">#summary_property=</a></li>
+					
+					<li><a href="#M000255">#to_s</a></li>
+					
+					<li><a href="#M000207">#trigger</a></li>
+					
+					<li><a href="#M000206">#trigger=</a></li>
+					
+					<li><a href="#M000199">#trigger_property</a></li>
+					
+					<li><a href="#M000200">#trigger_property=</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../docs/draft-ietf-calsify-2446bis-08_txt.html">draft-ietf-calsify-2446bis-08.txt</a></li>
+				
+					<li class="file"><a href="../../docs/draft-ietf-calsify-rfc2445bis-09_txt.html">draft-ietf-calsify-rfc2445bis-09.txt</a></li>
+				
+					<li class="file"><a href="../../help/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../help/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../help/README_txt.html">README.txt</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../RiCal.html">RiCal</a></li>
+				
+					<li><a href="../../RiCal/Component.html">RiCal::Component</a></li>
+				
+					<li><a href="../../RiCal/Component/Alarm.html">RiCal::Component::Alarm</a></li>
+				
+					<li><a href="../../RiCal/Component/Calendar.html">RiCal::Component::Calendar</a></li>
+				
+					<li><a href="../../RiCal/Component/Event.html">RiCal::Component::Event</a></li>
+				
+					<li><a href="../../RiCal/Component/Freebusy.html">RiCal::Component::Freebusy</a></li>
+				
+					<li><a href="../../RiCal/Component/Journal.html">RiCal::Component::Journal</a></li>
+				
+					<li><a href="../../RiCal/Component/TZInfoTimezone.html">RiCal::Component::TZInfoTimezone</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone.html">RiCal::Component::Timezone</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/DaylightPeriod.html">RiCal::Component::Timezone::DaylightPeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/StandardPeriod.html">RiCal::Component::Timezone::StandardPeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/TimezonePeriod.html">RiCal::Component::Timezone::TimezonePeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Todo.html">RiCal::Component::Todo</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions.html">RiCal::CoreExtensions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Array.html">RiCal::CoreExtensions::Array</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Array/Conversions.html">RiCal::CoreExtensions::Array::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Date.html">RiCal::CoreExtensions::Date</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Date/Conversions.html">RiCal::CoreExtensions::Date::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/DateTime.html">RiCal::CoreExtensions::DateTime</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/DateTime/Conversions.html">RiCal::CoreExtensions::DateTime::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Object.html">RiCal::CoreExtensions::Object</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Object/Conversions.html">RiCal::CoreExtensions::Object::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/String.html">RiCal::CoreExtensions::String</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/String/Conversions.html">RiCal::CoreExtensions::String::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time.html">RiCal::CoreExtensions::Time</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/Calculations.html">RiCal::CoreExtensions::Time::Calculations</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/Conversions.html">RiCal::CoreExtensions::Time::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/WeekDayPredicates.html">RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
+				
+					<li><a href="../../RiCal/Event.html">RiCal::Event</a></li>
+				
+					<li><a href="../../RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
+				
+					<li><a href="../../RiCal/Properties.html">RiCal::Properties</a></li>
+				
+					<li><a href="../../RiCal/Properties/Alarm.html">RiCal::Properties::Alarm</a></li>
+				
+					<li><a href="../../RiCal/Properties/Alarm/ClassMethods.html">RiCal::Properties::Alarm::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Calendar.html">RiCal::Properties::Calendar</a></li>
+				
+					<li><a href="../../RiCal/Properties/Calendar/ClassMethods.html">RiCal::Properties::Calendar::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Event.html">RiCal::Properties::Event</a></li>
+				
+					<li><a href="../../RiCal/Properties/Event/ClassMethods.html">RiCal::Properties::Event::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Freebusy.html">RiCal::Properties::Freebusy</a></li>
+				
+					<li><a href="../../RiCal/Properties/Freebusy/ClassMethods.html">RiCal::Properties::Freebusy::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Journal.html">RiCal::Properties::Journal</a></li>
+				
+					<li><a href="../../RiCal/Properties/Journal/ClassMethods.html">RiCal::Properties::Journal::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/TimezonePeriod.html">RiCal::Properties::TimezonePeriod</a></li>
+				
+					<li><a href="../../RiCal/Properties/TimezonePeriod/ClassMethods.html">RiCal::Properties::TimezonePeriod::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Todo.html">RiCal::Properties::Todo</a></li>
+				
+					<li><a href="../../RiCal/Properties/Todo/ClassMethods.html">RiCal::Properties::Todo::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue.html">RiCal::PropertyValue</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/CalAddress.html">RiCal::PropertyValue::CalAddress</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Date.html">RiCal::PropertyValue::Date</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/DateTime.html">RiCal::PropertyValue::DateTime</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Duration.html">RiCal::PropertyValue::Duration</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Geo.html">RiCal::PropertyValue::Geo</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/OccurrenceList.html">RiCal::PropertyValue::OccurrenceList</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Period.html">RiCal::PropertyValue::Period</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Text.html">RiCal::PropertyValue::Text</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a></li>
+				
+					<li><a href="../../Array.html">Array</a></li>
+				
+					<li><a href="../../Date.html">Date</a></li>
+				
+					<li><a href="../../DateTime.html">DateTime</a></li>
+				
+					<li><a href="../../Object.html">Object</a></li>
+				
+					<li><a href="../../String.html">String</a></li>
+				
+					<li><a href="../../Time.html">Time</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="module">RiCal::Properties::Alarm</h1>
+
+		<div id="description">
+			<p>
+<a href="Alarm.html">Properties::Alarm</a> provides property accessing
+methods for the <a href="Alarm.html">Alarm</a> class This source file is
+generated by the rical:gen_propmodules rake tasks, DO NOT EDIT
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="included-method" class="method-detail ">
+				<a name="M000261"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">included</span><span
+						class="method-args">(mod)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="included-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 319</span>
+319:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">mod</span>)
+320:         <span class="ruby-identifier">mod</span>.<span class="ruby-identifier">extend</span> <span class="ruby-constant">ClassMethods</span>
+321:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="--method" class="method-detail ">
+				<a name="M000258"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">==</span><span
+						class="method-args">(o)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 286</span>
+286:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">o</span>)
+287:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>
+288:         (<span class="ruby-identifier">action_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">action_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+289:         (<span class="ruby-identifier">attendee_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">attendee_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+290:         (<span class="ruby-identifier">duration_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">duration_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+291:         (<span class="ruby-identifier">trigger_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">trigger_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+292:         (<span class="ruby-identifier">description_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">description_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+293:         (<span class="ruby-identifier">summary_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">summary_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+294:         (<span class="ruby-identifier">repeat_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">repeat_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+295:         (<span class="ruby-identifier">attach_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">attach_property</span>)
+296:         <span class="ruby-keyword kw">else</span>
+297:            <span class="ruby-keyword kw">super</span>
+298:         <span class="ruby-keyword kw">end</span>
+299:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="action-method" class="method-detail ">
+				<a name="M000189"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">action</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the ACTION property which will be an instance of <a
+href="../../String.html">String</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="action-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 31</span>
+31:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">action</span>
+32:         <span class="ruby-identifier">action_property</span> <span class="ruby-value">? </span><span class="ruby-identifier">action_property</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+33:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="action--method" class="method-detail ">
+				<a name="M000186"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">action=</span><span
+						class="method-args">(ruby_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the ACTION property
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="action--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 25</span>
+25:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">action=</span>(<span class="ruby-identifier">ruby_value</span>)
+26:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">action_property</span>= <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">Text</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">ruby_value</span>)
+27:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="action-property-method" class="method-detail ">
+				<a name="M000184"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">action_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the ACTION property which will be an instances of
+RiCal::PropertyValueText
+</p>
+<p>
+[purpose (from RFC 2445)] This property defines the action to be invoked
+when an alarm is triggered
+</p>
+<p>
+see RFC 2445 4.8.6.1 p 126
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="action-property-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 14</span>
+14:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">action_property</span>
+15:         <span class="ruby-ivar">@action_property</span>
+16:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="action-property--method" class="method-detail ">
+				<a name="M000185"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">action_property=</span><span
+						class="method-args">(property_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the ACTION property property value should be an instance of
+RiCal::PropertyValueText
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="action-property--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 20</span>
+20:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">action_property=</span>(<span class="ruby-identifier">property_value</span>)
+21:         <span class="ruby-ivar">@action_property</span> = <span class="ruby-identifier">property_value</span>
+22:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="attach-method" class="method-detail ">
+				<a name="M000253"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">attach</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the ATTACH property which will be an array of instances
+of Uri
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="attach-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 263</span>
+263:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attach</span>
+264:         <span class="ruby-identifier">attach_property</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">prop</span><span class="ruby-operator">|</span> <span class="ruby-identifier">prop</span> <span class="ruby-value">? </span><span class="ruby-identifier">prop</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">prop</span>}
+265:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="attach--method" class="method-detail ">
+				<a name="M000252"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">attach=</span><span
+						class="method-args">(*ruby_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the ATTACH property one or more instances of Uri may be
+passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="attach--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 257</span>
+257:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attach=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">ruby_values</span>)
+258:         <span class="ruby-ivar">@attach_property</span> = <span class="ruby-identifier">ruby_values</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span> <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">Uri</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">val</span>)}
+259:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="attach-property-method" class="method-detail ">
+				<a name="M000250"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">attach_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the ATTACH property which will be an array of instances of
+RiCal::PropertyValueUri
+</p>
+<p>
+[purpose (from RFC 2445)] The property provides the capability to associate
+a document object with a calendar component.
+</p>
+<p>
+see RFC 2445 4.8.1.1 pp 77-78
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="attach-property-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 245</span>
+245:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attach_property</span>
+246:         <span class="ruby-ivar">@attach_property</span> <span class="ruby-operator">||=</span> []
+247:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="attach-property--method" class="method-detail ">
+				<a name="M000251"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">attach_property=</span><span
+						class="method-args">(*property_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the the ATTACH property one or more instances of
+RiCal::PropertyValueUri may be passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="attach-property--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 251</span>
+251:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attach_property=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">property_values</span>)
+252:         <span class="ruby-ivar">@attach_property</span>= <span class="ruby-identifier">property_values</span>
+253:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="attendee-method" class="method-detail ">
+				<a name="M000248"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">attendee</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the ATTENDEE property which will be an array of
+instances of CalAddress
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="attendee-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 230</span>
+230:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attendee</span>
+231:         <span class="ruby-identifier">attendee_property</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">prop</span><span class="ruby-operator">|</span> <span class="ruby-identifier">prop</span> <span class="ruby-value">? </span><span class="ruby-identifier">prop</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">prop</span>}
+232:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="attendee--method" class="method-detail ">
+				<a name="M000246"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">attendee=</span><span
+						class="method-args">(*ruby_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the ATTENDEE property one or more instances of CalAddress
+may be passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="attendee--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 224</span>
+224:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attendee=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">ruby_values</span>)
+225:         <span class="ruby-ivar">@attendee_property</span> = <span class="ruby-identifier">ruby_values</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span> <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">CalAddress</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">val</span>)}
+226:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="attendee-property-method" class="method-detail ">
+				<a name="M000244"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">attendee_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the ATTENDEE property which will be an array of instances of
+RiCal::PropertyValueCalAddress
+</p>
+<p>
+[purpose (from RFC 2445)] The property defines an &#8216;Attendee&#8217;
+within a calendar component.
+</p>
+<p>
+see RFC 2445 4.8.4.1 pp 102-104
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="attendee-property-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 212</span>
+212:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attendee_property</span>
+213:         <span class="ruby-ivar">@attendee_property</span> <span class="ruby-operator">||=</span> []
+214:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="attendee-property--method" class="method-detail ">
+				<a name="M000245"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">attendee_property=</span><span
+						class="method-args">(*property_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the the ATTENDEE property one or more instances of
+RiCal::PropertyValueCalAddress may be passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="attendee-property--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 218</span>
+218:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">attendee_property=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">property_values</span>)
+219:         <span class="ruby-ivar">@attendee_property</span>= <span class="ruby-identifier">property_values</span>
+220:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="description-method" class="method-detail ">
+				<a name="M000197"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">description</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the DESCRIPTION property which will be an instance of
+<a href="../../String.html">String</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="description-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 64</span>
+64:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description</span>
+65:         <span class="ruby-identifier">description_property</span> <span class="ruby-value">? </span><span class="ruby-identifier">description_property</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+66:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="description--method" class="method-detail ">
+				<a name="M000193"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">description=</span><span
+						class="method-args">(ruby_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the DESCRIPTION property
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="description--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 58</span>
+58:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description=</span>(<span class="ruby-identifier">ruby_value</span>)
+59:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">description_property</span>= <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">Text</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">ruby_value</span>)
+60:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="description-property-method" class="method-detail ">
+				<a name="M000191"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">description_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the DESCRIPTION property which will be an instances of
+RiCal::PropertyValueText
+</p>
+<p>
+[purpose (from RFC 2445)] This property provides a more complete
+description of the calendar component, than that provided by the
+&#8220;SUMMARY&#8221; property.
+</p>
+<p>
+see RFC 2445 4.8.1.5 pp 81-82
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="description-property-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 47</span>
+47:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description_property</span>
+48:         <span class="ruby-ivar">@description_property</span>
+49:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="description-property--method" class="method-detail ">
+				<a name="M000192"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">description_property=</span><span
+						class="method-args">(property_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the DESCRIPTION property property value should be an instance of
+RiCal::PropertyValueText
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="description-property--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 53</span>
+53:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">description_property=</span>(<span class="ruby-identifier">property_value</span>)
+54:         <span class="ruby-ivar">@description_property</span> = <span class="ruby-identifier">property_value</span>
+55:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="duration-method" class="method-detail ">
+				<a name="M000220"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">duration</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the DURATION property which will be an instance of
+Duration
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="duration-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 130</span>
+130:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">duration</span>
+131:         <span class="ruby-identifier">duration_property</span> <span class="ruby-value">? </span><span class="ruby-identifier">duration_property</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+132:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="duration--method" class="method-detail ">
+				<a name="M000219"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">duration=</span><span
+						class="method-args">(ruby_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the DURATION property
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="duration--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 124</span>
+124:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">duration=</span>(<span class="ruby-identifier">ruby_value</span>)
+125:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">duration_property</span>= <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">Duration</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">ruby_value</span>)
+126:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="duration-property-method" class="method-detail ">
+				<a name="M000209"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">duration_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the DURATION property which will be an instances of
+RiCal::PropertyValueDuration
+</p>
+<p>
+[purpose (from RFC 2445)] This property specifies a positive duration of
+time.
+</p>
+<p>
+see RFC 2445 4.8.2.5 pp 94-95
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="duration-property-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 113</span>
+113:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">duration_property</span>
+114:         <span class="ruby-ivar">@duration_property</span>
+115:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="duration-property--method" class="method-detail ">
+				<a name="M000218"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">duration_property=</span><span
+						class="method-args">(property_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the DURATION property property value should be an instance of
+RiCal::PropertyValueDuration
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="duration-property--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 119</span>
+119:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">duration_property=</span>(<span class="ruby-identifier">property_value</span>)
+120:         <span class="ruby-ivar">@duration_property</span> = <span class="ruby-identifier">property_value</span>
+121:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="initialize-copy-method" class="method-detail ">
+				<a name="M000259"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">initialize_copy</span><span
+						class="method-args">(o)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="initialize-copy-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 301</span>
+301:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_copy</span>(<span class="ruby-identifier">o</span>)
+302:         <span class="ruby-keyword kw">super</span>
+303:         <span class="ruby-identifier">action_property</span> = <span class="ruby-identifier">action_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">action_property</span>.<span class="ruby-identifier">dup</span>
+304:         <span class="ruby-identifier">attendee_property</span> = <span class="ruby-identifier">attendee_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">attendee_property</span>.<span class="ruby-identifier">dup</span>
+305:         <span class="ruby-identifier">duration_property</span> = <span class="ruby-identifier">duration_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">duration_property</span>.<span class="ruby-identifier">dup</span>
+306:         <span class="ruby-identifier">trigger_property</span> = <span class="ruby-identifier">trigger_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">trigger_property</span>.<span class="ruby-identifier">dup</span>
+307:         <span class="ruby-identifier">description_property</span> = <span class="ruby-identifier">description_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">description_property</span>.<span class="ruby-identifier">dup</span>
+308:         <span class="ruby-identifier">summary_property</span> = <span class="ruby-identifier">summary_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">summary_property</span>.<span class="ruby-identifier">dup</span>
+309:         <span class="ruby-identifier">repeat_property</span> = <span class="ruby-identifier">repeat_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">repeat_property</span>.<span class="ruby-identifier">dup</span>
+310:         <span class="ruby-identifier">attach_property</span> = <span class="ruby-identifier">attach_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">attach_property</span>.<span class="ruby-identifier">dup</span>
+311:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="mutual-exclusion-violation-method" class="method-detail ">
+				<a name="M000262"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">mutual_exclusion_violation</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="mutual-exclusion-violation-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 323</span>
+323:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">mutual_exclusion_violation</span>
+324:         <span class="ruby-keyword kw">false</span>
+325:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="repeat-method" class="method-detail ">
+				<a name="M000229"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">repeat</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the REPEAT property which will be an instance of
+Integer
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="repeat-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 163</span>
+163:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">repeat</span>
+164:         <span class="ruby-identifier">repeat_property</span> <span class="ruby-value">? </span><span class="ruby-identifier">repeat_property</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+165:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="repeat--method" class="method-detail ">
+				<a name="M000228"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">repeat=</span><span
+						class="method-args">(ruby_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the REPEAT property
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="repeat--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 157</span>
+157:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">repeat=</span>(<span class="ruby-identifier">ruby_value</span>)
+158:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">repeat_property</span>= <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">Integer</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">ruby_value</span>)
+159:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="repeat-property-method" class="method-detail ">
+				<a name="M000226"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">repeat_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the REPEAT property which will be an instances of
+RiCal::PropertyValueInteger
+</p>
+<p>
+[purpose (from RFC 2445)] This property defines the number of times the
+alarm should be repeated, after the initial trigger.
+</p>
+<p>
+see RFC 2445 4.8.6.2 p 126-127
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="repeat-property-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 146</span>
+146:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">repeat_property</span>
+147:         <span class="ruby-ivar">@repeat_property</span>
+148:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="repeat-property--method" class="method-detail ">
+				<a name="M000227"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">repeat_property=</span><span
+						class="method-args">(property_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the REPEAT property property value should be an instance of
+RiCal::PropertyValueInteger
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="repeat-property--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 152</span>
+152:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">repeat_property=</span>(<span class="ruby-identifier">property_value</span>)
+153:         <span class="ruby-ivar">@repeat_property</span> = <span class="ruby-identifier">property_value</span>
+154:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="summary-method" class="method-detail ">
+				<a name="M000242"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">summary</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the SUMMARY property which will be an instance of <a
+href="../../String.html">String</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="summary-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 196</span>
+196:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">summary</span>
+197:         <span class="ruby-identifier">summary_property</span> <span class="ruby-value">? </span><span class="ruby-identifier">summary_property</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+198:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="summary--method" class="method-detail ">
+				<a name="M000233"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">summary=</span><span
+						class="method-args">(ruby_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the SUMMARY property
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="summary--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 190</span>
+190:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">summary=</span>(<span class="ruby-identifier">ruby_value</span>)
+191:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">summary_property</span>= <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">Text</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">ruby_value</span>)
+192:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="summary-property-method" class="method-detail ">
+				<a name="M000231"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">summary_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the SUMMARY property which will be an instances of
+RiCal::PropertyValueText
+</p>
+<p>
+[purpose (from RFC 2445)] This property defines a short summary or subject
+for the calendar component.
+</p>
+<p>
+see RFC 2445 4.8.1.12 pp 89-90
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="summary-property-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 179</span>
+179:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">summary_property</span>
+180:         <span class="ruby-ivar">@summary_property</span>
+181:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="summary-property--method" class="method-detail ">
+				<a name="M000232"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">summary_property=</span><span
+						class="method-args">(property_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the SUMMARY property property value should be an instance of
+RiCal::PropertyValueText
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="summary-property--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 185</span>
+185:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">summary_property=</span>(<span class="ruby-identifier">property_value</span>)
+186:         <span class="ruby-ivar">@summary_property</span> = <span class="ruby-identifier">property_value</span>
+187:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-s-method" class="method-detail ">
+				<a name="M000255"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_s</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-s-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 271</span>
+271:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+272:         <span class="ruby-identifier">entity_name</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">entity_name</span>
+273:         <span class="ruby-identifier">collector</span> = [<span class="ruby-node">&quot;BEGIN:#{entity_name}&quot;</span>]
+274:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;ACTION&quot;</span>, <span class="ruby-ivar">@action_property</span>)
+275:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;ATTENDEE&quot;</span>, <span class="ruby-ivar">@attendee_property</span>)
+276:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;DURATION&quot;</span>, <span class="ruby-ivar">@duration_property</span>)
+277:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;TRIGGER&quot;</span>, <span class="ruby-ivar">@trigger_property</span>)
+278:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;DESCRIPTION&quot;</span>, <span class="ruby-ivar">@description_property</span>)
+279:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;SUMMARY&quot;</span>, <span class="ruby-ivar">@summary_property</span>)
+280:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;REPEAT&quot;</span>, <span class="ruby-ivar">@repeat_property</span>)
+281:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;ATTACH&quot;</span>, <span class="ruby-ivar">@attach_property</span>)
+282:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;END:#{entity_name}&quot;</span>
+283:         <span class="ruby-identifier">collector</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+284:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="trigger-method" class="method-detail ">
+				<a name="M000207"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">trigger</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the TRIGGER property which will be an instance of
+duration_or_utc_date_time
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="trigger-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 97</span>
+97:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">trigger</span>
+98:         <span class="ruby-identifier">trigger_property</span> <span class="ruby-value">? </span><span class="ruby-identifier">trigger_property</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+99:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="trigger--method" class="method-detail ">
+				<a name="M000206"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">trigger=</span><span
+						class="method-args">(ruby_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the TRIGGER property
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="trigger--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 91</span>
+91:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">trigger=</span>(<span class="ruby-identifier">ruby_value</span>)
+92:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">trigger_property</span>= <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-identifier">duration_or_utc_date_time</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">ruby_value</span>)
+93:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="trigger-property-method" class="method-detail ">
+				<a name="M000199"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">trigger_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the TRIGGER property which will be an instances of
+RiCal::PropertyValueduration_or_utc_date_time
+</p>
+<p>
+[purpose (from RFC 2445)] This property specifies when an alarm will
+trigger.
+</p>
+<p>
+see RFC 2445 4.8.6.3 p 127-129
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="trigger-property-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 80</span>
+80:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">trigger_property</span>
+81:         <span class="ruby-ivar">@trigger_property</span>
+82:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="trigger-property--method" class="method-detail ">
+				<a name="M000200"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">trigger_property=</span><span
+						class="method-args">(property_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the TRIGGER property property value should be an instance of
+RiCal::PropertyValueduration_or_utc_date_time
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="trigger-property--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/alarm.rb, line 86</span>
+86:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">trigger_property=</span>(<span class="ruby-identifier">property_value</span>)
+87:         <span class="ruby-ivar">@trigger_property</span> = <span class="ruby-identifier">property_value</span>
+88:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

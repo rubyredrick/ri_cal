@@ -1,0 +1,904 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: RiCal::PropertyValue::RecurrenceRule</title>
+
+	<link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../lib/ri_cal/property_value/recurrence_rule.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule.rb">lib/ri_cal/property_value/recurrence_rule.rb</a></li>
+					
+						<li><a href="../../lib/ri_cal/property_value/recurrence_rule/enumerator.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/enumerator.rb">lib/ri_cal/property_value/recurrence_rule/enumerator.rb</a></li>
+					
+						<li><a href="../../lib/ri_cal/property_value/recurrence_rule/negative_setpos_enumerator.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/negative_setpos_enumerator.rb">lib/ri_cal/property_value/recurrence_rule/negative_setpos_enumerator.rb</a></li>
+					
+						<li><a href="../../lib/ri_cal/property_value/recurrence_rule/numbered_span.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/numbered_span.rb">lib/ri_cal/property_value/recurrence_rule/numbered_span.rb</a></li>
+					
+						<li><a href="../../lib/ri_cal/property_value/recurrence_rule/recurring_day.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/recurring_day.rb">lib/ri_cal/property_value/recurrence_rule/recurring_day.rb</a></li>
+					
+						<li><a href="../../lib/ri_cal/property_value/recurrence_rule/recurring_month_day.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/recurring_month_day.rb">lib/ri_cal/property_value/recurrence_rule/recurring_month_day.rb</a></li>
+					
+						<li><a href="../../lib/ri_cal/property_value/recurrence_rule/recurring_numbered_week.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/recurring_numbered_week.rb">lib/ri_cal/property_value/recurrence_rule/recurring_numbered_week.rb</a></li>
+					
+						<li><a href="../../lib/ri_cal/property_value/recurrence_rule/recurring_year_day.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/recurring_year_day.rb">lib/ri_cal/property_value/recurrence_rule/recurring_year_day.rb</a></li>
+					
+						<li><a href="../../lib/ri_cal/property_value/recurrence_rule/validations.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/validations.rb">lib/ri_cal/property_value/recurrence_rule/validations.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">PropertyValue</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+			<div id="namespace-list-section" class="section">
+				<h3 class="section-header">Namespace</h3>
+				<ul class="link-list">
+					
+					<li><span class="type">MODULE</span> <a href="RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="RecurrenceRule/Enumerator.html">RiCal::PropertyValue::RecurrenceRule::Enumerator</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="RecurrenceRule/NegativeSetposEnumerator.html">RiCal::PropertyValue::RecurrenceRule::NegativeSetposEnumerator</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="RecurrenceRule/NumberedSpan.html">RiCal::PropertyValue::RecurrenceRule::NumberedSpan</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="RecurrenceRule/RecurringDay.html">RiCal::PropertyValue::RecurrenceRule::RecurringDay</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="RecurrenceRule/RecurringMonthDay.html">RiCal::PropertyValue::RecurrenceRule::RecurringMonthDay</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="RecurrenceRule/RecurringNumberedWeek.html">RiCal::PropertyValue::RecurrenceRule::RecurringNumberedWeek</a></li>
+					
+					<li><span class="type">CLASS</span> <a href="RecurrenceRule/RecurringYearDay.html">RiCal::PropertyValue::RecurrenceRule::RecurringYearDay</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000928">#bounded?</a></li>
+					
+					<li><a href="#M000947">#by_list</a></li>
+					
+					<li><a href="#M000917">#count=</a></li>
+					
+					<li><a href="#M000913">#freq</a></li>
+					
+					<li><a href="#M000912">#freq=</a></li>
+					
+					<li><a href="#M000921">#interval</a></li>
+					
+					<li><a href="#M000922">#interval=</a></li>
+					
+					<li><a href="#M000948">#set_by_lists</a></li>
+					
+					<li><a href="#M000923">#to_ical</a></li>
+					
+					<li><a href="#M000919">#until</a></li>
+					
+					<li><a href="#M000914">#wkst</a></li>
+					
+					<li><a href="#M000916">#wkst=</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><a class="include" href="RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../docs/draft-ietf-calsify-2446bis-08_txt.html">draft-ietf-calsify-2446bis-08.txt</a></li>
+				
+					<li class="file"><a href="../../docs/draft-ietf-calsify-rfc2445bis-09_txt.html">draft-ietf-calsify-rfc2445bis-09.txt</a></li>
+				
+					<li class="file"><a href="../../help/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../help/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../help/README_txt.html">README.txt</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../RiCal.html">RiCal</a></li>
+				
+					<li><a href="../../RiCal/Component.html">RiCal::Component</a></li>
+				
+					<li><a href="../../RiCal/Component/Alarm.html">RiCal::Component::Alarm</a></li>
+				
+					<li><a href="../../RiCal/Component/Calendar.html">RiCal::Component::Calendar</a></li>
+				
+					<li><a href="../../RiCal/Component/Event.html">RiCal::Component::Event</a></li>
+				
+					<li><a href="../../RiCal/Component/Freebusy.html">RiCal::Component::Freebusy</a></li>
+				
+					<li><a href="../../RiCal/Component/Journal.html">RiCal::Component::Journal</a></li>
+				
+					<li><a href="../../RiCal/Component/TZInfoTimezone.html">RiCal::Component::TZInfoTimezone</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone.html">RiCal::Component::Timezone</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/DaylightPeriod.html">RiCal::Component::Timezone::DaylightPeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/StandardPeriod.html">RiCal::Component::Timezone::StandardPeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/TimezonePeriod.html">RiCal::Component::Timezone::TimezonePeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Todo.html">RiCal::Component::Todo</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions.html">RiCal::CoreExtensions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Array.html">RiCal::CoreExtensions::Array</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Array/Conversions.html">RiCal::CoreExtensions::Array::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Date.html">RiCal::CoreExtensions::Date</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Date/Conversions.html">RiCal::CoreExtensions::Date::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/DateTime.html">RiCal::CoreExtensions::DateTime</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/DateTime/Conversions.html">RiCal::CoreExtensions::DateTime::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Object.html">RiCal::CoreExtensions::Object</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Object/Conversions.html">RiCal::CoreExtensions::Object::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/String.html">RiCal::CoreExtensions::String</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/String/Conversions.html">RiCal::CoreExtensions::String::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time.html">RiCal::CoreExtensions::Time</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/Calculations.html">RiCal::CoreExtensions::Time::Calculations</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/Conversions.html">RiCal::CoreExtensions::Time::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/WeekDayPredicates.html">RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
+				
+					<li><a href="../../RiCal/Event.html">RiCal::Event</a></li>
+				
+					<li><a href="../../RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
+				
+					<li><a href="../../RiCal/Properties.html">RiCal::Properties</a></li>
+				
+					<li><a href="../../RiCal/Properties/Alarm.html">RiCal::Properties::Alarm</a></li>
+				
+					<li><a href="../../RiCal/Properties/Alarm/ClassMethods.html">RiCal::Properties::Alarm::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Calendar.html">RiCal::Properties::Calendar</a></li>
+				
+					<li><a href="../../RiCal/Properties/Calendar/ClassMethods.html">RiCal::Properties::Calendar::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Event.html">RiCal::Properties::Event</a></li>
+				
+					<li><a href="../../RiCal/Properties/Event/ClassMethods.html">RiCal::Properties::Event::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Freebusy.html">RiCal::Properties::Freebusy</a></li>
+				
+					<li><a href="../../RiCal/Properties/Freebusy/ClassMethods.html">RiCal::Properties::Freebusy::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Journal.html">RiCal::Properties::Journal</a></li>
+				
+					<li><a href="../../RiCal/Properties/Journal/ClassMethods.html">RiCal::Properties::Journal::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/TimezonePeriod.html">RiCal::Properties::TimezonePeriod</a></li>
+				
+					<li><a href="../../RiCal/Properties/TimezonePeriod/ClassMethods.html">RiCal::Properties::TimezonePeriod::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Todo.html">RiCal::Properties::Todo</a></li>
+				
+					<li><a href="../../RiCal/Properties/Todo/ClassMethods.html">RiCal::Properties::Todo::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue.html">RiCal::PropertyValue</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/CalAddress.html">RiCal::PropertyValue::CalAddress</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Date.html">RiCal::PropertyValue::Date</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/DateTime.html">RiCal::PropertyValue::DateTime</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Duration.html">RiCal::PropertyValue::Duration</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Geo.html">RiCal::PropertyValue::Geo</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/OccurrenceList.html">RiCal::PropertyValue::OccurrenceList</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Period.html">RiCal::PropertyValue::Period</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Text.html">RiCal::PropertyValue::Text</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a></li>
+				
+					<li><a href="../../Array.html">Array</a></li>
+				
+					<li><a href="../../Date.html">Date</a></li>
+				
+					<li><a href="../../DateTime.html">DateTime</a></li>
+				
+					<li><a href="../../Object.html">Object</a></li>
+				
+					<li><a href="../../String.html">String</a></li>
+				
+					<li><a href="../../Time.html">Time</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">RiCal::PropertyValue::RecurrenceRule</h1>
+
+		<div id="description">
+			<p>
+<a href="RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a>
+represents an icalendar Recurrence Rule property value which is defined in
+rfc 2445 section 4.3.10 pp 40-45
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="count-attribute-method" class="method-detail">
+				<a name="count"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">count</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p class="missing-docs">(Not documented)</p>
+				
+				</div>
+			</div>
+			
+			<div id="until-attribute-method" class="method-detail">
+				<a name="until"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">until</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p class="missing-docs">(Not documented)</p>
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="bounded--method" class="method-detail ">
+				<a name="M000928"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">bounded?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Predicate to determine if the receiver generates a bounded or infinite set
+of occurrences
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="bounded--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 215</span>
+215:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">bounded?</span>
+216:         <span class="ruby-ivar">@count</span> <span class="ruby-operator">||</span> <span class="ruby-ivar">@until</span>
+217:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="count--method" class="method-detail ">
+				<a name="M000917"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">count=</span><span
+						class="method-args">(count_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Set the count parameter of the recurrence rule, the count value will be
+converted to an integer using to_i
+</p>
+<p>
+This method resets the receivers list of errors
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="count--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 100</span>
+100:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">count=</span>(<span class="ruby-identifier">count_value</span>)
+101:         <span class="ruby-identifier">reset_errors</span>
+102:         <span class="ruby-identifier">set_count</span>(<span class="ruby-identifier">count_value</span>)
+103:         <span class="ruby-ivar">@until</span> = <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">count_value</span>.<span class="ruby-identifier">nil?</span>
+104:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="freq-method" class="method-detail ">
+				<a name="M000913"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">freq</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the frequency of the rule which will be a string
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="freq-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 72</span>
+72:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">freq</span>
+73:         <span class="ruby-ivar">@freq</span>.<span class="ruby-identifier">upcase</span>
+74:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="freq--method" class="method-detail ">
+				<a name="M000912"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">freq=</span><span
+						class="method-args">(freq_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Set the frequency of the recurrence rule
+</p>
+<table>
+<tr><td valign="top">freq_value:</td><td>a <a href="../../String.html">String</a> which should be in %w[SECONDLY
+MINUTELY HOURLY DAILY WEEKLY MONTHLY YEARLY]
+
+</td></tr>
+</table>
+<p>
+This method resets the receivers list of errors
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="freq--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 66</span>
+66:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">freq=</span>(<span class="ruby-identifier">freq_value</span>)
+67:         <span class="ruby-identifier">reset_errors</span>
+68:         <span class="ruby-ivar">@freq</span> = <span class="ruby-identifier">freq_value</span>
+69:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="interval-method" class="method-detail ">
+				<a name="M000921"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">interval</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the INTERVAL parameter of the recurrence rule This returns an
+Integer
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="interval-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 128</span>
+128:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">interval</span>
+129:         <span class="ruby-ivar">@interval</span> <span class="ruby-operator">||=</span> <span class="ruby-value">1</span>
+130:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="interval--method" class="method-detail ">
+				<a name="M000922"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">interval=</span><span
+						class="method-args">(interval_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Set the INTERVAL parameter of the recurrence rule
+</p>
+<table>
+<tr><td valign="top">interval_value:</td><td>an Integer
+
+</td></tr>
+</table>
+<p>
+This method resets the receivers list of errors
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="interval--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 137</span>
+137:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">interval=</span>(<span class="ruby-identifier">interval_value</span>)
+138:         <span class="ruby-identifier">reset_errors</span>
+139:         <span class="ruby-ivar">@interval</span> = <span class="ruby-identifier">interval_value</span>
+140:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-ical-method" class="method-detail ">
+				<a name="M000923"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_ical</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Return a string containing the RFC 2445 representation of the recurrence
+rule
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-ical-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 143</span>
+143:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_ical</span>
+144:         <span class="ruby-identifier">result</span> = [<span class="ruby-node">&quot;FREQ=#{freq}&quot;</span>]
+145:         <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;COUNT=#{count}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">count</span>
+146:         <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;INTERVAL=#{interval}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">interval</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+147:         <span class="ruby-node">%w{bysecond byminute byhour byday bymonthday byyearday byweekno bymonth bysetpos}</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">by_part</span><span class="ruby-operator">|</span>
+148:           <span class="ruby-identifier">val</span> = <span class="ruby-identifier">by_list</span>[<span class="ruby-identifier">by_part</span>.<span class="ruby-identifier">to_sym</span>]
+149:           <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{by_part.upcase}=#{[val].flatten.join(',')}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span>
+150:         <span class="ruby-keyword kw">end</span>
+151:         <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;WKST=#{wkst}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">wkst</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;MO&quot;</span>
+152:         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;;&quot;</span>)
+153:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="until-method" class="method-detail ">
+				<a name="M000919"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">until</span><span
+						class="method-args">(=(until_value))</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Set the until parameter of the recurrence rule
+</p>
+<table>
+<tr><td valign="top">until_value:</td><td>the value to be set, this may be either a string in RFC 2446 <a
+href="Date.html">Date</a> or <a href="DateTime.html">DateTime</a> value
+format
+
+</td></tr>
+</table>
+<p>
+Or a <a href="Date.html">Date</a>, <a href="../../Time.html">Time</a>, <a
+href="DateTime.html">DateTime</a>, <a
+href="Date.html">RiCal::PropertyValue::Date</a>, or <a
+href="DateTime.html">RiCal::PropertyValue::DateTime</a>
+</p>
+<p>
+This method resets the receivers list of errors
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="until-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 116</span>
+116:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">until</span>=(<span class="ruby-identifier">until_value</span>)
+117:         <span class="ruby-identifier">reset_errors</span>
+118:         <span class="ruby-identifier">set_until</span>
+119:         <span class="ruby-ivar">@count</span> = <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">until_value</span>.<span class="ruby-identifier">nil?</span>
+120:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="wkst-method" class="method-detail ">
+				<a name="M000914"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">wkst</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the starting week day for the recurrence rule, which for a valid
+instance will be one of &#8220;SU&#8221;, &#8220;MO&#8221;,
+&#8220;TU&#8221;, &#8220;WE&#8221;, &#8220;TH&#8221;, &#8220;FR&#8221;, or
+&#8220;SA&#8220;
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="wkst-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 78</span>
+78:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">wkst</span>
+79:         <span class="ruby-ivar">@wkst</span> <span class="ruby-operator">||</span> <span class="ruby-value str">'MO'</span>
+80:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="wkst--method" class="method-detail ">
+				<a name="M000916"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">wkst=</span><span
+						class="method-args">(value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Set the starting week day for the recurrence rule, which should be one of
+&#8220;SU&#8221;, &#8220;MO&#8221;, &#8220;TU&#8221;, &#8220;WE&#8221;,
+&#8220;TH&#8221;, &#8220;FR&#8221;, or &#8220;SA&#8221; for the instance to
+be valid. The parameter is however case-insensitive.
+</p>
+<p>
+This method resets the receivers list of errors
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="wkst--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 91</span>
+91:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">wkst=</span>(<span class="ruby-identifier">value</span>)
+92:         <span class="ruby-identifier">reset_errors</span>
+93:         <span class="ruby-ivar">@wkst</span> = <span class="ruby-identifier">value</span>
+94:         <span class="ruby-ivar">@wkst_day</span> = <span class="ruby-keyword kw">nil</span>
+95:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="private-instance-method-details" class="method-section section">
+			<h3 class="section-header">Private Instance Methods</h3>
+
+		
+			<div id="by-list-method" class="method-detail ">
+				<a name="M000947"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">by_list</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="by-list-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 430</span>
+430:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">by_list</span>
+431:         <span class="ruby-ivar">@by_list</span> <span class="ruby-operator">||=</span> {}
+432:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="set-by-lists-method" class="method-detail ">
+				<a name="M000948"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">set_by_lists</span><span
+						class="method-args">(value_hash)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="set-by-lists-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/recurrence_rule.rb, line 434</span>
+434:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_by_lists</span>(<span class="ruby-identifier">value_hash</span>)
+435:         [<span class="ruby-identifier">:bysecond</span>,
+436:           <span class="ruby-identifier">:byminute</span>,
+437:           <span class="ruby-identifier">:byhour</span>,
+438:           <span class="ruby-identifier">:bymonth</span>,
+439:           <span class="ruby-identifier">:bysetpos</span>
+440:           ].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">which</span><span class="ruby-operator">|</span>
+441:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span> = <span class="ruby-identifier">value_hash</span>[<span class="ruby-identifier">which</span>]
+442:               <span class="ruby-identifier">by_list</span>[<span class="ruby-identifier">which</span>] = [<span class="ruby-identifier">val</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">sort</span>
+443:             <span class="ruby-keyword kw">end</span>
+444:           <span class="ruby-keyword kw">end</span>
+445:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span> = <span class="ruby-identifier">value_hash</span>[<span class="ruby-identifier">:byday</span>]
+446:             <span class="ruby-identifier">by_list</span>[<span class="ruby-identifier">:byday</span>] = [<span class="ruby-identifier">val</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">day</span><span class="ruby-operator">|</span> <span class="ruby-constant">RecurringDay</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">day</span>, <span class="ruby-keyword kw">self</span>)}
+447:           <span class="ruby-keyword kw">end</span>
+448:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span> = <span class="ruby-identifier">value_hash</span>[<span class="ruby-identifier">:bymonthday</span>]
+449:             <span class="ruby-identifier">by_list</span>[<span class="ruby-identifier">:bymonthday</span>] = [<span class="ruby-identifier">val</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">md</span><span class="ruby-operator">|</span> <span class="ruby-constant">RecurringMonthDay</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">md</span>)}
+450:           <span class="ruby-keyword kw">end</span>
+451:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span> = <span class="ruby-identifier">value_hash</span>[<span class="ruby-identifier">:byyearday</span>]
+452:             <span class="ruby-identifier">by_list</span>[<span class="ruby-identifier">:byyearday</span>] = [<span class="ruby-identifier">val</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">yd</span><span class="ruby-operator">|</span> <span class="ruby-constant">RecurringYearDay</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">yd</span>)}
+453:           <span class="ruby-keyword kw">end</span>
+454:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">val</span> = <span class="ruby-identifier">value_hash</span>[<span class="ruby-identifier">:byweekno</span>]
+455:             <span class="ruby-identifier">by_list</span>[<span class="ruby-identifier">:byweekno</span>] = [<span class="ruby-identifier">val</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">wkno</span><span class="ruby-operator">|</span> <span class="ruby-constant">RecurringNumberedWeek</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">wkno</span>)}
+456:           <span class="ruby-keyword kw">end</span>
+457:         <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

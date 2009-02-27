@@ -1,0 +1,1581 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Module: RiCal::Properties::TimezonePeriod</title>
+
+	<link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="module">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../lib/ri_cal/properties/timezone_period.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/properties/timezone_period.rb">lib/ri_cal/properties/timezone_period.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+
+			<!-- Namespace Contents -->
+			
+			<div id="namespace-list-section" class="section">
+				<h3 class="section-header">Namespace</h3>
+				<ul class="link-list">
+					
+					<li><span class="type">MODULE</span> <a href="TimezonePeriod/ClassMethods.html">RiCal::Properties::TimezonePeriod::ClassMethods</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000675">::included</a></li>
+					
+					<li><a href="#M000671">#==</a></li>
+					
+					<li><a href="#M000641">#comment</a></li>
+					
+					<li><a href="#M000640">#comment=</a></li>
+					
+					<li><a href="#M000633">#comment_property</a></li>
+					
+					<li><a href="#M000639">#comment_property=</a></li>
+					
+					<li><a href="#M000614">#dtstart</a></li>
+					
+					<li><a href="#M000610">#dtstart=</a></li>
+					
+					<li><a href="#M000608">#dtstart_property</a></li>
+					
+					<li><a href="#M000609">#dtstart_property=</a></li>
+					
+					<li><a href="#M000672">#initialize_copy</a></li>
+					
+					<li><a href="#M000676">#mutual_exclusion_violation</a></li>
+					
+					<li><a href="#M000654">#rdate</a></li>
+					
+					<li><a href="#M000649">#rdate=</a></li>
+					
+					<li><a href="#M000647">#rdate_property</a></li>
+					
+					<li><a href="#M000648">#rdate_property=</a></li>
+					
+					<li><a href="#M000662">#rrule</a></li>
+					
+					<li><a href="#M000661">#rrule=</a></li>
+					
+					<li><a href="#M000656">#rrule_property</a></li>
+					
+					<li><a href="#M000657">#rrule_property=</a></li>
+					
+					<li><a href="#M000669">#to_s</a></li>
+					
+					<li><a href="#M000667">#tzname</a></li>
+					
+					<li><a href="#M000666">#tzname=</a></li>
+					
+					<li><a href="#M000664">#tzname_property</a></li>
+					
+					<li><a href="#M000665">#tzname_property=</a></li>
+					
+					<li><a href="#M000631">#tzoffsetfrom</a></li>
+					
+					<li><a href="#M000630">#tzoffsetfrom=</a></li>
+					
+					<li><a href="#M000625">#tzoffsetfrom_property</a></li>
+					
+					<li><a href="#M000629">#tzoffsetfrom_property=</a></li>
+					
+					<li><a href="#M000623">#tzoffsetto</a></li>
+					
+					<li><a href="#M000622">#tzoffsetto=</a></li>
+					
+					<li><a href="#M000616">#tzoffsetto_property</a></li>
+					
+					<li><a href="#M000617">#tzoffsetto_property=</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../docs/draft-ietf-calsify-2446bis-08_txt.html">draft-ietf-calsify-2446bis-08.txt</a></li>
+				
+					<li class="file"><a href="../../docs/draft-ietf-calsify-rfc2445bis-09_txt.html">draft-ietf-calsify-rfc2445bis-09.txt</a></li>
+				
+					<li class="file"><a href="../../help/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../help/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../help/README_txt.html">README.txt</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../RiCal.html">RiCal</a></li>
+				
+					<li><a href="../../RiCal/Component.html">RiCal::Component</a></li>
+				
+					<li><a href="../../RiCal/Component/Alarm.html">RiCal::Component::Alarm</a></li>
+				
+					<li><a href="../../RiCal/Component/Calendar.html">RiCal::Component::Calendar</a></li>
+				
+					<li><a href="../../RiCal/Component/Event.html">RiCal::Component::Event</a></li>
+				
+					<li><a href="../../RiCal/Component/Freebusy.html">RiCal::Component::Freebusy</a></li>
+				
+					<li><a href="../../RiCal/Component/Journal.html">RiCal::Component::Journal</a></li>
+				
+					<li><a href="../../RiCal/Component/TZInfoTimezone.html">RiCal::Component::TZInfoTimezone</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone.html">RiCal::Component::Timezone</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/DaylightPeriod.html">RiCal::Component::Timezone::DaylightPeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/StandardPeriod.html">RiCal::Component::Timezone::StandardPeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/TimezonePeriod.html">RiCal::Component::Timezone::TimezonePeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Todo.html">RiCal::Component::Todo</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions.html">RiCal::CoreExtensions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Array.html">RiCal::CoreExtensions::Array</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Array/Conversions.html">RiCal::CoreExtensions::Array::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Date.html">RiCal::CoreExtensions::Date</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Date/Conversions.html">RiCal::CoreExtensions::Date::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/DateTime.html">RiCal::CoreExtensions::DateTime</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/DateTime/Conversions.html">RiCal::CoreExtensions::DateTime::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Object.html">RiCal::CoreExtensions::Object</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Object/Conversions.html">RiCal::CoreExtensions::Object::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/String.html">RiCal::CoreExtensions::String</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/String/Conversions.html">RiCal::CoreExtensions::String::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time.html">RiCal::CoreExtensions::Time</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/Calculations.html">RiCal::CoreExtensions::Time::Calculations</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/Conversions.html">RiCal::CoreExtensions::Time::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/WeekDayPredicates.html">RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
+				
+					<li><a href="../../RiCal/Event.html">RiCal::Event</a></li>
+				
+					<li><a href="../../RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
+				
+					<li><a href="../../RiCal/Properties.html">RiCal::Properties</a></li>
+				
+					<li><a href="../../RiCal/Properties/Alarm.html">RiCal::Properties::Alarm</a></li>
+				
+					<li><a href="../../RiCal/Properties/Alarm/ClassMethods.html">RiCal::Properties::Alarm::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Calendar.html">RiCal::Properties::Calendar</a></li>
+				
+					<li><a href="../../RiCal/Properties/Calendar/ClassMethods.html">RiCal::Properties::Calendar::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Event.html">RiCal::Properties::Event</a></li>
+				
+					<li><a href="../../RiCal/Properties/Event/ClassMethods.html">RiCal::Properties::Event::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Freebusy.html">RiCal::Properties::Freebusy</a></li>
+				
+					<li><a href="../../RiCal/Properties/Freebusy/ClassMethods.html">RiCal::Properties::Freebusy::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Journal.html">RiCal::Properties::Journal</a></li>
+				
+					<li><a href="../../RiCal/Properties/Journal/ClassMethods.html">RiCal::Properties::Journal::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/TimezonePeriod.html">RiCal::Properties::TimezonePeriod</a></li>
+				
+					<li><a href="../../RiCal/Properties/TimezonePeriod/ClassMethods.html">RiCal::Properties::TimezonePeriod::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Todo.html">RiCal::Properties::Todo</a></li>
+				
+					<li><a href="../../RiCal/Properties/Todo/ClassMethods.html">RiCal::Properties::Todo::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue.html">RiCal::PropertyValue</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/CalAddress.html">RiCal::PropertyValue::CalAddress</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Date.html">RiCal::PropertyValue::Date</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/DateTime.html">RiCal::PropertyValue::DateTime</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Duration.html">RiCal::PropertyValue::Duration</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Geo.html">RiCal::PropertyValue::Geo</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/OccurrenceList.html">RiCal::PropertyValue::OccurrenceList</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Period.html">RiCal::PropertyValue::Period</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Text.html">RiCal::PropertyValue::Text</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a></li>
+				
+					<li><a href="../../Array.html">Array</a></li>
+				
+					<li><a href="../../Date.html">Date</a></li>
+				
+					<li><a href="../../DateTime.html">DateTime</a></li>
+				
+					<li><a href="../../Object.html">Object</a></li>
+				
+					<li><a href="../../String.html">String</a></li>
+				
+					<li><a href="../../Time.html">Time</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="module">RiCal::Properties::TimezonePeriod</h1>
+
+		<div id="description">
+			<p>
+<a href="TimezonePeriod.html">Properties::TimezonePeriod</a> provides
+property accessing methods for the <a
+href="TimezonePeriod.html">TimezonePeriod</a> class This source file is
+generated by the rical:gen_propmodules rake tasks, DO NOT EDIT
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="included-method" class="method-detail ">
+				<a name="M000675"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">included</span><span
+						class="method-args">(mod)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="included-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 283</span>
+283:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">included</span>(<span class="ruby-identifier">mod</span>)
+284:         <span class="ruby-identifier">mod</span>.<span class="ruby-identifier">extend</span> <span class="ruby-constant">ClassMethods</span>
+285:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="--method" class="method-detail ">
+				<a name="M000671"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">==</span><span
+						class="method-args">(o)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 252</span>
+252:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">o</span>)
+253:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>
+254:         (<span class="ruby-identifier">tzoffsetto_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">tzoffsetto_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+255:         (<span class="ruby-identifier">dtstart_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">dtstart_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+256:         (<span class="ruby-identifier">rrule_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">rrule_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+257:         (<span class="ruby-identifier">tzoffsetfrom_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">tzoffsetfrom_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+258:         (<span class="ruby-identifier">tzname_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">tzname_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+259:         (<span class="ruby-identifier">rdate_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">rdate_property</span>) <span class="ruby-operator">&amp;&amp;</span>
+260:         (<span class="ruby-identifier">comment_property</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">o</span>.<span class="ruby-identifier">comment_property</span>)
+261:         <span class="ruby-keyword kw">else</span>
+262:            <span class="ruby-keyword kw">super</span>
+263:         <span class="ruby-keyword kw">end</span>
+264:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="comment-method" class="method-detail ">
+				<a name="M000641"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">comment</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the COMMENT property which will be an array of
+instances of <a href="../../String.html">String</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="comment-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 131</span>
+131:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">comment</span>
+132:         <span class="ruby-identifier">comment_property</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">prop</span><span class="ruby-operator">|</span> <span class="ruby-identifier">prop</span> <span class="ruby-value">? </span><span class="ruby-identifier">prop</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">prop</span>}
+133:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="comment--method" class="method-detail ">
+				<a name="M000640"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">comment=</span><span
+						class="method-args">(*ruby_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the COMMENT property one or more instances of <a
+href="../../String.html">String</a> may be passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="comment--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 125</span>
+125:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">comment=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">ruby_values</span>)
+126:         <span class="ruby-ivar">@comment_property</span> = <span class="ruby-identifier">ruby_values</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span> <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">Text</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">val</span>)}
+127:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="comment-property-method" class="method-detail ">
+				<a name="M000633"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">comment_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the COMMENT property which will be an array of instances of
+RiCal::PropertyValueText
+</p>
+<p>
+[purpose (from RFC 2445)] This property specifies non-processing
+information intended to provide a comment to the calendar user.
+</p>
+<p>
+see RFC 2445 4.8.1.4 pp 80-81
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="comment-property-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 113</span>
+113:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">comment_property</span>
+114:         <span class="ruby-ivar">@comment_property</span> <span class="ruby-operator">||=</span> []
+115:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="comment-property--method" class="method-detail ">
+				<a name="M000639"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">comment_property=</span><span
+						class="method-args">(*property_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the the COMMENT property one or more instances of
+RiCal::PropertyValueText may be passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="comment-property--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 119</span>
+119:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">comment_property=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">property_values</span>)
+120:         <span class="ruby-ivar">@comment_property</span>= <span class="ruby-identifier">property_values</span>
+121:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="dtstart-method" class="method-detail ">
+				<a name="M000614"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dtstart</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the DTSTART property which will be an instance of
+either <a href="../../DateTime.html">DateTime</a> or <a
+href="../../Date.html">Date</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="dtstart-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 31</span>
+31:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dtstart</span>
+32:         <span class="ruby-identifier">dtstart_property</span> <span class="ruby-value">? </span><span class="ruby-identifier">dtstart_property</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+33:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="dtstart--method" class="method-detail ">
+				<a name="M000610"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dtstart=</span><span
+						class="method-args">(ruby_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the DTSTART property
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="dtstart--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 25</span>
+25:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dtstart=</span>(<span class="ruby-identifier">ruby_value</span>)
+26:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">dtstart_property</span>= <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">ruby_value</span>)
+27:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="dtstart-property-method" class="method-detail ">
+				<a name="M000608"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dtstart_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the DTSTART property which will be an instances of either <a
+href="../PropertyValue/DateTime.html">RiCal::PropertyValue::DateTime</a> or
+<a href="../PropertyValue/Date.html">RiCal::PropertyValue::Date</a>
+</p>
+<p>
+[purpose (from RFC 2445)] This property specifies when the calendar
+component begins.
+</p>
+<p>
+see RFC 2445 4.8.2.4 pp 93-94
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="dtstart-property-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 14</span>
+14:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dtstart_property</span>
+15:         <span class="ruby-ivar">@dtstart_property</span>
+16:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="dtstart-property--method" class="method-detail ">
+				<a name="M000609"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">dtstart_property=</span><span
+						class="method-args">(property_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the DTSTART property property value should be an instance of either <a
+href="../PropertyValue/DateTime.html">RiCal::PropertyValue::DateTime</a> or
+<a href="../PropertyValue/Date.html">RiCal::PropertyValue::Date</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="dtstart-property--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 20</span>
+20:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dtstart_property=</span>(<span class="ruby-identifier">property_value</span>)
+21:         <span class="ruby-ivar">@dtstart_property</span> = <span class="ruby-identifier">property_value</span>
+22:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="initialize-copy-method" class="method-detail ">
+				<a name="M000672"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">initialize_copy</span><span
+						class="method-args">(o)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="initialize-copy-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 266</span>
+266:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize_copy</span>(<span class="ruby-identifier">o</span>)
+267:         <span class="ruby-keyword kw">super</span>
+268:         <span class="ruby-identifier">tzoffsetto_property</span> = <span class="ruby-identifier">tzoffsetto_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">tzoffsetto_property</span>.<span class="ruby-identifier">dup</span>
+269:         <span class="ruby-identifier">dtstart_property</span> = <span class="ruby-identifier">dtstart_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">dtstart_property</span>.<span class="ruby-identifier">dup</span>
+270:         <span class="ruby-identifier">rrule_property</span> = <span class="ruby-identifier">rrule_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">rrule_property</span>.<span class="ruby-identifier">dup</span>
+271:         <span class="ruby-identifier">tzoffsetfrom_property</span> = <span class="ruby-identifier">tzoffsetfrom_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">tzoffsetfrom_property</span>.<span class="ruby-identifier">dup</span>
+272:         <span class="ruby-identifier">tzname_property</span> = <span class="ruby-identifier">tzname_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">tzname_property</span>.<span class="ruby-identifier">dup</span>
+273:         <span class="ruby-identifier">rdate_property</span> = <span class="ruby-identifier">rdate_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">rdate_property</span>.<span class="ruby-identifier">dup</span>
+274:         <span class="ruby-identifier">comment_property</span> = <span class="ruby-identifier">comment_property</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">comment_property</span>.<span class="ruby-identifier">dup</span>
+275:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="mutual-exclusion-violation-method" class="method-detail ">
+				<a name="M000676"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">mutual_exclusion_violation</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="mutual-exclusion-violation-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 287</span>
+287:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">mutual_exclusion_violation</span>
+288:         <span class="ruby-keyword kw">false</span>
+289:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="rdate-method" class="method-detail ">
+				<a name="M000654"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">rdate</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the RDATE property which will be an array of instances
+of OccurrenceList
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="rdate-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 164</span>
+164:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rdate</span>
+165:         <span class="ruby-identifier">rdate_property</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">prop</span><span class="ruby-operator">|</span> <span class="ruby-identifier">prop</span> <span class="ruby-value">? </span><span class="ruby-identifier">prop</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">prop</span>}
+166:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="rdate--method" class="method-detail ">
+				<a name="M000649"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">rdate=</span><span
+						class="method-args">(*ruby_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the RDATE property one or more instances of OccurrenceList
+may be passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="rdate--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 158</span>
+158:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rdate=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">ruby_values</span>)
+159:         <span class="ruby-ivar">@rdate_property</span> = <span class="ruby-identifier">ruby_values</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span> <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">OccurrenceList</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">val</span>)}
+160:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="rdate-property-method" class="method-detail ">
+				<a name="M000647"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">rdate_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the RDATE property which will be an array of instances of
+RiCal::PropertyValueOccurrenceList
+</p>
+<p>
+[purpose (from RFC 2445)] This property defines the list of date/times for
+a recurring calendar component.
+</p>
+<p>
+see RFC 2445 4.8.5.3 pp 115-117
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="rdate-property-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 146</span>
+146:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rdate_property</span>
+147:         <span class="ruby-ivar">@rdate_property</span> <span class="ruby-operator">||=</span> []
+148:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="rdate-property--method" class="method-detail ">
+				<a name="M000648"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">rdate_property=</span><span
+						class="method-args">(*property_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the the RDATE property one or more instances of
+RiCal::PropertyValueOccurrenceList may be passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="rdate-property--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 152</span>
+152:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rdate_property=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">property_values</span>)
+153:         <span class="ruby-ivar">@rdate_property</span>= <span class="ruby-identifier">property_values</span>
+154:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="rrule-method" class="method-detail ">
+				<a name="M000662"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">rrule</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the RRULE property which will be an array of instances
+of RecurrenceRule
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="rrule-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 197</span>
+197:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rrule</span>
+198:         <span class="ruby-identifier">rrule_property</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">prop</span><span class="ruby-operator">|</span> <span class="ruby-identifier">prop</span> <span class="ruby-value">? </span><span class="ruby-identifier">prop</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">prop</span>}
+199:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="rrule--method" class="method-detail ">
+				<a name="M000661"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">rrule=</span><span
+						class="method-args">(*ruby_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the RRULE property one or more instances of RecurrenceRule
+may be passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="rrule--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 191</span>
+191:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rrule=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">ruby_values</span>)
+192:         <span class="ruby-ivar">@rrule_property</span> = <span class="ruby-identifier">ruby_values</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span> <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">RecurrenceRule</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">val</span>)}
+193:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="rrule-property-method" class="method-detail ">
+				<a name="M000656"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">rrule_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the RRULE property which will be an array of instances of
+RiCal::PropertyValueRecurrenceRule
+</p>
+<p>
+[purpose (from RFC 2445)] This property defines a rule or repeating pattern
+for recurring events, to-dos, or time zone definitions.
+</p>
+<p>
+see RFC 2445 4.8.5.4 pp 117-125
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="rrule-property-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 179</span>
+179:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rrule_property</span>
+180:         <span class="ruby-ivar">@rrule_property</span> <span class="ruby-operator">||=</span> []
+181:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="rrule-property--method" class="method-detail ">
+				<a name="M000657"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">rrule_property=</span><span
+						class="method-args">(*property_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the the RRULE property one or more instances of
+RiCal::PropertyValueRecurrenceRule may be passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="rrule-property--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 185</span>
+185:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rrule_property=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">property_values</span>)
+186:         <span class="ruby-ivar">@rrule_property</span>= <span class="ruby-identifier">property_values</span>
+187:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-s-method" class="method-detail ">
+				<a name="M000669"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_s</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p class="missing-docs">(Not documented)</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-s-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 238</span>
+238:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+239:         <span class="ruby-identifier">entity_name</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">entity_name</span>
+240:         <span class="ruby-identifier">collector</span> = [<span class="ruby-node">&quot;BEGIN:#{entity_name}&quot;</span>]
+241:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;TZOFFSETTO&quot;</span>, <span class="ruby-ivar">@tzoffsetto_property</span>)
+242:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;DTSTART&quot;</span>, <span class="ruby-ivar">@dtstart_property</span>)
+243:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;RRULE&quot;</span>, <span class="ruby-ivar">@rrule_property</span>)
+244:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;TZOFFSETFROM&quot;</span>, <span class="ruby-ivar">@tzoffsetfrom_property</span>)
+245:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;TZNAME&quot;</span>, <span class="ruby-ivar">@tzname_property</span>)
+246:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;RDATE&quot;</span>, <span class="ruby-ivar">@rdate_property</span>)
+247:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">prop_string</span>(<span class="ruby-value str">&quot;COMMENT&quot;</span>, <span class="ruby-ivar">@comment_property</span>)
+248:         <span class="ruby-identifier">collector</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;END:#{entity_name}&quot;</span>
+249:         <span class="ruby-identifier">collector</span>.<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+250:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzname-method" class="method-detail ">
+				<a name="M000667"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzname</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the TZNAME property which will be an array of instances
+of <a href="../../String.html">String</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzname-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 230</span>
+230:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzname</span>
+231:         <span class="ruby-identifier">tzname_property</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">prop</span><span class="ruby-operator">|</span> <span class="ruby-identifier">prop</span> <span class="ruby-value">? </span><span class="ruby-identifier">prop</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">prop</span>}
+232:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzname--method" class="method-detail ">
+				<a name="M000666"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzname=</span><span
+						class="method-args">(*ruby_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the TZNAME property one or more instances of <a
+href="../../String.html">String</a> may be passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzname--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 224</span>
+224:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzname=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">ruby_values</span>)
+225:         <span class="ruby-ivar">@tzname_property</span> = <span class="ruby-identifier">ruby_values</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span> <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">Text</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">val</span>)}
+226:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzname-property-method" class="method-detail ">
+				<a name="M000664"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzname_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the TZNAME property which will be an array of instances of
+RiCal::PropertyValueText
+</p>
+<p>
+[purpose (from RFC 2445)] This property specifies the customary designation
+for a time zone description.
+</p>
+<p>
+see RFC 2445 4.8.3.2 p 99
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzname-property-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 212</span>
+212:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzname_property</span>
+213:         <span class="ruby-ivar">@tzname_property</span> <span class="ruby-operator">||=</span> []
+214:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzname-property--method" class="method-detail ">
+				<a name="M000665"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzname_property=</span><span
+						class="method-args">(*property_values)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the the TZNAME property one or more instances of
+RiCal::PropertyValueText may be passed to this method
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzname-property--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 218</span>
+218:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzname_property=</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">property_values</span>)
+219:         <span class="ruby-ivar">@tzname_property</span>= <span class="ruby-identifier">property_values</span>
+220:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzoffsetfrom-method" class="method-detail ">
+				<a name="M000631"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzoffsetfrom</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the TZOFFSETFROM property which will be an instance of
+UtcOffset
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzoffsetfrom-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 97</span>
+97:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzoffsetfrom</span>
+98:         <span class="ruby-identifier">tzoffsetfrom_property</span> <span class="ruby-value">? </span><span class="ruby-identifier">tzoffsetfrom_property</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+99:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzoffsetfrom--method" class="method-detail ">
+				<a name="M000630"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzoffsetfrom=</span><span
+						class="method-args">(ruby_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the TZOFFSETFROM property
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzoffsetfrom--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 91</span>
+91:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzoffsetfrom=</span>(<span class="ruby-identifier">ruby_value</span>)
+92:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">tzoffsetfrom_property</span>= <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">UtcOffset</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">ruby_value</span>)
+93:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzoffsetfrom-property-method" class="method-detail ">
+				<a name="M000625"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzoffsetfrom_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the TZOFFSETFROM property which will be an instances of
+RiCal::PropertyValueUtcOffset
+</p>
+<p>
+[purpose (from RFC 2445)] This property specifies the offset which is in
+use prior to this time zone observance
+</p>
+<p>
+see RFC 2445 4.8.3.3 pp 99-100
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzoffsetfrom-property-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 80</span>
+80:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzoffsetfrom_property</span>
+81:         <span class="ruby-ivar">@tzoffsetfrom_property</span>
+82:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzoffsetfrom-property--method" class="method-detail ">
+				<a name="M000629"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzoffsetfrom_property=</span><span
+						class="method-args">(property_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the TZOFFSETFROM property property value should be an instance of
+RiCal::PropertyValueUtcOffset
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzoffsetfrom-property--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 86</span>
+86:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzoffsetfrom_property=</span>(<span class="ruby-identifier">property_value</span>)
+87:         <span class="ruby-ivar">@tzoffsetfrom_property</span> = <span class="ruby-identifier">property_value</span>
+88:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzoffsetto-method" class="method-detail ">
+				<a name="M000623"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzoffsetto</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the value of the TZOFFSETTO property which will be an instance of
+UtcOffset
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzoffsetto-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 64</span>
+64:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzoffsetto</span>
+65:         <span class="ruby-identifier">tzoffsetto_property</span> <span class="ruby-value">? </span><span class="ruby-identifier">tzoffsetto_property</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">:</span> <span class="ruby-keyword kw">nil</span>
+66:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzoffsetto--method" class="method-detail ">
+				<a name="M000622"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzoffsetto=</span><span
+						class="method-args">(ruby_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the value of the TZOFFSETTO property
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzoffsetto--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 58</span>
+58:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzoffsetto=</span>(<span class="ruby-identifier">ruby_value</span>)
+59:         <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">tzoffsetto_property</span>= <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">UtcOffset</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">ruby_value</span>)
+60:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzoffsetto-property-method" class="method-detail ">
+				<a name="M000616"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzoffsetto_property</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return the the TZOFFSETTO property which will be an instances of
+RiCal::PropertyValueUtcOffset
+</p>
+<p>
+[purpose (from RFC 2445)] This property specifies the offset which is in
+use in this time zone observance
+</p>
+<p>
+see RFC 2445 4.8.3.4 pp 100-101
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzoffsetto-property-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 47</span>
+47:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzoffsetto_property</span>
+48:         <span class="ruby-ivar">@tzoffsetto_property</span>
+49:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzoffsetto-property--method" class="method-detail ">
+				<a name="M000617"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzoffsetto_property=</span><span
+						class="method-args">(property_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set the TZOFFSETTO property property value should be an instance of
+RiCal::PropertyValueUtcOffset
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzoffsetto-property--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/properties/timezone_period.rb, line 53</span>
+53:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzoffsetto_property=</span>(<span class="ruby-identifier">property_value</span>)
+54:         <span class="ruby-ivar">@tzoffsetto_property</span> = <span class="ruby-identifier">property_value</span>
+55:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

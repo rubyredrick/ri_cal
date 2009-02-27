@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: RiCal::PropertyValue::DateTime</title>
+
+	<link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../lib/ri_cal/property_value/date_time.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/date_time.rb">lib/ri_cal/property_value/date_time.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">PropertyValue</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000797">::default_tzid=</a></li>
+					
+					<li><a href="#M000834">::from_time</a></li>
+					
+					<li><a href="#M000824">::object_time_zone</a></li>
+					
+					<li><a href="#M000816">#+</a></li>
+					
+					<li><a href="#M000815">#-</a></li>
+					
+					<li><a href="#M000861">#<=></a></li>
+					
+					<li><a href="#M000862">#==</a></li>
+					
+					<li><a href="#M000811">#add_to_date_time_value</a></li>
+					
+					<li><a href="#M000867">#method_missing</a></li>
+					
+					<li><a href="#M000810">#subtract_from_date_time_value</a></li>
+					
+					<li><a href="#M000841">#to_datetime</a></li>
+					
+					<li><a href="#M000805">#to_ri_cal_date_time_value</a></li>
+					
+					<li><a href="#M000842">#to_ri_cal_ruby_value</a></li>
+					
+					<li><a href="#M000838">#tzid</a></li>
+					
+					<li><a href="#M000818">#value</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><span class="include">Comparable</span></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../docs/draft-ietf-calsify-2446bis-08_txt.html">draft-ietf-calsify-2446bis-08.txt</a></li>
+				
+					<li class="file"><a href="../../docs/draft-ietf-calsify-rfc2445bis-09_txt.html">draft-ietf-calsify-rfc2445bis-09.txt</a></li>
+				
+					<li class="file"><a href="../../help/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../help/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../help/README_txt.html">README.txt</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../RiCal.html">RiCal</a></li>
+				
+					<li><a href="../../RiCal/Component.html">RiCal::Component</a></li>
+				
+					<li><a href="../../RiCal/Component/Alarm.html">RiCal::Component::Alarm</a></li>
+				
+					<li><a href="../../RiCal/Component/Calendar.html">RiCal::Component::Calendar</a></li>
+				
+					<li><a href="../../RiCal/Component/Event.html">RiCal::Component::Event</a></li>
+				
+					<li><a href="../../RiCal/Component/Freebusy.html">RiCal::Component::Freebusy</a></li>
+				
+					<li><a href="../../RiCal/Component/Journal.html">RiCal::Component::Journal</a></li>
+				
+					<li><a href="../../RiCal/Component/TZInfoTimezone.html">RiCal::Component::TZInfoTimezone</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone.html">RiCal::Component::Timezone</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/DaylightPeriod.html">RiCal::Component::Timezone::DaylightPeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/StandardPeriod.html">RiCal::Component::Timezone::StandardPeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/TimezonePeriod.html">RiCal::Component::Timezone::TimezonePeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Todo.html">RiCal::Component::Todo</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions.html">RiCal::CoreExtensions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Array.html">RiCal::CoreExtensions::Array</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Array/Conversions.html">RiCal::CoreExtensions::Array::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Date.html">RiCal::CoreExtensions::Date</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Date/Conversions.html">RiCal::CoreExtensions::Date::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/DateTime.html">RiCal::CoreExtensions::DateTime</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/DateTime/Conversions.html">RiCal::CoreExtensions::DateTime::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Object.html">RiCal::CoreExtensions::Object</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Object/Conversions.html">RiCal::CoreExtensions::Object::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/String.html">RiCal::CoreExtensions::String</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/String/Conversions.html">RiCal::CoreExtensions::String::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time.html">RiCal::CoreExtensions::Time</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/Calculations.html">RiCal::CoreExtensions::Time::Calculations</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/Conversions.html">RiCal::CoreExtensions::Time::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/WeekDayPredicates.html">RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
+				
+					<li><a href="../../RiCal/Event.html">RiCal::Event</a></li>
+				
+					<li><a href="../../RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
+				
+					<li><a href="../../RiCal/Properties.html">RiCal::Properties</a></li>
+				
+					<li><a href="../../RiCal/Properties/Alarm.html">RiCal::Properties::Alarm</a></li>
+				
+					<li><a href="../../RiCal/Properties/Alarm/ClassMethods.html">RiCal::Properties::Alarm::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Calendar.html">RiCal::Properties::Calendar</a></li>
+				
+					<li><a href="../../RiCal/Properties/Calendar/ClassMethods.html">RiCal::Properties::Calendar::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Event.html">RiCal::Properties::Event</a></li>
+				
+					<li><a href="../../RiCal/Properties/Event/ClassMethods.html">RiCal::Properties::Event::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Freebusy.html">RiCal::Properties::Freebusy</a></li>
+				
+					<li><a href="../../RiCal/Properties/Freebusy/ClassMethods.html">RiCal::Properties::Freebusy::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Journal.html">RiCal::Properties::Journal</a></li>
+				
+					<li><a href="../../RiCal/Properties/Journal/ClassMethods.html">RiCal::Properties::Journal::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/TimezonePeriod.html">RiCal::Properties::TimezonePeriod</a></li>
+				
+					<li><a href="../../RiCal/Properties/TimezonePeriod/ClassMethods.html">RiCal::Properties::TimezonePeriod::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Todo.html">RiCal::Properties::Todo</a></li>
+				
+					<li><a href="../../RiCal/Properties/Todo/ClassMethods.html">RiCal::Properties::Todo::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue.html">RiCal::PropertyValue</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/CalAddress.html">RiCal::PropertyValue::CalAddress</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Date.html">RiCal::PropertyValue::Date</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/DateTime.html">RiCal::PropertyValue::DateTime</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Duration.html">RiCal::PropertyValue::Duration</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Geo.html">RiCal::PropertyValue::Geo</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/OccurrenceList.html">RiCal::PropertyValue::OccurrenceList</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Period.html">RiCal::PropertyValue::Period</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Text.html">RiCal::PropertyValue::Text</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a></li>
+				
+					<li><a href="../../Array.html">Array</a></li>
+				
+					<li><a href="../../Date.html">Date</a></li>
+				
+					<li><a href="../../DateTime.html">DateTime</a></li>
+				
+					<li><a href="../../Object.html">Object</a></li>
+				
+					<li><a href="../../String.html">String</a></li>
+				
+					<li><a href="../../Time.html">Time</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">RiCal::PropertyValue::DateTime</h1>
+
+		<div id="description">
+			<p>
+<a href="CalAddress.html">RiCal::PropertyValue::CalAddress</a> represents
+an icalendar <a href="CalAddress.html">CalAddress</a> property value which
+is defined in RFC 2445 section 4.3.5 pp 35-37
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="default-tzid--method" class="method-detail ">
+				<a name="M000797"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">default_tzid=</span><span
+						class="method-args">(value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Set the default tzid to be used when instantiating an instance from a ruby
+object see <a
+href="DateTime.html#M000834">RiCal::PropertyValue::DateTime.from_time</a>
+</p>
+<h2>Parameter</h2>
+<table>
+<tr><td valign="top">value:</td><td>A string value to be used for the default tzid, a value of
+&#8216;none&#8217; will cause
+
+</td></tr>
+</table>
+<p>
+values with NO timezone to be produced, these are interpreted by iCalendar
+as floating times i.e. they are interpreted in the timezone of each client.
+Floating times are typically used to represent events which are
+&#8216;repeated&#8217; in the various time zones, like the first hour of
+the year.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="default-tzid--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 23</span>
+23:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">default_tzid=</span>(<span class="ruby-identifier">value</span>)
+24:         <span class="ruby-ivar">@default_tzid</span> = <span class="ruby-identifier">value</span>
+25:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="from-time-method" class="method-detail ">
+				<a name="M000834"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">from_time</span><span
+						class="method-args">(time_or_date_time)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Create an instance of <a
+href="DateTime.html">RiCal::PropertyValue::DateTime</a> representing a Ruby
+<a href="../../Time.html">Time</a> or <a href="DateTime.html">DateTime</a>
+If the ruby object has been extended by ActiveSupport to have a time_zone
+method, then the timezone will be used as the TZID parameter.
+</p>
+<p>
+Otherwise the class level default tzid will be used.
+</p>
+<h2>See</h2>
+<ul>
+<li>RiCal::PropertyValue::DateTime.default_tzid
+
+</li>
+<li><a
+href="DateTime.html#M000824">RiCal::PropertyValue::DateTime#object_time_zone</a>
+
+</li>
+</ul>
+					
+
+					
+					<div class="method-source-code"
+						id="from-time-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 143</span>
+143:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">from_time</span>(<span class="ruby-identifier">time_or_date_time</span>)
+144:         <span class="ruby-identifier">time_zone</span> = <span class="ruby-identifier">object_time_zone</span>(<span class="ruby-identifier">time_or_date_time</span>)
+145:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">time_zone</span>
+146:           <span class="ruby-identifier">new</span>(
+147:           <span class="ruby-identifier">:params</span> =<span class="ruby-operator">&gt;</span> {<span class="ruby-value str">'TZID'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">time_zone</span>.<span class="ruby-identifier">identifier</span>, <span class="ruby-value str">'X-RICAL-TZSOURCE'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'TZINFO'</span>}, 
+148:           <span class="ruby-identifier">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">time_or_date_time</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-value str">&quot;%Y%m%d%H%M%S&quot;</span>)
+149:           )
+150:         <span class="ruby-keyword kw">else</span>
+151:           <span class="ruby-identifier">new</span>(<span class="ruby-identifier">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">time_or_date_time</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-value str">&quot;%Y%m%dT%H%M%S&quot;</span>), <span class="ruby-identifier">:params</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">default_tzid_hash</span>)
+152:         <span class="ruby-keyword kw">end</span>
+153:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="object-time-zone-method" class="method-detail ">
+				<a name="M000824"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">object_time_zone</span><span
+						class="method-args">(object)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+determine if the object acts like an activesupport enhanced time, and
+return it&#8217;s timezone if it has one.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="object-time-zone-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 114</span>
+114:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">object_time_zone</span>(<span class="ruby-identifier">object</span>)
+115:         <span class="ruby-identifier">activesupport_time</span> = <span class="ruby-identifier">object</span>.<span class="ruby-identifier">acts_like_time?</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+116:         <span class="ruby-identifier">activesupport_time</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">object</span>.<span class="ruby-identifier">time_zone</span> <span class="ruby-keyword kw">rescue</span> <span class="ruby-keyword kw">nil</span>
+117:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="--method" class="method-detail ">
+				<a name="M000816"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">+</span><span
+						class="method-args">(other)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Return the sum of the receiver and other
+</p>
+<h2>parameter</h2>
+<table>
+<tr><td valign="top">other:</td><td>a <a href="Duration.html">RiCal::PropertyValue::Duration</a>
+
+</td></tr>
+</table>
+<p>
+The result will be an <a
+href="Duration.html">RiCal::PropertyValue::Duration</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 84</span>
+84:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">+</span>(<span class="ruby-identifier">other</span>)
+85:         <span class="ruby-identifier">other</span>.<span class="ruby-identifier">add_to_date_time_value</span>(<span class="ruby-keyword kw">self</span>)
+86:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="--method" class="method-detail ">
+				<a name="M000815"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">-</span><span
+						class="method-args">(other)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Return the difference between the receiver and other
+</p>
+<h2>parameter</h2>
+<table>
+<tr><td valign="top">other:</td><td>either a <a href="Duration.html">RiCal::PropertyValue::Duration</a> or a <a
+href="DateTime.html">RiCal::PropertyValue::DateTime</a>
+
+</td></tr>
+</table>
+<p>
+If other is a <a href="Duration.html">Duration</a>, the result will be a <a
+href="DateTime.html">DateTime</a>, if it is a <a
+href="DateTime.html">DateTime</a> the result will be a <a
+href="Duration.html">Duration</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="--source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 75</span>
+75:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">-</span>(<span class="ruby-identifier">other</span>)
+76:         <span class="ruby-identifier">other</span>.<span class="ruby-identifier">subtract_from_date_time_value</span>(<span class="ruby-keyword kw">self</span>)
+77:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="--method" class="method-detail ">
+				<a name="M000861"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">&lt;=&gt;</span><span
+						class="method-args">(other)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Compare the receiver with another object which must respond to the <a
+href="DateTime.html#M000841">to_datetime</a> message The comparison is done
+using the Ruby <a href="DateTime.html">DateTime</a> representations of the
+two objects
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 212</span>
+212:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">&lt;=&gt;</span>(<span class="ruby-identifier">other</span>)
+213:         <span class="ruby-ivar">@date_time_value</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">to_datetime</span>
+214:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="--method" class="method-detail ">
+				<a name="M000862"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">==</span><span
+						class="method-args">(other)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Determine if the receiver and another object are equivalent <a
+href="DateTime.html">RiCal::PropertyValue::DateTime</a> instances
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 217</span>
+217:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">other</span>)
+218:         <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">===</span> <span class="ruby-identifier">other</span>
+219:           <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">value</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">params</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">params</span>
+220:         <span class="ruby-keyword kw">else</span>
+221:           <span class="ruby-keyword kw">super</span>
+222:         <span class="ruby-keyword kw">end</span>
+223:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="add-to-date-time-value-method" class="method-detail ">
+				<a name="M000811"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">add_to_date_time_value</span><span
+						class="method-args">(date_time_value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Double-dispatch method for addition.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="add-to-date-time-value-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 66</span>
+66:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_to_date_time_value</span>(<span class="ruby-identifier">date_time_value</span>)
+67:         <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Cannot add #{date_time_value} to #{self}&quot;</span>)
+68:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="method-missing-method" class="method-detail ">
+				<a name="M000867"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">method_missing</span><span
+						class="method-args">(selector, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Delegate unknown messages to the wrappered <a
+href="DateTime.html">DateTime</a> instance. TODO: Is this really necessary?
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="method-missing-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 232</span>
+232:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">selector</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+233:         <span class="ruby-ivar">@date_time_value</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">selector</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+234:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="subtract-from-date-time-value-method" class="method-detail ">
+				<a name="M000810"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">subtract_from_date_time_value</span><span
+						class="method-args">(dtvalue)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Double-dispatch method for subtraction.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="subtract-from-date-time-value-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 61</span>
+61:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subtract_from_date_time_value</span>(<span class="ruby-identifier">dtvalue</span>)
+62:         <span class="ruby-constant">RiCal</span><span class="ruby-operator">::</span><span class="ruby-constant">PropertyValue</span><span class="ruby-operator">::</span><span class="ruby-constant">Duration</span>.<span class="ruby-identifier">from_datetimes</span>(<span class="ruby-identifier">to_datetime</span>,<span class="ruby-identifier">dtvalue</span>.<span class="ruby-identifier">to_datetime</span>)
+63:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-datetime-method" class="method-detail ">
+				<a name="M000841"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_datetime</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Return the Ruby <a href="DateTime.html">DateTime</a> representation of the
+receiver
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-datetime-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 170</span>
+170:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_datetime</span>
+171:         <span class="ruby-ivar">@date_time_value</span>
+172:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-ri-cal-date-time-value-method" class="method-detail ">
+				<a name="M000805"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_ri_cal_date_time_value</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Return an <a href="DateTime.html">RiCal::PropertyValue::DateTime</a>
+representing the receiver
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-ri-cal-date-time-value-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 50</span>
+50:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_ri_cal_date_time_value</span>
+51:         <span class="ruby-keyword kw">self</span>
+52:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-ri-cal-ruby-value-method" class="method-detail ">
+				<a name="M000842"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_ri_cal_ruby_value</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Used by <a href="../../RiCal.html">RiCal</a> specs - returns a Ruby <a
+href="DateTime.html">DateTime</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-ri-cal-ruby-value-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 175</span>
+175:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_ri_cal_ruby_value</span>
+176:         <span class="ruby-identifier">to_datetime</span>
+177:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="tzid-method" class="method-detail ">
+				<a name="M000838"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">tzid</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Return the timezone id of the receiver, or nil if it is a floating time
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="tzid-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 156</span>
+156:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">tzid</span>
+157:         <span class="ruby-identifier">params</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value str">'TZID'</span>]
+158:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="value-method" class="method-detail ">
+				<a name="M000818"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">value</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Returns the value of the reciever as an RFC 2445 iCalendar string
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="value-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/date_time.rb, line 93</span>
+93:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">value</span>
+94:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@date_time_value</span>
+95:           <span class="ruby-ivar">@date_time_value</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-node">&quot;%Y%m%dT%H%M%S#{tzid == &quot;UTC&quot; ? &quot;Z&quot; : &quot;&quot;}&quot;</span>)
+96:         <span class="ruby-keyword kw">else</span>
+97:           <span class="ruby-keyword kw">nil</span>
+98:         <span class="ruby-keyword kw">end</span>
+99:       <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+

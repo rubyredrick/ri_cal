@@ -71,7 +71,7 @@ In either case the result will be an array of components.
 
 As already stated the string argument may be a full icalendar format calendar, or just one or more subcomponents, e.g.
 
-RiCal.parse("BEGIN:VEVENT\nDTSTART;TZID=US/Eastern:20090224T090000\nSUMMARY:Test Event\nDTEND;TZID=US/Eastern:20090224T100000\nRRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20090228T045959Z\nEND:VEVENT")
+RiCal.parse_string("BEGIN:VEVENT\nDTSTART;TZID=US/Eastern:20090224T090000\nSUMMARY:Test Event\nDTEND;TZID=US/Eastern:20090224T100000\nRRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20090228T045959Z\nEND:VEVENT")
 
 ==== From an Io
 	File.open("path/to/file", "r") do |file|
@@ -146,8 +146,8 @@ to use the Software for evaluation and feedback only
 This license does not grant you the permission to publish,
 distribute, sublicense, or sell copies of the Software.
 
-This licence applies to previous and future versions of the software, until such time
-as a version is released with a licence granting additional rights,
+This license applies to previous and future versions of the software, until such time
+as a version is released with a license granting additional rights,
 
 THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
 EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
