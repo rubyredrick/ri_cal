@@ -443,7 +443,8 @@ module RiCal
             end
           end
           if val = value_hash[:byday]
-            by_list[:byday] = [val].flatten.map {|day| RecurringDay.new(day, self)}
+            scope = (freq == "MONTHLY" || value_hash[:bymonth]) ? "MONTHLY" : "YEARLY"
+            by_list[:byday] = [val].flatten.map {|day| RecurringDay.new(day, self, scope)}
           end
           if val = value_hash[:bymonthday]
             by_list[:bymonthday] = [val].flatten.map {|md| RecurringMonthDay.new(md)}

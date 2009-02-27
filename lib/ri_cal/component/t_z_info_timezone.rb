@@ -81,6 +81,10 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
   def local_to_utc(time)
     @tzinfo_timezone.local_to_utc(time)
   end
+  
+  def utc_to_local(time)
+    @tzinfo_timezone.utc_to_local(time)
+  end
 
   def identifier
     @tzinfo_timezone.identifier

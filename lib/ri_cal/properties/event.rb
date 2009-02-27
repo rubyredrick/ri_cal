@@ -1063,79 +1063,42 @@ module RiCal
         collector << "END:#{entity_name}"
         collector.compact.join("\n")
       end
-      
-      def debug_equal(propname, mine, his)
-        rputs "  #{propname} mine=#{mine.inspect}, his=#{his.inspect} #{mine == his}"
-      end
 
       def ==(o)
         if o.class == self.class
-          # rputs "comparing #{self} \nand #{o}"
-          # rputs(request_status_property == o.request_status_property)
-          # debug_equal("exdate_property", exdate_property, o.exdate_property)
-          # debug_equal("transp_property", transp_property, o.transp_property)
-          # debug_equal("dtstamp_property", dtstamp_property, o.dtstamp_property)
-          # debug_equal("created_property", created_property, o.created_property)
-          # debug_equal("contact_property", contact_property, o.contact_property)
-          # debug_equal("categories_property", categories_property, o.categories_property)
-          # debug_equal("dtend_property", dtend_property, o.dtend_property)
-          # debug_equal("status_property", status_property, o.status_property)
-          # debug_equal("last_modified_property", last_modified_property, o.last_modified_property)
-          # debug_equal("dtstart_property", dtstart_property, o.dtstart_property)
-          # debug_equal("recurrence_id_property", recurrence_id_property, o.recurrence_id_property)
-          # debug_equal("resources_property", resources_property, o.resources_property)
-          # debug_equal("attendee_property", attendee_property, o.attendee_property)
-          # debug_equal("duration_property", duration_property, o.duration_property)
-          # debug_equal("uid_property", uid_property, o.uid_property)
-          # debug_equal("url_property", url_property, o.url_property)
-          # debug_equal("priority_property", priority_property, o.priority_property)
-          # debug_equal("organizer_property", organizer_property, o.organizer_property)
-          # debug_equal("rrule_property", rrule_property, o.rrule_property)
-          # debug_equal("description_property", description_property, o.description_property)
-          # debug_equal("class_property", class_property, o.class_property)
-          # debug_equal("summary_property", summary_property, o.summary_property)
-          # debug_equal("geo_property", geo_property, o.geo_property)
-          # debug_equal("attach_property", attach_property, o.attach_property)
-          # debug_equal("sequence_property", sequence_property, o.sequence_property)
-          # debug_equal("related_to_property", related_to_property, o.related_to_property)
-          # debug_equal("exrule_property", exrule_property, o.exrule_property)
-          # debug_equal("rdate_property", rdate_property, o.rdate_property)
-          # debug_equal("location_property", location_property, o.location_property)
-          # debug_equal("comment_property", comment_property, o.comment_property)
-          # 
-          (request_status_property == o.request_status_property) &&
-          (exdate_property == o.exdate_property) &&
-          (transp_property == o.transp_property) &&
-          (dtstamp_property == o.dtstamp_property) &&
-          (created_property == o.created_property) &&
-          (contact_property == o.contact_property) &&
-          (categories_property == o.categories_property) &&
-          (dtend_property == o.dtend_property) &&
-          (status_property == o.status_property) &&
-          (last_modified_property == o.last_modified_property) &&
-          (dtstart_property == o.dtstart_property) &&
-          (recurrence_id_property == o.recurrence_id_property) &&
-          (resources_property == o.resources_property) &&
-          (attendee_property == o.attendee_property) &&
-          (duration_property == o.duration_property) &&
-          (uid_property == o.uid_property) &&
-          (url_property == o.url_property) &&
-          (priority_property == o.priority_property) &&
-          (organizer_property == o.organizer_property) &&
-          (rrule_property == o.rrule_property) &&
-          (description_property == o.description_property) &&
-          (class_property == o.class_property) &&
-          (summary_property == o.summary_property) &&
-          (geo_property == o.geo_property) &&
-          (attach_property == o.attach_property) &&
-          (sequence_property == o.sequence_property) &&
-          (related_to_property == o.related_to_property) &&
-          (exrule_property == o.exrule_property) &&
-          (rdate_property == o.rdate_property) &&
-          (location_property == o.location_property) &&
-          (comment_property == o.comment_property)
+        (request_status_property == o.request_status_property) &&
+        (exdate_property == o.exdate_property) &&
+        (transp_property == o.transp_property) &&
+        (dtstamp_property == o.dtstamp_property) &&
+        (created_property == o.created_property) &&
+        (contact_property == o.contact_property) &&
+        (categories_property == o.categories_property) &&
+        (dtend_property == o.dtend_property) &&
+        (status_property == o.status_property) &&
+        (last_modified_property == o.last_modified_property) &&
+        (dtstart_property == o.dtstart_property) &&
+        (recurrence_id_property == o.recurrence_id_property) &&
+        (resources_property == o.resources_property) &&
+        (attendee_property == o.attendee_property) &&
+        (duration_property == o.duration_property) &&
+        (uid_property == o.uid_property) &&
+        (url_property == o.url_property) &&
+        (priority_property == o.priority_property) &&
+        (organizer_property == o.organizer_property) &&
+        (rrule_property == o.rrule_property) &&
+        (description_property == o.description_property) &&
+        (class_property == o.class_property) &&
+        (summary_property == o.summary_property) &&
+        (geo_property == o.geo_property) &&
+        (attach_property == o.attach_property) &&
+        (sequence_property == o.sequence_property) &&
+        (related_to_property == o.related_to_property) &&
+        (exrule_property == o.exrule_property) &&
+        (rdate_property == o.rdate_property) &&
+        (location_property == o.location_property) &&
+        (comment_property == o.comment_property)
         else
-          super
+           super
         end
       end
 

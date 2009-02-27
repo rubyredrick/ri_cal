@@ -14,9 +14,10 @@ module RiCal
         end
 
         attr_reader :source
-        def initialize(source, rrule)
+        def initialize(source, rrule, scope = "MONTHLY")
           @source = source
           @rrule = rrule
+          @scope = scope
           wd_match = source.match(/([+-]?\d*)(SU|MO|TU|WE|TH|FR|SA)/)
           if wd_match
             @day, @ordinal = wd_match[2], wd_match[1]
@@ -44,7 +45,7 @@ module RiCal
             true
           else
             n = @ordinal.to_i
-            if @rrule.freq == "YEARLY"
+            if @scope == "YEARLY"
               date_or_time.nth_wday_in_year?(n, DayNums[@day]) 
             else
               date_or_time.nth_wday_in_month?(n, DayNums[@day])

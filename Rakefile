@@ -3,7 +3,6 @@
 # are where the options are used.
 
 gem 'rdoc', ">2"
-load 'rdoc'
 
 
 begin
