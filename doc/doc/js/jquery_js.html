@@ -1,0 +1,1189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>File: jquery.js [RDoc Documentation]</title>
+
+	<link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet" />
+
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+</head>
+
+<body class="file">
+  <div id="metadata">
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../Rakefile.html">Rakefile</a></li>
+				
+					<li class="file"><a href="../../component_attributes/alarm_yml.html">alarm.yml</a></li>
+				
+					<li class="file"><a href="../../component_attributes/calendar_yml.html">calendar.yml</a></li>
+				
+					<li class="file"><a href="../../component_attributes/component_property_defs_yml.html">component_property_defs.yml</a></li>
+				
+					<li class="file"><a href="../../component_attributes/event_yml.html">event.yml</a></li>
+				
+					<li class="file"><a href="../../component_attributes/freebusy_yml.html">freebusy.yml</a></li>
+				
+					<li class="file"><a href="../../component_attributes/journal_yml.html">journal.yml</a></li>
+				
+					<li class="file"><a href="../../component_attributes/timezone_period_yml.html">timezone_period.yml</a></li>
+				
+					<li class="file"><a href="../../component_attributes/todo_yml.html">todo.yml</a></li>
+				
+					<li class="file"><a href="../../doc/Array_html.html">Array.html</a></li>
+				
+					<li class="file"><a href="../../doc/Date_html.html">Date.html</a></li>
+				
+					<li class="file"><a href="../../doc/DateTime_html.html">DateTime.html</a></li>
+				
+					<li class="file"><a href="../../doc/History_txt_html.html">History_txt.html</a></li>
+				
+					<li class="file"><a href="../../doc/Manifest_txt_html.html">Manifest_txt.html</a></li>
+				
+					<li class="file"><a href="../../doc/Object_html.html">Object.html</a></li>
+				
+					<li class="file"><a href="../../doc/README_txt_html.html">README_txt.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal_html.html">RiCal.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component_html.html">Component.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component/Alarm_html.html">Alarm.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component/Calendar_html.html">Calendar.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component/Event_html.html">Event.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component/Freebusy_html.html">Freebusy.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component/Journal_html.html">Journal.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component/TZInfoTimezone_html.html">TZInfoTimezone.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component/Timezone_html.html">Timezone.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component/Timezone/DaylightPeriod_html.html">DaylightPeriod.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component/Timezone/StandardPeriod_html.html">StandardPeriod.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component/Timezone/TimezonePeriod_html.html">TimezonePeriod.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Component/Todo_html.html">Todo.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions_html.html">CoreExtensions.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/Array_html.html">Array.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/Array/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/Date_html.html">Date.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/Date/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/DateTime_html.html">DateTime.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/DateTime/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/Object_html.html">Object.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/Object/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/String_html.html">String.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/String/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/Time_html.html">Time.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/Time/Calculations_html.html">Calculations.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/Time/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/CoreExtensions/Time/WeekDayPredicates_html.html">WeekDayPredicates.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Event_html.html">Event.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/OccurrenceEnumerator_html.html">OccurrenceEnumerator.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/OccurrenceEnumerator/EmptyRulesEnumerator_html.html">EmptyRulesEnumerator.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/OccurrenceEnumerator/EnumerationInstance_html.html">EnumerationInstance.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/OccurrenceEnumerator/OccurrenceMerger_html.html">OccurrenceMerger.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Parser_html.html">Parser.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties_html.html">Properties.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Alarm_html.html">Alarm.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Alarm/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Calendar_html.html">Calendar.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Calendar/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Event_html.html">Event.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Event/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Freebusy_html.html">Freebusy.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Freebusy/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Journal_html.html">Journal.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Journal/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/TimezonePeriod_html.html">TimezonePeriod.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/TimezonePeriod/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Todo_html.html">Todo.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/Properties/Todo/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue_html.html">PropertyValue.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/Array_html.html">Array.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/CalAddress_html.html">CalAddress.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/Date_html.html">Date.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/DateTime_html.html">DateTime.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/Duration_html.html">Duration.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/Geo_html.html">Geo.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/Integer_html.html">Integer.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/OccurrenceList_html.html">OccurrenceList.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/OccurrenceList/Enumerator_html.html">Enumerator.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/Period_html.html">Period.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/RecurrenceRule_html.html">RecurrenceRule.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/RecurrenceRule/Enumerator_html.html">Enumerator.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/RecurrenceRule/NegativeSetposEnumerator_html.html">NegativeSetposEnumerator.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/RecurrenceRule/NumberedSpan_html.html">NumberedSpan.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/RecurrenceRule/RecurringDay_html.html">RecurringDay.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/RecurrenceRule/RecurringMonthDay_html.html">RecurringMonthDay.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/RecurrenceRule/RecurringNumberedWeek_html.html">RecurringNumberedWeek.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/RecurrenceRule/RecurringYearDay_html.html">RecurringYearDay.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/RecurrenceRule/Validations_html.html">Validations.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/Text_html.html">Text.html</a></li>
+				
+					<li class="file"><a href="../../doc/RiCal/PropertyValue/Uri_html.html">Uri.html</a></li>
+				
+					<li class="file"><a href="../../doc/String_html.html">String.html</a></li>
+				
+					<li class="file"><a href="../../doc/Time_html.html">Time.html</a></li>
+				
+					<li class="file"><a href="../../doc/bin/ri_cal_html.html">ri_cal.html</a></li>
+				
+					<li class="file"><a href="../../doc/created_rid.html">created.rid</a></li>
+				
+					<li class="file"><a href="../../doc/docs/draft-ietf-calsify-2446bis-08_txt_html.html">draft-ietf-calsify-2446bis-08_txt.html</a></li>
+				
+					<li class="file"><a href="../../doc/docs/draft-ietf-calsify-rfc2445bis-09_txt_html.html">draft-ietf-calsify-rfc2445bis-09_txt.html</a></li>
+				
+					<li class="file"><a href="../../doc/help/History_txt_html.html">History_txt.html</a></li>
+				
+					<li class="file"><a href="../../doc/help/Manifest_txt_html.html">Manifest_txt.html</a></li>
+				
+					<li class="file"><a href="../../doc/help/README_txt_html.html">README_txt.html</a></li>
+				
+					<li class="file"><a href="../../doc/index_html.html">index.html</a></li>
+				
+					<li class="file"><a href="../../doc/js/darkfish_js.html">darkfish.js</a></li>
+				
+					<li class="file"><a href="../../doc/js/jquery_js.html">jquery.js</a></li>
+				
+					<li class="file"><a href="../../doc/js/quicksearch_js.html">quicksearch.js</a></li>
+				
+					<li class="file"><a href="../../doc/js/thickbox-compressed_js.html">thickbox-compressed.js</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component/alarm_rb_html.html">alarm_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component/calendar_rb_html.html">calendar_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component/event_rb_html.html">event_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component/freebusy_rb_html.html">freebusy_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component/journal_rb_html.html">journal_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component/t_z_info_timezone_rb_html.html">t_z_info_timezone_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component/timezone/daylight_period_rb_html.html">daylight_period_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component/timezone/standard_period_rb_html.html">standard_period_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component/timezone/timezone_period_rb_html.html">timezone_period_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component/timezone_rb_html.html">timezone_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component/todo_rb_html.html">todo_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/component_rb_html.html">component_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/array/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/array_rb_html.html">array_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/date/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/date_rb_html.html">date_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/date_time/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/date_time_rb_html.html">date_time_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/object/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/object_rb_html.html">object_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/string/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/string_rb_html.html">string_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/time/calculations_rb_html.html">calculations_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/time/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/time/week_day_predicates_rb_html.html">week_day_predicates_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions/time_rb_html.html">time_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/core_extensions_rb_html.html">core_extensions_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/event_rb_html.html">event_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/occurrence_enumerator_rb_html.html">occurrence_enumerator_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/parser_rb_html.html">parser_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/properties/alarm_rb_html.html">alarm_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/properties/calendar_rb_html.html">calendar_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/properties/event_rb_html.html">event_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/properties/freebusy_rb_html.html">freebusy_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/properties/journal_rb_html.html">journal_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/properties/timezone_period_rb_html.html">timezone_period_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/properties/todo_rb_html.html">todo_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/array_rb_html.html">array_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/cal_address_rb_html.html">cal_address_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/date_rb_html.html">date_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/date_time_rb_html.html">date_time_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/duration_rb_html.html">duration_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/geo_rb_html.html">geo_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/integer_rb_html.html">integer_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/occurrence_list_rb_html.html">occurrence_list_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/period_rb_html.html">period_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/recurrence_rule/enumerator_rb_html.html">enumerator_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/recurrence_rule/negative_setpos_enumerator_rb_html.html">negative_setpos_enumerator_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/recurrence_rule/numbered_span_rb_html.html">numbered_span_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/recurrence_rule/recurring_day_rb_html.html">recurring_day_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/recurrence_rule/recurring_month_day_rb_html.html">recurring_month_day_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/recurrence_rule/recurring_numbered_week_rb_html.html">recurring_numbered_week_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/recurrence_rule/recurring_year_day_rb_html.html">recurring_year_day_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/recurrence_rule/validations_rb_html.html">validations_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/recurrence_rule_rb_html.html">recurrence_rule_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/text_rb_html.html">text_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value/uri_value_rb_html.html">uri_value_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal/property_value_rb_html.html">property_value_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/lib/ri_cal_rb_html.html">ri_cal_rb.html</a></li>
+				
+					<li class="file"><a href="../../doc/rdoc_css.html">rdoc.css</a></li>
+				
+					<li class="file"><a href="../../docs/draft-ietf-calsify-2446bis-08_txt.html">draft-ietf-calsify-2446bis-08.txt</a></li>
+				
+					<li class="file"><a href="../../docs/draft-ietf-calsify-rfc2445bis-09_txt.html">draft-ietf-calsify-rfc2445bis-09.txt</a></li>
+				
+					<li class="file"><a href="../../help/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../help/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../help/README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../help/Rakefile.html">Rakefile</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/Rakefile.html">Rakefile</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/component_attributes/alarm_yml.html">alarm.yml</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/component_attributes/calendar_yml.html">calendar.yml</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/component_attributes/component_property_defs_yml.html">component_property_defs.yml</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/component_attributes/event_yml.html">event.yml</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/component_attributes/freebusy_yml.html">freebusy.yml</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/component_attributes/journal_yml.html">journal.yml</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/component_attributes/timezone_period_yml.html">timezone_period.yml</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/component_attributes/todo_yml.html">todo.yml</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/docs/draft-ietf-calsify-2446bis-08_txt.html">draft-ietf-calsify-2446bis-08.txt</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/docs/draft-ietf-calsify-rfc2445bis-09_txt.html">draft-ietf-calsify-rfc2445bis-09.txt</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/help/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/help/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/help/README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/help/Rakefile.html">Rakefile</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/spec/spec_opts.html">spec.opts</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/ann_rake.html">ann.rake</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/bones_rake.html">bones.rake</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/gem_rake.html">gem.rake</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/git_rake.html">git.rake</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/notes_rake.html">notes.rake</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/post_load_rake.html">post_load.rake</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/rdoc_rake.html">rdoc.rake</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/ri_cal_rake.html">ri_cal.rake</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/rubyforge_rake.html">rubyforge.rake</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/spec_rake.html">spec.rake</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/svn_rake.html">svn.rake</a></li>
+				
+					<li class="file"><a href="../../pkg/ri_cal-0_0_1/tasks/test_rake.html">test.rake</a></li>
+				
+					<li class="file"><a href="../../sample_ical_files/from_ical_dot_app/test1_ics.html">test1.ics</a></li>
+				
+					<li class="file"><a href="../../spec/spec_opts.html">spec.opts</a></li>
+				
+					<li class="file"><a href="../../tasks/ri_cal_rake.html">ri_cal.rake</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../RiCal.html">RiCal</a></li>
+				
+					<li><a href="../../RiCal/Component.html">RiCal::Component</a></li>
+				
+					<li><a href="../../RiCal/Component/Alarm.html">RiCal::Component::Alarm</a></li>
+				
+					<li><a href="../../RiCal/Component/Calendar.html">RiCal::Component::Calendar</a></li>
+				
+					<li><a href="../../RiCal/Component/Event.html">RiCal::Component::Event</a></li>
+				
+					<li><a href="../../RiCal/Component/Freebusy.html">RiCal::Component::Freebusy</a></li>
+				
+					<li><a href="../../RiCal/Component/Journal.html">RiCal::Component::Journal</a></li>
+				
+					<li><a href="../../RiCal/Component/TZInfoTimezone.html">RiCal::Component::TZInfoTimezone</a></li>
+				
+					<li><a href="../../RiCal/Component/TZInfoTimezone/Period.html">RiCal::Component::TZInfoTimezone::Period</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone.html">RiCal::Component::Timezone</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/DaylightPeriod.html">RiCal::Component::Timezone::DaylightPeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/StandardPeriod.html">RiCal::Component::Timezone::StandardPeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Timezone/TimezonePeriod.html">RiCal::Component::Timezone::TimezonePeriod</a></li>
+				
+					<li><a href="../../RiCal/Component/Todo.html">RiCal::Component::Todo</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions.html">RiCal::CoreExtensions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Array.html">RiCal::CoreExtensions::Array</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Array/Conversions.html">RiCal::CoreExtensions::Array::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Date.html">RiCal::CoreExtensions::Date</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Date/Conversions.html">RiCal::CoreExtensions::Date::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/DateTime.html">RiCal::CoreExtensions::DateTime</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/DateTime/Conversions.html">RiCal::CoreExtensions::DateTime::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Object.html">RiCal::CoreExtensions::Object</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Object/Conversions.html">RiCal::CoreExtensions::Object::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/String.html">RiCal::CoreExtensions::String</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/String/Conversions.html">RiCal::CoreExtensions::String::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time.html">RiCal::CoreExtensions::Time</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/Calculations.html">RiCal::CoreExtensions::Time::Calculations</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/Conversions.html">RiCal::CoreExtensions::Time::Conversions</a></li>
+				
+					<li><a href="../../RiCal/CoreExtensions/Time/WeekDayPredicates.html">RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
+				
+					<li><a href="../../RiCal/Event.html">RiCal::Event</a></li>
+				
+					<li><a href="../../RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
+				
+					<li><a href="../../RiCal/Properties.html">RiCal::Properties</a></li>
+				
+					<li><a href="../../RiCal/Properties/Alarm.html">RiCal::Properties::Alarm</a></li>
+				
+					<li><a href="../../RiCal/Properties/Alarm/ClassMethods.html">RiCal::Properties::Alarm::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Calendar.html">RiCal::Properties::Calendar</a></li>
+				
+					<li><a href="../../RiCal/Properties/Calendar/ClassMethods.html">RiCal::Properties::Calendar::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Event.html">RiCal::Properties::Event</a></li>
+				
+					<li><a href="../../RiCal/Properties/Event/ClassMethods.html">RiCal::Properties::Event::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Freebusy.html">RiCal::Properties::Freebusy</a></li>
+				
+					<li><a href="../../RiCal/Properties/Freebusy/ClassMethods.html">RiCal::Properties::Freebusy::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Journal.html">RiCal::Properties::Journal</a></li>
+				
+					<li><a href="../../RiCal/Properties/Journal/ClassMethods.html">RiCal::Properties::Journal::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/TimezonePeriod.html">RiCal::Properties::TimezonePeriod</a></li>
+				
+					<li><a href="../../RiCal/Properties/TimezonePeriod/ClassMethods.html">RiCal::Properties::TimezonePeriod::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/Properties/Todo.html">RiCal::Properties::Todo</a></li>
+				
+					<li><a href="../../RiCal/Properties/Todo/ClassMethods.html">RiCal::Properties::Todo::ClassMethods</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue.html">RiCal::PropertyValue</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/CalAddress.html">RiCal::PropertyValue::CalAddress</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Date.html">RiCal::PropertyValue::Date</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/DateTime.html">RiCal::PropertyValue::DateTime</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Duration.html">RiCal::PropertyValue::Duration</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Geo.html">RiCal::PropertyValue::Geo</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/OccurrenceList.html">RiCal::PropertyValue::OccurrenceList</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Period.html">RiCal::PropertyValue::Period</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Text.html">RiCal::PropertyValue::Text</a></li>
+				
+					<li><a href="../../RiCal/PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a></li>
+				
+					<li><a href="../../Array.html">Array</a></li>
+				
+					<li><a href="../../Date.html">Date</a></li>
+				
+					<li><a href="../../DateTime.html">DateTime</a></li>
+				
+					<li><a href="../../Help.html">Help</a></li>
+				
+					<li><a href="../../Kernel.html">Kernel</a></li>
+				
+					<li><a href="../../Object.html">Object</a></li>
+				
+					<li><a href="../../OpenStruct.html">OpenStruct</a></li>
+				
+					<li><a href="../../String.html">String</a></li>
+				
+					<li><a href="../../Time.html">Time</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<p>
+/*
+</p>
+<pre>
+ * jQuery 1.2.6 - New Wave Javascript
+ *
+ * Copyright (c) 2008 John Resig (jquery.com)
+ * Dual licensed under the MIT (MIT-LICENSE.txt)
+ * and GPL (GPL-LICENSE.txt) licenses.
+ *
+ * $Date: 2008-09-25 09:50:52 -0700 (Thu, 25 Sep 2008) $
+ * $Rev: 38 $
+ */
+</pre>
+<p>
+(function(){var _jQuery=window.jQuery,_$=window.$;var
+jQuery=window.jQuery=window.$=function(selector,context){return new
+jQuery.fn.init(selector,context);};var <a
+href="http://^>">quickExpr=/^[^<]*(<(.|\s)+>)</a>*$|^#(w+)$/,isSimple=/^.[^:#\[\.]*$/,undefined;jQuery.fn=jQuery.prototype={init:function(selector,context){selector=selector||document;if(selector.nodeType){this[0]=selector;this.length=1;return
+this;}if(typeof selector==&#8220;string&#8221;){var <a
+href="http://1">match=quickExpr.exec(selector);if(match&&(match[1]||!context)){if(match[1])selector=jQuery.clean([match</a>],context);else{var
+<a
+href="http://3">elem=document.getElementById(match[3]);if(elem){if(elem.id!=match</a>)return
+jQuery().find(selector);return jQuery(elem);}selector=[];}}else return
+jQuery(context).find(selector);}else if(jQuery.isFunction(selector))return
+<a
+href="http://jQuery.fn.ready?"ready":"load"">jQuery(document)</a>(selector);return
+this.setArray(jQuery.makeArray(selector));},jquery:&#8220;1.2.6&#8220;,size:function(){return
+this.length;},length:0,get:function(num){return
+num==undefined?jQuery.makeArray(this):this[num];},pushStack:function(elems){var
+ret=jQuery(elems);ret.prevObject=this;return
+ret;},setArray:function(elems){this.length=0;Array.prototype.push.apply(this,elems);return
+this;},each:function(callback,args){return
+jQuery.each(this,callback,args);},index:function(elem){var ret=-1;return
+jQuery.inArray(elem&amp;&amp;elem.jquery?elem[0]:elem,this);},attr:function(name,value,type){var
+options=name;if(name.constructor==<a
+href="../../String.html">String</a>)if(value===undefined)return
+this[0]&amp;&amp;jQuery[type||&#8220;attr&#8221;](this[0],name);else{options={};options[name]=value;}return
+this.each(function(i){for(name in
+options)jQuery.attr(type?this.style:this,name,jQuery.prop(this,options[name],type,i,name));});},css:function(key,value){if((key==&#8217;width&#8217;||key==&#8217;height&#8217;)&amp;&amp;parseFloat(value)<0)value=undefined;return
+this.attr(key,value,&#8220;curCSS&#8221;);},text:function(text){if(typeof
+text!=&#8220;object&#8221;&amp;&amp;text!=null)return
+this.empty().append((this[0]&amp;&amp;this[0].ownerDocument||document).createTextNode(text));var
+ret=&#8221;&#8220;;jQuery.each(text||this,function(){jQuery.each(this.childNodes,function(){if(this.nodeType!=8)ret+=this.nodeType!=1?this.nodeValue:jQuery.fn.text([this]);});});return
+<a
+href="http://0">ret;},wrapAll:function(html){if(this[0])jQuery(html,this[0].ownerDocument).clone().insertBefore(this</a>).map(function(){var
+elem=this;while(elem.firstChild)elem=elem.firstChild;return
+elem;}).append(this);return this;},wrapInner:function(html){return
+this.each(function(){jQuery(this).contents().wrapAll(html);});},wrap:function(html){return
+this.each(function(){jQuery(this).wrapAll(html);});},append:function(){return
+this.domManip(arguments,true,false,function(elem){if(this.nodeType==1)this.appendChild(elem);});},prepend:function(){return
+this.domManip(arguments,true,true,function(elem){if(this.nodeType==1)this.insertBefore(elem,this.firstChild);});},before:function(){return
+this.domManip(arguments,false,false,function(elem){this.parentNode.insertBefore(elem,this);});},after:function(){return
+this.domManip(arguments,false,true,function(elem){this.parentNode.insertBefore(elem,this.nextSibling);});},end:function(){return
+this.prevObject||jQuery([]);},find:function(selector){var
+elems=jQuery.map(this,function(elem){return
+jQuery.find(selector,elem);});return this.pushStack(/[^+>]
+[^+>]/.test(selector)||selector.indexOf(&#8220;..&#8221;)>-1?jQuery.unique(elems):elems);},clone:function(events){var
+ret=this.map(function(){if(jQuery.browser.msie&amp;&amp;!jQuery.isXMLDoc(this)){var
+clone=this.cloneNode(true),container=document.createElement(&#8220;div&#8221;);container.appendChild(clone);return
+<a href="http://container.innerHTML">jQuery.clean(</a>)[0];}else return
+this.cloneNode(true);});var
+clone=ret.find(&#8220;*&#8221;).andSelf().each(function(){if(this[expando]!=undefined)this[expando]=null;});if(events===true)this.find(&#8220;*&#8221;).andSelf().each(function(i){if(this.nodeType==3)return;var
+events=jQuery.data(this,&#8220;events&#8221;);for(var type in
+events)for(var handler in <a
+href="http://i">events[type])jQuery.event.add(clone</a>,type,events[type][handler],events[type][handler].data);});return
+ret;},filter:function(selector){return
+this.pushStack(jQuery.isFunction(selector)&amp;&amp;jQuery.grep(this,function(elem,i){return
+selector.call(elem,i);})||jQuery.multiFilter(selector,this));},not:function(selector){if(selector.constructor==<a
+href="../../String.html">String</a>)if(isSimple.test(selector))return
+this.pushStack(jQuery.multiFilter(selector,this,true));else
+selector=jQuery.multiFilter(selector,this);var <a
+href="http://selector.length-1">isArrayLike=selector.length&&selector</a>!==undefined&amp;&amp;!selector.nodeType;return
+this.filter(function(){return
+isArrayLike?jQuery.inArray(this,selector)<0:this!=selector;});},add:function(selector){return
+this.pushStack(jQuery.unique(jQuery.merge(this.get(),typeof
+selector==&#8217;string&#8217;?jQuery(selector):jQuery.makeArray(selector))));},is:function(selector){return!!selector&amp;&amp;jQuery.multiFilter(selector,this).length>0;},hasClass:function(selector){return
+this.is(&#8220;.&#8221;+selector);},val:function(value){if(value==undefined){if(this.length){var
+elem=this[0];if(jQuery.nodeName(elem,&#8220;select&#8221;)){var
+index=elem.selectedIndex,values=[],options=elem.options,one=elem.type==&#8220;select-one&#8221;;if(index<0)return
+null;for(var i=one?index:0,max=one?index+1:options.length;i<max;i++){var
+option=options[i];if(option.selected){value=jQuery.browser.msie&amp;&amp;!option.attributes.value.specified?option.text:option.value;if(one)return
+value;values.push(value);}}return values;}else
+return(this[0].value||&#8221;&#8220;).replace(/r/g,&#8221;&#8220;);}return
+undefined;}if(value.constructor==Number)value+=&#8217;&#8217;;return
+this.each(function(){if(this.nodeType!=1)return;if(value.constructor==Array&amp;&amp;/radio|checkbox/.test(this.type))this.checked=(jQuery.inArray(this.value,value)>=0||jQuery.inArray(this.name,value)>=0);else
+if(jQuery.nodeName(this,&#8220;select&#8221;)){var
+values=jQuery.makeArray(value);jQuery(&#8220;option&#8221;,this).each(function(){this.selected=(jQuery.inArray(this.value,values)>=0||jQuery.inArray(this.text,values)>=0);});if(!values.length)this.selectedIndex=-1;}else
+this.value=value;});},html:function(value){return
+value==undefined?(this[0]?this[0].innerHTML:null):this.empty().append(value);},replaceWith:function(value){return
+this.after(value).remove();},eq:function(i){return
+this.slice(i,i+1);},slice:function(){return
+this.pushStack(Array.prototype.slice.apply(this,arguments));},map:function(callback){return
+this.pushStack(jQuery.map(this,function(elem,i){return
+callback.call(elem,i,elem);}));},andSelf:function(){return
+this.add(this.prevObject);},data:function(key,value){var <a
+href="http://1">parts=key.split(".");parts[1]=parts[1]?"."+parts</a>:&#8221;&#8220;;if(value===undefined){var
+<a
+href="http://0">data=this.triggerHandler("getData"+parts[1]+"!",[parts[0]]);if(data===undefined&&this.length)data=jQuery.data(this</a>,key);return
+<a
+href="http://0">data===undefined&&parts[1]?this.data(parts</a>):data;}else
+return
+this.trigger(&#8220;setData&#8221;+parts[1]+&#8221;!&#8221;,[parts[0],value]).each(function(){jQuery.data(this,key,value);});},removeData:function(key){return
+this.each(function(){jQuery.removeData(this,key);});},domManip:function(args,table,reverse,callback){var
+clone=this.length>1,elems;return
+this.each(function(){if(!elems){elems=jQuery.clean(args,this.ownerDocument);if(reverse)elems.reverse();}var
+<a
+href="http://0">obj=this;if(table&&jQuery.nodeName(this,"table")&&jQuery.nodeName(elems[0],"tr"))obj=this.getElementsByTagName("tbody")</a>||this.appendChild(this.ownerDocument.createElement(&#8220;tbody&#8221;));var
+scripts=jQuery([]);jQuery.each(elems,function(){var
+elem=clone?jQuery(this).clone(true)[0]:this;if(jQuery.nodeName(elem,&#8220;script&#8221;))scripts=scripts.add(elem);else{if(elem.nodeType==1)scripts=scripts.add(jQuery(&#8220;script&#8221;,elem).remove());callback.call(obj,elem);}});scripts.each(evalScript);});}};jQuery.fn.init.prototype=jQuery.fn;function
+evalScript(i,elem){if(elem.src)jQuery.ajax({url:elem.src,async:false,dataType:&#8220;script&#8221;});else
+jQuery.globalEval(elem.text||elem.textContent||elem.innerHTML||&#8221;&#8220;);if(elem.parentNode)elem.parentNode.removeChild(elem);}function
+now(){return+new <a
+href="../../Date.html">Date</a>;}jQuery.extend=jQuery.fn.extend=function(){var
+<a
+href="http://1">target=arguments[0]||{},i=1,length=arguments.length,deep=false,options;if(target.constructor==Boolean){deep=target;target=arguments</a>||{};i=2;}if(typeof
+target!=&#8220;object&#8221;&amp;&amp;typeof
+target!=&#8220;function&#8221;)target={};if(length==i){target=this;&#8212;i;}for(;i<length;i++)if((options=arguments[i])!=null)for(var
+name in options){var
+src=target[name],copy=options[name];if(target===copy)continue;if(deep&amp;&amp;copy&amp;&amp;typeof
+<a
+href="http://">copy=="object"&&!copy.nodeType)target[name]=jQuery.extend(deep,src||(copy.length!=null?</a>:{}),copy);else
+if(copy!==undefined)target[name]=copy;}return target;};var
+expando=&#8220;jQuery&#8221;+now(),uuid=0,windowData={},exclude=/z-?index|font-?weight|opacity|zoom|line-?height/i,defaultView=document.defaultView||{};jQuery.extend({noConflict:function(deep){window.$=_$;if(deep)window.jQuery=_jQuery;return
+jQuery;},isFunction:function(fn){return!!fn&amp;&amp;typeof
+fn!=&#8220;string&#8221;&amp;&amp;!fn.nodeName&amp;&amp;fn.constructor!=Array&amp;&amp;/^[s[]?function/.test(fn+&#8221;&#8220;);},isXMLDoc:function(elem){return
+elem.documentElement&amp;&amp;!elem.body||elem.tagName&amp;&amp;elem.ownerDocument&amp;&amp;!elem.ownerDocument.body;},globalEval:function(data){data=jQuery.trim(data);if(data){var
+head=document.getElementsByTagName(&#8220;head&#8221;)[0]||document.documentElement,script=document.createElement(&#8220;script&#8221;);script.type=&#8220;text/javascript&#8220;;if(jQuery.browser.msie)script.text=data;else
+script.appendChild(document.createTextNode(data));head.insertBefore(script,head.firstChild);head.removeChild(script);}},nodeName:function(elem,name){return
+elem.nodeName&amp;&amp;elem.nodeName.toUpperCase()==name.toUpperCase();},cache:{},data:function(elem,name,data){elem=elem==window?windowData:elem;var
+<a
+href="http://id">id=elem[expando];if(!id)id=elem[expando]=++uuid;if(name&&!jQuery.cache</a>)<a
+href="http://id">jQuery.cache[id]={};if(data!==undefined)jQuery.cache</a>[name]=data;return
+name?jQuery.cache[id][name]:id;},removeData:function(elem,name){elem=elem==window?windowData:elem;var
+<a href="http://id">id=elem[expando];if(name){if(jQuery.cache</a>){delete
+jQuery.cache[id][name];name=&#8221;&#8220;;for(name in
+jQuery.cache[id])break;if(!name)jQuery.removeData(elem);}}else{try{delete
+elem[expando];}catch(e){if(elem.removeAttribute)elem.removeAttribute(expando);}delete
+jQuery.cache[id];}},each:function(object,callback,args){var
+name,i=0,length=object.length;if(args){if(length==undefined){for(name in
+object)if(callback.apply(object[name],args)===false)break;}else
+for(;i<length;)if(callback.apply(object[i++],args)===false)break;}else{if(length==undefined){for(name
+in
+object)if(callback.call(object[name],name,object[name])===false)break;}else
+for(var <a
+href="http://++i">value=object[0];i<length&&callback.call(value,i,value)!==false;value=object</a>){}}return
+object;},prop:function(elem,value,type,i,name){if(jQuery.isFunction(value))value=value.call(elem,i);return
+value&amp;&amp;value.constructor==Number&amp;&amp;type==&#8220;curCSS&#8221;&amp;&amp;!exclude.test(name)?value+&#8220;px&#8221;:value;},className:{add:function(elem,classNames){jQuery.each((classNames||&#8221;&#8220;).split(/s+/),function(i,className){if(elem.nodeType==1&amp;&amp;!jQuery.className.has(elem.className,className))elem.className+=(elem.className?&#8221;
+&#8220;:&#8221;&#8220;)+className;});},remove:function(elem,classNames){if(elem.nodeType==1)elem.className=classNames!=undefined?jQuery.grep(elem.className.split(/s+/),function(className){return!jQuery.className.has(classNames,className);}).join(&#8220;
+&#8220;):&#8221;&#8220;;},has:function(elem,className){return
+jQuery.inArray(className,(elem.className||elem).toString().split(/s+/))>-1;}},swap:function(elem,options,callback){var
+old={};for(var name in <a
+href="http://name">options){old[name]=elem.style</a>;elem.style[name]=options[name];}callback.call(elem);for(var
+name in
+options)elem.style[name]=old[name];},css:function(elem,name,force){if(name==&#8220;width&#8221;||name==&#8220;height&#8221;){var
+val,props={position:&#8220;absolute&#8221;,visibility:&#8220;hidden&#8221;,display:&#8220;block&#8221;},which=name==&#8220;width&#8221;?[&#8220;Left&#8221;,&#8220;Right&#8221;]:[&#8220;Top&#8221;,&#8220;Bottom&#8221;];function
+getWH(){val=name==&#8220;width&#8221;?elem.offsetWidth:elem.offsetHeight;var
+padding=0,border=0;jQuery.each(which,function(){padding+=parseFloat(jQuery.curCSS(elem,&#8220;padding&#8221;+this,true))||0;border+=parseFloat(jQuery.curCSS(elem,&#8220;border&#8220;<tt>this</tt>&#8220;Width&#8221;,true))||0;});val-=Math.round(padding+border);}if(jQuery(elem).is(&#8220;:visible&#8221;))getWH();else
+jQuery.swap(elem,props,getWH);return Math.max(0,val);}return
+jQuery.curCSS(elem,name,force);},curCSS:function(elem,name,force){var
+ret,style=elem.style;function color(elem){if(!jQuery.browser.safari)return
+false;var
+ret=defaultView.getComputedStyle(elem,null);return!ret||ret.getPropertyValue(&#8220;color&#8221;)==&#8221;&#8220;;}if(name==&#8220;opacity&#8221;&amp;&amp;jQuery.browser.msie){ret=jQuery.attr(style,&#8220;opacity&#8221;);return
+ret==&#8221;&#8220;?&#8220;1&#8221;:ret;}if(jQuery.browser.opera&amp;&amp;name==&#8220;display&#8221;){var
+save=style.outline;style.outline=&#8220;0 solid
+black&#8221;;style.outline=save;}if(name.match(/float/i))name=styleFloat;if(!force&amp;&amp;style&amp;&amp;style[name])ret=style[name];else
+if(defaultView.getComputedStyle){if(name.match(/float/i))name=&#8220;float&#8221;;name=name.replace(/([A-Z])/g,&#8221;-$1&#8221;).toLowerCase();var
+computedStyle=defaultView.getComputedStyle(elem,null);if(computedStyle&amp;&amp;!color(elem))ret=computedStyle.getPropertyValue(name);else{var
+<a
+href="http://i">swap=[],stack=[],a=elem,i=0;for(;a&&color(a);a=a.parentNode)stack.unshift(a);for(;i<stack.length;i++)if(color(stack</a>)){<a
+href="http://i">swap[i]=stack[i].style.display;stack</a>.<a
+href="http://stack.length-1">style.display="block";}ret=name=="display"&&swap</a>!=<a
+href="http://i">null?"none":(computedStyle&&computedStyle.getPropertyValue(name))||"";for(i=0;i<swap.length;i++)if(swap[i]!=null)stack[i].style.display=swap</a>;}if(name==&#8220;opacity&#8221;&amp;&amp;ret==&#8221;&#8220;)ret=&#8220;1&#8221;;}else
+if(elem.currentStyle){var
+camelCase=name.replace(/-(w)/g,function(all,letter){return <a
+href="http://camelCase">letter.toUpperCase();});ret=elem.currentStyle[name]||elem.currentStyle</a>;if(!/^d+(px)?$/i.test(ret)&amp;&amp;/^d/.test(ret)){var
+left=style.left,rsLeft=elem.runtimeStyle.left;elem.runtimeStyle.left=elem.currentStyle.left;style.left=ret||0;ret=style.pixelLeft+&#8220;px&#8221;;style.left=left;elem.runtimeStyle.left=rsLeft;}}return
+ret;},clean:function(elems,context){var
+ret=[];context=context||document;if(typeof
+context.createElement==&#8217;undefined&#8217;)context=context.ownerDocument||context[0]&amp;&amp;context[0].ownerDocument||document;jQuery.each(elems,function(i,elem){if(!elem)return;if(elem.constructor==Number)elem+=&#8217;&#8217;;if(typeof
+elem==&#8220;string&#8221;){elem=elem.replace(/(<(w+)[^>]*?)/>/g,function(all,front,tag){return
+tag.match(/^(abbr|br|col|img|input|link|meta|param|hr|area|embed)$/i)?all:front+&#8221;></&#8220;<tt>tag</tt>&#8220;>&#8221;;});var
+tags=jQuery.trim(elem).toLowerCase(),div=context.createElement(&#8220;div&#8221;);var
+wrap=!tags.indexOf(&#8220;<opt&#8221;)&amp;&amp;[1,&#8221;<select <a
+href="http://1,"<table>","</table>"">multiple='multiple'>","</select>"]||!tags.indexOf("<leg")&&[1,"<fieldset>","</fieldset>"]||tags.match(/^<(thead|tbody|tfoot|colg|cap)/)&&</a>||!<a
+href="http://3,"<table><tbody><tr>","</tr></tbody></table>"">tags.indexOf("<tr")&&[2,"<table><tbody>","</tbody></table>"]||(!tags.indexOf("<td")||!tags.indexOf("<th"))&&</a>||!<a
+href="http://1,"div<div>","</div>"">tags.indexOf("<col")&&[2,"<table><tbody></tbody><colgroup>","</colgroup></table>"]||jQuery.browser.msie&&</a>||[0,&#8221;&#8220;,&#8221;&#8220;];div.innerHTML=wrap[1]+elem+wrap[2];while(wrap[0]&#8212;)div=div.lastChild;if(jQuery.browser.msie){var
+<a
+href="http://">tbody=!tags.indexOf("<table")&&tags.indexOf("<tbody")<0?div.firstChild&&div.firstChild.childNodes:wrap[1]=="<table>"&&tags.indexOf("<tbody")<0?div.childNodes:</a>;for(var
+<a
+href="http://j">j=tbody.length-1;j>=0;--j)if(jQuery.nodeName(tbody[j],"tbody")&&!tbody[j].childNodes.length)tbody</a>.<a
+href="http://0">parentNode.removeChild(tbody[j]);if(/^\s/.test(elem))div.insertBefore(context.createTextNode(elem.match(/^\s*/)</a>),div.firstChild);}elem=jQuery.makeArray(div.childNodes);}if(elem.length===0&amp;&amp;(!jQuery.nodeName(elem,&#8220;form&#8221;)&amp;&amp;!jQuery.nodeName(elem,&#8220;select&#8221;)))return;if(elem[0]==undefined||jQuery.nodeName(elem,&#8220;form&#8221;)||elem.options)ret.push(elem);else
+ret=jQuery.merge(ret,elem);});return
+ret;},attr:function(elem,name,value){if(!elem||elem.nodeType==3||elem.nodeType==8)return
+undefined;var
+notxml=!jQuery.isXMLDoc(elem),set=value!==undefined,msie=jQuery.browser.msie;name=notxml&amp;&amp;jQuery.props[name]||name;if(elem.tagName){var
+special=/href|src|style/.test(name);if(name==&#8220;selected&#8221;&amp;&amp;jQuery.browser.safari)elem.parentNode.selectedIndex;if(name
+in
+elem&amp;&amp;notxml&amp;&amp;!special){if(set){if(name==&#8220;type&#8221;&amp;&amp;jQuery.nodeName(elem,&#8220;input&#8221;)&amp;&amp;elem.parentNode)throw&#8220;type
+property can&#8217;t be
+changed&#8221;;elem[name]=value;}if(jQuery.nodeName(elem,&#8220;form&#8221;)&amp;&amp;elem.getAttributeNode(name))return
+elem.getAttributeNode(name).nodeValue;return
+elem[name];}if(msie&amp;&amp;notxml&amp;&amp;name==&#8220;style&#8221;)return
+jQuery.attr(elem.style,&#8220;cssText&#8221;,value);if(set)elem.setAttribute(name,&#8221;&#8220;+value);var
+attr=msie&amp;&amp;notxml&amp;&amp;special?elem.getAttribute(name,2):elem.getAttribute(name);return
+attr===null?undefined:attr;}if(msie&amp;&amp;name==&#8220;opacity&#8221;){if(set){elem.zoom=1;elem.filter=(elem.filter||&#8221;&#8220;).replace(/alpha([^)]*)/,&#8221;&#8220;)+(parseInt(value)+&#8217;&#8217;==&#8220;NaN&#8221;?&#8221;&#8220;:&#8220;alpha(opacity=&#8221;+value*100+&#8221;)&#8221;);}return
+<a
+href="http://a-z">elem.filter&&elem.filter.indexOf("opacity=")>=0?(parseFloat(elem.filter.match(/opacity=([^)]*)/)[1])/100)+'':"";}name=name.replace(/-(</a>)/ig,function(all,letter){return
+letter.toUpperCase();});if(set)elem[name]=value;return
+elem[name];},trim:function(text){return(text||&#8221;&#8220;).replace(/^s+|s+$/g,&#8221;&#8220;);},makeArray:function(array){var
+ret=[];if(array!=null){var
+i=array.length;if(i==null||array.split||array.setInterval||array.call)ret[0]=array;else
+while(i)ret[&#8212;i]=array[i];}return
+ret;},inArray:function(elem,array){for(var
+i=0,length=array.length;i<length;i++)if(array[i]===elem)return
+i;return-1;},merge:function(first,second){var <a
+href="http://pos++">i=0,elem,pos=first.length;if(jQuery.browser.msie){while(elem=second[i++])if(elem.nodeType!=8)first</a>=elem;}else
+while(elem=second[i++])first[pos++]=elem;return
+first;},unique:function(array){var ret=[],done={};try{for(var
+i=0,length=array.length;i<length;i++){var <a
+href="http://i">id=jQuery.data(array[i]);if(!done[id]){done[id]=true;ret.push(array</a>);}}}catch(e){ret=array;}return
+ret;},grep:function(elems,callback,inv){var ret=[];for(var <a
+href="http://i">i=0,length=elems.length;i<length;i++)if(!inv!=!callback(elems[i],i))ret.push(elems</a>);return
+ret;},map:function(elems,callback){var ret=[];for(var
+i=0,length=elems.length;i<length;i++){var <a
+href="http://ret.length">value=callback(elems[i],i);if(value!=null)ret</a>=value;}return
+ret.concat.apply([],ret);}});var
+userAgent=navigator.userAgent.toLowerCase();jQuery.browser={version:(userAgent.match(/.+(?:rv|it|ra|ie)[/:
+]([d.]+)/)||[])[1],safari:/webkit/.test(userAgent),opera:/opera/.test(userAgent),msie:/msie/.test(userAgent)&amp;&amp;!/opera/.test(userAgent),mozilla:/mozilla/.test(userAgent)&amp;&amp;!/(compatible|webkit)/.test(userAgent)};var
+styleFloat=jQuery.browser.msie?&#8220;styleFloat&#8221;:&#8220;cssFloat&#8221;;jQuery.extend({boxModel:!jQuery.browser.msie||document.compatMode==&#8220;CSS1Compat&#8221;,props:{&#8220;for&#8221;:&#8220;htmlFor&#8221;,&#8220;class&#8221;:&#8220;className&#8221;,&#8220;float&#8221;:styleFloat,cssFloat:styleFloat,styleFloat:styleFloat,readonly:&#8220;readOnly&#8221;,maxlength:&#8220;maxLength&#8221;,cellspacing:&#8220;cellSpacing&#8221;}});jQuery.each({parent:function(elem){return
+elem.parentNode;},parents:function(elem){return
+jQuery.dir(elem,&#8220;parentNode&#8221;);},next:function(elem){return
+jQuery.nth(elem,2,&#8220;nextSibling&#8221;);},prev:function(elem){return
+jQuery.nth(elem,2,&#8220;previousSibling&#8221;);},nextAll:function(elem){return
+jQuery.dir(elem,&#8220;nextSibling&#8221;);},prevAll:function(elem){return
+jQuery.dir(elem,&#8220;previousSibling&#8221;);},siblings:function(elem){return
+jQuery.sibling(elem.parentNode.firstChild,elem);},children:function(elem){return
+jQuery.sibling(elem.firstChild);},contents:function(elem){return
+jQuery.nodeName(elem,&#8220;iframe&#8221;)?elem.contentDocument||elem.contentWindow.document:jQuery.makeArray(elem.childNodes);}},function(name,fn){jQuery.fn[name]=function(selector){var
+ret=jQuery.map(this,fn);if(selector&amp;&amp;typeof
+selector==&#8220;string&#8221;)ret=jQuery.multiFilter(selector,ret);return
+this.pushStack(jQuery.unique(ret));};});jQuery.each({appendTo:&#8220;append&#8221;,prependTo:&#8220;prepend&#8221;,insertBefore:&#8220;before&#8221;,insertAfter:&#8220;after&#8221;,replaceAll:&#8220;replaceWith&#8221;},function(name,original){jQuery.fn[name]=function(){var
+args=arguments;return this.each(function(){for(var <a
+href="http://jQuery.className.has(this,classNames)?"remove":"add"">i=0,length=args.length;i<length;i++)jQuery(args[i])[original](this);});};});jQuery.each({removeAttr:function(name){jQuery.attr(this,name,"");if(this.nodeType==1)this.removeAttribute(name);},addClass:function(classNames){jQuery.className.add(this,classNames);},removeClass:function(classNames){jQuery.className.remove(this,classNames);},toggleClass:function(classNames){jQuery.className</a>(<a
+href="http://name">this,classNames);},remove:function(selector){if(!selector||jQuery.filter(selector,[this]).r.length){jQuery("*",this).add(this).each(function(){jQuery.event.remove(this);jQuery.removeData(this);});if(this.parentNode)this.parentNode.removeChild(this);}},empty:function(){jQuery(">*",this).remove();while(this.firstChild)this.removeChild(this.firstChild);}},function(name,fn){jQuery.fn</a>=function(){return
+this.each(fn,arguments);};});jQuery.each([&#8220;Height&#8221;,&#8220;Width&#8221;],function(i,name){var
+type=name.toLowerCase();jQuery.fn[type]=function(size){return <a
+href="http://"client"+name">this[0]==window?jQuery.browser.opera&&document.body</a>||<a
+href="http://"client"+name">jQuery.browser.safari&&window["inner"+name]||document.compatMode=="CSS1Compat"&&document.documentElement</a>||<a
+href="http://"scroll"+name">document.body["client"+name]:this[0]==document?Math.max(Math.max(document.body</a>,<a
+href="http://"offset"+name">document.documentElement["scroll"+name]),Math.max(document.body</a>,<a
+href="http://0">document.documentElement["offset"+name])):size==undefined?(this.length?jQuery.css(this</a>,type):null):this.css(type,size.constructor==<a
+href="../../String.html">String</a>?size:size+&#8220;px&#8221;);};});function
+num(elem,prop){return <a
+href="http://0">elem[0]&&parseInt(jQuery.curCSS(elem</a>,prop,true),10)||0;}var
+<a
+href="http://\w\u0128-\uFFFF*_-">chars=jQuery.browser.safari&&parseInt(jQuery.browser.version)<417?"(?:[\w*_-]|\\.)":"(?:</a>|\.)&#8221;,quickChild=new
+RegExp(&#8220;^>s*(&#8220;<tt>chars</tt>&#8220;+)&#8221;),quickID=new
+RegExp(&#8220;^(&#8220;<tt>chars</tt>&#8220;+)(#)(&#8220;<tt>chars</tt>&#8220;+)&#8221;),quickClass=new
+RegExp(&#8220;^([#.]?)(&#8220;<tt>chars</tt>&#8220;*)&#8221;);jQuery.extend({expr:{&#8220;&#8221;:function(a,i,m){return
+<a
+href="http://2">m[2]=="*"||jQuery.nodeName(a,m</a>);},&#8221;#&#8221;:function(a,i,m){return
+a.getAttribute(&#8220;id&#8221;)==m[2];},&#8221;:&#8221;:{lt:function(a,i,m){return
+i<m[3]-0;},gt:function(a,i,m){return i>m[3]-0;},nth:function(a,i,m){return
+m[3]-0==i;},eq:function(a,i,m){return
+m[3]-0==i;},first:function(a,i){return i==0;},last:function(a,i,m,r){return
+i==r.length-1;},even:function(a,i){return i%2==0;},odd:function(a,i){return
+i%2;},&#8220;first-child&#8221;:function(a){return
+a.parentNode.getElementsByTagName(&#8220;*&#8221;)[0]==a;},&#8220;last-child&#8221;:function(a){return
+jQuery.nth(a.parentNode.lastChild,1,&#8220;previousSibling&#8221;)==a;},&#8220;only-child&#8221;:function(a){return!jQuery.nth(a.parentNode.lastChild,2,&#8220;previousSibling&#8221;);},parent:function(a){return
+a.firstChild;},empty:function(a){return!a.firstChild;},contains:function(a,i,m){return(a.textContent||a.innerText||jQuery(a).text()||&#8221;&#8220;).indexOf(m[3])>=0;},visible:function(a){return&#8220;hidden&#8221;!=a.type&amp;&amp;jQuery.css(a,&#8220;display&#8221;)!=&#8220;none&#8221;&amp;&amp;jQuery.css(a,&#8220;visibility&#8221;)!=&#8220;hidden&#8221;;},hidden:function(a){return&#8220;hidden&#8221;==a.type||jQuery.css(a,&#8220;display&#8221;)==&#8220;none&#8221;||jQuery.css(a,&#8220;visibility&#8221;)==&#8220;hidden&#8221;;},enabled:function(a){return!a.disabled;},disabled:function(a){return
+a.disabled;},checked:function(a){return
+a.checked;},selected:function(a){return
+a.selected||jQuery.attr(a,&#8220;selected&#8221;);},text:function(a){return&#8220;text&#8221;==a.type;},radio:function(a){return&#8220;radio&#8221;==a.type;},checkbox:function(a){return&#8220;checkbox&#8221;==a.type;},file:function(a){return&#8220;file&#8221;==a.type;},password:function(a){return&#8220;password&#8221;==a.type;},submit:function(a){return&#8220;submit&#8221;==a.type;},image:function(a){return&#8220;image&#8221;==a.type;},reset:function(a){return&#8220;reset&#8221;==a.type;},button:function(a){return&#8220;button&#8221;==a.type||jQuery.nodeName(a,&#8220;button&#8221;);},input:function(a){return/input|select|textarea|button/i.test(a.nodeName);},has:function(a,i,m){return
+jQuery.find(m[3],a).length;},header:function(a){return/h\d/i.test(a.nodeName);},animated:function(a){return
+jQuery.grep(jQuery.timers,function(fn){return
+a==fn.elem;}).length;}}},parse:[/^([) *@?([w-]+) *([!*$^~=]*)
+*(&#8217;?&#8221;?)(.*?)4
+*]/,/^(:)([w-]+)(&#8220;?&#8217;?(.*?((.*?))?[^(]*?)&#8221;?&#8217;?)/,new
+<a
+href="http://:.#">RegExp("^(</a>*)(&#8220;<tt>chars</tt>&#8220;+)&#8221;)],multiFilter:function(expr,elems,not){var
+old,cur=[];while(expr&amp;&amp;expr!=old){old=expr;var
+f=jQuery.filter(expr,elems,not);expr=f.t.replace(/^s*,s*/,&#8221;&#8220;);cur=not?elems=f.r:jQuery.merge(cur,f.r);}return
+cur;},find:function(t,context){if(typeof <a
+href="http://">t!="string")return[t];if(context&&context.nodeType!=1&&context.nodeType!=9)return</a>;context=context||document;var
+ret=[context],done=[],last,nodeName;while(t&amp;&amp;last!=t){var
+r=[];last=t;t=jQuery.trim(t);var
+foundToken=false,re=quickChild,m=re.exec(t);if(m){nodeName=m[1].toUpperCase();for(var
+i=0;ret[i];i++)for(var
+c=ret[i].firstChild;c;c=c.nextSibling)if(c.nodeType==1&amp;&amp;(nodeName==&#8221;*&#8221;||c.nodeName.toUpperCase()==nodeName))r.push&#169;;ret=r;t=t.replace(re,&#8221;&#8220;);if(t.indexOf(&#8220;
+&#8220;)==<a
+href="http://">0)continue;foundToken=true;}else{re=/^([>+~])\s*(\w*)/i;if((m=re.exec(t))!=null){r=</a>;var
+<a href="http://1">merge={};nodeName=m[2].toUpperCase();m=m</a>;for(var
+j=0,rl=ret.length;j<rl;j++){var <a
+href="http://j">n=m=="~"||m=="+"?ret[j].nextSibling:ret</a>.firstChild;for(;n;n=n.nextSibling)if(n.nodeType==1){var
+<a
+href="http://id">id=jQuery.data(n);if(m=="~"&&merge[id])break;if(!nodeName||n.nodeName.toUpperCase()==nodeName){if(m=="~")merge</a>=<a
+href="http://context">true;r.push(n);}if(m=="+")break;}}ret=r;t=jQuery.trim(t.replace(re,""));foundToken=true;}}if(t&&!foundToken){if(!t.indexOf(",")){if(context==ret[0])ret.shift();done=jQuery.merge(done,ret);r=ret=</a>;t=&#8221;
+&#8220;+t.substr(1,t.length);}else{var re2=quickID;var <a
+href="http://2">m=re2.exec(t);if(m){m=[0,m[2],m[3],m[1]];}else{re2=quickClass;m=re2.exec(t);}m</a>=m[2].replace(//g,&#8221;&#8220;);var
+<a
+href="http://ret.length-1">elem=ret</a>;if(m[1]==&#8221;#&#8221;&amp;&amp;elem&amp;&amp;elem.getElementById&amp;&amp;!jQuery.isXMLDoc(elem)){var
+oid=elem.getElementById(m[2]);if((jQuery.browser.msie||jQuery.browser.opera)&amp;&amp;oid&amp;&amp;typeof
+<a
+href="http://3">oid.id=="string"&&oid.id!=m[2])oid=jQuery('[@id="'+m[2]+'"]',elem)[0];ret=r=oid&&(!m[3]||jQuery.nodeName(oid,m</a>))?[oid]:[];}else{for(var
+i=0;ret[i];i++){var <a
+href="http://i">tag=m[1]=="#"&&m[3]?m[3]:m[1]!=""||m[0]==""?"*":m[2];if(tag=="*"&&ret[i].nodeName.toLowerCase()=="object")tag="param";r=jQuery.merge(r,ret</a>.<a
+href="http://2">getElementsByTagName(tag));}if(m[1]==".")r=jQuery.classFilter(r,m</a>);if(m[1]==&#8221;#&#8221;){var
+tmp=[];for(var <a
+href="http://2">i=0;r[i];i++)if(r[i].getAttribute("id")==m</a>){tmp=[r[i]];break;}r=tmp;}ret=r;}t=t.replace(re2,&#8221;&#8220;);}}if(t){var
+val=jQuery.filter(t,r);ret=r=val.r;t=jQuery.trim(val.t);}}if(t)ret=[];if(ret&amp;&amp;context==ret[0])ret.shift();done=jQuery.merge(done,ret);return
+done;},classFilter:function(r,m,not){m=&#8221; &#8220;<tt>m</tt>&#8220;
+&#8220;;var tmp=[];for(var i=0;r[i];i++){var pass=(&#8220;
+&#8220;+r[i].className+&#8221;
+&#8220;).indexOf(m)>=0;if(!not&amp;&amp;pass||not&amp;&amp;!pass)tmp.push(r[i]);}return
+tmp;},filter:function(t,r,not){var
+last;while(t&amp;&amp;t!=last){last=t;var p=jQuery.parse,m;for(var <a
+href="http://0">i=0;p[i];i++){m=p[i].exec(t);if(m){t=t.substring(m</a>.<a
+href="http://1">length);m[2]=m[2].replace(/\/g,"");break;}}if(!m)break;if(m</a>==&#8221;:&#8221;&amp;&amp;<a
+href="http://3">m[2]=="not")r=isSimple.test(m</a>)?<a
+href="http://3">jQuery.filter(m[3],r,true).r:jQuery(r).not(m</a>);else <a
+href="http://2">if(m[1]==".")r=jQuery.classFilter(r,m</a>,not);else
+if(m[1]==&#8221;[&#8220;){var tmp=[],type=m[3];for(var
+i=0,rl=r.length;i<rl;i++){var <a
+href="http://2">a=r[i],z=a[jQuery.props[m</a>]||<a
+href="http://2">m[2]];if(z==null||/href|src|selected/.test(m</a>))<a
+href="http://5">z=jQuery.attr(a,m[2])||'';if((type==""&&!!z||type=="="&&z==m[5]||type=="!="&&z!=m[5]||type=="^="&&z&&!z.indexOf(m</a>)||<a
+href="http://5">type=="$="&&z.substr(z.length-m[5].length)==m</a>||(type==&#8221;*=&#8221;||type==&#8221;~=&#8221;)&amp;&amp;z.indexOf(m[5])>=0)^not)tmp.push(a);}r=tmp;}else
+if(m[1]==&#8221;:&#8221;&amp;&amp;m[2]==&#8220;nth-child&#8221;){var <a
+href="http://3">merge={},tmp=[],test=/(-?)(\d*)n((?:+|-)?\d*)/.exec(m</a>==&#8220;<a
+href="http://3">even"&&"2n"||m[3]=="odd"&&"2n+1"||!/\D/.test(m</a>)&amp;&amp;&#8220;0n+&#8221;+m[3]||m[3]),first=(test[1]+(test[2]||1))-0,last=test[3]-0;for(var
+i=0,rl=r.length;i<rl;i++){var <a
+href="http://id">node=r[i],parentNode=node.parentNode,id=jQuery.data(parentNode);if(!merge</a>){var
+c=1;for(var
+n=parentNode.firstChild;n;n=n.nextSibling)if(n.nodeType==1)n.nodeIndex=c++;merge[id]=true;}var
+add=false;if(first==0){if(node.nodeIndex==last)add=true;}else
+if((node.nodeIndex-last)%first==0&amp;&amp;(node.nodeIndex-last)/first>=0)add=true;if(add^not)tmp.push(node);}r=tmp;}else{var
+fn=jQuery.expr[m[1]];if(typeof
+fn==&#8220;object&#8221;)fn=fn[m[2]];if(typeof
+fn==&#8220;string&#8221;)fn=eval(&#8220;false||function(a,i){return
+&#8220;<tt>fn</tt>&#8220;;}&#8221;);r=jQuery.grep(r,function(elem,i){return
+fn(elem,i,m,r);},not);}}return{r:r,t:t};},dir:function(elem,dir){var <a
+href="http://dir">matched=[],cur=elem[dir];while(cur&&cur!=document){if(cur.nodeType==1)matched.push(cur);cur=cur</a>;}return
+matched;},nth:function(cur,result,dir,elem){result=result||1;var
+num=0;for(;cur;cur=cur[dir])if(cur.nodeType==1&amp;&amp;++num==result)break;return
+cur;},sibling:function(n,elem){var
+r=[];for(;n;n=n.nextSibling){if(n.nodeType==1&amp;&amp;n!=elem)r.push(n);}return
+r;}});jQuery.event={add:function(elem,types,handler,data){if(elem.nodeType==3||elem.nodeType==8)return;if(jQuery.browser.msie&amp;&amp;elem.setInterval)elem=window;if(!handler.guid)handler.guid=this.guid++;if(data!=undefined){var
+fn=handler;handler=this.proxy(fn,function(){return
+fn.apply(this,arguments);});handler.data=data;}var
+events=jQuery.data(elem,&#8220;events&#8221;)||jQuery.data(elem,&#8220;events&#8221;,{}),handle=jQuery.data(elem,&#8220;handle&#8221;)||jQuery.data(elem,&#8220;handle&#8221;,function(){if(typeof
+jQuery!=&#8220;undefined&#8221;&amp;&amp;!jQuery.event.triggered)return
+jQuery.event.handle.apply(arguments.callee.elem,arguments);});handle.elem=elem;jQuery.each(types.split(/s+/),function(index,type){var
+<a
+href="http://1">parts=type.split(".");type=parts[0];handler.type=parts</a>;var
+<a
+href="http://type">handlers=events[type];if(!handlers){handlers=events[type]={};if(!jQuery.event.special</a>||jQuery.event.special[type].setup.call(elem)===false){if(elem.addEventListener)elem.addEventListener(type,handle,false);else
+<a
+href="http://handler.guid">if(elem.attachEvent)elem.attachEvent("on"+type,handle);}}handlers</a>=handler;jQuery.event.global[type]=true;});elem=null;},guid:1,global:{},remove:function(elem,types,handler){if(elem.nodeType==3||elem.nodeType==8)return;var
+events=jQuery.data(elem,&#8220;events&#8221;),ret,index;if(events){if(types==undefined||(typeof
+types==&#8220;string&#8221;&amp;&amp;types.charAt(0)==&#8221;.&#8221;))for(var
+type in
+events)this.remove(elem,type+(types||&#8221;&#8220;));else{if(types.type){handler=types.handler;types=types.type;}jQuery.each(types.split(/s+/),function(index,type){var
+parts=type.split(&#8220;.&#8221;);type=parts[0];if(events[type]){if(handler)delete
+<a href="http://handler.guid">events[type]</a>;else for(handler in <a
+href="http://1">events[type])if(!parts[1]||events[type][handler].type==parts</a>)delete
+events[type][handler];for(ret in <a
+href="http://type">events[type])break;if(!ret){if(!jQuery.event.special</a>||jQuery.event.special[type].teardown.call(elem)===false){if(elem.removeEventListener)elem.removeEventListener(type,jQuery.data(elem,&#8220;handle&#8221;),false);else
+if(elem.detachEvent)elem.detachEvent(&#8220;on&#8221;+type,jQuery.data(elem,&#8220;handle&#8221;));}ret=null;delete
+events[type];}}});}for(ret in events)break;if(!ret){var
+handle=jQuery.data(elem,&#8220;handle&#8221;);if(handle)handle.elem=null;jQuery.removeData(elem,&#8220;events&#8221;);jQuery.removeData(elem,&#8220;handle&#8221;);}}},trigger:function(type,data,elem,donative,extra){data=jQuery.makeArray(data);if(type.indexOf(&#8220;!&#8221;)>=0){type=type.slice(0,-1);var
+<a
+href="http://window,document">exclusive=true;}if(!elem){if(this.global[type])jQuery("*").add(</a>).trigger(type,data);}else{if(elem.nodeType==3||elem.nodeType==8)return
+undefined;var <a
+href="http://0">val,ret,fn=jQuery.isFunction(elem[type]||null),event=!data[0]||!data[0].preventDefault;if(event){data.unshift({type:type,target:elem,preventDefault:function(){},stopPropagation:function(){},timeStamp:now()});data</a>[<a
+href="http://0">expando]=true;}data[0].type=type;if(exclusive)data</a>.exclusive=true;var
+<a
+href="http://type">handle=jQuery.data(elem,"handle");if(handle)val=handle.apply(elem,data);if((!fn||(jQuery.nodeName(elem,'a')&&type=="click"))&&elem["on"+type]&&elem["on"+type].apply(elem,data)===false)val=false;if(event)data.shift();if(extra&&jQuery.isFunction(extra)){ret=extra.apply(elem,val==null?data:data.concat(val));if(ret!==undefined)val=ret;}if(fn&&donative!==false&&val!==false&&!(jQuery.nodeName(elem,'a')&&type=="click")){this.triggered=true;try{elem</a>();}catch(e){}}this.triggered=false;}return
+val;},handle:function(event){var <a
+href="http://0">val,ret,namespace,all,handlers;event=arguments[0]=jQuery.event.fix(event||window.event);namespace=event.type.split(".");event.type=namespace</a>;<a
+href="http://event.type">namespace=namespace[1];all=!namespace&&!event.exclusive;handlers=(jQuery.data(this,"events")||{})</a>;for(var
+j in handlers){var
+handler=handlers[j];if(all||handler.type==namespace){event.handler=handler;event.data=handler.data;ret=handler.apply(this,arguments);if(val!==false)val=ret;if(ret===false){event.preventDefault();event.stopPropagation();}}}return
+val;},fix:function(event){if(event[expando]==true)return event;var
+originalEvent=event;event={originalEvent:originalEvent};var
+props=&#8220;altKey attrChange attrName bubbles button cancelable charCode
+clientX clientY ctrlKey currentTarget data detail eventPhase fromElement
+handler keyCode metaKey newValue originalTarget pageX pageY prevValue
+relatedNode relatedTarget screenX screenY shiftKey srcElement target
+timeStamp toElement type view wheelDelta which&#8221;.split(&#8220;
+&#8220;);for(var
+i=props.length;i;i&#8212;)event[props[i]]=originalEvent[props[i]];event[expando]=true;event.preventDefault=function(){if(originalEvent.preventDefault)originalEvent.preventDefault();originalEvent.returnValue=false;};event.stopPropagation=function(){if(originalEvent.stopPropagation)originalEvent.stopPropagation();originalEvent.cancelBubble=true;};event.timeStamp=event.timeStamp||now();if(!event.target)event.target=event.srcElement||document;if(event.target.nodeType==3)event.target=event.target.parentNode;if(!event.relatedTarget&amp;&amp;event.fromElement)event.relatedTarget=event.fromElement==event.target?event.toElement:event.fromElement;if(event.pageX==null&amp;&amp;event.clientX!=null){var
+doc=document.documentElement,body=document.body;event.pageX=event.clientX+(doc&amp;&amp;doc.scrollLeft||body&amp;&amp;body.scrollLeft||0)-(doc.clientLeft||0);event.pageY=event.clientY+(doc&amp;&amp;doc.scrollTop||body&amp;&amp;body.scrollTop||0)-(doc.clientTop||0);}if(!event.which&amp;&amp;((event.charCode||event.charCode===0)?event.charCode:event.keyCode))event.which=event.charCode||event.keyCode;if(!event.metaKey&amp;&amp;event.ctrlKey)event.metaKey=event.ctrlKey;if(!event.which&amp;&amp;event.button)event.which=(event.button&amp;1?1:(event.button&amp;2?3:(event.button&amp;4?2:0)));return
+event;},proxy:function(fn,proxy){proxy.guid=fn.guid=fn.guid||proxy.guid||this.guid++;return
+proxy;},special:{ready:{setup:function(){bindReady();return;},teardown:function(){return;}},mouseenter:{setup:function(){if(jQuery.browser.msie)return
+false;jQuery(this).bind(&#8220;mouseover&#8221;,jQuery.event.special.mouseenter.handler);return
+true;},teardown:function(){if(jQuery.browser.msie)return
+false;jQuery(this).unbind(&#8220;mouseover&#8221;,jQuery.event.special.mouseenter.handler);return
+true;},handler:function(event){if(withinElement(event,this))return
+true;event.type=&#8220;mouseenter&#8221;;return
+jQuery.event.handle.apply(this,arguments);}},mouseleave:{setup:function(){if(jQuery.browser.msie)return
+false;jQuery(this).bind(&#8220;mouseout&#8221;,jQuery.event.special.mouseleave.handler);return
+true;},teardown:function(){if(jQuery.browser.msie)return
+false;jQuery(this).unbind(&#8220;mouseout&#8221;,jQuery.event.special.mouseleave.handler);return
+true;},handler:function(event){if(withinElement(event,this))return
+true;event.type=&#8220;mouseleave&#8221;;return
+jQuery.event.handle.apply(this,arguments);}}}};jQuery.fn.extend({bind:function(type,data,fn){return
+type==&#8220;unload&#8221;?this.one(type,data,fn):this.each(function(){jQuery.event.add(this,type,fn||data,fn&amp;&amp;data);});},one:function(type,data,fn){var
+one=jQuery.event.proxy(fn||data,function(event){jQuery(this).unbind(event,one);return(fn||data).apply(this,arguments);});return
+this.each(function(){jQuery.event.add(this,type,one,fn&amp;&amp;data);});},unbind:function(type,fn){return
+this.each(function(){jQuery.event.remove(this,type,fn);});},trigger:function(type,data,fn){return
+this.each(function(){jQuery.event.trigger(type,data,this,true,fn);});},triggerHandler:function(type,data,fn){return
+<a
+href="http://0">this[0]&&jQuery.event.trigger(type,data,this</a>,false,fn);},toggle:function(fn){var
+args=arguments,i=1;while(i<args.length)jQuery.event.proxy(fn,args[i++]);return
+this.click(jQuery.event.proxy(fn,function(event){this.lastToggle=(this.lastToggle||0)%i;event.preventDefault();return
+<a
+href="http://this.lastToggle++">args</a>.apply(this,arguments)||false;}));},hover:function(fnOver,fnOut){return
+this.bind(&#8216;mouseenter&#8217;,fnOver).bind(&#8216;mouseleave&#8217;,fnOut);},ready:function(fn){bindReady();if(jQuery.isReady)fn.call(document,jQuery);else
+jQuery.readyList.push(function(){return fn.call(this,jQuery);});return
+this;}});jQuery.extend({isReady:false,readyList:[],ready:function(){if(!jQuery.isReady){jQuery.isReady=true;if(jQuery.readyList){jQuery.each(jQuery.readyList,function(){this.call(document);});jQuery.readyList=null;}jQuery(document).triggerHandler(&#8220;ready&#8221;);}}});var
+readyBound=false;function
+bindReady(){if(readyBound)return;readyBound=true;if(document.addEventListener&amp;&amp;!jQuery.browser.opera)document.addEventListener(&#8220;DOMContentLoaded&#8221;,jQuery.ready,false);if(jQuery.browser.msie&amp;&amp;window==top)(function(){if(jQuery.isReady)return;try{document.documentElement.doScroll(&#8220;left&#8221;);}catch(error){setTimeout(arguments.callee,0);return;}jQuery.ready();})();if(jQuery.browser.opera)document.addEventListener(&#8220;DOMContentLoaded&#8221;,function(){if(jQuery.isReady)return;for(var
+i=0;i<document.styleSheets.length;i++)if(document.styleSheets[i].disabled){setTimeout(arguments.callee,0);return;}jQuery.ready();},false);if(jQuery.browser.safari){var
+numStyles;(function(){if(jQuery.isReady)return;if(document.readyState!=&#8220;loaded&#8221;&amp;&amp;document.readyState!=&#8220;complete&#8221;){setTimeout(arguments.callee,0);return;}if(numStyles===undefined)numStyles=jQuery(&#8220;style,
+<a
+href="http://name">link[rel=stylesheet]").length;if(document.styleSheets.length!=numStyles){setTimeout(arguments.callee,0);return;}jQuery.ready();})();}jQuery.event.add(window,"load",jQuery.ready);}jQuery.each(("blur,focus,load,resize,scroll,unload,click,dblclick,"+"mousedown,mouseup,mousemove,mouseover,mouseout,change,select,"+"submit,keydown,keypress,keyup,error").split(","),function(i,name){jQuery.fn</a>=function(fn){return
+fn?this.bind(name,fn):this.trigger(name);};});var
+withinElement=function(event,elem){var
+parent=event.relatedTarget;while(parent&amp;&amp;parent!=elem)try{parent=parent.parentNode;}catch(error){parent=elem;}return
+parent==elem;};jQuery(window).bind(&#8220;unload&#8221;,function(){jQuery(&#8220;*&#8221;).add(document).unbind();});jQuery.fn.extend({_load:jQuery.fn.load,load:function(url,params,callback){if(typeof
+url!=&#8217;string&#8217;)return this._load(url);var
+off=url.indexOf(&#8220; &#8220;);if(off>=0){var
+selector=url.slice(off,url.length);url=url.slice(0,off);}callback=callback||function(){};var
+type=&#8220;GET&#8221;;if(params)if(jQuery.isFunction(params)){callback=params;params=null;}else{params=jQuery.param(params);type=&#8220;POST&#8221;;}var
+<a
+href="http://res.responseText,status,res">self=this;jQuery.ajax({url:url,type:type,dataType:"html",data:params,complete:function(res,status){if(status=="success"||status=="notmodified")self.html(selector?jQuery("<div/>").append(res.responseText.replace(/<script(.|\s)*?\/script>/g,"")).find(selector):res.responseText);self.each(callback,</a>);}});return
+this;},serialize:function(){return
+jQuery.param(this.serializeArray());},serializeArray:function(){return
+this.map(function(){return
+jQuery.nodeName(this,&#8220;form&#8221;)?jQuery.makeArray(this.elements):this;}).filter(function(){return
+this.name&amp;&amp;!this.disabled&amp;&amp;(this.checked||/select|textarea/i.test(this.nodeName)||/text|hidden|password/i.test(this.type));}).map(function(i,elem){var
+val=jQuery(this).val();return val==null?null:val.constructor==<a
+href="../../Array.html">Array</a>?jQuery.map(val,function(val,i){return{name:elem.name,value:val};}):{name:elem.name,value:val};}).get();}});jQuery.each(&#8220;ajaxStart,ajaxStop,ajaxComplete,ajaxError,ajaxSuccess,ajaxSend&#8221;.split(&#8220;,&#8221;),function(i,o){jQuery.fn[o]=function(f){return
+this.bind(o,f);};});var
+jsc=now();jQuery.extend({get:function(url,data,callback,type){if(jQuery.isFunction(data)){callback=data;data=null;}return
+jQuery.ajax({type:&#8220;GET&#8221;,url:url,data:data,success:callback,dataType:type});},getScript:function(url,callback){return
+jQuery.get(url,null,callback,&#8220;script&#8221;);},getJSON:function(url,data,callback){return
+jQuery.get(url,data,callback,&#8220;json&#8221;);},post:function(url,data,callback,type){if(jQuery.isFunction(data)){callback=data;data={};}return
+jQuery.ajax({type:&#8220;POST&#8221;,url:url,data:data,success:callback,dataType:type});},ajaxSetup:function(settings){jQuery.extend(jQuery.ajaxSettings,settings);},ajaxSettings:{url:location.href,global:true,type:&#8220;GET&#8221;,timeout:0,contentType:&#8220;application/x-www-form-urlencoded&#8221;,processData:true,async:true,data:null,username:null,password:null,accepts:{xml:&#8220;application/xml,
+text/xml&#8220;,html:&#8220;text/html&#8220;,script:&#8220;text/javascript,
+application/javascript&#8220;,json:&#8220;application/json,
+text/javascript&#8220;,text:&#8220;text/plain&#8220;,_default:&#8220;<b>/</b>&#8220;}},lastModified:{},ajax:function(s){s=jQuery.extend(true,s,jQuery.extend(true,{},jQuery.ajaxSettings,s));var
+jsonp,jsre=/=?(&amp;|$)/g,status,data,type=s.type.toUpperCase();if(s.data&amp;&amp;s.processData&amp;&amp;typeof
+s.data!=&#8220;string&#8221;)s.data=jQuery.param(s.data);if(s.dataType==&#8220;jsonp&#8221;){if(type==&#8220;GET&#8221;){if(!s.url.match(jsre))s.url+=(s.url.match(/?/)?&#8221;&amp;&#8221;:&#8221;?&#8221;)+(s.jsonp||&#8220;callback&#8221;)+&#8221;=?&#8221;;}else
+if(!s.data||!s.data.match(jsre))s.data=(s.data?s.data+&#8221;&amp;&#8221;:&#8221;&#8220;)+(s.jsonp||&#8220;callback&#8221;)+&#8221;=?&#8221;;s.dataType=&#8220;json&#8221;;}if(s.dataType==&#8220;json&#8221;&amp;&amp;(s.data&amp;&amp;s.data.match(jsre)||s.url.match(jsre))){jsonp=&#8220;jsonp&#8220;<tt>jsc</tt>+;if(s.data)s.data=(s.data+&#8221;&#8220;).replace(jsre,&#8221;=&#8220;<tt>jsonp</tt>&#8220;$1&#8221;);s.url=s.url.replace(jsre,&#8221;=&#8220;<tt>jsonp</tt>&#8220;$1&#8221;);s.dataType=&#8220;script&#8221;;window[jsonp]=function(tmp){data=tmp;success();complete();window[jsonp]=undefined;try{delete
+window[jsonp];}catch(e){}if(head)head.removeChild(script);};}if(s.dataType==&#8220;script&#8221;&amp;&amp;s.cache==null)s.cache=false;if(s.cache===false&amp;&amp;type==&#8220;GET&#8221;){var
+ts=now();var
+ret=s.url.replace(/(?|&amp;)_=.*?(&amp;|$)/,&#8221;$1_=&#8220;<tt>ts</tt>&#8220;$2&#8221;);s.url=ret+((ret==s.url)?(s.url.match(/?/)?&#8221;&amp;&#8221;:&#8221;?&#8221;)+&#8220;_=&#8221;+ts:&#8221;&#8220;);}if(s.data&amp;&amp;type==&#8220;GET&#8221;){s.url+=(s.url.match(/?/)?&#8221;&amp;&#8221;:&#8221;?&#8221;)+s.data;s.data=null;}if(s.global&amp;&amp;!jQuery.active++)jQuery.event.trigger(&#8220;ajaxStart&#8221;);var
+<a
+href="http://1">remote=/^(?:\w+:)?\/\/([^\/?#]+)/;if(s.dataType=="script"&&type=="GET"&&remote.test(s.url)&&remote.exec(s.url)</a>!=location.host){var
+head=document.getElementsByTagName(&#8220;head&#8221;)[0];var
+script=document.createElement(&#8220;script&#8221;);script.src=s.url;if(s.scriptCharset)script.charset=s.scriptCharset;if(!jsonp){var
+done=false;script.onload=script.onreadystatechange=function(){if(!done&amp;&amp;(!this.readyState||this.readyState==&#8220;loaded&#8221;||this.readyState==&#8220;complete&#8221;)){done=true;success();complete();head.removeChild(script);}};}head.appendChild(script);return
+undefined;}var requestDone=false;var xhr=window.ActiveXObject?new
+ActiveXObject(&#8220;Microsoft.XMLHTTP&#8220;):new
+XMLHttpRequest();if(s.username)xhr.open(type,s.url,s.async,s.username,s.password);else
+<a
+href="http://s.url">xhr.open(type,s.url,s.async);try{if(s.data)xhr.setRequestHeader("Content-Type",s.contentType);if(s.ifModified)xhr.setRequestHeader("If-Modified-Since",jQuery.lastModified</a>||&#8220;Thu,
+01 Jan 1970 00:00:00 <a
+href="http://s.dataType">GMT");xhr.setRequestHeader("X-Requested-With","XMLHttpRequest");xhr.setRequestHeader("Accept",s.dataType&&s.accepts</a>?<a
+href="http://s.dataType">s.accepts</a>+&#8221;,
+<b>/</b>&#8220;:s.accepts._default);}catch(e){}if(s.beforeSend&amp;&amp;s.beforeSend(xhr,s)===false){s.global&amp;&amp;jQuery.active&#8212;;xhr.abort();return
+false;}if(s.global)jQuery.event.trigger(&#8220;ajaxSend&#8221;,[xhr,s]);var
+onreadystatechange=function(isTimeout){if(!requestDone&amp;&amp;xhr&amp;&amp;(xhr.readyState==4||isTimeout==&#8220;timeout&#8221;)){requestDone=true;if(ival){clearInterval(ival);ival=null;}status=isTimeout==&#8220;timeout&#8221;&amp;&amp;&#8220;timeout&#8221;||!jQuery.httpSuccess(xhr)&amp;&amp;&#8220;error&#8221;||s.ifModified&amp;&amp;jQuery.httpNotModified(xhr,s.url)&amp;&amp;&#8220;notmodified&#8221;||&#8220;success&#8221;;if(status==&#8220;success&#8221;){try{data=jQuery.httpData(xhr,s.dataType,s.dataFilter);}catch(e){status=&#8220;parsererror&#8221;;}}if(status==&#8220;success&#8221;){var
+<a
+href="http://s.url">modRes;try{modRes=xhr.getResponseHeader("Last-Modified");}catch(e){}if(s.ifModified&&modRes)jQuery.lastModified</a>=modRes;if(!jsonp)success();}else
+jQuery.handleError(s,xhr,status);complete();if(s.async)xhr=null;}};if(s.async){var
+ival=setInterval(onreadystatechange,13);if(s.timeout>0)setTimeout(function(){if(xhr){xhr.abort();if(!requestDone)onreadystatechange(&#8220;timeout&#8221;);}},s.timeout);}try{xhr.send(s.data);}catch(e){jQuery.handleError(s,xhr,null,e);}if(!s.async)onreadystatechange();function
+success(){if(s.success)s.success(data,status);if(s.global)jQuery.event.trigger(&#8220;ajaxSuccess&#8221;,[xhr,s]);}function
+complete(){if(s.complete)s.complete(xhr,status);if(s.global)jQuery.event.trigger(&#8220;ajaxComplete&#8221;,[xhr,s]);if(s.global&amp;&amp;!&#8212;jQuery.active)jQuery.event.trigger(&#8220;ajaxStop&#8221;);}return
+xhr;},handleError:function(s,xhr,status,e){if(s.error)s.error(xhr,status,e);if(s.global)jQuery.event.trigger(&#8220;ajaxError&#8221;,[xhr,s,e]);},active:0,httpSuccess:function(xhr){try{return!xhr.status&amp;&amp;location.protocol==&#8220;file:&#8221;||(xhr.status>=200&amp;&amp;xhr.status<300)||xhr.status==304||xhr.status==1223||jQuery.browser.safari&amp;&amp;xhr.status==undefined;}catch(e){}return
+false;},httpNotModified:function(xhr,url){try{var
+xhrRes=xhr.getResponseHeader(&#8220;Last-Modified&#8221;);return
+xhr.status==304||xhrRes==jQuery.lastModified[url]||jQuery.browser.safari&amp;&amp;xhr.status==undefined;}catch(e){}return
+false;},httpData:function(xhr,type,filter){var
+ct=xhr.getResponseHeader(&#8220;content-type&#8221;),xml=type==&#8220;xml&#8221;||!type&amp;&amp;ct&amp;&amp;ct.indexOf(&#8220;xml&#8221;)>=0,data=xml?xhr.responseXML:xhr.responseText;if(xml&amp;&amp;data.documentElement.tagName==&#8220;parsererror&#8221;)throw&#8220;parsererror&#8221;;if(filter)data=filter(data,type);if(type==&#8220;script&#8221;)jQuery.globalEval(data);if(type==&#8220;json&#8221;)data=eval(&#8220;(&#8220;<tt>data</tt>&#8220;)&#8221;);return
+data;},param:function(a){var
+s=[];if(a.constructor==Array||a.jquery)jQuery.each(a,function(){s.push(encodeURIComponent(this.name)+&#8221;=&#8221;+encodeURIComponent(this.value));});else
+for(var j in <a
+href="http://j">a)if(a[j]&&a[j].constructor==Array)jQuery.each(a</a>,function(){s.push(encodeURIComponent(j)+&#8221;=&#8221;+encodeURIComponent(this));});else
+s.push(encodeURIComponent(j)+&#8221;=&#8221;+encodeURIComponent(jQuery.isFunction(a[j])?a[j]():a[j]));return
+s.join(&#8220;&amp;&#8221;).replace(/%20/g,&#8221;+&#8221;);}});jQuery.fn.extend({show:function(speed,callback){return
+speed?this.animate({height:&#8220;show&#8221;,width:&#8220;show&#8221;,opacity:&#8220;show&#8221;},speed,callback):this.filter(&#8220;:hidden&#8221;).each(function(){this.style.display=this.oldblock||&#8221;&#8220;;if(jQuery.css(this,&#8220;display&#8221;)==&#8220;none&#8221;){var
+elem=jQuery(&#8220;<&#8220;<tt>this.tagName</tt>&#8220;
+/>&#8221;).appendTo(&#8220;body&#8221;);this.style.display=elem.css(&#8220;display&#8221;);if(this.style.display==&#8220;none&#8221;)this.style.display=&#8220;block&#8221;;elem.remove();}}).end();},hide:function(speed,callback){return
+speed?this.animate({height:&#8220;hide&#8221;,width:&#8220;hide&#8221;,opacity:&#8220;hide&#8221;},speed,callback):this.filter(&#8220;:visible&#8221;).each(function(){this.oldblock=this.oldblock||jQuery.css(this,&#8220;display&#8221;);this.style.display=&#8220;none&#8221;;}).end();},_toggle:jQuery.fn.toggle,toggle:function(fn,fn2){return
+<a
+href="http://jQuery(this).is(":hidden")?"show":"hide"">jQuery.isFunction(fn)&&jQuery.isFunction(fn2)?this._toggle.apply(this,arguments):fn?this.animate({height:"toggle",width:"toggle",opacity:"toggle"},fn,fn2):this.each(function(){jQuery(this)</a>();});},slideDown:function(speed,callback){return
+this.animate({height:&#8220;show&#8221;},speed,callback);},slideUp:function(speed,callback){return
+this.animate({height:&#8220;hide&#8221;},speed,callback);},slideToggle:function(speed,callback){return
+this.animate({height:&#8220;toggle&#8221;},speed,callback);},fadeIn:function(speed,callback){return
+this.animate({opacity:&#8220;show&#8221;},speed,callback);},fadeOut:function(speed,callback){return
+this.animate({opacity:&#8220;hide&#8221;},speed,callback);},fadeTo:function(speed,to,callback){return
+this.animate({opacity:to},speed,callback);},animate:function(prop,speed,easing,callback){var
+optall=jQuery.speed(speed,easing,callback);return <a
+href="http://optall.queue===false?"each":"queue"">this</a>(function(){if(this.nodeType!=1)return
+false;var
+opt=jQuery.extend({},optall),p,hidden=jQuery(this).is(&#8220;:hidden&#8221;),self=this;for(p
+in
+prop){if(prop[p]==&#8220;hide&#8221;&amp;&amp;hidden||prop[p]==&#8220;show&#8221;&amp;&amp;!hidden)return
+opt.complete.call(this);if(p==&#8220;height&#8221;||p==&#8220;width&#8221;){opt.display=jQuery.css(this,&#8220;display&#8221;);opt.overflow=this.style.overflow;}}if(opt.overflow!=null)this.style.overflow=&#8220;hidden&#8221;;opt.curAnim=jQuery.extend({},prop);jQuery.each(prop,function(name,val){var
+e=new
+jQuery.fx(self,opt,name);if(/toggle|show|hide/.test(val))e[val==&#8220;toggle&#8221;?hidden?&#8220;show&#8221;:&#8220;hide&#8221;:val](prop);else{var
+parts=val.toString().match(/^([+-]=)?([d+-.]+)(.*)$/),start=e.cur(true)||0;if(parts){var
+<a
+href="http://name">end=parseFloat(parts[2]),unit=parts[3]||"px";if(unit!="px"){self.style</a>=(end||1)+unit;start=((end||1)/e.cur(true))*start;self.style[name]=start+unit;}if(parts[1])end=((parts[1]==&#8221;-=&#8221;?-1:1)*end)+start;e.custom(start,end,unit);}else
+e.custom(start,val,&#8221;&#8220;);}});return
+true;});},queue:function(type,fn){if(jQuery.isFunction(type)||(type&amp;&amp;type.constructor==<a
+href="../../Array.html">Array</a>)){fn=type;type=&#8220;fx&#8221;;}if(!type||(typeof
+type==&#8220;string&#8221;&amp;&amp;!fn))return queue(this[0],type);return
+this.each(function(){if(fn.constructor==<a
+href="../../Array.html">Array</a>)queue(this,type,fn);else{queue(this,type).push(fn);if(queue(this,type).length==1)fn.call(this);}});},stop:function(clearQueue,gotoEnd){var
+timers=jQuery.timers;if(clearQueue)this.queue([]);this.each(function(){for(var
+<a
+href="http://i">i=timers.length-1;i>=0;i--)if(timers[i].elem==this){if(gotoEnd)timers</a>(true);timers.splice(i,1);}});if(!gotoEnd)this.dequeue();return
+this;}});var
+queue=function(elem,type,array){if(elem){type=type||&#8220;fx&#8221;;var
+q=jQuery.data(elem,type+&#8220;queue&#8221;);if(!q||array)q=jQuery.data(elem,type+&#8220;queue&#8221;,jQuery.makeArray(array));}return
+q;};jQuery.fn.dequeue=function(type){type=type||&#8220;fx&#8221;;return
+this.each(function(){var
+q=queue(this,type);q.shift();if(q.length)q[0].call(this);});};jQuery.extend({speed:function(speed,easing,fn){var
+<a
+href="http://opt.duration">opt=speed&&speed.constructor==Object?speed:{complete:fn||!fn&&easing||jQuery.isFunction(speed)&&speed,duration:speed,easing:fn&&easing||easing&&easing.constructor!=Function&&easing};opt.duration=(opt.duration&&opt.duration.constructor==Number?opt.duration:jQuery.fx.speeds</a>)||jQuery.fx.speeds.def;opt.old=opt.complete;opt.complete=function(){if(opt.queue!==false)jQuery(this).dequeue();if(jQuery.isFunction(opt.old))opt.old.call(this);};return
+opt;},easing:{linear:function(p,n,firstNum,diff){return <a
+href="http://this.prop">firstNum+diff*p;},swing:function(p,n,firstNum,diff){return((-Math.cos(p*Math.PI)/2)+0.5)*diff+firstNum;}},timers:[],timerId:null,fx:function(elem,options,prop){this.options=options;this.elem=elem;this.prop=prop;if(!options.orig)options.orig={};}});jQuery.fx.prototype={update:function(){if(this.options.step)this.options.step.call(this.elem,this.now,this);(jQuery.fx.step</a>||<a
+href="http://this.prop">jQuery.fx.step._default)(this);if(this.prop=="height"||this.prop=="width")this.elem.style.display="block";},cur:function(force){if(this.elem</a>!=<a
+href="http://this.prop">null&&this.elem.style</a>==null)return <a
+href="http://this.prop">this.elem</a>;var
+r=parseFloat(jQuery.css(this.elem,this.prop,force));return
+r&amp;&amp;r>-10000?r:parseFloat(jQuery.curCSS(this.elem,this.prop))||0;},custom:function(from,to,unit){this.startTime=now();this.start=from;this.end=to;this.unit=unit||this.unit||&#8220;px&#8221;;this.now=this.start;this.pos=this.state=0;this.update();var
+self=this;function t(gotoEnd){return
+self.step(gotoEnd);}t.elem=this.elem;jQuery.timers.push(t);if(jQuery.timerId==null){jQuery.timerId=setInterval(function(){var
+timers=jQuery.timers;for(var <a
+href="http://this.prop">i=0;i<timers.length;i++)if(!timers[i]())timers.splice(i--,1);if(!timers.length){clearInterval(jQuery.timerId);jQuery.timerId=null;}},13);}},show:function(){this.options.orig</a>=<a
+href="http://this.prop">jQuery.attr(this.elem.style,this.prop);this.options.show=true;this.custom(0,this.cur());if(this.prop=="width"||this.prop=="height")this.elem.style</a>=&#8220;<a
+href="http://this.prop">1px";jQuery(this.elem).show();},hide:function(){this.options.orig</a>=jQuery.attr(this.elem.style,this.prop);this.options.hide=true;this.custom(this.cur(),0);},step:function(gotoEnd){var
+<a
+href="http://this.prop">t=now();if(gotoEnd||t>this.options.duration+this.startTime){this.now=this.end;this.pos=this.state=1;this.update();this.options.curAnim</a>=true;var
+done=true;for(var i in
+this.options.curAnim)if(this.options.curAnim[i]!==true)done=false;if(done){if(this.options.display!=null){this.elem.style.overflow=this.options.overflow;this.elem.style.display=this.options.display;if(jQuery.css(this.elem,&#8220;display&#8221;)==&#8220;none&#8221;)this.elem.style.display=&#8220;block&#8221;;}if(this.options.hide)this.elem.style.display=&#8220;none&#8221;;if(this.options.hide||this.options.show)for(var
+p in
+this.options.curAnim)jQuery.attr(this.elem.style,p,this.options.orig[p]);}if(done)this.options.complete.call(this.elem);return
+false;}else{var <a
+href="http://this.options.easing||(jQuery.easing.swing?"swing":"linear")">n=t-this.startTime;this.state=n/this.options.duration;this.pos=jQuery.easing</a>(this.state,n,0,1,this.options.duration);this.now=this.start+((this.end-this.start)*this.pos);this.update();}return
+<a
+href="http://fx.prop">true;}};jQuery.extend(jQuery.fx,{speeds:{slow:600,fast:200,def:400},step:{scrollLeft:function(fx){fx.elem.scrollLeft=fx.now;},scrollTop:function(fx){fx.elem.scrollTop=fx.now;},opacity:function(fx){jQuery.attr(fx.elem.style,"opacity",fx.now);},_default:function(fx){fx.elem.style</a>=fx.now+fx.unit;}}});jQuery.fn.offset=function(){var
+left=0,top=0,elem=this[0],results;if(elem)with(jQuery.browser){var
+parent=elem.parentNode,offsetChild=elem,offsetParent=elem.offsetParent,doc=elem.ownerDocument,safari2=safari&amp;&amp;parseInt(version)<522&amp;&amp;!/adobeair/i.test(userAgent),css=jQuery.curCSS,fixed=css(elem,&#8220;position&#8221;)==&#8220;fixed&#8221;;if(elem.getBoundingClientRect){var
+box=elem.getBoundingClientRect();add(box.left+Math.max(doc.documentElement.scrollLeft,doc.body.scrollLeft),box.top+Math.max(doc.documentElement.scrollTop,doc.body.scrollTop));add(-doc.documentElement.clientLeft,-doc.documentElement.clientTop);}else{add(elem.offsetLeft,elem.offsetTop);while(offsetParent){add(offsetParent.offsetLeft,offsetParent.offsetTop);if(mozilla&amp;&amp;!/^t(able|d|h)$/i.test(offsetParent.tagName)||safari&amp;&amp;!safari2)border(offsetParent);if(!fixed&amp;&amp;css(offsetParent,&#8220;position&#8221;)==&#8220;fixed&#8221;)fixed=true;offsetChild=/^body$/i.test(offsetParent.tagName)?offsetChild:offsetParent;offsetParent=offsetParent.offsetParent;}while(parent&amp;&amp;parent.tagName&amp;&amp;!/^body|html$/i.test(parent.tagName)){if(!/^inline|table.*$/i.test(css(parent,&#8220;display&#8221;)))add(-parent.scrollLeft,-parent.scrollTop);if(mozilla&amp;&amp;css(parent,&#8220;overflow&#8221;)!=&#8220;visible&#8221;)border(parent);parent=parent.parentNode;}if((safari2&amp;&amp;(fixed||css(offsetChild,&#8220;position&#8221;)==&#8220;absolute&#8221;))||(mozilla&amp;&amp;css(offsetChild,&#8220;position&#8221;)!=&#8220;absolute&#8221;))add(-doc.body.offsetLeft,-doc.body.offsetTop);if(fixed)add(Math.max(doc.documentElement.scrollLeft,doc.body.scrollLeft),Math.max(doc.documentElement.scrollTop,doc.body.scrollTop));}results={top:top,left:left};}function
+border(elem){add(jQuery.curCSS(elem,&#8220;borderLeftWidth&#8221;,true),jQuery.curCSS(elem,&#8220;borderTopWidth&#8221;,true));}function
+add(l,t){left+=parseInt(l,10)||0;top+=parseInt(t,10)||0;}return
+results;};jQuery.fn.extend({position:function(){var
+left=0,top=0,results;if(this[0]){var
+offsetParent=this.offsetParent(),offset=this.offset(),parentOffset=/^body|html$/i.test(offsetParent[0].tagName)?{top:0,left:0}:offsetParent.offset();offset.top-=num(this,&#8217;marginTop&#8217;);offset.left-=num(this,&#8217;marginLeft&#8217;);parentOffset.top+=num(offsetParent,&#8217;borderTopWidth&#8217;);parentOffset.left+=num(offsetParent,&#8217;borderLeftWidth&#8217;);results={top:offset.top-parentOffset.top,left:offset.left-parentOffset.left};}return
+results;},offsetParent:function(){var
+offsetParent=this[0].offsetParent;while(offsetParent&amp;&amp;(!/^body|html$/i.test(offsetParent.tagName)&amp;&amp;jQuery.css(offsetParent,&#8217;position&#8217;)==&#8217;static&#8217;))offsetParent=offsetParent.offsetParent;return
+jQuery(offsetParent);}});jQuery.each([&#8216;Left&#8217;,&#8217;Top&#8217;],function(i,name){var
+method=&#8217;scroll&#8217;+name;jQuery.fn[method]=function(val){if(!this[0])return;return
+<a
+href="http://method">val!=undefined?this.each(function(){this==window||this==document?window.scrollTo(!i?val:jQuery(window).scrollLeft(),i?val:jQuery(window).scrollTop()):this[method]=val;}):this[0]==window||this[0]==document?self[i?'pageYOffset':'pageXOffset']||jQuery.boxModel&&document.documentElement</a>||<a
+href="http://"Height","Width"">document.body[method]:this[0][method];};});jQuery.each(</a>,function(i,name){var
+tl=i?&#8220;Left&#8221;:&#8220;Top&#8221;,br=i?&#8220;Right&#8221;:&#8220;Bottom&#8221;;jQuery.fn[&#8220;inner&#8221;+name]=function(){return
+<a
+href="http://name.toLowerCase()">this</a>()+num(this,&#8220;padding&#8221;+tl)+num(this,&#8220;padding&#8221;+br);};jQuery.fn[&#8220;outer&#8221;+name]=function(margin){return
+this[&#8220;inner&#8221;+name]()+num(this,&#8220;border&#8220;<tt>tl</tt>&#8220;Width&#8221;)+num(this,&#8220;border&#8220;<tt>br</tt>&#8220;Width&#8221;)+(margin?num(this,&#8220;margin&#8221;+tl)+num(this,&#8220;margin&#8221;+br):0);};});})();
+</p>
+
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+</body>
+</html>
+

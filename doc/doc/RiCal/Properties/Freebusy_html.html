@@ -1,0 +1,3762 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>File: Freebusy.html [RDoc Documentation]</title>
+
+	<link type="text/css" media="screen" href="../../../rdoc.css" rel="stylesheet" />
+
+	<script src="../../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+</head>
+
+<body class="file">
+  <div id="metadata">
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../../History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../../Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../../README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../../Rakefile.html">Rakefile</a></li>
+				
+					<li class="file"><a href="../../../component_attributes/alarm_yml.html">alarm.yml</a></li>
+				
+					<li class="file"><a href="../../../component_attributes/calendar_yml.html">calendar.yml</a></li>
+				
+					<li class="file"><a href="../../../component_attributes/component_property_defs_yml.html">component_property_defs.yml</a></li>
+				
+					<li class="file"><a href="../../../component_attributes/event_yml.html">event.yml</a></li>
+				
+					<li class="file"><a href="../../../component_attributes/freebusy_yml.html">freebusy.yml</a></li>
+				
+					<li class="file"><a href="../../../component_attributes/journal_yml.html">journal.yml</a></li>
+				
+					<li class="file"><a href="../../../component_attributes/timezone_period_yml.html">timezone_period.yml</a></li>
+				
+					<li class="file"><a href="../../../component_attributes/todo_yml.html">todo.yml</a></li>
+				
+					<li class="file"><a href="../../../doc/Array_html.html">Array.html</a></li>
+				
+					<li class="file"><a href="../../../doc/Date_html.html">Date.html</a></li>
+				
+					<li class="file"><a href="../../../doc/DateTime_html.html">DateTime.html</a></li>
+				
+					<li class="file"><a href="../../../doc/History_txt_html.html">History_txt.html</a></li>
+				
+					<li class="file"><a href="../../../doc/Manifest_txt_html.html">Manifest_txt.html</a></li>
+				
+					<li class="file"><a href="../../../doc/Object_html.html">Object.html</a></li>
+				
+					<li class="file"><a href="../../../doc/README_txt_html.html">README_txt.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal_html.html">RiCal.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component_html.html">Component.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component/Alarm_html.html">Alarm.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component/Calendar_html.html">Calendar.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component/Event_html.html">Event.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component/Freebusy_html.html">Freebusy.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component/Journal_html.html">Journal.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component/TZInfoTimezone_html.html">TZInfoTimezone.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component/Timezone_html.html">Timezone.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component/Timezone/DaylightPeriod_html.html">DaylightPeriod.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component/Timezone/StandardPeriod_html.html">StandardPeriod.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component/Timezone/TimezonePeriod_html.html">TimezonePeriod.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Component/Todo_html.html">Todo.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions_html.html">CoreExtensions.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/Array_html.html">Array.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/Array/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/Date_html.html">Date.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/Date/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/DateTime_html.html">DateTime.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/DateTime/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/Object_html.html">Object.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/Object/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/String_html.html">String.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/String/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/Time_html.html">Time.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/Time/Calculations_html.html">Calculations.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/Time/Conversions_html.html">Conversions.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/CoreExtensions/Time/WeekDayPredicates_html.html">WeekDayPredicates.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Event_html.html">Event.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/OccurrenceEnumerator_html.html">OccurrenceEnumerator.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/OccurrenceEnumerator/EmptyRulesEnumerator_html.html">EmptyRulesEnumerator.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/OccurrenceEnumerator/EnumerationInstance_html.html">EnumerationInstance.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/OccurrenceEnumerator/OccurrenceMerger_html.html">OccurrenceMerger.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Parser_html.html">Parser.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties_html.html">Properties.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Alarm_html.html">Alarm.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Alarm/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Calendar_html.html">Calendar.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Calendar/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Event_html.html">Event.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Event/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Freebusy_html.html">Freebusy.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Freebusy/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Journal_html.html">Journal.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Journal/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/TimezonePeriod_html.html">TimezonePeriod.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/TimezonePeriod/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Todo_html.html">Todo.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/Properties/Todo/ClassMethods_html.html">ClassMethods.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue_html.html">PropertyValue.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/Array_html.html">Array.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/CalAddress_html.html">CalAddress.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/Date_html.html">Date.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/DateTime_html.html">DateTime.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/Duration_html.html">Duration.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/Geo_html.html">Geo.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/Integer_html.html">Integer.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/OccurrenceList_html.html">OccurrenceList.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/OccurrenceList/Enumerator_html.html">Enumerator.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/Period_html.html">Period.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/RecurrenceRule_html.html">RecurrenceRule.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/RecurrenceRule/Enumerator_html.html">Enumerator.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/RecurrenceRule/NegativeSetposEnumerator_html.html">NegativeSetposEnumerator.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/RecurrenceRule/NumberedSpan_html.html">NumberedSpan.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/RecurrenceRule/RecurringDay_html.html">RecurringDay.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/RecurrenceRule/RecurringMonthDay_html.html">RecurringMonthDay.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/RecurrenceRule/RecurringNumberedWeek_html.html">RecurringNumberedWeek.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/RecurrenceRule/RecurringYearDay_html.html">RecurringYearDay.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/RecurrenceRule/Validations_html.html">Validations.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/Text_html.html">Text.html</a></li>
+				
+					<li class="file"><a href="../../../doc/RiCal/PropertyValue/Uri_html.html">Uri.html</a></li>
+				
+					<li class="file"><a href="../../../doc/String_html.html">String.html</a></li>
+				
+					<li class="file"><a href="../../../doc/Time_html.html">Time.html</a></li>
+				
+					<li class="file"><a href="../../../doc/bin/ri_cal_html.html">ri_cal.html</a></li>
+				
+					<li class="file"><a href="../../../doc/created_rid.html">created.rid</a></li>
+				
+					<li class="file"><a href="../../../doc/docs/draft-ietf-calsify-2446bis-08_txt_html.html">draft-ietf-calsify-2446bis-08_txt.html</a></li>
+				
+					<li class="file"><a href="../../../doc/docs/draft-ietf-calsify-rfc2445bis-09_txt_html.html">draft-ietf-calsify-rfc2445bis-09_txt.html</a></li>
+				
+					<li class="file"><a href="../../../doc/help/History_txt_html.html">History_txt.html</a></li>
+				
+					<li class="file"><a href="../../../doc/help/Manifest_txt_html.html">Manifest_txt.html</a></li>
+				
+					<li class="file"><a href="../../../doc/help/README_txt_html.html">README_txt.html</a></li>
+				
+					<li class="file"><a href="../../../doc/index_html.html">index.html</a></li>
+				
+					<li class="file"><a href="../../../doc/js/darkfish_js.html">darkfish.js</a></li>
+				
+					<li class="file"><a href="../../../doc/js/jquery_js.html">jquery.js</a></li>
+				
+					<li class="file"><a href="../../../doc/js/quicksearch_js.html">quicksearch.js</a></li>
+				
+					<li class="file"><a href="../../../doc/js/thickbox-compressed_js.html">thickbox-compressed.js</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component/alarm_rb_html.html">alarm_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component/calendar_rb_html.html">calendar_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component/event_rb_html.html">event_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component/freebusy_rb_html.html">freebusy_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component/journal_rb_html.html">journal_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component/t_z_info_timezone_rb_html.html">t_z_info_timezone_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component/timezone/daylight_period_rb_html.html">daylight_period_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component/timezone/standard_period_rb_html.html">standard_period_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component/timezone/timezone_period_rb_html.html">timezone_period_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component/timezone_rb_html.html">timezone_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component/todo_rb_html.html">todo_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/component_rb_html.html">component_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/array/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/array_rb_html.html">array_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/date/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/date_rb_html.html">date_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/date_time/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/date_time_rb_html.html">date_time_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/object/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/object_rb_html.html">object_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/string/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/string_rb_html.html">string_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/time/calculations_rb_html.html">calculations_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/time/conversions_rb_html.html">conversions_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/time/week_day_predicates_rb_html.html">week_day_predicates_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions/time_rb_html.html">time_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/core_extensions_rb_html.html">core_extensions_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/event_rb_html.html">event_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/occurrence_enumerator_rb_html.html">occurrence_enumerator_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/parser_rb_html.html">parser_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/properties/alarm_rb_html.html">alarm_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/properties/calendar_rb_html.html">calendar_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/properties/event_rb_html.html">event_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/properties/freebusy_rb_html.html">freebusy_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/properties/journal_rb_html.html">journal_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/properties/timezone_period_rb_html.html">timezone_period_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/properties/todo_rb_html.html">todo_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/array_rb_html.html">array_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/cal_address_rb_html.html">cal_address_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/date_rb_html.html">date_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/date_time_rb_html.html">date_time_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/duration_rb_html.html">duration_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/geo_rb_html.html">geo_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/integer_rb_html.html">integer_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/occurrence_list_rb_html.html">occurrence_list_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/period_rb_html.html">period_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/recurrence_rule/enumerator_rb_html.html">enumerator_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/recurrence_rule/negative_setpos_enumerator_rb_html.html">negative_setpos_enumerator_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/recurrence_rule/numbered_span_rb_html.html">numbered_span_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/recurrence_rule/recurring_day_rb_html.html">recurring_day_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/recurrence_rule/recurring_month_day_rb_html.html">recurring_month_day_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/recurrence_rule/recurring_numbered_week_rb_html.html">recurring_numbered_week_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/recurrence_rule/recurring_year_day_rb_html.html">recurring_year_day_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/recurrence_rule/validations_rb_html.html">validations_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/recurrence_rule_rb_html.html">recurrence_rule_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/text_rb_html.html">text_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value/uri_value_rb_html.html">uri_value_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal/property_value_rb_html.html">property_value_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/lib/ri_cal_rb_html.html">ri_cal_rb.html</a></li>
+				
+					<li class="file"><a href="../../../doc/rdoc_css.html">rdoc.css</a></li>
+				
+					<li class="file"><a href="../../../docs/draft-ietf-calsify-2446bis-08_txt.html">draft-ietf-calsify-2446bis-08.txt</a></li>
+				
+					<li class="file"><a href="../../../docs/draft-ietf-calsify-rfc2445bis-09_txt.html">draft-ietf-calsify-rfc2445bis-09.txt</a></li>
+				
+					<li class="file"><a href="../../../help/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../../help/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../../help/README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../../help/Rakefile.html">Rakefile</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/Rakefile.html">Rakefile</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/component_attributes/alarm_yml.html">alarm.yml</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/component_attributes/calendar_yml.html">calendar.yml</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/component_attributes/component_property_defs_yml.html">component_property_defs.yml</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/component_attributes/event_yml.html">event.yml</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/component_attributes/freebusy_yml.html">freebusy.yml</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/component_attributes/journal_yml.html">journal.yml</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/component_attributes/timezone_period_yml.html">timezone_period.yml</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/component_attributes/todo_yml.html">todo.yml</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/docs/draft-ietf-calsify-2446bis-08_txt.html">draft-ietf-calsify-2446bis-08.txt</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/docs/draft-ietf-calsify-rfc2445bis-09_txt.html">draft-ietf-calsify-rfc2445bis-09.txt</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/help/History_txt.html">History.txt</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/help/Manifest_txt.html">Manifest.txt</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/help/README_txt.html">README.txt</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/help/Rakefile.html">Rakefile</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/spec/spec_opts.html">spec.opts</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/ann_rake.html">ann.rake</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/bones_rake.html">bones.rake</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/gem_rake.html">gem.rake</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/git_rake.html">git.rake</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/notes_rake.html">notes.rake</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/post_load_rake.html">post_load.rake</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/rdoc_rake.html">rdoc.rake</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/ri_cal_rake.html">ri_cal.rake</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/rubyforge_rake.html">rubyforge.rake</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/spec_rake.html">spec.rake</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/svn_rake.html">svn.rake</a></li>
+				
+					<li class="file"><a href="../../../pkg/ri_cal-0_0_1/tasks/test_rake.html">test.rake</a></li>
+				
+					<li class="file"><a href="../../../sample_ical_files/from_ical_dot_app/test1_ics.html">test1.ics</a></li>
+				
+					<li class="file"><a href="../../../spec/spec_opts.html">spec.opts</a></li>
+				
+					<li class="file"><a href="../../../tasks/ri_cal_rake.html">ri_cal.rake</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../../RiCal.html">RiCal</a></li>
+				
+					<li><a href="../../../RiCal/Component.html">RiCal::Component</a></li>
+				
+					<li><a href="../../../RiCal/Component/Alarm.html">RiCal::Component::Alarm</a></li>
+				
+					<li><a href="../../../RiCal/Component/Calendar.html">RiCal::Component::Calendar</a></li>
+				
+					<li><a href="../../../RiCal/Component/Event.html">RiCal::Component::Event</a></li>
+				
+					<li><a href="../../../RiCal/Component/Freebusy.html">RiCal::Component::Freebusy</a></li>
+				
+					<li><a href="../../../RiCal/Component/Journal.html">RiCal::Component::Journal</a></li>
+				
+					<li><a href="../../../RiCal/Component/TZInfoTimezone.html">RiCal::Component::TZInfoTimezone</a></li>
+				
+					<li><a href="../../../RiCal/Component/TZInfoTimezone/Period.html">RiCal::Component::TZInfoTimezone::Period</a></li>
+				
+					<li><a href="../../../RiCal/Component/Timezone.html">RiCal::Component::Timezone</a></li>
+				
+					<li><a href="../../../RiCal/Component/Timezone/DaylightPeriod.html">RiCal::Component::Timezone::DaylightPeriod</a></li>
+				
+					<li><a href="../../../RiCal/Component/Timezone/StandardPeriod.html">RiCal::Component::Timezone::StandardPeriod</a></li>
+				
+					<li><a href="../../../RiCal/Component/Timezone/TimezonePeriod.html">RiCal::Component::Timezone::TimezonePeriod</a></li>
+				
+					<li><a href="../../../RiCal/Component/Todo.html">RiCal::Component::Todo</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions.html">RiCal::CoreExtensions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Array.html">RiCal::CoreExtensions::Array</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Array/Conversions.html">RiCal::CoreExtensions::Array::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Date.html">RiCal::CoreExtensions::Date</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Date/Conversions.html">RiCal::CoreExtensions::Date::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/DateTime.html">RiCal::CoreExtensions::DateTime</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/DateTime/Conversions.html">RiCal::CoreExtensions::DateTime::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Object.html">RiCal::CoreExtensions::Object</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Object/Conversions.html">RiCal::CoreExtensions::Object::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/String.html">RiCal::CoreExtensions::String</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/String/Conversions.html">RiCal::CoreExtensions::String::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Time.html">RiCal::CoreExtensions::Time</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Time/Calculations.html">RiCal::CoreExtensions::Time::Calculations</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Time/Conversions.html">RiCal::CoreExtensions::Time::Conversions</a></li>
+				
+					<li><a href="../../../RiCal/CoreExtensions/Time/WeekDayPredicates.html">RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
+				
+					<li><a href="../../../RiCal/Event.html">RiCal::Event</a></li>
+				
+					<li><a href="../../../RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
+				
+					<li><a href="../../../RiCal/Properties.html">RiCal::Properties</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Alarm.html">RiCal::Properties::Alarm</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Alarm/ClassMethods.html">RiCal::Properties::Alarm::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Calendar.html">RiCal::Properties::Calendar</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Calendar/ClassMethods.html">RiCal::Properties::Calendar::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Event.html">RiCal::Properties::Event</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Event/ClassMethods.html">RiCal::Properties::Event::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Freebusy.html">RiCal::Properties::Freebusy</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Freebusy/ClassMethods.html">RiCal::Properties::Freebusy::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Journal.html">RiCal::Properties::Journal</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Journal/ClassMethods.html">RiCal::Properties::Journal::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/TimezonePeriod.html">RiCal::Properties::TimezonePeriod</a></li>
+				
+					<li><a href="../../../RiCal/Properties/TimezonePeriod/ClassMethods.html">RiCal::Properties::TimezonePeriod::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Todo.html">RiCal::Properties::Todo</a></li>
+				
+					<li><a href="../../../RiCal/Properties/Todo/ClassMethods.html">RiCal::Properties::Todo::ClassMethods</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue.html">RiCal::PropertyValue</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/CalAddress.html">RiCal::PropertyValue::CalAddress</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Date.html">RiCal::PropertyValue::Date</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/DateTime.html">RiCal::PropertyValue::DateTime</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Duration.html">RiCal::PropertyValue::Duration</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Geo.html">RiCal::PropertyValue::Geo</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/OccurrenceList.html">RiCal::PropertyValue::OccurrenceList</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Period.html">RiCal::PropertyValue::Period</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Text.html">RiCal::PropertyValue::Text</a></li>
+				
+					<li><a href="../../../RiCal/PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a></li>
+				
+					<li><a href="../../../Array.html">Array</a></li>
+				
+					<li><a href="../../../Date.html">Date</a></li>
+				
+					<li><a href="../../../DateTime.html">DateTime</a></li>
+				
+					<li><a href="../../../Help.html">Help</a></li>
+				
+					<li><a href="../../../Kernel.html">Kernel</a></li>
+				
+					<li><a href="../../../Object.html">Object</a></li>
+				
+					<li><a href="../../../OpenStruct.html">OpenStruct</a></li>
+				
+					<li><a href="../../../String.html">String</a></li>
+				
+					<li><a href="../../../Time.html">Time</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<p>
+<?xml version=&#8220;1.0&#8220; encoding=&#8220;utf-8&#8221;?> <!DOCTYPE
+html PUBLIC &#8220;-//W3C//DTD XHTML 1.0 Strict//EN&#8220;
+</p>
+<pre>
+        &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;
+</pre>
+<p>
+<html xmlns=&#8220;<a
+href="http://www.w3.org/1999/xhtml">www.w3.org/1999/xhtml</a>&#8220;
+xml:lang=&#8220;en&#8221; lang=&#8220;en&#8221;> <head>
+</p>
+<pre>
+        &lt;meta content=&quot;text/html; charset=utf-8&quot; http-equiv=&quot;Content-Type&quot; /&gt;
+
+        &lt;title&gt;Module: RiCal::Properties::Freebusy&lt;/title&gt;
+
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;../../rdoc.css&quot; type=&quot;text/css&quot; media=&quot;screen&quot; /&gt;
+
+        &lt;script src=&quot;../../js/jquery.js&quot; type=&quot;text/javascript&quot;
+                charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;../../js/thickbox-compressed.js&quot; type=&quot;text/javascript&quot;
+                charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;../../js/quicksearch.js&quot; type=&quot;text/javascript&quot;
+                charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+        &lt;script src=&quot;../../js/darkfish.js&quot; type=&quot;text/javascript&quot;
+                charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
+</pre>
+<p>
+</head> <body class=&#8220;module&#8221;>
+</p>
+<pre>
+        &lt;div id=&quot;metadata&quot;&gt;
+                &lt;div id=&quot;file-metadata&quot;&gt;
+                        &lt;div id=&quot;file-list-section&quot; class=&quot;section&quot;&gt;
+                                &lt;h3 class=&quot;section-header&quot;&gt;In Files&lt;/h3&gt;
+                                &lt;div class=&quot;section-body&quot;&gt;
+                                        &lt;ul&gt;
+
+                                                &lt;li&gt;&lt;a href=&quot;../../lib/ri_cal/properties/freebusy.rb.html?TB_iframe=true&amp;amp;height=550&amp;amp;width=785&quot;
+                                                        class=&quot;thickbox&quot; title=&quot;lib/ri_cal/properties/freebusy.rb&quot;&gt;lib/ri_cal/properties/freebusy.rb&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;/ul&gt;
+                                &lt;/div&gt;
+                        &lt;/div&gt;
+
+                &lt;/div&gt;
+
+                &lt;div id=&quot;class-metadata&quot;&gt;
+
+                        &lt;!-- Parent Class --&gt;
+
+                        &lt;!-- Namespace Contents --&gt;
+
+                        &lt;div id=&quot;namespace-list-section&quot; class=&quot;section&quot;&gt;
+                                &lt;h3 class=&quot;section-header&quot;&gt;Namespace&lt;/h3&gt;
+                                &lt;ul class=&quot;link-list&quot;&gt;
+
+                                        &lt;li&gt;&lt;span class=&quot;type&quot;&gt;MODULE&lt;/span&gt; &lt;a href=&quot;Freebusy/ClassMethods.html&quot;&gt;RiCal::Properties::Freebusy::ClassMethods&lt;/a&gt;&lt;/li&gt;
+
+                                &lt;/ul&gt;
+                        &lt;/div&gt;
+
+                        &lt;!-- Method Quickref --&gt;
+
+                        &lt;div id=&quot;method-list-section&quot; class=&quot;section&quot;&gt;
+                                &lt;h3 class=&quot;section-header&quot;&gt;Methods&lt;/h3&gt;
+                                &lt;ul class=&quot;link-list&quot;&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000447&quot;&gt;::included&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000429&quot;&gt;#==&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000384&quot;&gt;#attendee&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000383&quot;&gt;#attendee=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000378&quot;&gt;#attendee_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000382&quot;&gt;#attendee_property=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000393&quot;&gt;#comment&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000392&quot;&gt;#comment=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000386&quot;&gt;#comment_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000391&quot;&gt;#comment_property=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000301&quot;&gt;#contact&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000300&quot;&gt;#contact=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000298&quot;&gt;#contact_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000299&quot;&gt;#contact_property=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000326&quot;&gt;#dtend&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000322&quot;&gt;#dtend=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000320&quot;&gt;#dtend_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000321&quot;&gt;#dtend_property=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000343&quot;&gt;#dtstamp&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000342&quot;&gt;#dtstamp=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000340&quot;&gt;#dtstamp_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000341&quot;&gt;#dtstamp_property=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000313&quot;&gt;#dtstart&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000312&quot;&gt;#dtstart=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000310&quot;&gt;#dtstart_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000311&quot;&gt;#dtstart_property=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000335&quot;&gt;#duration&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000334&quot;&gt;#duration=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000328&quot;&gt;#duration_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000329&quot;&gt;#duration_property=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000406&quot;&gt;#freebusy&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000402&quot;&gt;#freebusy=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000400&quot;&gt;#freebusy_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000401&quot;&gt;#freebusy_property=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000433&quot;&gt;#initialize_copy&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000448&quot;&gt;#mutual_exclusion_violation&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000353&quot;&gt;#organizer&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000352&quot;&gt;#organizer=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000350&quot;&gt;#organizer_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000351&quot;&gt;#organizer_property=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000415&quot;&gt;#request_status&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000414&quot;&gt;#request_status=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000408&quot;&gt;#request_status_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000409&quot;&gt;#request_status_property=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000417&quot;&gt;#to_s&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000361&quot;&gt;#uid&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000360&quot;&gt;#uid=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000358&quot;&gt;#uid_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000359&quot;&gt;#uid_property=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000376&quot;&gt;#url&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000369&quot;&gt;#url=&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000367&quot;&gt;#url_property&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;#M000368&quot;&gt;#url_property=&lt;/a&gt;&lt;/li&gt;
+
+                                &lt;/ul&gt;
+                        &lt;/div&gt;
+
+                        &lt;!-- Included Modules --&gt;
+
+                &lt;/div&gt;
+
+                &lt;div id=&quot;project-metadata&quot;&gt;
+
+                        &lt;div id=&quot;fileindex-section&quot; class=&quot;section project-section&quot;&gt;
+                                &lt;h3 class=&quot;section-header&quot;&gt;Files&lt;/h3&gt;
+                                &lt;ul&gt;
+
+                                        &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;../../History_txt.html&quot;&gt;History.txt&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;../../Manifest_txt.html&quot;&gt;Manifest.txt&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;../../README_txt.html&quot;&gt;README.txt&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;../../docs/draft-ietf-calsify-2446bis-08_txt.html&quot;&gt;draft-ietf-calsify-2446bis-08.txt&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;../../docs/draft-ietf-calsify-rfc2445bis-09_txt.html&quot;&gt;draft-ietf-calsify-rfc2445bis-09.txt&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;../../help/History_txt.html&quot;&gt;History.txt&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;../../help/Manifest_txt.html&quot;&gt;Manifest.txt&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li class=&quot;file&quot;&gt;&lt;a href=&quot;../../help/README_txt.html&quot;&gt;README.txt&lt;/a&gt;&lt;/li&gt;
+
+                                &lt;/ul&gt;
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;classindex-section&quot; class=&quot;section project-section&quot;&gt;
+                                &lt;h3 class=&quot;section-header&quot;&gt;Class Index
+                                        &lt;span class=&quot;search-toggle&quot;&gt;&lt;img src=&quot;../../images/find.png&quot;
+                                                height=&quot;16&quot; width=&quot;16&quot; alt=&quot;[+]&quot;
+                                                title=&quot;show/hide quicksearch&quot; /&gt;&lt;/span&gt;&lt;/h3&gt;
+                                &lt;form action=&quot;#&quot; method=&quot;get&quot; accept-charset=&quot;utf-8&quot; class=&quot;initially-hidden&quot;&gt;
+                                &lt;fieldset&gt;
+                                        &lt;legend&gt;Quicksearch&lt;/legend&gt;
+                                        &lt;input type=&quot;text&quot; name=&quot;quicksearch&quot; value=&quot;&quot;
+                                                class=&quot;quicksearch-field&quot; /&gt;
+                                &lt;/fieldset&gt;
+                                &lt;/form&gt;
+
+                                &lt;ul class=&quot;link-list&quot;&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal.html&quot;&gt;RiCal&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component.html&quot;&gt;RiCal::Component&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component/Alarm.html&quot;&gt;RiCal::Component::Alarm&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component/Calendar.html&quot;&gt;RiCal::Component::Calendar&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component/Event.html&quot;&gt;RiCal::Component::Event&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component/Freebusy.html&quot;&gt;RiCal::Component::Freebusy&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component/Journal.html&quot;&gt;RiCal::Component::Journal&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component/TZInfoTimezone.html&quot;&gt;RiCal::Component::TZInfoTimezone&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component/Timezone.html&quot;&gt;RiCal::Component::Timezone&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component/Timezone/DaylightPeriod.html&quot;&gt;RiCal::Component::Timezone::DaylightPeriod&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component/Timezone/StandardPeriod.html&quot;&gt;RiCal::Component::Timezone::StandardPeriod&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component/Timezone/TimezonePeriod.html&quot;&gt;RiCal::Component::Timezone::TimezonePeriod&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Component/Todo.html&quot;&gt;RiCal::Component::Todo&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions.html&quot;&gt;RiCal::CoreExtensions&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/Array.html&quot;&gt;RiCal::CoreExtensions::Array&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/Array/Conversions.html&quot;&gt;RiCal::CoreExtensions::Array::Conversions&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/Date.html&quot;&gt;RiCal::CoreExtensions::Date&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/Date/Conversions.html&quot;&gt;RiCal::CoreExtensions::Date::Conversions&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/DateTime.html&quot;&gt;RiCal::CoreExtensions::DateTime&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/DateTime/Conversions.html&quot;&gt;RiCal::CoreExtensions::DateTime::Conversions&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/Object.html&quot;&gt;RiCal::CoreExtensions::Object&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/Object/Conversions.html&quot;&gt;RiCal::CoreExtensions::Object::Conversions&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/String.html&quot;&gt;RiCal::CoreExtensions::String&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/String/Conversions.html&quot;&gt;RiCal::CoreExtensions::String::Conversions&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/Time.html&quot;&gt;RiCal::CoreExtensions::Time&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/Time/Calculations.html&quot;&gt;RiCal::CoreExtensions::Time::Calculations&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/Time/Conversions.html&quot;&gt;RiCal::CoreExtensions::Time::Conversions&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/CoreExtensions/Time/WeekDayPredicates.html&quot;&gt;RiCal::CoreExtensions::Time::WeekDayPredicates&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Event.html&quot;&gt;RiCal::Event&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/OccurrenceEnumerator.html&quot;&gt;RiCal::OccurrenceEnumerator&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties.html&quot;&gt;RiCal::Properties&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Alarm.html&quot;&gt;RiCal::Properties::Alarm&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Alarm/ClassMethods.html&quot;&gt;RiCal::Properties::Alarm::ClassMethods&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Calendar.html&quot;&gt;RiCal::Properties::Calendar&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Calendar/ClassMethods.html&quot;&gt;RiCal::Properties::Calendar::ClassMethods&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Event.html&quot;&gt;RiCal::Properties::Event&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Event/ClassMethods.html&quot;&gt;RiCal::Properties::Event::ClassMethods&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Freebusy.html&quot;&gt;RiCal::Properties::Freebusy&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Freebusy/ClassMethods.html&quot;&gt;RiCal::Properties::Freebusy::ClassMethods&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Journal.html&quot;&gt;RiCal::Properties::Journal&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Journal/ClassMethods.html&quot;&gt;RiCal::Properties::Journal::ClassMethods&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/TimezonePeriod.html&quot;&gt;RiCal::Properties::TimezonePeriod&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/TimezonePeriod/ClassMethods.html&quot;&gt;RiCal::Properties::TimezonePeriod::ClassMethods&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Todo.html&quot;&gt;RiCal::Properties::Todo&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/Properties/Todo/ClassMethods.html&quot;&gt;RiCal::Properties::Todo::ClassMethods&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue.html&quot;&gt;RiCal::PropertyValue&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue/CalAddress.html&quot;&gt;RiCal::PropertyValue::CalAddress&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue/Date.html&quot;&gt;RiCal::PropertyValue::Date&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue/DateTime.html&quot;&gt;RiCal::PropertyValue::DateTime&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue/Duration.html&quot;&gt;RiCal::PropertyValue::Duration&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue/Geo.html&quot;&gt;RiCal::PropertyValue::Geo&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue/OccurrenceList.html&quot;&gt;RiCal::PropertyValue::OccurrenceList&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue/Period.html&quot;&gt;RiCal::PropertyValue::Period&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue/RecurrenceRule.html&quot;&gt;RiCal::PropertyValue::RecurrenceRule&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue/RecurrenceRule/Validations.html&quot;&gt;RiCal::PropertyValue::RecurrenceRule::Validations&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue/Text.html&quot;&gt;RiCal::PropertyValue::Text&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../RiCal/PropertyValue/Uri.html&quot;&gt;RiCal::PropertyValue::Uri&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../Array.html&quot;&gt;Array&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../Date.html&quot;&gt;Date&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../DateTime.html&quot;&gt;DateTime&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../Object.html&quot;&gt;Object&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../String.html&quot;&gt;String&lt;/a&gt;&lt;/li&gt;
+
+                                        &lt;li&gt;&lt;a href=&quot;../../Time.html&quot;&gt;Time&lt;/a&gt;&lt;/li&gt;
+
+                                &lt;/ul&gt;
+                                &lt;div id=&quot;no-class-search-results&quot; style=&quot;display: none;&quot;&gt;No matching classes.&lt;/div&gt;
+                        &lt;/div&gt;
+
+                &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div id=&quot;documentation&quot;&gt;
+                &lt;h1 class=&quot;module&quot;&gt;RiCal::Properties::Freebusy&lt;/h1&gt;
+
+                &lt;div id=&quot;description&quot;&gt;
+                        &lt;p&gt;
+</pre>
+<p>
+<a href=&#8220;Freebusy.html&#8220;>Properties::Freebusy</a> provides
+property accessing methods for the <a
+href=&#8220;Freebusy.html&#8220;>Freebusy</a> class This source file is
+generated by the rical:gen_propmodules rake tasks, DO NOT EDIT </p>
+</p>
+<pre>
+                &lt;/div&gt;
+
+                &lt;!-- Constants --&gt;
+
+                &lt;!-- Attributes --&gt;
+
+                &lt;!-- Methods --&gt;
+
+                &lt;div id=&quot;public-class-method-details&quot; class=&quot;method-section section&quot;&gt;
+                        &lt;h3 class=&quot;section-header&quot;&gt;Public Class Methods&lt;/h3&gt;
+
+                        &lt;div id=&quot;included-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000447&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;included&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(mod)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p class=&quot;missing-docs&quot;&gt;(Not documented)&lt;/p&gt;
+
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;included-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 460&lt;/span&gt;
+</pre>
+<p>
+460: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-keyword kw&#8221;>self</span>.<span
+class=&#8220;ruby-identifier&#8221;>included</span>(<span
+class=&#8220;ruby-identifier&#8221;>mod</span>) 461: <span
+class=&#8220;ruby-identifier&#8221;>mod</span>.<span
+class=&#8220;ruby-identifier&#8221;>extend</span> <span
+class=&#8220;ruby-constant&#8221;>ClassMethods</span> 462: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                &lt;/div&gt;
+
+                &lt;div id=&quot;public-instance-method-details&quot; class=&quot;method-section section&quot;&gt;
+                        &lt;h3 class=&quot;section-header&quot;&gt;Public Instance Methods&lt;/h3&gt;
+
+                        &lt;div id=&quot;--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000429&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;==&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(o)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p class=&quot;missing-docs&quot;&gt;(Not documented)&lt;/p&gt;
+
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 419&lt;/span&gt;
+</pre>
+<p>
+419: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-operator&#8221;>==</span>(<span
+class=&#8220;ruby-identifier&#8221;>o</span>) 420: <span
+class=&#8220;ruby-keyword kw&#8221;>if</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>class</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span class=&#8220;ruby-keyword
+kw&#8221;>self</span>.<span
+class=&#8220;ruby-identifier&#8221;>class</span> 421: (<span
+class=&#8220;ruby-identifier&#8221;>request_status_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>request_status_property</span>) <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> 422: (<span
+class=&#8220;ruby-identifier&#8221;>dtstamp_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>dtstamp_property</span>) <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> 423: (<span
+class=&#8220;ruby-identifier&#8221;>dtend_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>dtend_property</span>) <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> 424: (<span
+class=&#8220;ruby-identifier&#8221;>dtstart_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>dtstart_property</span>) <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> 425: (<span
+class=&#8220;ruby-identifier&#8221;>contact_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>contact_property</span>) <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> 426: (<span
+class=&#8220;ruby-identifier&#8221;>attendee_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>attendee_property</span>) <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> 427: (<span
+class=&#8220;ruby-identifier&#8221;>uid_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>uid_property</span>) <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> 428: (<span
+class=&#8220;ruby-identifier&#8221;>duration_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>duration_property</span>) <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> 429: (<span
+class=&#8220;ruby-identifier&#8221;>url_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>url_property</span>) <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> 430: (<span
+class=&#8220;ruby-identifier&#8221;>organizer_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>organizer_property</span>) <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> 431: (<span
+class=&#8220;ruby-identifier&#8221;>freebusy_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>freebusy_property</span>) <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> 432: (<span
+class=&#8220;ruby-identifier&#8221;>comment_property</span> <span
+class=&#8220;ruby-operator&#8221;>==</span> <span
+class=&#8220;ruby-identifier&#8221;>o</span>.<span
+class=&#8220;ruby-identifier&#8221;>comment_property</span>) 433: <span
+class=&#8220;ruby-keyword kw&#8221;>else</span> 434: <span
+class=&#8220;ruby-keyword kw&#8221;>super</span> 435: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span> 436: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;attendee-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000384&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;attendee&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the ATTENDEE property which will be an array of
+instances of CalAddress </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;attendee-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 296&lt;/span&gt;
+</pre>
+<p>
+296: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>attendee</span> 297: <span
+class=&#8220;ruby-identifier&#8221;>attendee_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>map</span> {<span
+class=&#8220;ruby-operator&#8221;>|</span><span
+class=&#8220;ruby-identifier&#8221;>prop</span><span
+class=&#8220;ruby-operator&#8221;>|</span> <span
+class=&#8220;ruby-identifier&#8221;>prop</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>prop</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span
+class=&#8220;ruby-identifier&#8221;>prop</span>} 298: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;attendee--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000383&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;attendee=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(*ruby_values)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the ATTENDEE property one or more instances of CalAddress
+may be passed to this method </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;attendee--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 290&lt;/span&gt;
+</pre>
+<p>
+290: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>attendee=</span>(<span
+class=&#8220;ruby-operator&#8221;>*</span><span
+class=&#8220;ruby-identifier&#8221;>ruby_values</span>) 291: <span
+class=&#8220;ruby-ivar&#8221;>@attendee_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>ruby_values</span>.<span
+class=&#8220;ruby-identifier&#8221;>map</span> {<span
+class=&#8220;ruby-operator&#8221;>|</span><span
+class=&#8220;ruby-identifier&#8221;>val</span><span
+class=&#8220;ruby-operator&#8221;>|</span> <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>CalAddress</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>val</span>)} 292: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;attendee-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000378&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;attendee_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the ATTENDEE property which will be an array of instances of
+RiCal::PropertyValueCalAddress </p> <p>
+</p>
+<dl>
+<dt>purpose (from RFC 2445)</dt><dd>The property defines an &amp;8216;Attendee&amp;8217;
+
+</dd>
+</dl>
+<p>
+within a calendar component. </p> <p> see RFC 2445 4.8.4.1 pp 102-104 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;attendee-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 278&lt;/span&gt;
+</pre>
+<p>
+278: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>attendee_property</span> 279: <span
+class=&#8220;ruby-ivar&#8221;>@attendee_property</span> <span
+class=&#8220;ruby-operator&#8221;>||=</span> [] 280: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;attendee-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000382&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;attendee_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(*property_values)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the the ATTENDEE property one or more instances of
+RiCal::PropertyValueCalAddress may be passed to this method </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;attendee-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 284&lt;/span&gt;
+</pre>
+<p>
+284: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>attendee_property=</span>(<span
+class=&#8220;ruby-operator&#8221;>*</span><span
+class=&#8220;ruby-identifier&#8221;>property_values</span>) 285: <span
+class=&#8220;ruby-ivar&#8221;>@attendee_property</span>= <span
+class=&#8220;ruby-identifier&#8221;>property_values</span> 286: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;comment-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000393&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;comment&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the COMMENT property which will be an array of
+instances of <a href=&#8221;../../String.html&#8220;>String</a> </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;comment-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 329&lt;/span&gt;
+</pre>
+<p>
+329: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>comment</span> 330: <span
+class=&#8220;ruby-identifier&#8221;>comment_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>map</span> {<span
+class=&#8220;ruby-operator&#8221;>|</span><span
+class=&#8220;ruby-identifier&#8221;>prop</span><span
+class=&#8220;ruby-operator&#8221;>|</span> <span
+class=&#8220;ruby-identifier&#8221;>prop</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>prop</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span
+class=&#8220;ruby-identifier&#8221;>prop</span>} 331: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;comment--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000392&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;comment=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(*ruby_values)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the COMMENT property one or more instances of <a
+href=&#8221;../../String.html&#8220;>String</a> may be passed to this
+method </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;comment--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 323&lt;/span&gt;
+</pre>
+<p>
+323: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>comment=</span>(<span
+class=&#8220;ruby-operator&#8221;>*</span><span
+class=&#8220;ruby-identifier&#8221;>ruby_values</span>) 324: <span
+class=&#8220;ruby-ivar&#8221;>@comment_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>ruby_values</span>.<span
+class=&#8220;ruby-identifier&#8221;>map</span> {<span
+class=&#8220;ruby-operator&#8221;>|</span><span
+class=&#8220;ruby-identifier&#8221;>val</span><span
+class=&#8220;ruby-operator&#8221;>|</span> <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>Text</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>val</span>)} 325: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;comment-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000386&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;comment_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the COMMENT property which will be an array of instances of
+RiCal::PropertyValueText </p> <p>
+</p>
+<dl>
+<dt>purpose (from RFC 2445)</dt><dd>This property specifies non-processing
+
+</dd>
+</dl>
+<p>
+information intended to provide a comment to the calendar user. </p> <p>
+see RFC 2445 4.8.1.4 pp 80-81 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;comment-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 311&lt;/span&gt;
+</pre>
+<p>
+311: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>comment_property</span> 312: <span
+class=&#8220;ruby-ivar&#8221;>@comment_property</span> <span
+class=&#8220;ruby-operator&#8221;>||=</span> [] 313: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;comment-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000391&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;comment_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(*property_values)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the the COMMENT property one or more instances of
+RiCal::PropertyValueText may be passed to this method </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;comment-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 317&lt;/span&gt;
+</pre>
+<p>
+317: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>comment_property=</span>(<span
+class=&#8220;ruby-operator&#8221;>*</span><span
+class=&#8220;ruby-identifier&#8221;>property_values</span>) 318: <span
+class=&#8220;ruby-ivar&#8221;>@comment_property</span>= <span
+class=&#8220;ruby-identifier&#8221;>property_values</span> 319: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;contact-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000301&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;contact&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the CONTACT property which will be an instance of <a
+href=&#8221;../../String.html&#8220;>String</a> </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;contact-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 31&lt;/span&gt;
+</pre>
+<p>
+31: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>contact</span> 32: <span
+class=&#8220;ruby-identifier&#8221;>contact_property</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>contact_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span class=&#8220;ruby-keyword
+kw&#8221;>nil</span> 33: <span class=&#8220;ruby-keyword
+kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;contact--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000300&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;contact=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(ruby_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the CONTACT property </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;contact--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 25&lt;/span&gt;
+</pre>
+<p>
+25: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>contact=</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 26: <span
+class=&#8220;ruby-keyword kw&#8221;>self</span>.<span
+class=&#8220;ruby-identifier&#8221;>contact_property</span>= <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>Text</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 27: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;contact-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000298&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;contact_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the CONTACT property which will be an instances of
+RiCal::PropertyValueText </p> <p>
+</p>
+<dl>
+<dt>purpose (from RFC 2445)</dt><dd>The property is used to represent contact
+
+</dd>
+</dl>
+<p>
+information oralternately a reference to contact information associated
+with the calendar component. </p> <p> see RFC 2445 4.8.4.2 pp 104-106 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;contact-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 14&lt;/span&gt;
+</pre>
+<p>
+14: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>contact_property</span> 15: <span
+class=&#8220;ruby-ivar&#8221;>@contact_property</span> 16: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;contact-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000299&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;contact_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(property_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the CONTACT property property value should be an instance of
+RiCal::PropertyValueText </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;contact-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 20&lt;/span&gt;
+</pre>
+<p>
+20: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>contact_property=</span>(<span
+class=&#8220;ruby-identifier&#8221;>property_value</span>) 21: <span
+class=&#8220;ruby-ivar&#8221;>@contact_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>property_value</span> 22: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtend-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000326&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtend&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the DTEND property which will be an instance of either
+<a href=&#8221;../../DateTime.html&#8220;>DateTime</a> or <a
+href=&#8221;../../Date.html&#8220;>Date</a> </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtend-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 97&lt;/span&gt;
+</pre>
+<p>
+97: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtend</span> 98: <span
+class=&#8220;ruby-identifier&#8221;>dtend_property</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>dtend_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span class=&#8220;ruby-keyword
+kw&#8221;>nil</span> 99: <span class=&#8220;ruby-keyword
+kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtend--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000322&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtend=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(ruby_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the DTEND property </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtend--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 91&lt;/span&gt;
+</pre>
+<p>
+91: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtend=</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 92: <span
+class=&#8220;ruby-keyword kw&#8221;>self</span>.<span
+class=&#8220;ruby-identifier&#8221;>dtend_property</span>= <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>DateTime</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 93: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtend-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000320&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtend_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the DTEND property which will be an instances of either <a
+href=&#8221;../PropertyValue/DateTime.html&#8220;>RiCal::PropertyValue::DateTime</a>
+or <a
+href=&#8221;../PropertyValue/Date.html&#8220;>RiCal::PropertyValue::Date</a>
+</p> <p>
+</p>
+<dl>
+<dt>purpose (from RFC 2445)</dt><dd>This property specifies the date and time that a
+
+</dd>
+</dl>
+<p>
+calendar component ends. </p> <p> see RFC 2445 4.8.2.2 pp 91-92 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtend-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 80&lt;/span&gt;
+</pre>
+<p>
+80: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtend_property</span> 81: <span
+class=&#8220;ruby-ivar&#8221;>@dtend_property</span> 82: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtend-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000321&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtend_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(property_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the DTEND property property value should be an instance of either <a
+href=&#8221;../PropertyValue/DateTime.html&#8220;>RiCal::PropertyValue::DateTime</a>
+or <a
+href=&#8221;../PropertyValue/Date.html&#8220;>RiCal::PropertyValue::Date</a>
+</p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtend-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 86&lt;/span&gt;
+</pre>
+<p>
+86: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtend_property=</span>(<span
+class=&#8220;ruby-identifier&#8221;>property_value</span>) 87: <span
+class=&#8220;ruby-ivar&#8221;>@dtend_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>property_value</span> 88: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtstamp-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000343&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtstamp&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the DTSTAMP property which will be an instance of <a
+href=&#8221;../../DateTime.html&#8220;>DateTime</a> </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtstamp-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 163&lt;/span&gt;
+</pre>
+<p>
+163: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtstamp</span> 164: <span
+class=&#8220;ruby-identifier&#8221;>dtstamp_property</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>dtstamp_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span class=&#8220;ruby-keyword
+kw&#8221;>nil</span> 165: <span class=&#8220;ruby-keyword
+kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtstamp--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000342&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtstamp=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(ruby_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the DTSTAMP property </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtstamp--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 157&lt;/span&gt;
+</pre>
+<p>
+157: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtstamp=</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 158: <span
+class=&#8220;ruby-keyword kw&#8221;>self</span>.<span
+class=&#8220;ruby-identifier&#8221;>dtstamp_property</span>= <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>DateTime</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 159: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtstamp-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000340&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtstamp_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the DTSTAMP property which will be an instances of
+RiCal::PropertyValueDateTime </p> <p>
+</p>
+<dl>
+<dt>purpose (from RFC 2445)</dt><dd>This property indicates the date/time that the
+
+</dd>
+</dl>
+<p>
+instance of the i<a href=&#8220;Calendar.html&#8220;>Calendar</a> object
+was created. </p> <p> see RFC 2445 4.8.7.2 pp 130-131 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtstamp-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 146&lt;/span&gt;
+</pre>
+<p>
+146: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtstamp_property</span> 147: <span
+class=&#8220;ruby-ivar&#8221;>@dtstamp_property</span> 148: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtstamp-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000341&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtstamp_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(property_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the DTSTAMP property property value should be an instance of
+RiCal::PropertyValueDateTime </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtstamp-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 152&lt;/span&gt;
+</pre>
+<p>
+152: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtstamp_property=</span>(<span
+class=&#8220;ruby-identifier&#8221;>property_value</span>) 153: <span
+class=&#8220;ruby-ivar&#8221;>@dtstamp_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>property_value</span> 154: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtstart-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000313&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtstart&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the DTSTART property which will be an instance of
+either <a href=&#8221;../../DateTime.html&#8220;>DateTime</a> or <a
+href=&#8221;../../Date.html&#8220;>Date</a> </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtstart-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 64&lt;/span&gt;
+</pre>
+<p>
+64: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtstart</span> 65: <span
+class=&#8220;ruby-identifier&#8221;>dtstart_property</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>dtstart_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span class=&#8220;ruby-keyword
+kw&#8221;>nil</span> 66: <span class=&#8220;ruby-keyword
+kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtstart--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000312&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtstart=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(ruby_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the DTSTART property </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtstart--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 58&lt;/span&gt;
+</pre>
+<p>
+58: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtstart=</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 59: <span
+class=&#8220;ruby-keyword kw&#8221;>self</span>.<span
+class=&#8220;ruby-identifier&#8221;>dtstart_property</span>= <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>DateTime</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 60: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtstart-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000310&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtstart_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the DTSTART property which will be an instances of either <a
+href=&#8221;../PropertyValue/DateTime.html&#8220;>RiCal::PropertyValue::DateTime</a>
+or <a
+href=&#8221;../PropertyValue/Date.html&#8220;>RiCal::PropertyValue::Date</a>
+</p> <p>
+</p>
+<dl>
+<dt>purpose (from RFC 2445)</dt><dd>This property specifies when the calendar
+
+</dd>
+</dl>
+<p>
+component begins. </p> <p> see RFC 2445 4.8.2.4 pp 93-94 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtstart-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 47&lt;/span&gt;
+</pre>
+<p>
+47: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtstart_property</span> 48: <span
+class=&#8220;ruby-ivar&#8221;>@dtstart_property</span> 49: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;dtstart-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000311&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;dtstart_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(property_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the DTSTART property property value should be an instance of either <a
+href=&#8221;../PropertyValue/DateTime.html&#8220;>RiCal::PropertyValue::DateTime</a>
+or <a
+href=&#8221;../PropertyValue/Date.html&#8220;>RiCal::PropertyValue::Date</a>
+</p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;dtstart-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+    &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 53&lt;/span&gt;
+</pre>
+<p>
+53: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>dtstart_property=</span>(<span
+class=&#8220;ruby-identifier&#8221;>property_value</span>) 54: <span
+class=&#8220;ruby-ivar&#8221;>@dtstart_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>property_value</span> 55: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;duration-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000335&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;duration&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the DURATION property which will be an instance of
+Duration </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;duration-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 130&lt;/span&gt;
+</pre>
+<p>
+130: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>duration</span> 131: <span
+class=&#8220;ruby-identifier&#8221;>duration_property</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>duration_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span class=&#8220;ruby-keyword
+kw&#8221;>nil</span> 132: <span class=&#8220;ruby-keyword
+kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;duration--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000334&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;duration=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(ruby_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the DURATION property </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;duration--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 124&lt;/span&gt;
+</pre>
+<p>
+124: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>duration=</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 125: <span
+class=&#8220;ruby-keyword kw&#8221;>self</span>.<span
+class=&#8220;ruby-identifier&#8221;>duration_property</span>= <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>Duration</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 126: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;duration-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000328&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;duration_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the DURATION property which will be an instances of
+RiCal::PropertyValueDuration </p> <p>
+</p>
+<dl>
+<dt>purpose (from RFC 2445)</dt><dd>This property specifies a positive duration of
+
+</dd>
+</dl>
+<p>
+time. </p> <p> see RFC 2445 4.8.2.5 pp 94-95 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;duration-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 113&lt;/span&gt;
+</pre>
+<p>
+113: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>duration_property</span> 114: <span
+class=&#8220;ruby-ivar&#8221;>@duration_property</span> 115: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;duration-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000329&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;duration_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(property_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the DURATION property property value should be an instance of
+RiCal::PropertyValueDuration </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;duration-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 119&lt;/span&gt;
+</pre>
+<p>
+119: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>duration_property=</span>(<span
+class=&#8220;ruby-identifier&#8221;>property_value</span>) 120: <span
+class=&#8220;ruby-ivar&#8221;>@duration_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>property_value</span> 121: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;freebusy-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000406&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;freebusy&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the FREEBUSY property which will be an array of
+instances of Period </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;freebusy-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 362&lt;/span&gt;
+</pre>
+<p>
+362: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>freebusy</span> 363: <span
+class=&#8220;ruby-identifier&#8221;>freebusy_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>map</span> {<span
+class=&#8220;ruby-operator&#8221;>|</span><span
+class=&#8220;ruby-identifier&#8221;>prop</span><span
+class=&#8220;ruby-operator&#8221;>|</span> <span
+class=&#8220;ruby-identifier&#8221;>prop</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>prop</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span
+class=&#8220;ruby-identifier&#8221;>prop</span>} 364: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;freebusy--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000402&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;freebusy=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(*ruby_values)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the FREEBUSY property one or more instances of Period may
+be passed to this method </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;freebusy--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 356&lt;/span&gt;
+</pre>
+<p>
+356: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>freebusy=</span>(<span
+class=&#8220;ruby-operator&#8221;>*</span><span
+class=&#8220;ruby-identifier&#8221;>ruby_values</span>) 357: <span
+class=&#8220;ruby-ivar&#8221;>@freebusy_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>ruby_values</span>.<span
+class=&#8220;ruby-identifier&#8221;>map</span> {<span
+class=&#8220;ruby-operator&#8221;>|</span><span
+class=&#8220;ruby-identifier&#8221;>val</span><span
+class=&#8220;ruby-operator&#8221;>|</span> <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>Period</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>val</span>)} 358: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;freebusy-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000400&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;freebusy_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the FREEBUSY property which will be an array of instances of
+RiCal::PropertyValuePeriod </p> <p>
+</p>
+<dl>
+<dt>purpose (from RFC 2445)</dt><dd>This property defines one or more free or busy
+
+</dd>
+</dl>
+<p>
+time intervals. </p> <p> see RFC 2445 4.8.2.6 pp 95-96 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;freebusy-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 344&lt;/span&gt;
+</pre>
+<p>
+344: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>freebusy_property</span> 345: <span
+class=&#8220;ruby-ivar&#8221;>@freebusy_property</span> <span
+class=&#8220;ruby-operator&#8221;>||=</span> [] 346: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;freebusy-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000401&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;freebusy_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(*property_values)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the the FREEBUSY property one or more instances of
+RiCal::PropertyValuePeriod may be passed to this method </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;freebusy-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 350&lt;/span&gt;
+</pre>
+<p>
+350: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>freebusy_property=</span>(<span
+class=&#8220;ruby-operator&#8221;>*</span><span
+class=&#8220;ruby-identifier&#8221;>property_values</span>) 351: <span
+class=&#8220;ruby-ivar&#8221;>@freebusy_property</span>= <span
+class=&#8220;ruby-identifier&#8221;>property_values</span> 352: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;initialize-copy-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000433&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;initialize_copy&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(o)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p class=&quot;missing-docs&quot;&gt;(Not documented)&lt;/p&gt;
+
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;initialize-copy-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 438&lt;/span&gt;
+</pre>
+<p>
+438: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>initialize_copy</span>(<span
+class=&#8220;ruby-identifier&#8221;>o</span>) 439: <span
+class=&#8220;ruby-keyword kw&#8221;>super</span> 440: <span
+class=&#8220;ruby-identifier&#8221;>request_status_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>request_status_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>request_status_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 441: <span
+class=&#8220;ruby-identifier&#8221;>dtstamp_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>dtstamp_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>dtstamp_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 442: <span
+class=&#8220;ruby-identifier&#8221;>dtend_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>dtend_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>dtend_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 443: <span
+class=&#8220;ruby-identifier&#8221;>dtstart_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>dtstart_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>dtstart_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 444: <span
+class=&#8220;ruby-identifier&#8221;>contact_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>contact_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>contact_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 445: <span
+class=&#8220;ruby-identifier&#8221;>attendee_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>attendee_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>attendee_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 446: <span
+class=&#8220;ruby-identifier&#8221;>uid_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>uid_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>uid_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 447: <span
+class=&#8220;ruby-identifier&#8221;>duration_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>duration_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>duration_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 448: <span
+class=&#8220;ruby-identifier&#8221;>url_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>url_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>url_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 449: <span
+class=&#8220;ruby-identifier&#8221;>organizer_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>organizer_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>organizer_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 450: <span
+class=&#8220;ruby-identifier&#8221;>freebusy_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>freebusy_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>freebusy_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 451: <span
+class=&#8220;ruby-identifier&#8221;>comment_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>comment_property</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;amp;&amp;amp;</span> <span
+class=&#8220;ruby-identifier&#8221;>comment_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>dup</span> 452: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;mutual-exclusion-violation-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000448&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;mutual_exclusion_violation&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p class=&quot;missing-docs&quot;&gt;(Not documented)&lt;/p&gt;
+
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;mutual-exclusion-violation-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 464&lt;/span&gt;
+</pre>
+<p>
+464: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>mutual_exclusion_violation</span> 465:
+<span class=&#8220;ruby-keyword kw&#8221;>false</span> 466: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;organizer-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000353&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;organizer&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the ORGANIZER property which will be an instance of
+CalAddress </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;organizer-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 196&lt;/span&gt;
+</pre>
+<p>
+196: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>organizer</span> 197: <span
+class=&#8220;ruby-identifier&#8221;>organizer_property</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>organizer_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span class=&#8220;ruby-keyword
+kw&#8221;>nil</span> 198: <span class=&#8220;ruby-keyword
+kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;organizer--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000352&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;organizer=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(ruby_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the ORGANIZER property </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;organizer--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 190&lt;/span&gt;
+</pre>
+<p>
+190: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>organizer=</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 191: <span
+class=&#8220;ruby-keyword kw&#8221;>self</span>.<span
+class=&#8220;ruby-identifier&#8221;>organizer_property</span>= <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>CalAddress</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 192: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;organizer-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000350&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;organizer_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the ORGANIZER property which will be an instances of
+RiCal::PropertyValueCalAddress </p> <p>
+</p>
+<dl>
+<dt>purpose (from RFC 2445)</dt><dd>The property defines the organizer for a calendar
+
+</dd>
+</dl>
+<p>
+component. </p> <p> see RFC 2445 4.8.4.3 pp 106-107 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;organizer-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 179&lt;/span&gt;
+</pre>
+<p>
+179: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>organizer_property</span> 180: <span
+class=&#8220;ruby-ivar&#8221;>@organizer_property</span> 181: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;organizer-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000351&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;organizer_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(property_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the ORGANIZER property property value should be an instance of
+RiCal::PropertyValueCalAddress </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;organizer-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 185&lt;/span&gt;
+</pre>
+<p>
+185: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>organizer_property=</span>(<span
+class=&#8220;ruby-identifier&#8221;>property_value</span>) 186: <span
+class=&#8220;ruby-ivar&#8221;>@organizer_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>property_value</span> 187: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;request-status-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000415&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;request_status&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the REQUEST-STATUS property which will be an array of
+instances of <a href=&#8221;../../String.html&#8220;>String</a> </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;request-status-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 392&lt;/span&gt;
+</pre>
+<p>
+392: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>request_status</span> 393: <span
+class=&#8220;ruby-identifier&#8221;>request_status_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>map</span> {<span
+class=&#8220;ruby-operator&#8221;>|</span><span
+class=&#8220;ruby-identifier&#8221;>prop</span><span
+class=&#8220;ruby-operator&#8221;>|</span> <span
+class=&#8220;ruby-identifier&#8221;>prop</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>prop</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span
+class=&#8220;ruby-identifier&#8221;>prop</span>} 394: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;request-status--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000414&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;request_status=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(*ruby_values)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the REQUEST-STATUS property one or more instances of <a
+href=&#8221;../../String.html&#8220;>String</a> may be passed to this
+method </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;request-status--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 386&lt;/span&gt;
+</pre>
+<p>
+386: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>request_status=</span>(<span
+class=&#8220;ruby-operator&#8221;>*</span><span
+class=&#8220;ruby-identifier&#8221;>ruby_values</span>) 387: <span
+class=&#8220;ruby-ivar&#8221;>@request_status_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>ruby_values</span>.<span
+class=&#8220;ruby-identifier&#8221;>map</span> {<span
+class=&#8220;ruby-operator&#8221;>|</span><span
+class=&#8220;ruby-identifier&#8221;>val</span><span
+class=&#8220;ruby-operator&#8221;>|</span> <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>Text</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>val</span>)} 388: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;request-status-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000408&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;request_status_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the REQUEST-STATUS property which will be an array of instances
+of RiCal::PropertyValueText </p> <p> see RFC 2445 4.8.8.2 pp 134-136 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;request-status-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 374&lt;/span&gt;
+</pre>
+<p>
+374: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>request_status_property</span> 375:
+<span class=&#8220;ruby-ivar&#8221;>@request_status_property</span> <span
+class=&#8220;ruby-operator&#8221;>||=</span> [] 376: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;request-status-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000409&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;request_status_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(*property_values)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the the REQUEST-STATUS property one or more instances of
+RiCal::PropertyValueText may be passed to this method </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;request-status-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 380&lt;/span&gt;
+</pre>
+<p>
+380: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>request_status_property=</span>(<span
+class=&#8220;ruby-operator&#8221;>*</span><span
+class=&#8220;ruby-identifier&#8221;>property_values</span>) 381: <span
+class=&#8220;ruby-ivar&#8221;>@request_status_property</span>= <span
+class=&#8220;ruby-identifier&#8221;>property_values</span> 382: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;to-s-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000417&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;to_s&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p class=&quot;missing-docs&quot;&gt;(Not documented)&lt;/p&gt;
+
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;to-s-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 400&lt;/span&gt;
+</pre>
+<p>
+400: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>to_s</span> 401: <span
+class=&#8220;ruby-identifier&#8221;>entity_name</span> = <span
+class=&#8220;ruby-keyword kw&#8221;>self</span>.<span
+class=&#8220;ruby-identifier&#8221;>class</span>.<span
+class=&#8220;ruby-identifier&#8221;>entity_name</span> 402: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> = [<span
+class=&#8220;ruby-node&#8221;>&amp;quot;BEGIN:#{entity_name}&amp;quot;</span>]
+403: <span class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value
+str&#8221;>&amp;quot;REQUEST-STATUS&amp;quot;</span>, <span
+class=&#8220;ruby-ivar&#8221;>@request_status_property</span>) 404: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;DTSTAMP&amp;quot;</span>,
+<span class=&#8220;ruby-ivar&#8221;>@dtstamp_property</span>) 405: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;DTEND&amp;quot;</span>, <span
+class=&#8220;ruby-ivar&#8221;>@dtend_property</span>) 406: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;DTSTART&amp;quot;</span>,
+<span class=&#8220;ruby-ivar&#8221;>@dtstart_property</span>) 407: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;CONTACT&amp;quot;</span>,
+<span class=&#8220;ruby-ivar&#8221;>@contact_property</span>) 408: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;ATTENDEE&amp;quot;</span>,
+<span class=&#8220;ruby-ivar&#8221;>@attendee_property</span>) 409: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;UID&amp;quot;</span>, <span
+class=&#8220;ruby-ivar&#8221;>@uid_property</span>) 410: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;DURATION&amp;quot;</span>,
+<span class=&#8220;ruby-ivar&#8221;>@duration_property</span>) 411: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;URL&amp;quot;</span>, <span
+class=&#8220;ruby-ivar&#8221;>@url_property</span>) 412: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;ORGANIZER&amp;quot;</span>,
+<span class=&#8220;ruby-ivar&#8221;>@organizer_property</span>) 413: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;FREEBUSY&amp;quot;</span>,
+<span class=&#8220;ruby-ivar&#8221;>@freebusy_property</span>) 414: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-identifier&#8221;>prop_string</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;COMMENT&amp;quot;</span>,
+<span class=&#8220;ruby-ivar&#8221;>@comment_property</span>) 415: <span
+class=&#8220;ruby-identifier&#8221;>collector</span> <span
+class=&#8220;ruby-operator&#8221;>&amp;lt;&amp;lt;</span> <span
+class=&#8220;ruby-node&#8221;>&amp;quot;END:#{entity_name}&amp;quot;</span>
+416: <span class=&#8220;ruby-identifier&#8221;>collector</span>.<span
+class=&#8220;ruby-identifier&#8221;>compact</span>.<span
+class=&#8220;ruby-identifier&#8221;>join</span>(<span
+class=&#8220;ruby-value str&#8221;>&amp;quot;n&amp;quot;</span>) 417: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;uid-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000361&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;uid&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the UID property which will be an instance of <a
+href=&#8221;../../String.html&#8220;>String</a> </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;uid-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 229&lt;/span&gt;
+</pre>
+<p>
+229: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>uid</span> 230: <span
+class=&#8220;ruby-identifier&#8221;>uid_property</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>uid_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span class=&#8220;ruby-keyword
+kw&#8221;>nil</span> 231: <span class=&#8220;ruby-keyword
+kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;uid--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000360&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;uid=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(ruby_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the UID property </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;uid--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 223&lt;/span&gt;
+</pre>
+<p>
+223: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>uid=</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 224: <span
+class=&#8220;ruby-keyword kw&#8221;>self</span>.<span
+class=&#8220;ruby-identifier&#8221;>uid_property</span>= <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>Text</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 225: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;uid-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000358&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;uid_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the UID property which will be an instances of
+RiCal::PropertyValueText </p> <p>
+</p>
+<dl>
+<dt>purpose (from RFC 2445)</dt><dd>This property defines the persistent, globally
+
+</dd>
+</dl>
+<p>
+unique identifier for the calendar component. </p> <p> see RFC 2445 4.8.4.7
+pp 111-112 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;uid-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 212&lt;/span&gt;
+</pre>
+<p>
+212: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>uid_property</span> 213: <span
+class=&#8220;ruby-ivar&#8221;>@uid_property</span> 214: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;uid-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000359&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;uid_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(property_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the UID property property value should be an instance of
+RiCal::PropertyValueText </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;uid-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 218&lt;/span&gt;
+</pre>
+<p>
+218: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>uid_property=</span>(<span
+class=&#8220;ruby-identifier&#8221;>property_value</span>) 219: <span
+class=&#8220;ruby-ivar&#8221;>@uid_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>property_value</span> 220: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;url-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000376&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;url&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the value of the URL property which will be an instance of Uri </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;url-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 262&lt;/span&gt;
+</pre>
+<p>
+262: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>url</span> 263: <span
+class=&#8220;ruby-identifier&#8221;>url_property</span> <span
+class=&#8220;ruby-value&#8221;>? </span><span
+class=&#8220;ruby-identifier&#8221;>url_property</span>.<span
+class=&#8220;ruby-identifier&#8221;>value</span> <span
+class=&#8220;ruby-operator&#8221;>:</span> <span class=&#8220;ruby-keyword
+kw&#8221;>nil</span> 264: <span class=&#8220;ruby-keyword
+kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;url--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000369&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;url=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(ruby_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the value of the URL property </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;url--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 256&lt;/span&gt;
+</pre>
+<p>
+256: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>url=</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 257: <span
+class=&#8220;ruby-keyword kw&#8221;>self</span>.<span
+class=&#8220;ruby-identifier&#8221;>url_property</span>= <span
+class=&#8220;ruby-constant&#8221;>RiCal</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>PropertyValue</span><span
+class=&#8220;ruby-operator&#8221;>::</span><span
+class=&#8220;ruby-constant&#8221;>Uri</span>.<span
+class=&#8220;ruby-identifier&#8221;>convert</span>(<span
+class=&#8220;ruby-identifier&#8221;>ruby_value</span>) 258: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;url-property-method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000367&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;url_property&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;()&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+return the the URL property which will be an instances of
+RiCal::PropertyValueUri </p> <p>
+</p>
+<dl>
+<dt>purpose (from RFC 2445)</dt><dd>This property defines a Uniform Resource Locator
+
+</dd>
+</dl>
+<p>
+(URL) associated with the i<a href=&#8220;Calendar.html&#8220;>Calendar</a>
+object. </p> <p> see RFC 2445 4.8.4.6 pp 110-111 </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;url-property-source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 245&lt;/span&gt;
+</pre>
+<p>
+245: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>url_property</span> 246: <span
+class=&#8220;ruby-ivar&#8221;>@url_property</span> 247: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                        &lt;div id=&quot;url-property--method&quot; class=&quot;method-detail &quot;&gt;
+                                &lt;a name=&quot;M000368&quot;&gt;&lt;/a&gt;
+
+                                &lt;div class=&quot;method-heading&quot;&gt;
+
+                                        &lt;span class=&quot;method-name&quot;&gt;url_property=&lt;/span&gt;&lt;span
+                                                class=&quot;method-args&quot;&gt;(property_value)&lt;/span&gt;
+                                        &lt;span class=&quot;method-click-advice&quot;&gt;click to toggle source&lt;/span&gt;
+
+                                &lt;/div&gt;
+
+                                &lt;div class=&quot;method-description&quot;&gt;
+
+                                        &lt;p&gt;
+</pre>
+<p>
+set the URL property property value should be an instance of
+RiCal::PropertyValueUri </p>
+</p>
+<pre>
+                                        &lt;div class=&quot;method-source-code&quot;
+                                                id=&quot;url-property--source&quot;&gt;
+</pre>
+<p>
+<pre>
+</p>
+<pre>
+     &lt;span class=&quot;ruby-comment cmt&quot;&gt;# File lib/ri_cal/properties/freebusy.rb, line 251&lt;/span&gt;
+</pre>
+<p>
+251: <span class=&#8220;ruby-keyword kw&#8221;>def</span> <span
+class=&#8220;ruby-identifier&#8221;>url_property=</span>(<span
+class=&#8220;ruby-identifier&#8221;>property_value</span>) 252: <span
+class=&#8220;ruby-ivar&#8221;>@url_property</span> = <span
+class=&#8220;ruby-identifier&#8221;>property_value</span> 253: <span
+class=&#8220;ruby-keyword kw&#8221;>end</span></pre>
+</p>
+<pre>
+                                        &lt;/div&gt;
+
+                                &lt;/div&gt;
+
+                        &lt;/div&gt;
+
+                &lt;/div&gt;
+
+        &lt;/div&gt;
+
+        &lt;div id=&quot;rdoc-debugging-section-dump&quot; class=&quot;debugging-section&quot;&gt;
+
+                &lt;p&gt;Disabled; run with --debug to generate this.&lt;/p&gt;
+
+        &lt;/div&gt;
+
+        &lt;div id=&quot;validator-badges&quot;&gt;
+                &lt;p&gt;&lt;small&gt;&lt;a href=&quot;http://validator.w3.org/check/referer&quot;&gt;[Validate]&lt;/a&gt;&lt;/small&gt;&lt;/p&gt;
+                &lt;p&gt;&lt;small&gt;Generated with the &lt;a href=&quot;http://deveiate.org/projects/Darkfish-Rdoc/&quot;&gt;Darkfish
+                        Rdoc Generator&lt;/a&gt; 1.1.6&lt;/small&gt;.&lt;/p&gt;
+        &lt;/div&gt;
+</pre>
+<p>
+</body> </html>
+</p>
+
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+</body>
+</html>
+
