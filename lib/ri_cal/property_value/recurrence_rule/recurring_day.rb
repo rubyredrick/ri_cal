@@ -13,7 +13,7 @@ module RiCal
           DayNums = day_nums
         end
 
-        attr_reader :source
+        attr_reader :source, :scope
         def initialize(source, rrule, scope = "MONTHLY")
           @source = source
           @rrule = rrule
@@ -35,9 +35,113 @@ module RiCal
         def to_a
           [@day, @ordinal]
         end
+        
+        # return a list id for a given time to allow the enumerator to cache lists
+        def list_id(time)
+          if @scope == "YEARLY"
+            time.year
+          else
+            (time.year * 100) + time.month
+          end
+        end
+ 
+        # return a list of times which match the time parameter within the scope of the RecurringDay
+        def matches_for(time)
+          case @scope
+          when :yearly
+            yearly_matches_for(time)
+          when :monthly
+            monthly_matches_for(time)
+          else
+            walkback = caller.grep(/recurrence/i)
+            raise "Logic error! \n  #{walkback.join("\n  ")}"
+          end         
+        end
+        
+        def yearly_matches_for(time)
+          if @ordinal == ""
+            t = time.nth_wday_in_year(1, DayNums[@day])
+            result = []
+            year = time.year
+            while t.year == year
+              result << t
+              t = t.advance(:week => 1)
+            end
+            result
+          else
+            [time.nth_wday_in_year(@ordinal.to_i, DayNums[@day])]
+          end
+        end
+        
+        def monthly_matches_for(time)
+          if @ordinal == ""
+            t = time.nth_wday_in_month(1, DayNums[@day])
+            result = []
+            month = time.month
+            while t.month == month
+              result << t
+              t = t.advance(:week => 1)
+            end
+            result
+          else
+            [time.nth_wday_in_year(@ordinal.to_i, DayNums[@day])]
+          end
+        end
 
         def to_s
           "#{@ordinal}#{@day}"
+        end
+        
+        # return a list id for a given time to allow the enumerator to cache lists
+        def list_id(time)
+          if @scope == "YEARLY"
+            time.year
+          else
+            (time.year * 100) + time.month
+          end
+        end
+ 
+        # return a list of times which match the time parameter within the scope of the RecurringDay
+        def matches_for(time)
+          case @scope
+          when :yearly
+            yearly_matches_for(time)
+          when :monthly
+            monthly_matches_for(time)
+          else
+            walkback = caller.grep(/recurrence/i)
+            raise "Logic error! \n  #{walkback.join("\n  ")}"
+          end         
+        end
+        
+        def yearly_matches_for(time)
+          if @ordinal == ""
+            t = time.nth_wday_in_year(1, DayNums[@day])
+            result = []
+            year = time.year
+            while t.year == year
+              result << t
+              t = t.advance(:week => 1)
+            end
+            result
+          else
+            [time.nth_wday_in_year(@ordinal.to_i, DayNums[@day])]
+          end
+        end
+        
+        def monthly_matches_for(time)
+          if @ordinal == ""
+            t = time.nth_wday_in_month(1, DayNums[@day])
+            result = []
+            month = time.month
+            while t.month == month
+              result << t
+              t = t.advance(:week => 1)
+            end
+            result
+          else
+            [time.nth_wday_in_year(@ordinal.to_i, DayNums[@day])]
+          end
         end
 
         def ordinal_match(date_or_time)

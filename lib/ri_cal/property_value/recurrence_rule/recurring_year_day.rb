@@ -15,14 +15,27 @@ module RiCal
         def length_of_year(year)
           leap_year?(year) ? 366 : 365
         end 
+        
+        # return a list id for a given time to allow the enumerator to cache lists
+        def list_id(time)
+          time.year
+        end
+ 
+        # return a list of times which match the time parameter within the scope of the RecurringDay
+        def matches_for(time)
+          [time.change(:month => 1, :day => 1).advance(:days => target_for(time)- 1)]
+        end
 
-        def include?(date_or_time)
+        def target_for(date_or_time)
           if @source > 0
-            target = @source
+            @source
           else
-            target = length_of_year(date_or_time.year) + @source + 1
+            length_of_year(date_or_time.year) + @source + 1
           end
-          date_or_time.yday == target
+        end
+        
+        def include?(date_or_time)
+          date_or_time.yday == target_for(date_or_time)
         end
       end
     end

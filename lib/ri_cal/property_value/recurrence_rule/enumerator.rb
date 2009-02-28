@@ -19,8 +19,19 @@ module RiCal
           @reset_day = recurrence_rule.reset_day || start_time.day
           @reset_month = recurrence_rule.reset_month || start_time.month
           @next_occurrence_count = 0
+          @by_rule_list_id = {}
+          @by_rule_list = {}
         end
         
+        def by_rule_list(rule_type, rules, time)
+          new_list_id = rules.first.list_id(time)
+          if @by_rule_list_id[rule_type] != new_list_id
+            @by_rule_list_id[rule_type] = new_list_id
+            @by_rule_list[rule_type] = rules.map {|rule| rule.matches_for(time)}.flatten.sort
+          end
+          @by_rule_list[rule_type]
+        end
+                
         def bounded?
           @bounded
         end
