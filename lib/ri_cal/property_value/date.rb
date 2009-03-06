@@ -87,7 +87,7 @@ module RiCal
       # Delegate unknown messages to the wrappered Date instance.
       # TODO: Is this really necessary?
       def method_missing(selector, *args)
-        @date_value.send(selector, *args)
+        @date_time_value.send(selector, *args)
       end
       
       # TODO: consider if this should be a period rather than a hash

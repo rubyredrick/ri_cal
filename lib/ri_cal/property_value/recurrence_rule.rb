@@ -422,6 +422,7 @@ module RiCal
         rules = by_rule_list(rule_type)
         if rules
           list = enumerator.by_rule_list(rule_type, rules, time)
+          rputs "list = #{list.inspect}, time=#{time}"
           result = list.find {|t| t > time}
           yield result if result
         end
@@ -486,8 +487,7 @@ module RiCal
         when "YEARLY"
           scope = :yearly
           scope = :monthly if by_lists_hash[:bymonth]
-          scope = :weekly if by_lists_hash[:byday]
-        when "MONTHLY"
+         when "MONTHLY"
           scope = :monthly
         else
           scope = :daily

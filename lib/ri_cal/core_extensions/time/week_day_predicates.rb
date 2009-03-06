@@ -5,7 +5,7 @@ module RiCal
       # This module is included by Time, Date, and DateTime
       module WeekDayPredicates
         
-        # Determine the day which falls on a particular weekday of the same year as the receiver
+        # Determine the equivalent time on the day which falls on a particular weekday of the same year as the receiver
         #
         # == Parameters
         # n:: the ordinal number being requested
@@ -16,13 +16,13 @@ module RiCal
         #   time.nth_wday_in_year(2, 1)
         def nth_wday_in_year(n, which_wday)
           if n > 0
-            first_of_year = ::Date.new(self.year, 1, 1)
-            first_in_year = first_of_year + (which_wday - first_of_year.wday + 7) % 7
-            (first_in_year + (7*(n - 1))).to_ri_cal_property_value
+            first_of_year = self.to_ri_cal_property_value.change(:month => 1, :day => 1)
+            first_in_year = first_of_year.advance(:days => (which_wday - first_of_year.wday + 7) % 7)
+            first_in_year.advance(:days => (7*(n - 1)))
           else
-            december25 = ::Date.new(self.year, 12, 25)
-            last_in_year = december25 + (which_wday - december25.wday + 7) % 7
-            (last_in_year + (7 * (n + 1))).to_ri_cal_property_value
+            december25 = self.to_ri_cal_property_value.change(:month => 12, :day => 25)
+            last_in_year = december25.advance(:days => (which_wday - december25.wday + 7) % 7)
+            last_in_year.advance(:days => (7 * (n + 1)))
           end
         end
         
@@ -48,16 +48,16 @@ module RiCal
         #
         #   time.nth_wday_in_month(2, 2)
         def nth_wday_in_month(n, which_wday)
-          first_of_month =::Date.new(self.year, self.month, 1)
-          first_in_month = first_of_month + (which_wday - first_of_month.wday)
-          first_in_month += 7 if first_in_month.month != first_of_month.month
+          first_of_month = self.to_ri_cal_property_value.change(:day => 1)
+          first_in_month = first_of_month.advance(:days => (which_wday - first_of_month.wday))
+          first_in_month = first_of_month.advance(:days => 7) if first_in_month.month != first_of_month.month
           if n > 0
-            (first_in_month + (7*(n - 1))).to_ri_cal_property_value
+            first_in_month.advance(:days => (7*(n - 1)))
           else
-            possible = first_in_month +  21
-            possible += 7 while possible.month == first_in_month.month
-            last_in_month = possible - 7
-            (last_in_month - (7*(n.abs - 1))).to_ri_cal_property_value
+            possible = first_in_month.advance(:days => 21)
+            possible = possible.advance(:days => 7) while possible.month == first_in_month.month
+            last_in_month = possible.advance(:days => - 7)
+            (last_in_month.advance(:days => - (7*(n.abs - 1))))
           end
         end
               
