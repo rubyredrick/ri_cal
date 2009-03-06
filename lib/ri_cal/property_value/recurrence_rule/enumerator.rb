@@ -3,7 +3,7 @@ module RiCal
     class RecurrenceRule < PropertyValue
       class Enumerator # :nodoc:
         attr_accessor :start_time, :duration, :next_time, :recurrence_rule
-        attr_reader :reset_second, :reset_minute, :reset_hour, :reset_day, :reset_month
+        attr_reader :reset_second, :reset_minute, :reset_hour, :reset_day, :reset_month, :start_of_next_scope
         def initialize(recurrence_rule, component, setpos_list)
           self.recurrence_rule = recurrence_rule
           self.start_time = component.default_start_time
@@ -19,17 +19,18 @@ module RiCal
           @reset_day = recurrence_rule.reset_day || start_time.day
           @reset_month = recurrence_rule.reset_month || start_time.month
           @next_occurrence_count = 0
-          @by_rule_list_id = {}
-          @by_rule_list = {}
+          # @by_rule_list_id = {}
+          # @by_rule_list = {}
         end
         
         def by_rule_list(rule_type, rules, time)
           new_list_id = rules.first.list_id(time)
-          if @by_rule_list_id[rule_type] != new_list_id
-            @by_rule_list_id[rule_type] = new_list_id
-            @by_rule_list[rule_type] = rules.map {|rule| rule.matches_for(time)}.flatten.sort
+          if @by_rule_list_id != new_list_id
+            @by_rule_list_id = new_list_id
+            @by_rule_list = rules.map {|rule| rule.matches_for(time)}.flatten.sort
+            @start_of_next_scope =  rules.map {|rule| rule.start_of_next_scope_for(time)}.sort.first
           end
-          @by_rule_list[rule_type]
+          @by_rule_list
         end
                 
         def bounded?
