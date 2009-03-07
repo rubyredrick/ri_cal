@@ -50,7 +50,7 @@ module RiCal
         def nth_wday_in_month(n, which_wday)
           first_of_month = self.to_ri_cal_property_value.change(:day => 1)
           first_in_month = first_of_month.advance(:days => (which_wday - first_of_month.wday))
-          first_in_month = first_of_month.advance(:days => 7) if first_in_month.month != first_of_month.month
+          first_in_month = first_in_month.advance(:days => 7) if first_in_month.month != first_of_month.month
           if n > 0
             first_in_month.advance(:days => (7*(n - 1)))
           else

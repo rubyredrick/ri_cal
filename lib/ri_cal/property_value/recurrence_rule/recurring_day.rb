@@ -47,16 +47,13 @@ module RiCal
         
         # return the time for tne next interval after time
         def start_of_next_scope_for(time)
-          result = case @scope
-          when :yearly
-            time.change(:year => time.year + 1, :month => 1, :day => 1)
-          when :monthly
-            time.advance(:months => 1, :days => 1 - time.day)
+          n = @ordinal == "" ? 1 : @ordinal.to_i
+          day_num = DayNums[@day]
+          if scope == :yearly
+            time.change(:year => time.year + 1, :month => 1, :day => 1).nth_wday_in_year(n, day_num)
           else
-            walkback = caller.grep(/recurrence/i)
-            raise "Logic error!#{@scope.inspect}\n  #{walkback.join("\n  ")}"
+            time.change(:day => 1).advance(:months => 1).nth_wday_in_month(n, day_num)
           end
-          result
         end
  
         # return a list of times which match the time parameter within the scope of the RecurringDay
@@ -98,7 +95,9 @@ module RiCal
             end
             result
           else
-            [time.nth_wday_in_month(@ordinal.to_i, DayNums[@day])]
+            result = [time.nth_wday_in_month(@ordinal.to_i, DayNums[@day])]
+            rputs " result for #{self} is #{result.join(", ")}"
+            result
           end
         end
 
@@ -111,7 +110,7 @@ module RiCal
             true
           else
             n = @ordinal.to_i
-            if @scope == "YEARLY"
+            if @scope == :yearly
               date_or_time.nth_wday_in_year?(n, DayNums[@day]) 
             else
               date_or_time.nth_wday_in_month?(n, DayNums[@day])

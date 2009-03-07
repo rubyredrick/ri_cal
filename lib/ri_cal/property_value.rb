@@ -33,11 +33,14 @@ module RiCal
     # Determine if another object is equivalent to the receiver.
     def ==(o)
       if o.class == self.class
-        puts " result is #{(value == o.value).inspect}"
-        value == o.value
+        equality_value == o.equality_value
       else
         super
       end
+    end
+    
+    def equality_value
+      value
     end
     
     def visible_params # :nodoc:
