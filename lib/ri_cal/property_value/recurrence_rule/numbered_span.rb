@@ -4,8 +4,9 @@ module RiCal
 
       class NumberedSpan # :nodoc:
         attr_reader :source
-        def initialize(source)
+        def initialize(source, rule = nil)
           @source = source
+          @rule = rule
         end
 
         def valid?

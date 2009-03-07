@@ -30,6 +30,7 @@ module RiCal
             @by_rule_list = rules.map {|rule| rule.matches_for(time)}.flatten.sort
             @start_of_next_scope =  rules.map {|rule| rule.start_of_next_scope_for(time)}.sort.first
           end
+          rputs "@by_rule_list = #{@by_rule_list.join(", ")}"
           @by_rule_list
         end
                 

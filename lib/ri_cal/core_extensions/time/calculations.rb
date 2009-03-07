@@ -82,7 +82,7 @@ module RiCal
         # == parameter
         # wkst:: an integer representing the day of the week on which weeks are deemed to start. This uses
         # the ruby convention where 0 represents Sunday.
-        def iso_year_and_week_num(wkst)
+        def iso_year_and_week_one_start(wkst)
           iso_year = self.year
           date = ::Date.new(self.year, self.month, self.mday)
           if (date > ::Date.new(iso_year, 12, 29))
@@ -99,7 +99,22 @@ module RiCal
               week_one_start = Calculations.iso_week_one(iso_year, wkst)
             end
           end
-          [iso_year, (date - week_one_start).to_i / 7 + 1]
+          [iso_year, week_one_start]
+        end
+
+        def iso_year_and_week_num(wkst)
+          iso_year, week_one_start = *iso_year_and_week_one_start(wkst)
+          [iso_year, (::Date.new(self.year, self.month, self.mday) - week_one_start).to_i / 7 + 1]
+        end
+
+        def iso_weeks_in_year(wkst)
+          iso_year, week_one_start = *iso_year_and_week_one_start(wkst)
+          probe_date = week_one_start + (7*52)
+          if probe_date.iso_year(wkst) == iso_year
+            53
+          else
+            52
+          end
         end
 
         # return the iso week number of the receiver
@@ -108,6 +123,14 @@ module RiCal
         # the ruby convention where 0 represents Sunday.
         def iso_week_num(wkst)
           iso_year_and_week_num(wkst)[1]
+        end
+
+        # return the iso year of the receiver
+        # == parameter
+        # wkst:: an integer representing the day of the week on which weeks are deemed to start. This uses
+        # the ruby convention where 0 represents Sunday.
+        def iso_year(wkst)
+          iso_year_and_week_num(wkst)[0]
         end
       end
     end
