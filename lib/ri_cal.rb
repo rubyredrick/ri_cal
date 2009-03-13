@@ -59,6 +59,13 @@ module RiCal
     parse(StringIO.new(string))
   end
   
+  def self.debug
+    @debug
+  end
+  
+  def self.debug=(val)
+    @debug = val
+  end  
 
 end  # module RiCal
 

@@ -5,6 +5,8 @@ module RiCal
       # Instances of RecurringDay are used to represent values in BYDAY recurrence rule parts
       #
       class RecurringDay # :nodoc: 
+        
+        attr_reader :wday, :index, :rrule
 
         DayNames = %w{SU MO TU WE TH FR SA} unless defined? DayNames
         day_nums = {}
@@ -21,6 +23,8 @@ module RiCal
           wd_match = source.match(/([+-]?\d*)(SU|MO|TU|WE|TH|FR|SA)/)
           if wd_match
             @day, @ordinal = wd_match[2], wd_match[1]
+            @wday = DayNums[@day]
+            @index = (@ordinal == "") ? nil : @ordinal.to_i
           end
         end
 
@@ -38,24 +42,16 @@ module RiCal
         
         # return a list id for a given time to allow the enumerator to cache lists
         def list_id(time)
-          if @scope == :yearly
+          case @scope
+          when :yearly
             time.year
-          else
+          when :monthly
             (time.year * 100) + time.month
+          when :weekly
+            time.start_of_week_with_wkst(rrule.wkst_day).jd
           end
         end
         
-        # return the time for tne next interval after time
-        def start_of_next_scope_for(time)
-          n = @ordinal == "" ? 1 : @ordinal.to_i
-          day_num = DayNums[@day]
-          if scope == :yearly
-            time.change(:year => time.year + 1, :month => 1, :day => 1).nth_wday_in_year(n, day_num)
-          else
-            time.change(:day => 1).advance(:months => 1).nth_wday_in_month(n, day_num)
-          end
-        end
- 
         # return a list of times which match the time parameter within the scope of the RecurringDay
         def matches_for(time)
           case @scope
@@ -63,6 +59,8 @@ module RiCal
             yearly_matches_for(time)
           when :monthly
             monthly_matches_for(time)
+          when :weekly
+            weekly_matches_for(time)
           else
             walkback = caller.grep(/recurrence/i)
             raise "Logic error!#{@scope.inspect}\n  #{walkback.join("\n  ")}"
@@ -71,7 +69,7 @@ module RiCal
         
         def yearly_matches_for(time)
           if @ordinal == ""
-            t = time.nth_wday_in_year(1, DayNums[@day])
+            t = time.nth_wday_in_year(1, wday)
             result = []
             year = time.year
             while t.year == year
@@ -80,13 +78,13 @@ module RiCal
             end
             result
           else
-            [time.nth_wday_in_year(@ordinal.to_i, DayNums[@day])]
+            [time.nth_wday_in_year(@ordinal.to_i, wday)]
           end
         end
         
         def monthly_matches_for(time)
           if @ordinal == ""
-            t = time.nth_wday_in_month(1, DayNums[@day])
+            t = time.nth_wday_in_month(1, wday)
             result = []
             month = time.month
             while t.month == month
@@ -95,10 +93,15 @@ module RiCal
             end
             result
           else
-            result = [time.nth_wday_in_month(@ordinal.to_i, DayNums[@day])]
-            rputs " result for #{self} is #{result.join(", ")}"
+            result = [time.nth_wday_in_month(index, wday)]
             result
           end
+        end
+
+        def weekly_matches_for(time)
+          date = time.start_of_week_with_wkst(rrule.wkst_day)
+          date += 1 while date.wday != wday
+          [time.change(:year => date.year, :month => date.month, :day => date.day)]
         end
 
         def to_s
@@ -106,21 +109,20 @@ module RiCal
         end
         
         def ordinal_match(date_or_time)
-          if @ordinal == ""
+          if @ordinal == "" || @scope == :weekly
             true
           else
-            n = @ordinal.to_i
             if @scope == :yearly
-              date_or_time.nth_wday_in_year?(n, DayNums[@day]) 
+              date_or_time.nth_wday_in_year?(index, wday) 
             else
-              date_or_time.nth_wday_in_month?(n, DayNums[@day])
+              date_or_time.nth_wday_in_month?(index, wday)
             end
           end
         end
 
         # Determine if a particular date, time, or date_time is included in the recurrence
         def include?(date_or_time)
-          date_or_time.wday == DayNums[@day] && ordinal_match(date_or_time)
+          date_or_time.wday == wday && ordinal_match(date_or_time)
         end
       end
     end

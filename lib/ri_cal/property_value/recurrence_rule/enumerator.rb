@@ -2,38 +2,88 @@ module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
       class Enumerator # :nodoc:
-        attr_accessor :start_time, :duration, :next_time, :recurrence_rule
-        attr_reader :reset_second, :reset_minute, :reset_hour, :reset_day, :reset_month, :start_of_next_scope
+        # base_time gets changed everytime the time is updated by the recurrence rule's frequency
+        attr_accessor :start_time, :duration, :next_time, :recurrence_rule, :base_time
         def initialize(recurrence_rule, component, setpos_list)
           self.recurrence_rule = recurrence_rule
           self.start_time = component.default_start_time
           self.duration = component.default_duration
           self.next_time = recurrence_rule.adjust_start(self.start_time)
+          self.base_time = next_time
           @bounded = recurrence_rule.bounded?
           @count = 0
           @setpos_list = setpos_list
           @setpos = 1
-          @reset_second = recurrence_rule.reset_second || start_time.sec
-          @reset_minute = recurrence_rule.reset_minute || start_time.min
-          @reset_hour = recurrence_rule.reset_hour || start_time.hour
-          @reset_day = recurrence_rule.reset_day || start_time.day
-          @reset_month = recurrence_rule.reset_month || start_time.month
           @next_occurrence_count = 0
           # @by_rule_list_id = {}
           # @by_rule_list = {}
         end
+        
+        def self.for(recurrence_rule, component, setpos_list) # :nodoc:
+          if !setpos_list || setpos_list.all? {|setpos| setpos > 1}
+            self.new(recurrence_rule, component, setpos_list)
+          else
+            NegativeSetposEnumerator.new(recurrence_rule, start_time, end_time, setpos_list)
+          end
+        end        
         
         def by_rule_list(rule_type, rules, time)
           new_list_id = rules.first.list_id(time)
           if @by_rule_list_id != new_list_id
             @by_rule_list_id = new_list_id
             @by_rule_list = rules.map {|rule| rule.matches_for(time)}.flatten.sort
-            @start_of_next_scope =  rules.map {|rule| rule.start_of_next_scope_for(time)}.sort.first
           end
-          rputs "@by_rule_list = #{@by_rule_list.join(", ")}"
           @by_rule_list
         end
-                
+        
+        def same_week?(date_time)
+          rputs "initializing @start_of_week" unless @start_of_week
+          @start_of_week ||= date_time.start_of_week_with_wkst(recurrence_rule.wkst_day)
+          result = date_time.in_week_starting?(@start_of_week)
+          rputs "same_week?: #{result} @start_of_week is #{@start_of_week}, date_time is #{date_time}"
+          result
+        end
+        
+        def week_changed?(date)
+          !same_week?(date)
+        end
+        
+        def advance_base_time(changes)
+          self.base_time = base_time.advance(changes)
+        end
+
+        def advance_and_reset(amount, which, resets)
+          advance_base_time(which => amount)
+          if resets
+            self.base_time = base_time.change(resets)
+          end
+          base_time
+        end
+
+        def advance_by_years(amount, resets = nil)
+          advance_and_reset(amount, :years, resets)
+        end
+        
+        def advance_by_months(amount, resets = nil)
+          advance_and_reset(amount, :months, resets)
+        end
+
+        def advance_by_days(amount, resets = nil)
+          advance_and_reset(amount, :days, resets)
+        end
+        
+        def advance_by_hours(amount, resets = nil)
+          advance_and_reset(amount, :hours, resets)
+        end
+
+        def advance_by_minutes(amount, resets = nil)
+          advance_and_reset(amount, :minutes, resets)
+        end        
+
+        def advance_by_seconds(amount)
+          advance_base_time(:seconds => amount)
+        end        
+        
         def bounded?
           @bounded
         end

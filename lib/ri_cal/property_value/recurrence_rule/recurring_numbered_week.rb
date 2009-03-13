@@ -5,17 +5,7 @@ module RiCal
         def last
           53
         end
-        
-        # return the time for tne next interval after time
-        def start_of_next_scope_for(time, wkst = default_wkst)
-          iso_year, week_one_start = *time.iso_year_and_week_one_start(wkst)
-          week_one_start += 365
-          while probe_date.iso_year(wkst) == iso_year
-            week_one_start += 1
-          end
-          week_start = week_one_start + 7 * (adjusted_iso_weeknum(week_one_start) - 1)
-        end
- 
+         
         # return a list of times which match the time parameter within the scope of the RecurringDay
         def matches_for(time, wkst = default_wkst)
           iso_year, week_one_start = *time.iso_year_and_week_one_start(wkst)
