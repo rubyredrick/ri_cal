@@ -69,7 +69,15 @@ module RiCal
         def nth_wday_in_month?(n, which_wday)
           target = nth_wday_in_month(n, which_wday)
           [self.year, self.month, self.day] == [target.year, target.month, target.day]
-        end      
+        end
+        
+        # Return a DateTime which is the beginning of the first day on or before the receiver
+        # with the specified wday
+        def start_of_week_with_wkst(wkst)
+           date = ::Date.civil(self.year, self.month, self.day)
+           date -= 1 while date.wday != wkst
+           date
+        end
       end
     end
   end

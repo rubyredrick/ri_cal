@@ -12,10 +12,6 @@ module RiCal
         def list_id(time)
           time.month
         end
-
-        def start_of_next_scope_for(time)
-          time.advance(:months => 1).change(:day => @source)
-        end
  
         # return a list of times which match the time parameter within the scope of the RecurringDay
         def matches_for(time)

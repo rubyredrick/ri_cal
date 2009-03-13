@@ -107,6 +107,8 @@ module RiCal
           @date_time_value = ::DateTime.parse(val)
         when ::DateTime
           @date_time_value = val
+        when ::Date, ::Time
+          @date_time_value = ::DateTime.parse(val.to_s)
         end
       end
 
@@ -206,11 +208,56 @@ module RiCal
       def change(options) # :nodoc:
         PropertyValue::DateTime.new(:value => compute_change(@date_time_value, options), :params => (params ? params.dup : nil) )
       end
+      
+      def self.civil(year, month, day, hour, min, sec, offset, start, params)
+        PropertyValue::DateTime.new(
+           :value => ::DateTime.civil(year, month, day, hour, min, sec, offset, start),
+           :params =>(params ? params.dup : nil)
+        )
+      end
+      
+      def change_sec(new_sec)
+        PropertyValue::DateTime.civil(self.year, self.month, self.day, self.hour, self.min, sec, self.offset, self.start, params)
+      end
 
+      def change_min(new_min)
+        PropertyValue::DateTime.civil(self.year, self.month, self.day, self.hour, new_min, self.sec, self.offset, self.start, params)
+      end
+      
+      def change_hour(new_hour)
+        PropertyValue::DateTime.civil(self.year, self.month, self.day, new_hour, self.min, self.sec, self.offset, self.start, params)
+      end
+      
+      def change_day(new_day)
+        PropertyValue::DateTime.civil(self.year, self.month, new_day, self.hour, self.min, self.sec, self.offset, self.start, params)
+      end
+      
+      def change_month(new_month)
+        PropertyValue::DateTime.civil(self.year, new_month, self.day, self.hour, self.min, self.sec, self.offset, self.start, params)
+      end
+      
+      def change_year(new_year)
+        PropertyValue::DateTime.civil(new_year, self.month, self.day, self.hour, self.min, self.sec, self.offset, self.start, params)
+      end
+      
       # Compare the receiver with another object which must respond to the to_datetime message
       # The comparison is done using the Ruby DateTime representations of the two objects
       def <=>(other)
         @date_time_value <=> other.to_datetime
+      end
+      
+      def in_week_starting?(date)
+        wkst_jd = date.jd
+        @date_time_value.jd.between?(wkst_jd, wkst_jd + 6)
+      end
+      
+      def at_start_of_week_with_wkst(wkst)
+        date = @date_time_value.start_of_week_with_wkst(wkst)
+        change(:year => date.year, :month => date.month, :day => date.day)
+      end
+      
+      def in_same_month_as?(other)
+        [other.year, other.month] == [year, month]
       end
 
       # Determine if the receiver and another object are equivalent RiCal::PropertyValue::DateTime instances
