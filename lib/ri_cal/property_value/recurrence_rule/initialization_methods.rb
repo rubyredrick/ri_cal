@@ -2,6 +2,9 @@ module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
       module InitializationMethods # :nodoc:
+        
+        attr_reader :by_day_scope
+        
         def initialize(value_hash) # :nodoc:
           super
           initialize_from_hash(value_hash) unless value_hash[:value]
@@ -38,8 +41,6 @@ module RiCal
           hash
         end
 
-        private
-
         def by_list
           @by_list ||= {}
         end
@@ -56,7 +57,6 @@ module RiCal
             scope = :daily
           end
           scope = :monthly if scope != :weekly && by_lists_hash[:bymonth]
-          rputs "@by_day_scope is #{scope.inspect}"
           @by_day_scope = scope
         end
 
