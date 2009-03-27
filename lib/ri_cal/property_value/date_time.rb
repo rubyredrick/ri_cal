@@ -273,6 +273,18 @@ module RiCal
       def occurrence_hash(default_duration) # :nodoc:
         {:start => self, :end => (default_duration ? self + default_duration : nil)}
       end
+      
+      def year
+        @date_time_value.year
+      end
+      
+      def month
+        @date_time_value.month
+      end
+      
+      def day
+        @date_time_value.day
+      end
 
       # Delegate unknown messages to the wrappered DateTime instance.
       # TODO: Is this really necessary?

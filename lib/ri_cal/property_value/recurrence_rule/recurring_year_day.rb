@@ -25,6 +25,10 @@ module RiCal
         def matches_for(time)
           [time.change(:month => 1, :day => 1).advance(:days => target_for(time)- 1)]
         end
+        
+        def target_date_time_for(date_time)
+          matches_for(date_time)[0]
+        end
 
         def target_for(date_or_time)
           if @source > 0

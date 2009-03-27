@@ -19,6 +19,8 @@ module RiCal
             end
           end
         end
+        
+        
 
         def advance
           if @valids.empty?
@@ -33,11 +35,10 @@ module RiCal
           @current_set[@valids.shift]
         end
 
-
         def fill_set
           @current_set = [next_time]
           while true
-            self.next_time = recurrence_rule.advance(next_time, self)
+            self.next_time = @incrementer.next(next_time)
             if recurrence_rule.in_same_set?(@current_set.last, next_time)
               @current_set << next_time
             else

@@ -81,223 +81,207 @@ module RiCal
           end
         end
 
-        def advance(time, enumerator) # :nodoc:
-          time = advance_seconds(time, enumerator)     
-          while exclude_time_by_rule?(time, enumerator) && (!@until || (time <= @until))
-            time = advance_seconds(time, enumerator)
-          end
-          time
-        end
-        
-        def advance_seconds(time, enumerator) # :nodoc:
-          if freq == 'SECONDLY'
-            time_at_change(time, enumerator.advance_by_seconds(interval), enumerator)
-          elsif (next_second = next_for_list_rule(:bysecond) {|sec| sec > time.sec})
-            time.change_sec(next_second)
-          else
-            advance_minutes(time, enumerator)
-          end
-        end
-        
-        def advance_minutes(time, enumerator) # :nodoc:
-          if freq == 'MINUTELY'
-            time_at_change(time, enumerator.advance_by_minutes(interval, @minutely_resets), enumerator)
-          elsif (next_minute = next_for_list_rule(:byminute) {|min| min > time.min})
-            time.change_min(next_minute)
-          else
-            advance_hours(time, enumerator)
-          end
-        end
-
-        def advance_hours(time, enumerator, debug=false) # :nodoc:
-          if freq == 'HOURLY'
-            time_at_change(time, enumerator.advance_by_hours(interval, @hourly_resets), enumerator)
-          elsif (next_hour = next_for_list_rule(:byhour) {|hr| hr > time.hour})
-            time.change_hour(next_hour)
-          else
-            advance_days(time, enumerator)
-          end
-        end
-        
-        def fast_forward_days(time, enumerator)
-          probe = time.advance(:days => interval)
-          unless probe.in_same_month_as?(time)
-            rputs "***********"
-            if (valid_months = by_rule_list(:bymonth)) && !valid_months.empty?
-              rputs "valid months are #{valid_months.inspect}"
-              probe = probe.advance(:days => interval) until valid_months.include?(probe.month)
-              return enumerator.base_time = debug_comment(probe, "fast_forwarded to $ because of bymonth rule")
-            end 
-          end
-          nil
-        end
-        
-        def advance_days(time, enumerator, debug = false) # :nodoc:
-          rputs "advance_days(#{time})"
-          if freq == 'DAILY'
-            if (new_time = fast_forward_days(time, enumerator))
-              debug_comment new_time, "returning fast_forward $"
-            else
-              time_at_change(time, enumerator.advance_by_days(interval, @daily_resets), enumerator)
-            end
-          elsif (new_time = 
-                              (debug_comment next_for_scoped_byday_rule(:daily, time, enumerator), "next for byday:daily is $$" )||
-                              (debug_comment next_for_byrule(:bymonthday, time, enumerator), "next for bymonthday is $$")  ||
-                              (debug_comment next_for_byrule(:byyearday, time, enumerator), "next for byyearday is $$") 
-            )
-            debug_comment time_at_change(time, new_time, enumerator), "returning $ from rules"
-          else
-            advance_weeks(time, enumerator)
-          end
-        end
-        
-        def next_time_from_weekly_byday_rule(time, enumerator)
-          new_time = next_for_scoped_byday_rule(:weekly, time, enumerator)
-          if new_time && (interval == 1 || enumerator.same_week?(new_time))
-            new_time
-          else
-            nil
-          end
-        end
-        
-        def advance_weeks(time, enumerator) # :nodoc:
-          rputs "advance_weeks(#{time})"
-          if freq == 'WEEKLY'
-            if (new_time = next_time_from_weekly_byday_rule(time, enumerator))
-              debug_comment new_time, "returning $ from advance_weeks due to weekly byday"
-            else
-              time_at_week_change(time, enumerator.advance_by_days(7 * interval, @daily_resets), enumerator)
-            end
-          elsif (new_time = next_for_byrule(:byweekno, time, enumerator))
-            debug_comment time_at_change(time, new_time, enumerator), "returning $ from advance_weeks due to byweekno"
-          elsif (new_time = next_for_scoped_byday_rule(:monthly, time, enumerator))
-            debug_comment time_at_change(time, new_time, enumerator), "returning $ for #{time} from advance_weeks due to byday"
-          elsif (new_time = next_for_byrule(:bymonthday, time, enumerator))
-            debug_comment time_at_change(time, new_time, enumerator), "returning $ for #{time} from advance_weeks due to bymonthday"
-          else
-            advance_months(time, enumerator)
-          end
-        end
-
-        def advance_months(time, enumerator) # :nodoc:
-          if freq == 'MONTHLY'
-            rputs "advancing #{interval} month"
-            time_at_month_change(time, enumerator.advance_by_months(interval, @monthly_resets), enumerator)
-          elsif (new_month = next_for_list_rule(:bymonth) {|month| month > time.month})
-            rputs "cnanging month to #{new_month} in advance_months due to bymonth rule"
-            result = time_at_month_change(time, time.change(:month => new_month), enumerator)
-            rputs "  returning #{result}"
-            result
-          else
-            advance_years(time, enumerator) # :nodoc:
-          end
-        end
-        
-        
-        class TimeCollector
-          def initialize(first = nil)
-            @contents = []
-            self << first
-          end
-          
-          def <<(candidate)
-            @contents << candidate if candidate
-          end
-          
-          def first
-            @contents.compact.sort.first
-          end
-          
-          def to_s
-            "[#{@contents.map {|c| c.to_s}.join(", ")}]"
-          end
-        end
-        
-        def debug_comment(value, why)          
-          rputs why.sub("$", value ? value.to_s : value.inspect)
-          value
-        end
-        
-        
-        def time_at_change(old_time, new_time, enumerator)
-          rputs "time_at_change(#{old_time}, #{new_time})"
-          if old_time.year != new_time.year
-            debug_comment time_at_year_change(old_time, new_time, enumerator), "returning $ because year changed"
-          elsif old_time.month != new_time.month
-            debug_comment time_at_month_change(old_time, new_time, enumerator), "returning $ because month changed"
-          elsif enumerator.week_changed?(new_time)
-            debug_comment time_at_week_change(old_time, new_time, enumerator), "returning $ because week changed"
-          else
-            debug_comment new_time, "returning $ because nothing changed"
-          end
-        end
-        
-        def first_from_bymonth
-          @first_from_bymonth ||= (by_rule_list(:bymonth) || []).first
-        end
-        
-        def time_at_year_change(old_time, new_time, enumerator)
-          if @yearly_resets
-            candidates = TimeCollector.new()
-            first_of_year = new_time.change(:month => 1, :day => 1)
-            first_month_time =  first_of_year.change(:month => first_from_bymonth) if first_from_bymonth
-            base_time = (first_month_time || first_of_year)
-            [:daily, :yearly, :monthly].each do |scope| 
-              candidates << first_for_scoped_byday_rule(scope, base_time, enumerator)
-            end
-            candidates << first_for_byrule(:bymonthday, base_time, enumerator)
-            first_by_yearday = first_for_byrule(:byyearday, base_time, enumerator)
-            first_by_year_day = first_for_byrule(:byyearday, base_time, enumerator)
-            rputs "first_by_year_day is #{first_by_year_day}"
-            candidates << first_by_year_day
-            candidates << first_for_byrule(:byweekno, base_time, enumerator)
-            rputs "candidates are #{candidates}"
-            first_time = candidates.first || base_time
-            rputs "returning #{first_time}"
-            time_at_change(new_time, first_time, enumerator)
-          else
-            new_time
-          end         
-        end
-
-        def time_at_month_change(old_time, new_time, enumerator)
-          rputs "time_at_month_change(#{old_time}, #{new_time})"
-          if @monthly_resets
-            candidates = TimeCollector.new()
-            first_of_month = new_time.change(:day => 1)
-            [:daily, :monthly].each do |scope| 
-              candidates << first_for_scoped_byday_rule(scope, first_of_month, enumerator)
-            end
-            candidates << first_for_byrule(:bymonthday, new_time, enumerator)
-            rputs "candidates are #{candidates}"
-            first_time = candidates.first || new_time
-            rputs "returning #{first_time}"
-            time_at_change(new_time, first_time, enumerator)
-          else
-            new_time
-          end         
-        end
-
-        def time_at_week_change(old_time, new_time, enumerator)
-          rputs "time_at_week_change(#{old_time}, #{new_time})"
-          if (first_in_week = first_for_scoped_byday_rule(:weekly, new_time.at_start_of_week_with_wkst(wkst_day), enumerator))
-            debug_comment time_at_change(new_time, first_in_week), "returning first_in_week = $ "
-         else
-           debug_comment new_time, "returning new_time = $"
-          end         
-        end
-
-        def advance_years(time, enumerator) # :nodoc:
-          if freq == 'YEARLY'
-            time_at_year_change(time, enumerator.advance_by_years(interval, @yearly_resets), enumerator)
-            
-          elsif(new_time = next_for_scoped_byday_rule(:yearly, time, enumerator))
-            returning " #{new_time} from advance_years due to yearly day rule?"
-            new_time
-          else
-            raise Error.new("Logic error or invalid frequency #{freq}")
-          end
-        end
+        # def advance(time, enumerator) # :nodoc:
+        #   time = advance_seconds(time, enumerator)     
+        #   while exclude_time_by_rule?(time, enumerator) && (!@until || (time <= @until))
+        #     time = advance_seconds(time, enumerator)
+        #   end
+        #   time
+        # end
+        # 
+        # def advance_seconds(time, enumerator) # :nodoc:
+        #   if freq == 'SECONDLY'
+        #     time_at_change(time, enumerator.advance_by_seconds(interval), enumerator)
+        #   elsif (next_second = next_for_list_rule(:bysecond) {|sec| sec > time.sec})
+        #     time.change_sec(next_second)
+        #   else
+        #     advance_minutes(time, enumerator)
+        #   end
+        # end
+        # 
+        # def advance_minutes(time, enumerator) # :nodoc:
+        #   if freq == 'MINUTELY'
+        #     time_at_change(time, enumerator.advance_by_minutes(interval, @minutely_resets), enumerator)
+        #   elsif (next_minute = next_for_list_rule(:byminute) {|min| min > time.min})
+        #     time.change_min(next_minute)
+        #   else
+        #     advance_hours(time, enumerator)
+        #   end
+        # end
+        # 
+        # def advance_hours(time, enumerator, debug=false) # :nodoc:
+        #   if freq == 'HOURLY'
+        #     time_at_change(time, enumerator.advance_by_hours(interval, @hourly_resets), enumerator)
+        #   elsif (next_hour = next_for_list_rule(:byhour) {|hr| hr > time.hour})
+        #     time.change_hour(next_hour)
+        #   else
+        #     advance_days(time, enumerator)
+        #   end
+        # end
+        # 
+        # def fast_forward_days(time, enumerator)
+        #   probe = time.advance(:days => interval)
+        #   unless probe.in_same_month_as?(time)
+        #     if (valid_months = by_rule_list(:bymonth)) && !valid_months.empty?
+        #       probe = probe.advance(:days => interval) until valid_months.include?(probe.month)
+        #       return enumerator.base_time = debug_comment(probe, "fast_forwarded to $ because of bymonth rule")
+        #     end 
+        #   end
+        #   nil
+        # end
+        # 
+        # def advance_days(time, enumerator, debug = false) # :nodoc:
+        #   if freq == 'DAILY'
+        #     if (new_time = fast_forward_days(time, enumerator))
+        #       debug_comment new_time, "returning fast_forward $"
+        #     else
+        #       time_at_change(time, enumerator.advance_by_days(interval, @daily_resets), enumerator)
+        #     end
+        #   elsif (new_time = 
+        #                       (debug_comment next_for_scoped_byday_rule(:daily, time, enumerator), "next for byday:daily is $$" )||
+        #                       (debug_comment next_for_byrule(:bymonthday, time, enumerator), "next for bymonthday is $$")  ||
+        #                       (debug_comment next_for_byrule(:byyearday, time, enumerator), "next for byyearday is $$") 
+        #     )
+        #     debug_comment time_at_change(time, new_time, enumerator), "returning $ from rules"
+        #   else
+        #     advance_weeks(time, enumerator)
+        #   end
+        # end
+        # 
+        # def next_time_from_weekly_byday_rule(time, enumerator)
+        #   new_time = next_for_scoped_byday_rule(:weekly, time, enumerator)
+        #   if new_time && (interval == 1 || enumerator.same_week?(new_time))
+        #     new_time
+        #   else
+        #     nil
+        #   end
+        # end
+        # 
+        # def advance_weeks(time, enumerator) # :nodoc:
+        #   if freq == 'WEEKLY'
+        #     if (new_time = next_time_from_weekly_byday_rule(time, enumerator))
+        #       debug_comment new_time, "returning $ from advance_weeks due to weekly byday"
+        #     else
+        #       time_at_week_change(time, enumerator.advance_by_days(7 * interval, @daily_resets), enumerator)
+        #     end
+        #   elsif (new_time = next_for_byrule(:byweekno, time, enumerator))
+        #     debug_comment time_at_change(time, new_time, enumerator), "returning $ from advance_weeks due to byweekno"
+        #   elsif (new_time = next_for_scoped_byday_rule(:monthly, time, enumerator))
+        #     debug_comment time_at_change(time, new_time, enumerator), "returning $ for #{time} from advance_weeks due to byday"
+        #   elsif (new_time = next_for_byrule(:bymonthday, time, enumerator))
+        #     debug_comment time_at_change(time, new_time, enumerator), "returning $ for #{time} from advance_weeks due to bymonthday"
+        #   else
+        #     advance_months(time, enumerator)
+        #   end
+        # end
+        # 
+        # def advance_months(time, enumerator) # :nodoc:
+        #   if freq == 'MONTHLY'
+        #     time_at_month_change(time, enumerator.advance_by_months(interval, @monthly_resets), enumerator)
+        #   elsif (new_month = next_for_list_rule(:bymonth) {|month| month > time.month})
+       #     result = time_at_month_change(time, time.change(:month => new_month), enumerator)
+        #     result
+        #   else
+        #     advance_years(time, enumerator) # :nodoc:
+        #   end
+        # end
+        # 
+        # 
+        # class TimeCollector
+        #   def initialize(first = nil)
+        #     @contents = []
+        #     self << first
+        #   end
+        #   
+        #   def <<(candidate)
+        #     @contents << candidate if candidate
+        #   end
+        #   
+        #   def first
+        #     @contents.compact.sort.first
+        #   end
+        #   
+        #   def to_s
+        #     "[#{@contents.map {|c| c.to_s}.join(", ")}]"
+        #   end
+        # end
+        # 
+        # def debug_comment(value, why)          
+        #   value
+        # end
+        # 
+        # 
+        # def time_at_change(old_time, new_time, enumerator)
+        #   if old_time.year != new_time.year
+        #     debug_comment time_at_year_change(old_time, new_time, enumerator), "returning $ because year changed"
+        #   elsif old_time.month != new_time.month
+        #     debug_comment time_at_month_change(old_time, new_time, enumerator), "returning $ because month changed"
+        #   elsif enumerator.week_changed?(new_time)
+        #     debug_comment time_at_week_change(old_time, new_time, enumerator), "returning $ because week changed"
+        #   else
+        #     debug_comment new_time, "returning $ because nothing changed"
+        #   end
+        # end
+        # 
+        # def first_from_bymonth
+        #   @first_from_bymonth ||= (by_rule_list(:bymonth) || []).first
+        # end
+        # 
+        # def time_at_year_change(old_time, new_time, enumerator)
+        #   if @yearly_resets
+        #     candidates = TimeCollector.new()
+        #     first_of_year = new_time.change(:month => 1, :day => 1)
+        #     first_month_time =  first_of_year.change(:month => first_from_bymonth) if first_from_bymonth
+        #     base_time = (first_month_time || first_of_year)
+        #     [:daily, :yearly, :monthly].each do |scope| 
+        #       candidates << first_for_scoped_byday_rule(scope, base_time, enumerator)
+        #     end
+        #     candidates << first_for_byrule(:bymonthday, base_time, enumerator)
+        #     first_by_yearday = first_for_byrule(:byyearday, base_time, enumerator)
+        #     first_by_year_day = first_for_byrule(:byyearday, base_time, enumerator)
+         #     candidates << first_by_year_day
+        #     candidates << first_for_byrule(:byweekno, base_time, enumerator)
+        #     first_time = candidates.first || base_time
+        #     time_at_change(new_time, first_time, enumerator)
+        #   else
+        #     new_time
+        #   end         
+        # end
+        # 
+        # def time_at_month_change(old_time, new_time, enumerator)
+        #   if @monthly_resets
+        #     candidates = TimeCollector.new()
+        #     first_of_month = new_time.change(:day => 1)
+        #     [:daily, :monthly].each do |scope| 
+        #       candidates << first_for_scoped_byday_rule(scope, first_of_month, enumerator)
+        #     end
+        #     candidates << first_for_byrule(:bymonthday, new_time, enumerator)
+        #     first_time = candidates.first || new_time
+         #     time_at_change(new_time, first_time, enumerator)
+        #   else
+        #     new_time
+        #   end         
+        # end
+        # 
+        # def time_at_week_change(old_time, new_time, enumerator)
+        #   if (first_in_week = first_for_scoped_byday_rule(:weekly, new_time.at_start_of_week_with_wkst(wkst_day), enumerator))
+        #     debug_comment time_at_change(new_time, first_in_week), "returning first_in_week = $ "
+        #  else
+        #    debug_comment new_time, "returning new_time = $"
+        #   end         
+        # end
+        # 
+        # def advance_years(time, enumerator) # :nodoc:
+        #   if freq == 'YEARLY'
+        #     time_at_year_change(time, enumerator.advance_by_years(interval, @yearly_resets), enumerator)
+        #     
+        #   elsif(new_time = next_for_scoped_byday_rule(:yearly, time, enumerator))
+        #     returning " #{new_time} from advance_years due to yearly day rule?"
+        #     new_time
+        #   else
+        #     raise Error.new("Logic error or invalid frequency #{freq}")
+        #   end
+        # end
 
         # determine if time should be excluded due to by rules
         def exclude_time_by_rule?(time, enumerator) # :nodoc:
@@ -343,11 +327,9 @@ module RiCal
           rules = by_rule_list(rule_type)
           if rules
             list = enumerator.by_rule_list(rule_type, rules, time)
-            rputs "list for #{time} is #{list.map {|e| e.to_s}.inspect}" if debug
             result = list.find {|t| 
               t > time
               }
-              rputs " result for #{time} is #{result}" if debug
             return result
           end
           nil

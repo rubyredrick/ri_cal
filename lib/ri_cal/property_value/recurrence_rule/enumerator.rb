@@ -15,11 +15,12 @@ module RiCal
           @setpos_list = setpos_list
           @setpos = 1
           @next_occurrence_count = 0
-          # @by_rule_list_id = {}
-          # @by_rule_list = {}
+          @incrementer = YearlyIncrementer.from_rrule(recurrence_rule)
+          rputs "@incrementer = #{@incrementer}"
         end
         
         def self.for(recurrence_rule, component, setpos_list) # :nodoc:
+          rputs recurrence_rule
           if !setpos_list || setpos_list.all? {|setpos| setpos > 1}
             self.new(recurrence_rule, component, setpos_list)
           else
@@ -27,62 +28,60 @@ module RiCal
           end
         end        
         
-        def by_rule_list(rule_type, rules, time)
-          new_list_id = rules.first.list_id(time)
-          if @by_rule_list_id != new_list_id
-            @by_rule_list_id = new_list_id
-            @by_rule_list = rules.map {|rule| rule.matches_for(time)}.flatten.sort
-          end
-          @by_rule_list
-        end
-        
-        def same_week?(date_time)
-          rputs "initializing @start_of_week" unless @start_of_week
-          @start_of_week ||= date_time.start_of_week_with_wkst(recurrence_rule.wkst_day)
-          result = date_time.in_week_starting?(@start_of_week)
-          rputs "same_week?: #{result} @start_of_week is #{@start_of_week}, date_time is #{date_time}"
-          result
-        end
-        
-        def week_changed?(date)
-          !same_week?(date)
-        end
-        
-        def advance_base_time(changes)
-          self.base_time = base_time.advance(changes)
-        end
-
-        def advance_and_reset(amount, which, resets)
-          advance_base_time(which => amount)
-          if resets
-            self.base_time = base_time.change(resets)
-          end
-          base_time
-        end
-
-        def advance_by_years(amount, resets = nil)
-          advance_and_reset(amount, :years, resets)
-        end
-        
-        def advance_by_months(amount, resets = nil)
-          advance_and_reset(amount, :months, resets)
-        end
-
-        def advance_by_days(amount, resets = nil)
-          advance_and_reset(amount, :days, resets)
-        end
-        
-        def advance_by_hours(amount, resets = nil)
-          advance_and_reset(amount, :hours, resets)
-        end
-
-        def advance_by_minutes(amount, resets = nil)
-          advance_and_reset(amount, :minutes, resets)
-        end        
-
-        def advance_by_seconds(amount)
-          advance_base_time(:seconds => amount)
-        end        
+        # def by_rule_list(rule_type, rules, time)
+        #   new_list_id = rules.first.list_id(time)
+        #   if @by_rule_list_id != new_list_id
+        #     @by_rule_list_id = new_list_id
+        #     @by_rule_list = rules.map {|rule| rule.matches_for(time)}.flatten.sort
+        #   end
+        #   @by_rule_list
+        # end
+        # 
+        # def same_week?(date_time)
+        #   @start_of_week ||= date_time.start_of_week_with_wkst(recurrence_rule.wkst_day)
+        #   result = date_time.in_week_starting?(@start_of_week)
+        #   result
+        # end
+        # 
+        # def week_changed?(date)
+        #   !same_week?(date)
+        # end
+        # 
+        # def advance_base_time(changes)
+        #   self.base_time = base_time.advance(changes)
+        # end
+        # 
+        # def advance_and_reset(amount, which, resets)
+        #   advance_base_time(which => amount)
+        #   if resets
+        #     self.base_time = base_time.change(resets)
+        #   end
+        #   base_time
+        # end
+        # 
+        # def advance_by_years(amount, resets = nil)
+        #   advance_and_reset(amount, :years, resets)
+        # end
+        # 
+        # def advance_by_months(amount, resets = nil)
+        #   advance_and_reset(amount, :months, resets)
+        # end
+        # 
+        # def advance_by_days(amount, resets = nil)
+        #   advance_and_reset(amount, :days, resets)
+        # end
+        # 
+        # def advance_by_hours(amount, resets = nil)
+        #   advance_and_reset(amount, :hours, resets)
+        # end
+        # 
+        # def advance_by_minutes(amount, resets = nil)
+        #   advance_and_reset(amount, :minutes, resets)
+        # end        
+        # 
+        # def advance_by_seconds(amount)
+        #   advance_base_time(:seconds => amount)
+        # end        
         
         def bounded?
           @bounded
@@ -118,7 +117,7 @@ module RiCal
           while true
             @next_occurrence_count += 1
             result = next_time
-            self.next_time = recurrence_rule.advance(result, self)
+            self.next_time = @incrementer.next(result)
             if result_passes_filters?(result)
               @count += 1              
               return recurrence_rule.exhausted?(@count, result) ? nil : result_hash(result)
