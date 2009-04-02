@@ -29,7 +29,7 @@ module RiCal
       # return the value of the ACTION property
       # which will be an instance of String
       def action
-        action_property ? action_property.value : nil
+        action_property ? action_property.ruby_value : nil
       end
 
       def action_property_from_string(line) # :nodoc:
@@ -62,7 +62,7 @@ module RiCal
       # return the value of the DESCRIPTION property
       # which will be an instance of String
       def description
-        description_property ? description_property.value : nil
+        description_property ? description_property.ruby_value : nil
       end
 
       def description_property_from_string(line) # :nodoc:
@@ -95,7 +95,7 @@ module RiCal
       # return the value of the TRIGGER property
       # which will be an instance of duration_or_utc_date_time
       def trigger
-        trigger_property ? trigger_property.value : nil
+        trigger_property ? trigger_property.ruby_value : nil
       end
 
       def trigger_property_from_string(line) # :nodoc:
@@ -128,7 +128,7 @@ module RiCal
       # return the value of the DURATION property
       # which will be an instance of Duration
       def duration
-        duration_property ? duration_property.value : nil
+        duration_property ? duration_property.ruby_value : nil
       end
 
       def duration_property_from_string(line) # :nodoc:
@@ -161,7 +161,7 @@ module RiCal
       # return the value of the REPEAT property
       # which will be an instance of Integer
       def repeat
-        repeat_property ? repeat_property.value : nil
+        repeat_property ? repeat_property.ruby_value : nil
       end
 
       def repeat_property_from_string(line) # :nodoc:
@@ -194,7 +194,7 @@ module RiCal
       # return the value of the SUMMARY property
       # which will be an instance of String
       def summary
-        summary_property ? summary_property.value : nil
+        summary_property ? summary_property.ruby_value : nil
       end
 
       def summary_property_from_string(line) # :nodoc:

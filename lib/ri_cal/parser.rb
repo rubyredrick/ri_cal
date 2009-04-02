@@ -5,7 +5,7 @@ class RiCal::Parser # :nodoc:
       result = buffer_or_line
       @buffer = nil
       while /^\s/ =~ buffer_or_line
-        result = "#{result}#{@buffer.lstrip}"
+        result = "#{result}#{@buffer[1..-1]}"
         @buffer = nil
       end
     rescue EOFError
@@ -61,8 +61,8 @@ class RiCal::Parser # :nodoc:
   end
      
   def next_separated_line
-    line = buffer_or_line
-    next_line ? separate_line(line) : nil
+    line = next_line
+    line ? separate_line(line) : nil
   end
   
   def buffer_or_line

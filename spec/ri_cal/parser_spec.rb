@@ -60,7 +60,7 @@ describe RiCal::Parser do
     end
 
     it "should combine lines" do
-      RiCal::Parser.new(StringIO.new("abc\n  def\n     ghi")).next_line.should == "abcdefghi"      
+      RiCal::Parser.new(StringIO.new("abc\n def\n  ghi")).next_line.should == "abcdef ghi"      
     end
   end
 

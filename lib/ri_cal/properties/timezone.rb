@@ -29,7 +29,7 @@ module RiCal
       # return the value of the TZID property
       # which will be an instance of String
       def tzid
-        tzid_property ? tzid_property.value : nil
+        tzid_property ? tzid_property.ruby_value : nil
       end
 
       def tzid_property_from_string(line) # :nodoc:
@@ -62,7 +62,7 @@ module RiCal
       # return the value of the LAST-MODIFIED property
       # which will be an instance of DateTime
       def last_modified
-        last_modified_property ? last_modified_property.value : nil
+        last_modified_property ? last_modified_property.ruby_value : nil
       end
 
       def last_modified_property_from_string(line) # :nodoc:
@@ -95,7 +95,7 @@ module RiCal
       # return the value of the TZURL property
       # which will be an instance of Uri
       def tzurl
-        tzurl_property ? tzurl_property.value : nil
+        tzurl_property ? tzurl_property.ruby_value : nil
       end
 
       def tzurl_property_from_string(line) # :nodoc:

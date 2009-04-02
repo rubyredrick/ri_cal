@@ -29,7 +29,7 @@ module RiCal
       # return the value of the CONTACT property
       # which will be an instance of String
       def contact
-        contact_property ? contact_property.value : nil
+        contact_property ? contact_property.ruby_value : nil
       end
 
       def contact_property_from_string(line) # :nodoc:
@@ -62,7 +62,7 @@ module RiCal
       # return the value of the DTSTART property
       # which will be an instance of either DateTime or Date
       def dtstart
-        dtstart_property ? dtstart_property.value : nil
+        dtstart_property ? dtstart_property.ruby_value : nil
       end
 
       def dtstart_property_from_string(line) # :nodoc:
@@ -95,7 +95,7 @@ module RiCal
       # return the value of the DTEND property
       # which will be an instance of either DateTime or Date
       def dtend
-        dtend_property ? dtend_property.value : nil
+        dtend_property ? dtend_property.ruby_value : nil
       end
 
       def dtend_property_from_string(line) # :nodoc:
@@ -128,7 +128,7 @@ module RiCal
       # return the value of the DURATION property
       # which will be an instance of Duration
       def duration
-        duration_property ? duration_property.value : nil
+        duration_property ? duration_property.ruby_value : nil
       end
 
       def duration_property_from_string(line) # :nodoc:
@@ -161,7 +161,7 @@ module RiCal
       # return the value of the DTSTAMP property
       # which will be an instance of DateTime
       def dtstamp
-        dtstamp_property ? dtstamp_property.value : nil
+        dtstamp_property ? dtstamp_property.ruby_value : nil
       end
 
       def dtstamp_property_from_string(line) # :nodoc:
@@ -194,7 +194,7 @@ module RiCal
       # return the value of the ORGANIZER property
       # which will be an instance of CalAddress
       def organizer
-        organizer_property ? organizer_property.value : nil
+        organizer_property ? organizer_property.ruby_value : nil
       end
 
       def organizer_property_from_string(line) # :nodoc:
@@ -227,7 +227,7 @@ module RiCal
       # return the value of the UID property
       # which will be an instance of String
       def uid
-        uid_property ? uid_property.value : nil
+        uid_property ? uid_property.ruby_value : nil
       end
 
       def uid_property_from_string(line) # :nodoc:
@@ -260,7 +260,7 @@ module RiCal
       # return the value of the URL property
       # which will be an instance of Uri
       def url
-        url_property ? url_property.value : nil
+        url_property ? url_property.ruby_value : nil
       end
 
       def url_property_from_string(line) # :nodoc:

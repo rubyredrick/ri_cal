@@ -210,7 +210,7 @@ class VEntityUpdater
       comment("return the value of the #{name.upcase} property")
       comment("which will be an instance of #{describe_type(type)}")
       indent("def #{ruby_name.downcase}")
-      indent("  #{property} ? #{property}.value : nil")
+      indent("  #{property} ? #{property}.ruby_value : nil")
       indent("end")
       blank_line
       no_doc("def #{property}_from_string(line)")

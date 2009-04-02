@@ -17,6 +17,24 @@ describe RiCal::Component::Event do
       @it.rrule.should be_kind_of(Array)
     end
   end
+  
+  describe "description property" do
+    before(:each) do
+      @ical_desc = "posted by Joyce per Zan\\nASheville\\, Rayan's Restauratn\\, Biltm\n ore Square"
+      @ruby_desc = "posted by Joyce per Zan\nASheville, Rayan's Restauratn, Biltmore Square"
+      @it = RiCal::Component::Event.parse_string("BEGIN:VEVENT\nDESCRIPTION:#{@ical_desc}\nEND:VEVENT").first
+    end
+    
+    it "should product the converted ruby value" do
+      @it.description.should == @ruby_desc      
+    end
+    
+    it "should produce escaped text for ical" do
+      @it.description = "This is a\nnew description, yes; it is"
+      @it.description_property.value.should == 'This is a\nnew description\, yes\; it is'
+    end
+    
+  end
 
   describe "with both dtend and duration specified" do
     before(:each) do

@@ -52,6 +52,11 @@ module RiCal
         ":#{value}"
       end
     end
+    
+    # return the ruby value
+    def ruby_value
+      self.value
+    end
   end
 end
 

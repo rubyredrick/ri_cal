@@ -29,7 +29,7 @@ module RiCal
       # return the value of the DTSTART property
       # which will be an instance of either DateTime or Date
       def dtstart
-        dtstart_property ? dtstart_property.value : nil
+        dtstart_property ? dtstart_property.ruby_value : nil
       end
 
       def dtstart_property_from_string(line) # :nodoc:
@@ -62,7 +62,7 @@ module RiCal
       # return the value of the TZOFFSETTO property
       # which will be an instance of UtcOffset
       def tzoffsetto
-        tzoffsetto_property ? tzoffsetto_property.value : nil
+        tzoffsetto_property ? tzoffsetto_property.ruby_value : nil
       end
 
       def tzoffsetto_property_from_string(line) # :nodoc:
@@ -95,7 +95,7 @@ module RiCal
       # return the value of the TZOFFSETFROM property
       # which will be an instance of UtcOffset
       def tzoffsetfrom
-        tzoffsetfrom_property ? tzoffsetfrom_property.value : nil
+        tzoffsetfrom_property ? tzoffsetfrom_property.ruby_value : nil
       end
 
       def tzoffsetfrom_property_from_string(line) # :nodoc:
