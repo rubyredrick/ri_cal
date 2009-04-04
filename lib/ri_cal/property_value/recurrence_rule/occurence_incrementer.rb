@@ -5,7 +5,7 @@ module RiCal
       class OccurrenceIncrementer # :nodoc:
 
         attr_accessor :containing_incrementer
-        attr_reader :run_start_time, :leaf_iterator
+        attr_reader :run_start_time, :leaf_iterator, :last_range_start
 
         def initialize(parent_iterator)
           report_initialize("OccurrenceIncrementer", parent_iterator, leaf_iterator)
@@ -41,10 +41,12 @@ module RiCal
         end
         
         def run_start_time=(value)
-          # rputs "#{self.class}.run_start_time=#{value}"
-          # rputs " called from #{caller[0]}"
+          unless @run_start_time
+            rputs "#{self.class}.run_start_time=#{value}"
+            rputs " called from \n  #{caller.join("\n  ")}"
+          end
           @run_start_time = value
-          containing_incrementer.run_start_time = value
+          # containing_incrementer.run_start_time = value
         end
         
         def self.run_start_time=(value)
@@ -92,15 +94,17 @@ module RiCal
         end        
 
         def new_range?(date_time)
-          # rputs "#{self.class}.new_range?(#{date_time})"
-          if run_start_time && same_range?(date_time, run_start_time)
-            # rputs "  still in range, returning false"
+          result = if last_range_start && same_range?(date_time, last_range_start)
+            rputs "  still in range, returning false"
             false
           else
-            # rputs "  out of range, returning true"
-            true
+            rputs "  out of range, returning #{last_range_start}"
+            last_range_start
           end
+          self.run_start_time self.last_range_start = new_range_start(date_time) if result
+          result
         end
+        
         
         def same_year?(old_date_time, new_date_time)
           old_date_time.year == new_date_time.year
@@ -215,8 +219,10 @@ module RiCal
           result
         end
         
-
         def increment(date_time, accept_equal = false)
+          unless run_start_time
+            rputs "#{self.class}.increment(#{date_time}, #{accept_equal}) called from \n  #{caller.join("\n  ")}"
+          end
           self.run_start_time ||= next_range(date_time)
           debug = date_time.month == 2 && date_time.day == 1
           rputs "********************************************" if debug
@@ -260,20 +266,21 @@ module RiCal
         def new_range_start(date_time)
           rputs "#{self.class}.new_range_start(#{date_time}) run_start_time set #{!!run_start_time}"
           
-          if run_start_time
-            base = range_advance(run_start_time)
+          if last_range_start
+            base = range_advance(last_range_start)
           else
             base = date_time
           end
           rputs " base = #{base}"
-          result = beginning_of_range(base)
-          rputs " result is #{result}"
-          result
+          last_range_start = beginning_of_range(base)
+          rputs " result is #{last_range_start}"
+          last_range_start
         end
         
         def new_range?(date_time)
-          self.run_start_time ||= new_range_start(date_time)
-          super(date_time)
+          result = super(date_time)
+          self.run_start_time = new_range_start(date_time) if result
+          result
         end
         
         def same_range?(old_date_time, new_date_time)
@@ -325,6 +332,16 @@ module RiCal
         def increment(date_time)
           date_time.advance(advance_what => (interval * multiplier))
         end
+        
+        def new_range_start(date_time)
+          if last_range_start
+            last_range_start = increment(last_range_start)
+          else
+            last_range_start = date_time
+          end
+          rputs " result is #{last_range_start}"
+          last_range_start
+        end        
       end
 
       class SecondlyIncrementer < FrequencyIncrementer
@@ -388,7 +405,7 @@ module RiCal
         end
                   
         def beginning_of_range(date_time)
-          beginning_of_hour(date_time)
+          top_of_hour(date_time)
         end
         
         def varying_time_attribute
@@ -681,13 +698,13 @@ module RiCal
       class ByMonthIncrementer < ListIncrementer
 
         include MonthlyBydayMethods
-
+        
         def self.from_rrule_and_parent(rrule, parent)
           list_incrementer_child(MonthlyIncrementer, rrule, :bymonth, parent)
         end
 
         def same_range?(old_date_time, new_date_time)
-          # rputs "ByMonthIncrementer.same_range?(#{old_date_time}, #{new_date_time}) = #{same_month?(old_date_time, new_date_time)}"
+          rputs "ByMonthIncrementer.same_range?(#{old_date_time}, #{new_date_time}) = #{same_month?(old_date_time, new_date_time)}"
           same_month?(old_date_time, new_date_time)
         end
 
