@@ -86,7 +86,7 @@ module RiCal
       end
 
       def inspect # :nodoc:
-        "ri_cal:#{@value}::#{@date_time_value}#{params ? " #{params.inspect}" : ""}"
+        "#{@date_time_value}:#{tzid}"
       end
 
       # Returns the value of the reciever as an RFC 2445 iCalendar string

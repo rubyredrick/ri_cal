@@ -15,7 +15,7 @@ module RiCal
           @setpos_list = setpos_list
           @setpos = 1
           @next_occurrence_count = 0
-          @incrementer = YearlyIncrementer.from_rrule(recurrence_rule)
+          @incrementer = YearlyIncrementer.from_rrule(recurrence_rule, start_time)
           rputs "@incrementer = #{@incrementer}"
         end
         
@@ -28,60 +28,6 @@ module RiCal
           end
         end        
         
-        # def by_rule_list(rule_type, rules, time)
-        #   new_list_id = rules.first.list_id(time)
-        #   if @by_rule_list_id != new_list_id
-        #     @by_rule_list_id = new_list_id
-        #     @by_rule_list = rules.map {|rule| rule.matches_for(time)}.flatten.sort
-        #   end
-        #   @by_rule_list
-        # end
-        # 
-        # def same_week?(date_time)
-        #   @start_of_week ||= date_time.start_of_week_with_wkst(recurrence_rule.wkst_day)
-        #   result = date_time.in_week_starting?(@start_of_week)
-        #   result
-        # end
-        # 
-        # def week_changed?(date)
-        #   !same_week?(date)
-        # end
-        # 
-        # def advance_base_time(changes)
-        #   self.base_time = base_time.advance(changes)
-        # end
-        # 
-        # def advance_and_reset(amount, which, resets)
-        #   advance_base_time(which => amount)
-        #   if resets
-        #     self.base_time = base_time.change(resets)
-        #   end
-        #   base_time
-        # end
-        # 
-        # def advance_by_years(amount, resets = nil)
-        #   advance_and_reset(amount, :years, resets)
-        # end
-        # 
-        # def advance_by_months(amount, resets = nil)
-        #   advance_and_reset(amount, :months, resets)
-        # end
-        # 
-        # def advance_by_days(amount, resets = nil)
-        #   advance_and_reset(amount, :days, resets)
-        # end
-        # 
-        # def advance_by_hours(amount, resets = nil)
-        #   advance_and_reset(amount, :hours, resets)
-        # end
-        # 
-        # def advance_by_minutes(amount, resets = nil)
-        #   advance_and_reset(amount, :minutes, resets)
-        # end        
-        # 
-        # def advance_by_seconds(amount)
-        #   advance_base_time(:seconds => amount)
-        # end        
         
         def bounded?
           @bounded
