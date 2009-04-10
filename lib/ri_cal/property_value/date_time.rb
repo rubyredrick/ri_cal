@@ -259,6 +259,19 @@ module RiCal
       def in_same_month_as?(other)
         [other.year, other.month] == [year, month]
       end
+      
+      def days_in_month
+        @date_time_value.days_in_month
+      end
+      
+      def end_of_month
+        change(:day => days_in_month, :hour => 23, :min => 59, :sec => 59)
+      end
+
+      def in_month(month)
+        first = change(:day => 1, :month => month)
+        first.change(:day => [first.days_in_month, day].min)       
+      end
 
       # Determine if the receiver and another object are equivalent RiCal::PropertyValue::DateTime instances
       def ==(other)

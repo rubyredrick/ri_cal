@@ -74,6 +74,8 @@ module RiCal
         # Return a DateTime which is the beginning of the first day on or before the receiver
         # with the specified wday
         def start_of_week_with_wkst(wkst)
+           rputs "#{self}.start_of_week_with_wkst(#{wkst})"
+           wkst ||= 1
            date = ::Date.civil(self.year, self.month, self.day)
            date -= 1 while date.wday != wkst
            date

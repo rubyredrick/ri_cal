@@ -4,5 +4,6 @@ require 'cgi'
 module Kernel
   def rputs(*args)
     puts *["<pre>", args.collect {|a| CGI.escapeHTML(a.to_s)}, "</pre>"] #if RiCal.debug
+    # puts *args
   end
 end
