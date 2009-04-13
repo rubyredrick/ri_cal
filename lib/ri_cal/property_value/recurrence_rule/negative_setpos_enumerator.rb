@@ -38,7 +38,7 @@ module RiCal
         def fill_set
           @current_set = [next_time]
           while true
-            self.next_time = @incrementer.next(next_time)
+            self.next_time = @incrementer.next_time(next_time)
             if recurrence_rule.in_same_set?(@current_set.last, next_time)
               @current_set << next_time
             else
