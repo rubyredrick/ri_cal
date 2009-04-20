@@ -64,7 +64,9 @@ module RiCal
             @next_occurrence_count += 1
             result = next_time
             self.next_time = @incrementer.next_time(result)
+            rputs "enumerator.next_occurrence - incrementer returned #{next_time}"
             if result_passes_filters?(result)
+              rputs "#{result} passed filters"
               @count += 1              
               return recurrence_rule.exhausted?(@count, result) ? nil : result_hash(result)
             end

@@ -96,7 +96,7 @@ module RiCal
         else
           nil
         end
-      end 
+      end
 
       def value=(val) # :nodoc:
         case val
@@ -122,7 +122,7 @@ module RiCal
         time_zone = object_time_zone(ruby_object)
         if time_zone
           new(
-          :params => {'TZID' => time_zone.identifier, 'X-RICAL-TZSOURCE' => 'TZINFO'}, 
+          :params => {'TZID' => time_zone.identifier, 'X-RICAL-TZSOURCE' => 'TZINFO'},
           :value => ruby_object.strftime("%Y%m%d%H%M%S")
           )
         else
@@ -146,7 +146,7 @@ module RiCal
         time_zone = object_time_zone(time_or_date_time)
         if time_zone
           new(
-          :params => {'TZID' => time_zone.identifier, 'X-RICAL-TZSOURCE' => 'TZINFO'}, 
+          :params => {'TZID' => time_zone.identifier, 'X-RICAL-TZSOURCE' => 'TZINFO'},
           :value => time_or_date_time.strftime("%Y%m%d%H%M%S")
           )
         else
@@ -158,7 +158,7 @@ module RiCal
       def tzid
         params && params['TZID']
       end
-      
+
       def visible_params # :nodoc:
         if tzid == "UTC"
           new_hash = params.dup.delete('tzid')
@@ -172,7 +172,7 @@ module RiCal
       def to_datetime
         @date_time_value
       end
-      
+
       # Used by RiCal specs - returns a Ruby DateTime
       def to_ri_cal_ruby_value
         to_datetime
@@ -208,14 +208,14 @@ module RiCal
       def change(options) # :nodoc:
         PropertyValue::DateTime.new(:value => compute_change(@date_time_value, options), :params => (params ? params.dup : nil) )
       end
-      
+
       def self.civil(year, month, day, hour, min, sec, offset, start, params)
         PropertyValue::DateTime.new(
            :value => ::DateTime.civil(year, month, day, hour, min, sec, offset, start),
            :params =>(params ? params.dup : nil)
         )
       end
-      
+
       def change_sec(new_sec)
         PropertyValue::DateTime.civil(self.year, self.month, self.day, self.hour, self.min, sec, self.offset, self.start, params)
       end
@@ -223,54 +223,94 @@ module RiCal
       def change_min(new_min)
         PropertyValue::DateTime.civil(self.year, self.month, self.day, self.hour, new_min, self.sec, self.offset, self.start, params)
       end
-      
+
       def change_hour(new_hour)
         PropertyValue::DateTime.civil(self.year, self.month, self.day, new_hour, self.min, self.sec, self.offset, self.start, params)
       end
-      
+
       def change_day(new_day)
         PropertyValue::DateTime.civil(self.year, self.month, new_day, self.hour, self.min, self.sec, self.offset, self.start, params)
       end
-      
+
       def change_month(new_month)
         PropertyValue::DateTime.civil(self.year, new_month, self.day, self.hour, self.min, self.sec, self.offset, self.start, params)
       end
-      
+
       def change_year(new_year)
         PropertyValue::DateTime.civil(new_year, self.month, self.day, self.hour, self.min, self.sec, self.offset, self.start, params)
       end
-      
+
       # Compare the receiver with another object which must respond to the to_datetime message
       # The comparison is done using the Ruby DateTime representations of the two objects
       def <=>(other)
         @date_time_value <=> other.to_datetime
       end
-      
+
       def in_week_starting?(date)
         wkst_jd = date.jd
         @date_time_value.jd.between?(wkst_jd, wkst_jd + 6)
       end
-      
+
       def at_start_of_week_with_wkst(wkst)
         date = @date_time_value.start_of_week_with_wkst(wkst)
         change(:year => date.year, :month => date.month, :day => date.day)
       end
-      
+
       def in_same_month_as?(other)
         [other.year, other.month] == [year, month]
       end
-      
+
       def days_in_month
         @date_time_value.days_in_month
       end
       
+      def start_of_minute
+        change(:sec => 0)
+      end
+
+      def end_of_minute
+        change(:sec => 59)
+      end
+
+      def start_of_hour
+        change(:min => 0, :sec => 0)
+      end
+
+      def end_of_hour
+        change(:min => 59, :sec => 59)
+      end
+
+      def start_of_day
+        change(:hour => 1, :min => 0, :sec => 0)
+      end
+
+      def end_of_day
+        change(:hour => 23, :min => 59, :sec => 59)
+      end
+
+      def end_of_week_with_wkst(wkst)
+        date = at_start_of_week_with_wkst(wkst).advance(:days => 6).end_of_day
+      end
+
+      def start_of_month
+        change(:day => 1, :hour => 1, :min => 0, :sec => 0)
+      end
+
       def end_of_month
         change(:day => days_in_month, :hour => 23, :min => 59, :sec => 59)
       end
 
+      def start_of_year
+        change(:month => 1, :day => 1, :hour => 1, :min => 0, :sec => 0)
+      end
+
+      def end_of_year
+        change(:month => 12, :day => 31, :hour => 23, :min => 59, :sec => 59)
+      end
+
       def in_month(month)
         first = change(:day => 1, :month => month)
-        first.change(:day => [first.days_in_month, day].min)       
+        first.change(:day => [first.days_in_month, day].min)
       end
 
       # Determine if the receiver and another object are equivalent RiCal::PropertyValue::DateTime instances
@@ -282,21 +322,33 @@ module RiCal
         end
       end
 
-      # TODO: consider if this should be a period rather than a hash    
+      # TODO: consider if this should be a period rather than a hash
       def occurrence_hash(default_duration) # :nodoc:
         {:start => self, :end => (default_duration ? self + default_duration : nil)}
       end
-      
+
       def year
         @date_time_value.year
       end
-      
+
       def month
         @date_time_value.month
       end
-      
+
       def day
         @date_time_value.day
+      end
+
+      def end_of_minute
+        change(:sec => 59)
+      end
+
+      def end_of_hour
+        change(:min => 59, :sec => 59)
+      end
+
+      def end_of_day
+        change(:hour => 23, :min => 59, :sec => 59)
       end
 
       # Delegate unknown messages to the wrappered DateTime instance.

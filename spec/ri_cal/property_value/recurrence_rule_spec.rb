@@ -408,8 +408,8 @@ describe RiCal::PropertyValue::RecurrenceRule do
           :value => rrule_string
           )
           rputs "rule=#{rrule_string.inspect}. dtstart=#{dtstart_string}"
-          enum = rrule.enumerator(mock("EventValue", :default_start_time => DateTime.parse(dtstart_string).to_ri_cal_date_time_value, :default_duration => nil))
-          @it = (1..iterations).collect {|i| enum.next_occurrence}.compact
+          @enum = rrule.enumerator(mock("EventValue", :default_start_time => DateTime.parse(dtstart_string).to_ri_cal_date_time_value, :default_duration => nil))
+          @expectations = (expectation.map {|str| str.gsub(/E.T$/,'').to_ri_cal_date_time_value})
         end
         
         after(:each) do
@@ -417,8 +417,17 @@ describe RiCal::PropertyValue::RecurrenceRule do
         end
 
         it "should produce the correct occurrences" do
-          #TODO - Fix this to use the timezone
-          @it.map {|o_hash| o_hash[:start]}.should == (expectation.map {|str| str.gsub(/E.T$/,'').to_ri_cal_date_time_value})
+          actuals = []
+          (0..(iterations-1)).each do |i|
+            occurrence = @enum.next_occurrence
+            break if occurrence.nil?
+            actuals << occurrence[:start]
+            # This is a little strange, we do this to avoid O(n*2)
+            unless actuals.last == @expectations[i]
+              actuals.should == @expectations[0,actuals.length]
+            end
+          end
+          actuals.length.should == @expectations.length
         end
       end
     end
