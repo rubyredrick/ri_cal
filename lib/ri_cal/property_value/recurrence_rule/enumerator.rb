@@ -16,15 +16,13 @@ module RiCal
           @setpos = 1
           @next_occurrence_count = 0
           @incrementer = YearlyIncrementer.from_rrule(recurrence_rule, start_time)
-          rputs "@incrementer = #{@incrementer}"
         end
         
         def self.for(recurrence_rule, component, setpos_list) # :nodoc:
-          rputs recurrence_rule
           if !setpos_list || setpos_list.all? {|setpos| setpos > 1}
             self.new(recurrence_rule, component, setpos_list)
           else
-            NegativeSetposEnumerator.new(recurrence_rule, start_time, end_time, setpos_list)
+            NegativeSetposEnumerator.new(recurrence_rule, component, setpos_list)
           end
         end        
         
@@ -64,9 +62,7 @@ module RiCal
             @next_occurrence_count += 1
             result = next_time
             self.next_time = @incrementer.next_time(result)
-            rputs "enumerator.next_occurrence - incrementer returned #{next_time}"
             if result_passes_filters?(result)
-              rputs "#{result} passed filters"
               @count += 1              
               return recurrence_rule.exhausted?(@count, result) ? nil : result_hash(result)
             end

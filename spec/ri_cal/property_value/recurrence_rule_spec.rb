@@ -407,7 +407,6 @@ describe RiCal::PropertyValue::RecurrenceRule do
           rrule = RiCal::PropertyValue::RecurrenceRule.new(
           :value => rrule_string
           )
-          rputs "rule=#{rrule_string.inspect}. dtstart=#{dtstart_string}"
           @enum = rrule.enumerator(mock("EventValue", :default_start_time => DateTime.parse(dtstart_string).to_ri_cal_date_time_value, :default_duration => nil))
           @expectations = (expectation.map {|str| str.gsub(/E.T$/,'').to_ri_cal_date_time_value})
         end
@@ -1107,46 +1106,46 @@ describe RiCal::PropertyValue::RecurrenceRule do
       ]
       )
 
-      # enumeration_spec(
-      # "Every 20th Monday of the year, forever (RFC 2445 p 122-3)",
-      # "19970519T090000",
-      # "US-Eastern",
-      # "FREQ=YEARLY;BYDAY=20MO",
-      # [
-      #   "5/19/1997 9:00 AM EDT",
-      #   "5/18/1998 9:00 AM EDT",
-      #   "5/17/1999 9:00 AM EDT",
-      #   "..."
-      # ] #, true
-      # )
+      enumeration_spec(
+      "Every 20th Monday of the year, forever (RFC 2445 p 122-3)",
+      "19970519T090000",
+      "US-Eastern",
+      "FREQ=YEARLY;BYDAY=20MO",
+      [
+        "5/19/1997 9:00 AM EDT",
+        "5/18/1998 9:00 AM EDT",
+        "5/17/1999 9:00 AM EDT",
+        "..."
+      ]
+      )
 
-      # enumeration_spec(
-      # "Every second to last Wednesday of the year, forever",
-      # "19971224T090000",
-      # "US-Eastern",
-      # "FREQ=YEARLY;BYDAY=-2WE",
-      # [
-      #   "12/24/1997 9:00 AM EDT",
-      #   "12/23/1998 9:00 AM EDT",
-      #   "12/22/1999 9:00 AM EDT",
-      #   "12/20/2000 9:00 AM EDT",
-      #   "..."
-      # ]
-      # )
+      enumeration_spec(
+      "Every second to last Wednesday of the year, forever",
+      "19971224T090000",
+      "US-Eastern",
+      "FREQ=YEARLY;BYDAY=-2WE",
+      [
+        "12/24/1997 9:00 AM EDT",
+        "12/23/1998 9:00 AM EDT",
+        "12/22/1999 9:00 AM EDT",
+        "12/20/2000 9:00 AM EDT",
+        "..."
+      ]
+      )
 
-      # enumeration_spec(
-      # "Monday of week number 20 (where the default start of the week is Monday), forever (RFC 2445 p 123)",
-      # "19970512T090000",
-      # "US-Eastern",
-      # "FREQ=YEARLY;BYWEEKNO=20;BYDAY=MO",
-      # [
-      #   "5/12/1997 9:00 AM EDT",
-      #   "5/11/1998 9:00 AM EDT",
-      #   "5/17/1999 9:00 AM EDT",
-      #   "..."
-      # ] , true
-      # )
-      # 
+      enumeration_spec(
+      "Monday of week number 20 (where the default start of the week is Monday), forever (RFC 2445 p 123)",
+      "19970512T090000",
+      "US-Eastern",
+      "FREQ=YEARLY;BYWEEKNO=20;BYDAY=MO",
+      [
+        "5/12/1997 9:00 AM EDT",
+        "5/11/1998 9:00 AM EDT",
+        "5/17/1999 9:00 AM EDT",
+        "..."
+      ]
+      )
+      
       enumeration_spec(
       "Every Thursday in March, forever (RFC 2445 p 123)",
       "19970313T090000",
@@ -1255,47 +1254,47 @@ describe RiCal::PropertyValue::RecurrenceRule do
       ]
       )
 
-      # enumeration_spec(
-      # "Every four years, the first Tuesday after a Monday in November, forever(U.S. Presidential Election day) (RFC 2445 p 124)",
-      # "19961105T090000",
-      # "US-Eastern",
-      # "FREQ=YEARLY;INTERVAL=4;BYMONTH=11;BYDAY=TU;BYMONTHDAY=2,3,4,5,6,7,8",
-      # [
-      #   "11/5/1996 9:00 AM EDT",
-      #   "11/7/2000 9:00 AM EDT",
-      #   "11/2/2004 9:00 AM EDT",
-      #   "..."
-      # ]
-      # )
+      enumeration_spec(
+      "Every four years, the first Tuesday after a Monday in November, forever(U.S. Presidential Election day) (RFC 2445 p 124)",
+      "19961105T090000",
+      "US-Eastern",
+      "FREQ=YEARLY;INTERVAL=4;BYMONTH=11;BYDAY=TU;BYMONTHDAY=2,3,4,5,6,7,8",
+      [
+        "11/5/1996 9:00 AM EDT",
+        "11/7/2000 9:00 AM EDT",
+        "11/2/2004 9:00 AM EDT",
+        "..."
+      ]
+      )
 
-      # enumeration_spec(
-      # "3rd instance into the month of one of Tuesday, Wednesday or Thursday, for the next 3 months (RFC 2445 p 124)",
-      # "19970904T090000",
-      # "US-Eastern",
-      # "FREQ=MONTHLY;COUNT=3;BYDAY=TU,WE,TH;BYSETPOS=3",
-      # [
-      #   "9/4/1997 9:00 AM EDT",
-      #   "10/7/1997 9:00 AM EDT",
-      #   "11/6/1997 9:00 AM EST",
-      # ]
-      # )
+      enumeration_spec(
+      "3rd instance into the month of one of Tuesday, Wednesday or Thursday, for the next 3 months (RFC 2445 p 124)",
+      "19970904T090000",
+      "US-Eastern",
+      "FREQ=MONTHLY;COUNT=3;BYDAY=TU,WE,TH;BYSETPOS=3",
+      [
+        "9/4/1997 9:00 AM EDT",
+        "10/7/1997 9:00 AM EDT",
+        "11/6/1997 9:00 AM EST",
+      ]
+      )
 
-      # enumeration_spec(
-      # "The 2nd to last weekday of the month (RFC 2445 p 124)",
-      # "19970929T090000",
-      # "US-Eastern",
-      # "FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-2",
-      # [
-      #   "9/29/1997 9:00 AM EDT",
-      #   "10/30/1997 9:00 AM EST",
-      #   "11/27/1997 9:00 AM EST",
-      #   "12/30/1997 9:00 AM EST",
-      #   "1/29/1998 9:00 AM EST",
-      #   "2/26/1998 9:00 AM EST",
-      #   "3/30/1998 9:00 AM EST",
-      #   "..."
-      # ]
-      # )
+      enumeration_spec(
+      "The 2nd to last weekday of the month (RFC 2445 p 124)",
+      "19970929T090000",
+      "US-Eastern",
+      "FREQ=MONTHLY;BYDAY=MO,TU,WE,TH,FR;BYSETPOS=-2",
+      [
+        "9/29/1997 9:00 AM EDT",
+        "10/30/1997 9:00 AM EST",
+        "11/27/1997 9:00 AM EST",
+        "12/30/1997 9:00 AM EST",
+        "1/29/1998 9:00 AM EST",
+        "2/26/1998 9:00 AM EST",
+        "3/30/1998 9:00 AM EST",
+        "..."
+      ]
+      )
 
       enumeration_spec(
       "Every 3 hours from 9:00 AM to 5:00 PM on a specific day (RFC 2445 p 125)",

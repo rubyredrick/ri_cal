@@ -79,7 +79,7 @@ module RiCal
 
         attr_accessor :sub_cycle_incrementer, :current_occurrence, :outer_range
         attr_accessor :outer_incrementers
-        attr_accessor :contains_daily_incrementer
+        attr_accessor :contains_daily_incrementer, :contains_weeknum_incrementer
         attr_reader :leaf_iterator
 
         include RangePredicates
@@ -124,7 +124,9 @@ module RiCal
           self.outer_incrementers = []
           if sub_cycle_incrementer
             self.contains_daily_incrementer = sub_cycle_incrementer.daily_incrementer? ||
-            sub_cycle_incrementer.contains_daily_incrementer?
+              sub_cycle_incrementer.contains_daily_incrementer?
+            self.contains_weeknum_incrementer = sub_cycle_incrementer.weeknum_incrementer?||
+              sub_cycle_incrementer.contains_weeknum_incrementer?
             sub_cycle_incrementer.add_outer_incrementer(self)
           else
             self.sub_cycle_incrementer = NullSubCycleIncrementer
@@ -157,24 +159,20 @@ module RiCal
         # But the occurrence is outside the current cycle of any outer incrementer(s) return
         # nil which will cause the outer incrementer to step to its next cycle.
         def next_time(previous_occurrence)
-          rputs "#{self.short_name}.next_time(#{previous_occurrence})"
+          rputs "#{self}.next_time(#{previous_occurrence})"
           if current_occurrence
             sub_occurrence = sub_cycle_incrementer.next_time(previous_occurrence)
           else #first time
             sub_occurrence = sub_cycle_incrementer.first_sub_occurrence(previous_occurrence, update_cycle_range(previous_occurrence))
           end
-          rputs "  #{short_name}.next_time - sub_occurrence is #{sub_occurrence}"
           if sub_occurrence
             candidate = sub_occurrence
           else
             candidate = next_cycle(previous_occurrence)
-            rputs "  #{short_name}.next_time no sub_occurrence candidate now #{candidate}"
           end
           if in_outer_cycle?(candidate)
-            rputs "#{short_name}.next_time returning #{candidate} \n  #{caller[0,3].join("  \n")}"
             candidate
           else
-            rputs "  #{short_name}.next_time #{candidate} was rejected"
             nil
           end
         end
@@ -185,7 +183,6 @@ module RiCal
         end
 
         def in_outer_cycle?(candidate)
-          rputs "#{short_name}.in_outer_cycle?(#{candidate}) outer_range is #{outer_range.inspect}"
           candidate && (outer_range.nil? || outer_range.include?(candidate))
         end
 
@@ -194,7 +191,6 @@ module RiCal
         end
 
         def first_occurrence_of_cycle(previous_occurrence, start_of_cycle)
-          rputs "#{short_name}.first_occurrence_of_cycle(#{previous_occurrence}, #{start_of_cycle})"
           self.current_occurrence = sub_cycle_incrementer.adjust_outer_cycle_start(start_of_cycle)
         end
 
@@ -211,8 +207,15 @@ module RiCal
           false
         end
 
+        def contains_weeknum_incrementer?
+          @contains_weeknum_incrementer
+        end
+
+        def weeknum_incrementer?
+          false
+        end
+
         def adjust_outer_cycle_start(start_of_cycle)
-          rputs "#{short_name}.adjust_outer_cycle_start(#{start_of_cycle}) no change!"
           start_of_cycle
         end
       end
@@ -246,12 +249,10 @@ module RiCal
 
         # Advance to the next occurrence, if the result is within the current cycles of all outer incrementers
         def next_cycle(previous_occurrence)
-          rputs "#{short_name}.next_cycle(#{previous_occurrence})"
           unless occurrences
             self.occurrences = occurrences_for(previous_occurrence)
           end
           candidate = next_candidate(previous_occurrence)
-          rputs "  candidate is #{candidate}"
           if candidate
             sub_cycle_incrementer.first_within_outer_cycle(previous_occurrence, update_cycle_range(candidate))
           else
@@ -260,7 +261,6 @@ module RiCal
         end
 
         def first_within_outer_cycle(previous_occurrence, outer_range)
-          rputs "#{short_name}.first_within_outer_cycle(#{previous_occurrence}, #{outer_range})"
           self.outer_range = outer_range
           self.occurrences = occurrences_within(outer_range)
           occurrences.each { |occurrence|
@@ -268,28 +268,10 @@ module RiCal
             return sub if sub && sub > previous_occurrence
             }
           nil
-          # if (target = outer_range.first) > previous_occurrence
-          #   rputs "  looking for #{target}"
-          #   first_occurrence = occurrences.find {|occurrence| 
-          #       occurrence >= target ||
-          #      (occurrence..end_of_occurrence(occurrence)).include?(target)
-          #     }
-          # else
-          #   rputs "  looking for previous_occurrence #{previous_occurrence}"
-          #   first_occurrence = occurrences.find {|occurrence| 
-          #       occurrence > previous_occurrence
-          #     }
-          # end
-          # if first_occurrence
-          #             sub_cycle_incrementer.first_within_outer_cycle(previous_occurrence, update_cycle_range(first_occurrence))
-          #           else
-          #             nil
-          #           end
         end
 
         def next_candidate(date_time)
           candidate = next_in_list(date_time)
-          rputs "#{short_name}.next_candidate(#{date_time}) first_candidate is #{candidate}"
           if outermost?
             while candidate.nil?
               get_next_occurrences
@@ -304,14 +286,10 @@ module RiCal
         end
 
         def get_next_occurrences
-          rputs "#{short_name}.get_next_occurrences"
-          rputs "  occurrences were #{occurrences.inspect}"
           adv_cycle = advance_cycle(start_of_cycle(occurrences.first))
-          rputs "  new cycle starts with #{adv_cycle}"
           self.occurrences = occurrences_for(adv_cycle)
-          rputs "  occurrences now  #{occurrences.inspect}"
         end
-        
+
         def cycle_adjust(date_time)
           sub_cycle_incrementer.cycle_adjust(start_of_cycle(date_time))
         end
@@ -331,16 +309,11 @@ module RiCal
 
         def occurrences_within(date_time_range)
           result = []
-          rputs "#{short_name}.occurrences_within(#{date_time_range})"
           date_time = date_time_range.first
-          rputs "  first date_time is #{date_time}"
           while date_time <= date_time_range.last
              result << occurrences_for(date_time)
-             rputs " result now #{result.inspect}"
              date_time = advance_cycle(date_time)
-             rputs " date_time now #{date_time}"
            end
-           rputs "returning #{result.flatten.inspect}"
            result.flatten
         end
       end
@@ -379,7 +352,6 @@ module RiCal
         end
 
         def first_within_outer_cycle(previous_occurrence, outer_cycle_range)
-          rputs "#{short_name}.first_within_outer_cycle(#{previous_occurrence}, #{outer_range})"
           if outer_range
             first_occurrence = outer_cycle_range.first
           else
@@ -391,17 +363,14 @@ module RiCal
 
         # Advance to the next occurrence, if the result is within the current cycles of all outer incrementers
         def next_cycle(previous_occurrence)
-          rputs "#{short_name}.next_cycle(#{previous_occurrence}) current_occurrence is #{current_occurrence}"
           if current_occurrence
             candidate = sub_cycle_incrementer.cycle_adjust(step(current_occurrence))
           else
             candidate = step(previous_occurrence)
           end
-          rputs " #{short_name}.next_cycle candidate is #{candidate}"
           if in_outer_cycle?(candidate)
             sub_cycle_incrementer.first_within_outer_cycle(previous_occurrence, update_cycle_range(candidate))
           else
-            rputs "#{short_name}.next_cycle candidate was rejected"
             nil
           end
         end
@@ -532,10 +501,6 @@ module RiCal
           same_hour?(cycle_start, date_time)
         end
 
-        def range_advance(date_time)
-          advance_day(date_time)
-        end
-
         def start_of_cycle(date_time)
           date_time.change(:hour => 1)
         end
@@ -604,10 +569,59 @@ module RiCal
           list.any? {|by_part| by_part.include?(candidate)}
         end
       end
+
+      class ByMonthdayIncrementer < ByNumberedDayIncrementer
+        def self.for_rrule(rrule)
+          conditional_incrementer(rrule, :bymonthday, DailyIncrementer)
+        end
+
+        def scope_of(date_time)
+          date_time.month
+        end
+
+        def start_of_cycle(date_time)
+          date_time.change(:day => 1)
+        end
+
+        def advance_cycle(date_time)
+          first_day_of_month(advance_month(date_time))
+        end
+
+        def end_of_occurrence(date_time)
+          date_time.end_of_day
+        end
+      end
+
+      class ByYeardayIncrementer < ByNumberedDayIncrementer
+        def self.for_rrule(rrule)
+          conditional_incrementer(rrule, :byyearday, ByMonthdayIncrementer)
+        end
+
+        def start_of_cycle(date_time)
+          date_time.change(:month => 1, :day => 1)
+        end
+
+        def scope_of(date_time)
+          date_time.year
+        end
+
+        def advance_cycle(date_time)
+          first_day_of_year(advance_year(date_time))
+        end
+
+        def end_of_occurrence(date_time)
+          date_time.end_of_day
+        end
+      end
+
       class ByDayIncrementer < ListIncrementer
 
-        def initialize(rrule, list, parent)
+        def initialize(rrule, list, by_monthday_list, by_yearday_list, parent)
           super(rrule, list, parent)
+          @monthday_filters = by_monthday_list
+          @yearday_filters = by_yearday_list
+          @by_day_scope = rrule.by_day_scope
+
           case rrule.by_day_scope
           when :yearly
             @cycle_advance_proc = lambda {|date_time| first_day_of_year(advance_year(date_time))}
@@ -627,7 +641,13 @@ module RiCal
         end
 
         def self.for_rrule(rrule)
-          conditional_incrementer(rrule, :byday, DailyIncrementer)
+          list = rrule.by_rule_list(:byday)
+          if list
+            sub_cycle_incrementer = DailyIncrementer.for_rrule(rrule)
+            new(rrule, list, rrule.by_rule_list(:bymonthday), rrule.by_rule_list(:byyearday), sub_cycle_incrementer)
+          else
+            ByYeardayIncrementer.for_rrule(rrule)
+          end
         end
 
         def daily_incrementer?
@@ -641,6 +661,12 @@ module RiCal
         def occurrences_for(date_time)
           first_day = start_of_cycle(date_time)
           result = list.map {|recurring_day| recurring_day.matches_for(first_day)}.flatten.uniq.sort
+          if @monthday_filters
+            result = result.select {|occurrence| @monthday_filters.any? {|recurring_day| recurring_day.include?(occurrence)}}
+          end
+          if @yearday_filters
+            result = result.select {|occurrence| @yearday_filters.any? {|recurring_day| recurring_day.include?(occurrence)}}
+          end
           result
         end
 
@@ -665,59 +691,6 @@ module RiCal
         end
       end
 
-
-      class ByMonthdayIncrementer < ByNumberedDayIncrementer
-        def self.for_rrule(rrule)
-          conditional_incrementer(rrule, :bymonthday, ByDayIncrementer)
-        end
-
-        def scope_of(date_time)
-          date_time.month
-        end
-
-        def range_advance(date_time)
-          advance_month(date_time)
-        end
-
-        def start_of_cycle(date_time)
-          date_time.change(:day => 1)
-        end
-
-        def advance_cycle(date_time)
-          first_day_of_month(advance_month(date_time))
-        end
-
-        def end_of_occurrence(date_time)
-          date_time.end_of_day
-        end
-      end
-
-      class ByYeardayIncrementer < ByNumberedDayIncrementer
-        def self.for_rrule(rrule)
-          conditional_incrementer(rrule, :byyearday, ByMonthdayIncrementer)
-        end
-
-        def range_advance(date_time)
-          advance_year(date_time)
-        end
-
-        def start_of_cycle(date_time)
-          date_time.change(:month => 1, :day => 1)
-        end
-
-        def scope_of(date_time)
-          date_time.year
-        end
-
-        def advance_cycle(date_time)
-          first_day_of_year(advance_year(date_time))
-        end
-
-        def end_of_occurrence(date_time)
-          date_time.end_of_day
-        end
-      end
-
       class WeeklyIncrementer < FrequencyIncrementer
 
         attr_reader :wkst
@@ -730,7 +703,7 @@ module RiCal
         end
 
         def self.for_rrule(rrule)
-          conditional_incrementer(rrule, "WEEKLY", ByYeardayIncrementer)
+          conditional_incrementer(rrule, "WEEKLY", ByDayIncrementer)
         end
 
         def current?(date_time)
@@ -754,32 +727,47 @@ module RiCal
         attr_reader :wkst
         # include WeeklyBydayMethods
 
-        def initialize(list, wkst, rrule, parent)
-          super(rrule, list, parent)
-          @wkst = wkst
+        def initialize(rrule, list, sub_cycle_incrementer)
+          @wkst = rrule.wkst_day
+          super(rrule, list, sub_cycle_incrementer)
         end
 
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, :byweekno, WeeklyIncrementer)
         end
 
+        def weeknum_incrementer?
+          true
+        end
+
         def current?(date_time)
           same_month?(current_occurrence, date_time)
         end
 
-        def range_advance(date_time)
-          advance_year(date_time)
+        def first_within_outer_cycle(previous_occurrence, outer_range)
+          new_range_start = outer_range.first
+          new_range_end = new_range_start.end_of_iso_year(wkst)
+          super(previous_occurrence, outer_range.first..new_range_end)
         end
 
         def start_of_cycle(date_time)
-          first_day_of_year(date_time)
+          result = date_time.at_start_of_iso_year(wkst)
+          result
         end
 
         def occurrences_for(date_time)
-          iso_year, week_one_start = *date_time.iso_year_and_week_one_start(wkst)
-          weeks_in_year_plus_one = date_time.iso_weeks_in_year(wkst)
-          weeks = list.map {|wk_num| (wk_num > 0) ? wk_num : weeks_in_year_plus_one + wk_num}.uniq.sort
-          weeks.map {|wk_num| week_one_start.advance(:days => (wk_num - 1) * 7)}
+          iso_year, year_start = *date_time.iso_year_and_week_one_start(wkst)
+          week_one_occurrence = date_time.change(
+            :year => year_start.year,
+            :month => year_start.month,
+            :day => year_start.day
+          )
+          weeks_in_year_plus_one = week_one_occurrence.iso_weeks_in_year(wkst)
+          weeks = list.map {|recurring_weeknum|
+            wk_num = recurring_weeknum.ordinal
+            (wk_num > 0) ? wk_num : weeks_in_year_plus_one + wk_num
+            }.uniq.sort
+          weeks.map {|wk_num| week_one_occurrence.advance(:days => (wk_num - 1) * 7)}
         end
 
         def candidate_acceptible?(candidate)
@@ -787,7 +775,7 @@ module RiCal
         end
 
         def advance_cycle(date_time)
-          first_day_of_year(advance_year(date_time))
+          date_time.at_start_of_next_iso_year(wkst)
         end
 
         def end_of_occurrence(date_time)
@@ -807,6 +795,19 @@ module RiCal
 
         def advance_what
           :months
+        end
+        
+        def step(date_time)
+          rputs "#{short_name}.step(#{date_time})"
+          if contains_daily_incrementer?
+            rputs "contains_daily_incrementer"
+            result = super(date_time).change(:day => 1)
+            rputs " returning #{result}"
+            result
+          else
+            rputs "no daily_incrementer"
+            super(date_time)
+          end
         end
 
         def end_of_occurrence(date_time)
@@ -863,6 +864,13 @@ module RiCal
 
       class YearlyIncrementer < FrequencyIncrementer
 
+        attr_reader :wkst
+
+        def initialize(rrule, sub_cycle_incrementer)
+          @wkst = rrule.wkst_day
+          super(rrule, sub_cycle_incrementer)
+        end
+
         def self.from_rrule(rrule, start_time)
           conditional_incrementer(rrule, "YEARLY", ByMonthIncrementer)
         end
@@ -875,8 +883,22 @@ module RiCal
           :years
         end
 
+        def step(date_time)
+          if contains_weeknum_incrementer?
+            result = date_time
+            multiplier.times do
+              result = result.at_start_of_next_iso_year(wkst)
+            end
+            result
+          else
+            super(date_time)
+          end
+        end
+
         def start_of_cycle(date_time)
-          if contains_daily_incrementer?
+          if contains_weeknum_incrementer?
+            date_time.at_start_of_iso_year(wkst)
+          elsif contains_daily_incrementer?
             date_time.change(:month => 1, :day => 1)
           else
             date_time.change(:month => 1)
@@ -884,7 +906,11 @@ module RiCal
         end
 
         def end_of_occurrence(date_time)
-          date_time.end_of_year
+          if contains_weeknum_incrementer?
+            date_time.end_of_iso_year(wkst)
+          else
+            date_time.end_of_year
+          end
         end
      end
     end

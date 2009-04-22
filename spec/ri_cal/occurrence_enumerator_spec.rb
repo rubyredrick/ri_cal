@@ -46,8 +46,6 @@ TEXT
       
       it "should have the right five occurrences when :count => 5 option is used" do
         result = @it.occurrences(:count => 5)
-        # result.zip(Fr13UnboundedZuluExpectedFive).each {|act, expected| rputs("expected #{expected.to_s}")
-        # rputs("actual  #{act.to_s}")}
         result.should == Fr13UnboundedZuluExpectedFive
       end
       

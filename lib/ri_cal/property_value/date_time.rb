@@ -263,7 +263,7 @@ module RiCal
       def days_in_month
         @date_time_value.days_in_month
       end
-      
+
       def start_of_minute
         change(:sec => 0)
       end
@@ -306,6 +306,25 @@ module RiCal
 
       def end_of_year
         change(:month => 12, :day => 31, :hour => 23, :min => 59, :sec => 59)
+      end
+
+      def at_start_of_iso_year(wkst)
+        start_of_year = @date_time_value.iso_year_start(wkst)
+        change(:year => start_of_year.year, :month => start_of_year.month, :day => start_of_year.day)
+      end
+
+      def at_end_of_iso_year(wkst)
+        num_weeks = @date_time_value.iso_weeks_in_year(wkst)
+        at_start_of_iso_year(wkst).advance(:weeks => (num_weeks - 1), :days => 6)
+      end
+
+      def at_start_of_next_iso_year(wkst)
+        num_weeks = @date_time_value.iso_weeks_in_year(wkst)
+        at_start_of_iso_year(wkst).advance(:weeks => num_weeks)
+      end
+
+      def end_of_iso_year(wkst)
+        at_end_of_iso_year(wkst).end_of_day
       end
 
       def in_month(month)

@@ -20,6 +20,10 @@ module RiCal
         def to_s
           source.to_s
         end
+        
+        def ordinal
+          @source
+        end
       end
     end
   end

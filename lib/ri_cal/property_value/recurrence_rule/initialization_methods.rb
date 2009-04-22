@@ -57,6 +57,7 @@ module RiCal
             scope = :daily
           end
           scope = :monthly if scope != :weekly && by_lists_hash[:bymonth]
+          scope = :weekly if scope != :daily && by_lists_hash[:byweekno]
           @by_day_scope = scope
         end
 

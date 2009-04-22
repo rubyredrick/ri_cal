@@ -85,7 +85,7 @@ module RiCal
         def iso_year_and_week_one_start(wkst)
           iso_year = self.year
           date = ::Date.new(self.year, self.month, self.mday)
-          if (date > ::Date.new(iso_year, 12, 29))
+          if (date >= ::Date.new(iso_year, 12, 29))
             week_one_start =  Calculations.iso_week_one(iso_year + 1, wkst)
             if date < week_one_start
               week_one_start = Calculations.iso_week_one(iso_year, wkst)
@@ -131,6 +131,10 @@ module RiCal
         # the ruby convention where 0 represents Sunday.
         def iso_year(wkst)
           iso_year_and_week_num(wkst)[0]
+        end
+        
+        def iso_year_start(wkst)
+          iso_year_and_week_one_start(wkst)[1]
         end
       end
     end
