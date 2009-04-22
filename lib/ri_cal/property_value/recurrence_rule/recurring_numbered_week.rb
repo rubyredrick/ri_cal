@@ -6,17 +6,6 @@ module RiCal
           53
         end
          
-        # return a list of times which match the time parameter within the scope of the RecurringDay
-        def matches_for(time, wkst = default_wkst)
-          iso_year, week_one_start = *time.iso_year_and_week_one_start(wkst)
-          week_start = week_one_start + 7 * (adjusted_iso_weeknum(week_one_start) - 1)
-          if week_start.iso_year(wkst) == iso_year
-            (0..6).map {|d| week_start + d}
-          else
-            []
-          end
-        end
-        
         def rule_wkst
           @rule && rule.wkst_day
         end

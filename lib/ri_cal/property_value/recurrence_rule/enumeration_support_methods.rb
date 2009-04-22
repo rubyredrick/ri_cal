@@ -81,32 +81,7 @@ module RiCal
           end
         end
 
-
-        # determine if time should be excluded due to by rules
-        def exclude_time_by_rule?(time, enumerator) # :nodoc:
-          #TODO - this is overdoing it in cases like by_month with a frequency longer than a month
-          time != enumerator.start_time &&( 
-          exclude_time_by_value_rule?(:bysecond, time.sec) ||
-          exclude_time_by_value_rule?(:byminute, time.min) ||
-          exclude_time_by_value_rule?(:byhour, time.hour) ||
-          exclude_time_by_value_rule?(:bymonth, time.month) ||
-          exclude_time_by_inclusion_rule?(:byday, time) ||
-          exclude_time_by_inclusion_rule?(:bymonthday, time) ||
-          exclude_time_by_inclusion_rule?(:byyearday, time) ||
-          exclude_time_by_inclusion_rule?(:byweekno, time))
-        end
-
-        def exclude_time_by_value_rule?(rule_selector, value) # :nodoc:
-          valid = by_list[rule_selector]
-          valid && !valid.include?(value)
-        end
-
-        def exclude_time_by_inclusion_rule?(rule_selector, time) # :nodoc:
-          valid = by_list[rule_selector]
-          valid && !valid.any? {|rule| rule.include?(time)}
-        end
-
-        def by_rule_list(which) # :nodoc:
+         def by_rule_list(which) # :nodoc:
           if @by_list
             @by_list[which]
           else
@@ -114,84 +89,6 @@ module RiCal
           end
         end
         
-        def first_for_byrule(rule_type, time, enumerator, debug = false)
-          rules = by_rule_list(rule_type)
-          if rules
-            list = enumerator.by_rule_list(rule_type, rules, time).first
-          end
-          nil
-        end
-        
-        def next_for_byrule(rule_type, time, enumerator, debug = false)
-          rules = by_rule_list(rule_type)
-          if rules
-            list = enumerator.by_rule_list(rule_type, rules, time)
-            result = list.find {|t| 
-              t > time
-              }
-            return result
-          end
-          nil
-        end
-
-        def first_for_list_rule(rule_name, &find_block)
-          items = by_rule_list(rule_name)
-          if items
-            items.first
-          else
-            nil
-          end
-        end
-
-        def next_for_list_rule(rule_name, &find_block)
-          items = by_rule_list(rule_name)
-          if items
-            items.find(&find_block)
-          else
-            nil
-          end
-        end
-        
-        def has_scoped_by_day_rule?(scope)
-          by_rule_list(:byday) && @by_day_scope == scope
-        end
-
-        def first_for_scoped_byday_rule(scope, time, enumerator)
-          if has_scoped_by_day_rule?(scope)
-            if scope == :daily
-              time
-            else
-              first_for_byrule(:byday, time, enumerator)
-            end
-          else
-            return nil
-          end
-        end
-
-        def next_for_scoped_byday_rule(scope, time, enumerator)
-          if has_scoped_by_day_rule?(scope)
-            if scope == :daily
-              time.advance(:days => 1)
-            else
-              next_for_byrule(:byday, time, enumerator, scope == :weekly)
-            end
-          else
-            return nil
-          end
-        end
-
-        def next_for_daily_scoped_byday_rule(time)
-          new_time = time.advance(:days => 1)
-          if freq == "WEEKLY" && interval > 1 && new_time.wday == wkst_day
-            return new_time.advance(:weeks => interval - 1)
-          elsif freq == "MONTHLY" && interval > 1 && new_time.month != time.month
-            return new_time.advance(:months => interval - 1)
-          elsif freq == "YEARLY" && interval > 1 && new_time.year != time.year
-            return new_time.advance(:years => interval - 1)
-          else
-            return new_time
-          end
-        end
       end
     end
   end

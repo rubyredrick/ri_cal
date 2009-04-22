@@ -7,27 +7,12 @@ module RiCal
         def last
           31
         end
-        
-        # return a list id for a given time to allow the enumerator to cache lists
-        def list_id(time)
-          time.month
-        end
- 
+
         # return a list of times which match the time parameter within the scope of the RecurringDay
         def matches_for(time)
           [time.change(:day => 1).advance(:days => target_for(time)- 1)]
         end
-        
-        # return a list id for a given time to allow the enumerator to cache lists
-        def list_id(time)
-          time.month
-        end
- 
-        # return a list of times which match the time parameter within the scope of the RecurringDay
-        def matches_for(time)
-          [time.change(:day => 1).advance(:days => target_for(time)- 1)]
-        end
-        
+
         def target_date_time_for(date_time)
           matches_for(date_time)[0]
         end

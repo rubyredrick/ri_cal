@@ -1,42 +1,7 @@
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
-      module RangePredicates
-        def same_year?(old_date_time, new_date_time)
-          old_date_time.year == new_date_time.year
-        end
-
-        def same_month?(old_date_time, new_date_time)
-          (old_date_time.month == new_date_time.month) && same_year?(old_date_time, new_date_time)
-        end
-
-        def same_week?(wkst, old_date_time, new_date_time)
-          diff = (new_date_time.to_datetime - (old_date_time.at_start_of_week_with_wkst(wkst).to_datetime))
-          diff.between?(0,6)
-        end
-
-        def same_day?(old_date_time, new_date_time)
-          (old_date_time.day == new_date_time.day) && same_month?(old_date_time, new_date_time)
-        end
-
-        def same_hour?(old_date_time, new_date_time)
-          (old_date_time.hour == new_date_time.hour) && same_day?(old_date_time, new_date_time)
-        end
-
-        def same_minute?(old_date_time, new_date_time)
-          (old_date_time.min == new_date_time.min) && same_hour?(old_date_time, new_date_time)
-        end
-
-        def same_second?(old_date_time, new_date_time)
-          (old_date_time.second == new_date_time.second) && same_minute?(old_date_time, new_date_time)
-        end
-      end
-
       module TimeManipulation
-
-        def top_of_hour(date_time)
-          date_time.change(:minute => 0)
-        end
 
         def advance_day(date_time)
           date_time.advance(:days => 1)
@@ -69,10 +34,6 @@ module RiCal
         def first_day_of_year(date_time)
           date_time.change(:month => 1, :day => 1)
         end
-
-        def first_month_of_year(date_time)
-          date_time.change(:month => 1)
-        end
       end
 
       class OccurrenceIncrementer # :nodoc:
@@ -82,7 +43,6 @@ module RiCal
         attr_accessor :contains_daily_incrementer, :contains_weeknum_incrementer
         attr_reader :leaf_iterator
 
-        include RangePredicates
         include TimeManipulation
 
         class NullSubCycleIncrementer
@@ -103,10 +63,6 @@ module RiCal
 
           def self.cycle_adjust(date_time)
             date_time
-          end
-
-          def self.list?
-            false
           end
 
           def self.to_s
@@ -189,10 +145,6 @@ module RiCal
           first_within_outer_cycle(previous_occurrence, outer_cycle_range)
         end
 
-        def first_occurrence_of_cycle(previous_occurrence, start_of_cycle)
-          self.current_occurrence = sub_cycle_incrementer.adjust_outer_cycle_start(start_of_cycle)
-        end
-
         # Advance to the next cycle, if the result is within the current cycles of all outer incrementers
         def next_cycle(previous_occurrence)
           raise "next_cycle is a subclass responsibility"
@@ -212,10 +164,6 @@ module RiCal
 
         def weeknum_incrementer?
           false
-        end
-
-        def adjust_outer_cycle_start(start_of_cycle)
-          start_of_cycle
         end
       end
 
@@ -240,10 +188,6 @@ module RiCal
           else
             sub_cycle_incrementer
           end
-        end
-
-        def list?
-          true
         end
 
         # Advance to the next occurrence, if the result is within the current cycles of all outer incrementers
@@ -293,15 +237,6 @@ module RiCal
           sub_cycle_incrementer.cycle_adjust(start_of_cycle(date_time))
         end
 
-        # Don't let the time being searched for to go backwards
-        def ratchet(previous_occurrence)
-          if current_occurrence && current_occurrence > previous_occurrence
-            current_occurrence
-          else
-            previous_occurrence
-          end
-        end
-
         def occurrences_for(date_time)
           list.map {|value| date_time.change(varying_time_attribute => value)}
         end
@@ -327,10 +262,6 @@ module RiCal
         def initialize(rrule, sub_cycle_incrementer)
           super(rrule, sub_cycle_incrementer)
           self.interval = rrule.interval
-        end
-
-        def list?
-          false
         end
 
         def self.conditional_incrementer(rrule, freq_str, sub_cycle_class)
@@ -380,10 +311,6 @@ module RiCal
             nil
           end
         end
-
-        def cycle_adjust(date_time)
-          sub_cycle_incrementer.cycle_adjust(date_time)
-        end
       end
 
       class SecondlyIncrementer < FrequencyIncrementer
@@ -412,10 +339,6 @@ module RiCal
           conditional_incrementer(rrule, :bysecond, SecondlyIncrementer)
         end
 
-        def current?(date_time)
-          false
-        end
-
         def varying_time_attribute
           :sec
         end
@@ -438,11 +361,6 @@ module RiCal
           conditional_incrementer(rrule, "MINUTELY", BySecondIncrementer)
         end
 
-
-        def current?(date_time)
-          same_minute?(current_occurrence, date_time)
-        end
-
         def advance_what
           :minutes
         end
@@ -455,10 +373,6 @@ module RiCal
       class ByMinuteIncrementer < ListIncrementer
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, :byminute, MinutelyIncrementer)
-        end
-
-        def current?(date_time)
-          same_minute?(current_occurrence, date_time)
         end
 
         def advance_cycle(date_time)
@@ -483,11 +397,6 @@ module RiCal
           conditional_incrementer(rrule, "HOURLY", ByMinuteIncrementer)
         end
 
-
-        def current?(date_time)
-          same_hour?(current_occurrence, date_time)
-        end
-
         def advance_what
           :hours
         end
@@ -501,10 +410,6 @@ module RiCal
       class ByHourIncrementer < ListIncrementer
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, :byhour, HourlyIncrementer)
-        end
-
-        def current?(date_time)
-          same_hour?(cycle_start, date_time)
         end
 
         def start_of_cycle(date_time)
@@ -534,10 +439,6 @@ module RiCal
           true
         end
 
-        def current?(date_time)
-          same_day?(current_occurrence, date_time)
-        end
-
         def advance_what
           :days
         end
@@ -551,10 +452,6 @@ module RiCal
 
         def daily_incrementer?
           true
-        end
-
-        def current?(date_time)
-          scope_of(current_occurrence)== scope_of(date_time)
         end
 
         def occurrences_for(date_time)
@@ -680,10 +577,6 @@ module RiCal
           list.any? {|recurring_day| recurring_day.include?(candidate)}
         end
 
-        def current?(date_time)
-          @current_proc.call(date_time)
-        end
-
         def varying_time_attribute
           :day
         end
@@ -710,10 +603,6 @@ module RiCal
 
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, "WEEKLY", ByDayIncrementer)
-        end
-
-        def current?(date_time)
-          same_week?(wkst, current_occurrence, date_time)
         end
 
         def multiplier
@@ -744,10 +633,6 @@ module RiCal
 
         def weeknum_incrementer?
           true
-        end
-
-        def current?(date_time)
-          same_month?(current_occurrence, date_time)
         end
 
         def first_within_outer_cycle(previous_occurrence, outer_range)
@@ -795,10 +680,6 @@ module RiCal
           conditional_incrementer(rrule, "MONTHLY", ByWeekNoIncrementer)
         end
 
-        def current?(date_time)
-          same_month?(current_occurrence, date_time)
-        end
-
         def advance_what
           :months
         end
@@ -821,10 +702,6 @@ module RiCal
 
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, :bymonth, MonthlyIncrementer)
-        end
-
-        def current?(date_time)
-          same_month?(current_occurrence, date_time)
         end
 
         def occurrences_for(date_time)
@@ -875,10 +752,6 @@ module RiCal
 
         def self.from_rrule(rrule, start_time)
           conditional_incrementer(rrule, "YEARLY", ByMonthIncrementer)
-        end
-
-        def current?(date_time)
-          same_year?(current_occurrence, date_time)
         end
 
         def advance_what
