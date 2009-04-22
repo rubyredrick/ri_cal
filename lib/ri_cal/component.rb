@@ -2,11 +2,11 @@ module RiCal
   class Component
 
     autoload :Timezone, "#{File.dirname(__FILE__)}/component/timezone.rb"
-        
-    def initialize(parent)
+
+    def initialize(parent=nil)
       @parent = parent
     end
-    
+
     def self.from_parser(parser, parent) # :nodoc:
       entity = self.new(parent)
       line = parser.next_separated_line
@@ -16,43 +16,51 @@ module RiCal
       end
       entity
     end
-    
+
     def self.parse(io) # :nodoc:
       Parser.new(io).parse
     end
-    
+
     def self.parse_string(string) # :nodoc:
       parse(StringIO.new(string))
     end
-    
+
     def subcomponents # :nodoc:
       @subcomponents ||= Hash.new {|h, k| h[k] = []}
     end
     
+    def entity_name
+      self.class.entity_name
+    end
+
     # return an array of Alarm components within this component
     # Alarms may be contained within Events, and Todos
     def alarms
       subcomponents["VALARM"]
     end
     
-    def add_subcomponent(parser, line) # :nodoc:
+    def add_subcomponent(component)
+      subcomponents[component.entity_name] << component
+    end
+
+    def parse_subcomponent(parser, line) # :nodoc:
       subcomponents[line[:value]] << parser.parse_one(line, self)
     end
 
     def process_line(parser, line) # :nodoc:
       if line[:name] == "BEGIN"
-        add_subcomponent(parser, line)
+        parse_subcomponent(parser, line)
       else
         setter = self.class.property_parser[line[:name]]
         if setter
           send(setter, line)
-        else 
+        else
           self.add_x_property(PropertyValue::Text.new(line), line[:name])
         end
       end
     end
 
-    # return a hash of any extended properties, (i.e. those with a property name starting with "X-" 
+    # return a hash of any extended properties, (i.e. those with a property name starting with "X-"
     # representing an extension to the RFC 2445 specification)
     def x_properties
       @x_properties ||= {}
@@ -61,15 +69,15 @@ module RiCal
     def add_x_property(prop, name) # :nodoc:
       x_properties[name] = prop
     end
-    
+
     # Predicate to determine if the component is valid according to RFC 2445
     def valid?
       !mutual_exclusion_violation
     end
-    
+
     def initialize_copy(original) # :nodoc:
     end
-    
+
     def prop_string(prop_name, *properties) # :nodoc:
       properties = properties.flatten.compact
       if properties && !properties.empty?
@@ -77,6 +85,32 @@ module RiCal
       else
         nil
       end
+    end
+
+    def export_subcomponent_to(export_stream, subcomponent)
+      subcomponent.each do |component|
+        component.export_to(export_stream)
+      end
+    end
+
+    # Export this component to an export stream
+    # This is called from the Calendar#export method
+    def export_to(export_stream)
+      export_stream.puts("BEGIN:#{entity_name}")
+      subcomponents.values do |sub|
+        export_subcomponent_to(export_subcomponent_to, sub)
+      end
+      export_stream.puts("END:#{entity_name}")
+    end
+    
+    # Export this single component as an iCalendar component containing only this component and
+    # any required additional components (i.e. VTIMEZONES referenced from this component)
+    # if stream is nil (the default) then this method will return a string,
+    # otherwise stream should be an IO to which the iCalendar file contents will be written
+    def export(stream=nil)
+      wrapper_calendar = Calendar.new
+      wrapper_calendar.add_subcomponent(self)
+      wrapper_calendar.export(self)
     end
     
   end

@@ -17,6 +17,7 @@ module RiCal
       def self.entity_name #:nodoc:
         "VEVENT"
       end
+
     end
   end
 end

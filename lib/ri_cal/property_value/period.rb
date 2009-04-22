@@ -33,6 +33,10 @@ module RiCal
         {:start => self, :end => (default_duration ? self + default_duration : nil)}
       end
 
+      def add_date_times_to(required_timezones)
+        dtstart.add_date_times_to(required_timezones)
+        dtend.add_date_times_to(required_timezones)
+      end
     end
   end
 end

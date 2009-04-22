@@ -102,6 +102,15 @@ describe RiCal::Component::Event do
     it "which should be an Alarm component" do
       @it.alarms.first.should be_kind_of(RiCal::Component::Alarm)
     end
-
+  end
+  
+  describe ".export" do
+    before(:each) do
+      @it = RiCal::Component::Event.new
+    end
+    
+    it "should succeed" do
+      @it.export.should == ""
+    end
   end
 end

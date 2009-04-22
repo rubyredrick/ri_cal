@@ -83,6 +83,11 @@ module RiCal
       def change(options) # :nodoc:
         PropertyValue::Date.new(:value => compute_change(@date_time_value, options), :params => (params ? params.dup : nil) )
       end
+      
+      def add_date_times_to(required_timezones)
+        # Do nothing since dates don't have a timezone
+      end
+
 
       # Delegate unknown messages to the wrappered Date instance.
       # TODO: Is this really necessary?

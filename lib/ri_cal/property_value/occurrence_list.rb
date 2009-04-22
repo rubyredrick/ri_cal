@@ -24,14 +24,13 @@ module RiCal
         end
       end
 
-      # TODO: This should probably ensure htat the elements are sorted.
       def value=(string)
         super
         case params[:value]
         when 'DATE-TIME', nil
-          @elements = @value.map {|string| PropertyValue::DateTime.new(:value => string)}
+          @elements = @value.map {|string| PropertyValue::DateTime.new(:value => string)}.sort
         when 'DATE'
-          @elements = @value.map {|string| PropertyValue::Date.new(:value => string)}
+          @elements = @value.map {|string| PropertyValue::Date.new(:value => string)}.sort
         when 'PERIOD'
         end
       end
@@ -41,5 +40,14 @@ module RiCal
     def enumerator(component)
       OccurrenceList::Enumerator.new(@elements, component)
     end
+    
+    def add_date_times_to(required_timezones)
+      if @elements
+        @elements.each do | occurrence |
+          occurrence.add_date_times_to(required_timezones)
+        end
+      end
+    end
+    
   end
 end

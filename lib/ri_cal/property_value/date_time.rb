@@ -378,6 +378,14 @@ module RiCal
       def end_of_day
         change(:hour => 23, :min => 59, :sec => 59)
       end
+      
+      def has_local_timezone?
+        tzid && tzid != "UTC"
+      end
+      
+      def add_date_times_to(required_timezones)
+        required_timezones.add_date_time(self) if has_local_timezone?
+      end
 
       # Delegate unknown messages to the wrappered DateTime instance.
       # TODO: Is this really necessary?
