@@ -16,6 +16,7 @@ class VEntityUpdater
     @property_map = {}
     @property_defs = YAML.load_file(defs_file)
     @all_props = {}
+    @date_time_props = []
   end
   
   def property(prop_name_or_hash)
@@ -117,6 +118,7 @@ class VEntityUpdater
     type = options['type']
     rfc_ref = options['rfc_ref']
     conflicts = options['conflicts_with']
+    type_constraint = options['type_constraint']
     options.keys.each do |opt_key|
       unless %w{
         ruby_name 
@@ -136,6 +138,9 @@ class VEntityUpdater
     end
     ruby_name = ruby_name.tr("-", "_")
     property = "#{name.tr("-", "_").downcase}_property"
+    if type_constraint != 'must_be_utc' && %w[date_time_or_date DateTime Period OccurrenceList].include?(type)
+      @date_time_props << property
+    end
     @all_props[property] = name.upcase
     @property_map[name.upcase] = :"#{property}_from_string"
     if type == 'date_time_or_date'
@@ -259,6 +264,12 @@ class VEntityUpdater
     @all_props.each_key do |prop_name|
       indent("  #{prop_name} = #{prop_name} && #{prop_name}.dup")
     end
+    indent("end")
+    blank_line
+    indent("def add_date_times_to(required_timezones)")
+    @date_time_props.each do | prop_name|
+      indent("  #{prop_name}.add_date_times_to(required_timezones)")
+    end    
     indent("end")
     blank_line
     indent("module ClassMethods")

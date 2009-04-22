@@ -130,6 +130,9 @@ module RiCal
         tzid_property = tzid_property && tzid_property.dup
       end
 
+      def add_date_times_to(required_timezones)
+        last_modified_property.add_date_times_to(required_timezones)
+      end
       module ClassMethods
         def property_parser
           {"TZID"=>:tzid_property_from_string, "TZURL"=>:tzurl_property_from_string, "LAST-MODIFIED"=>:last_modified_property_from_string}

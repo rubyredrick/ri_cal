@@ -1137,6 +1137,16 @@ module RiCal
         comment_property = comment_property && comment_property.dup
       end
 
+      def add_date_times_to(required_timezones)
+        created_property.add_date_times_to(required_timezones)
+        dtstart_property.add_date_times_to(required_timezones)
+        last_modified_property.add_date_times_to(required_timezones)
+        dtstamp_property.add_date_times_to(required_timezones)
+        recurrence_id_property.add_date_times_to(required_timezones)
+        dtend_property.add_date_times_to(required_timezones)
+        exdate_property.add_date_times_to(required_timezones)
+        rdate_property.add_date_times_to(required_timezones)
+      end
       module ClassMethods
         def property_parser
           {"RELATED-TO"=>:related_to_property_from_string, "RDATE"=>:rdate_property_from_string, "DTEND"=>:dtend_property_from_string, "DTSTART"=>:dtstart_property_from_string, "TRANSP"=>:transp_property_from_string, "DTSTAMP"=>:dtstamp_property_from_string, "LOCATION"=>:location_property_from_string, "EXRULE"=>:exrule_property_from_string, "CONTACT"=>:contact_property_from_string, "URL"=>:url_property_from_string, "LAST-MODIFIED"=>:last_modified_property_from_string, "RESOURCES"=>:resources_property_from_string, "EXDATE"=>:exdate_property_from_string, "ATTACH"=>:attach_property_from_string, "UID"=>:uid_property_from_string, "SEQUENCE"=>:sequence_property_from_string, "CATEGORIES"=>:categories_property_from_string, "RECURRENCE-ID"=>:recurrence_id_property_from_string, "SUMMARY"=>:summary_property_from_string, "GEO"=>:geo_property_from_string, "CLASS"=>:class_property_from_string, "RRULE"=>:rrule_property_from_string, "STATUS"=>:status_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "PRIORITY"=>:priority_property_from_string, "ORGANIZER"=>:organizer_property_from_string, "CREATED"=>:created_property_from_string, "REQUEST-STATUS"=>:request_status_property_from_string, "COMMENT"=>:comment_property_from_string, "DURATION"=>:duration_property_from_string, "DESCRIPTION"=>:description_property_from_string}

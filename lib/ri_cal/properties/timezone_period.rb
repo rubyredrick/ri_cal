@@ -274,6 +274,10 @@ module RiCal
         comment_property = comment_property && comment_property.dup
       end
 
+      def add_date_times_to(required_timezones)
+        dtstart_property.add_date_times_to(required_timezones)
+        rdate_property.add_date_times_to(required_timezones)
+      end
       module ClassMethods
         def property_parser
           {"RDATE"=>:rdate_property_from_string, "DTSTART"=>:dtstart_property_from_string, "TZNAME"=>:tzname_property_from_string, "RRULE"=>:rrule_property_from_string, "TZOFFSETFROM"=>:tzoffsetfrom_property_from_string, "COMMENT"=>:comment_property_from_string, "TZOFFSETTO"=>:tzoffsetto_property_from_string}

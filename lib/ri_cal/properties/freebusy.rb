@@ -451,6 +451,11 @@ module RiCal
         comment_property = comment_property && comment_property.dup
       end
 
+      def add_date_times_to(required_timezones)
+        dtstart_property.add_date_times_to(required_timezones)
+        dtend_property.add_date_times_to(required_timezones)
+        dtstamp_property.add_date_times_to(required_timezones)
+      end
       module ClassMethods
         def property_parser
           {"DTEND"=>:dtend_property_from_string, "DTSTART"=>:dtstart_property_from_string, "DTSTAMP"=>:dtstamp_property_from_string, "URL"=>:url_property_from_string, "CONTACT"=>:contact_property_from_string, "UID"=>:uid_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "ORGANIZER"=>:organizer_property_from_string, "REQUEST-STATUS"=>:request_status_property_from_string, "FREEBUSY"=>:freebusy_property_from_string, "COMMENT"=>:comment_property_from_string, "DURATION"=>:duration_property_from_string}
