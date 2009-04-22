@@ -4,6 +4,8 @@ module RiCal
     # RiCal::PropertyValue::CalAddress represents an icalendar CalAddress property value
     # which is defined in RFC 2445 section 4.3.5 pp 35-37
     class DateTime < PropertyValue
+      
+      attr_reader :timezone
 
       def self.debug # :nodoc:
         @debug
@@ -117,14 +119,21 @@ module RiCal
         activesupport_time = object.acts_like_time? rescue nil
         activesupport_time && object.time_zone rescue nil
       end
+      
+      def init_timezone(time_zone)
+        @timezone = time_zone
+        self
+      end
 
       def self.convert(ruby_object) # :nodoc:
         time_zone = object_time_zone(ruby_object)
         if time_zone
-          new(
+          result = new(
           :params => {'TZID' => time_zone.identifier, 'X-RICAL-TZSOURCE' => 'TZINFO'},
           :value => ruby_object.strftime("%Y%m%d%H%M%S")
           )
+          result.init_timezone(time_zone)
+          result
         else
           ruby_object.to_ri_cal_date_time_value
         end
