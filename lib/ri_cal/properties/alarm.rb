@@ -312,6 +312,7 @@ module RiCal
 
       def add_date_times_to(required_timezones)
       end
+
       module ClassMethods
         def property_parser
           {"ACTION"=>:action_property_from_string, "ATTACH"=>:attach_property_from_string, "REPEAT"=>:repeat_property_from_string, "SUMMARY"=>:summary_property_from_string, "TRIGGER"=>:trigger_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "DURATION"=>:duration_property_from_string, "DESCRIPTION"=>:description_property_from_string}

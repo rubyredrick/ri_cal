@@ -146,6 +146,7 @@ module RiCal
 
       def add_date_times_to(required_timezones)
       end
+
       module ClassMethods
         def property_parser
           {"METHOD"=>:method_property_from_string, "VERSION"=>:version_property_from_string, "PRODID"=>:prodid_property_from_string, "CALSCALE"=>:calscale_property_from_string}
