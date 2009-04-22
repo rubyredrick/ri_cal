@@ -105,12 +105,28 @@ describe RiCal::Component::Event do
   end
   
   describe ".export" do
+    require 'rubygems'
+    require 'tzinfo'
+    
+    def date_time_with_tzinfo_zone(date_time, timezone="America/New_York")
+      result = date_time.dup
+      result.stub!(:acts_like_time?).and_return(true)
+      time_zone = TZInfo::Timezone.get(timezone)
+      result.stub!(:time_zone).and_return(time_zone)
+      result
+    end
+
     before(:each) do
       @it = RiCal::Component::Event.new
     end
     
     it "should succeed" do
-      @it.export.should == ""
+      @it.export.should == "BEGIN:VCALENDAR\nBEGIN:VEVENT\nEND:VEVENT\nEND:VCALENDAR\n"
+    end
+    
+    it "should cause a VTIMEZONE to be included for a dtstart with a local timezone" do
+      @it.dtstart = date_time_with_tzinfo_zone(DateTime.parse("4/22/2009 17:55"), "America/New_York")
+      @it.export.should match(/BEGIN:VTIMEZONE\nTZID;X-RICAL-TZSOURCE=TZINFO:America\/New_York\n/)    
     end
   end
 end

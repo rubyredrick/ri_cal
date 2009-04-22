@@ -39,6 +39,13 @@ module RiCal
       required_timezones.values
     end
     
+    def export_to(export_stream)
+      required_zones.each do |z|
+        tzinfo_timezone = RiCal::Component::TZInfoTimezone.new(z.timezone)
+        tzinfo_timezone.export_local_to(export_stream, z.first_time.to_ri_cal_ruby_value, z.last_time.to_ri_cal_ruby_value)
+      end
+    end
+    
     def add_datetime(date_time)
       (required_timezones[date_time.tzid] ||= RequiredTimezone.new(date_time.timezone)).add_datetime(date_time)
     end

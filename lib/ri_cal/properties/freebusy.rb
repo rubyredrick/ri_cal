@@ -452,9 +452,9 @@ module RiCal
       end
 
       def add_date_times_to(required_timezones)
-        dtstart_property.add_date_times_to(required_timezones)
-        dtend_property.add_date_times_to(required_timezones)
-        dtstamp_property.add_date_times_to(required_timezones)
+        add_property_date_times_to(required_timezones, dtstart_property)
+        add_property_date_times_to(required_timezones, dtend_property)
+        add_property_date_times_to(required_timezones, dtstamp_property)
       end
 
       module ClassMethods

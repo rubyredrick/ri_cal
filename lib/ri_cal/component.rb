@@ -86,6 +86,18 @@ module RiCal
         nil
       end
     end
+    
+    def add_property_date_times_to(required_timezones, property)
+      if property
+        if Array === property
+          property.each do |prop|
+            prop.add_date_times_to(required_timezones)
+          end
+        else
+          property.add_date_times_to(required_timezones)
+        end
+      end
+    end
 
     def export_subcomponent_to(export_stream, subcomponent)
       subcomponent.each do |component|
@@ -110,7 +122,7 @@ module RiCal
     def export(stream=nil)
       wrapper_calendar = Calendar.new
       wrapper_calendar.add_subcomponent(self)
-      wrapper_calendar.export(self)
+      wrapper_calendar.export(stream)
     end
     
   end

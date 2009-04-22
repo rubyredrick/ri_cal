@@ -131,7 +131,7 @@ module RiCal
       end
 
       def add_date_times_to(required_timezones)
-        last_modified_property.add_date_times_to(required_timezones)
+        add_property_date_times_to(required_timezones, last_modified_property)
       end
 
       module ClassMethods

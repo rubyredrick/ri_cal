@@ -109,7 +109,7 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
       Period.add_period(period)
       period = tzinfo_timezone.period_for_utc(period.utc_end + 1)
     end
-    Period.export_to(export_stream)
+    Period.export_periods(export_stream)
     export_stream.puts "END:VTIMEZONE\n"
   end
 end

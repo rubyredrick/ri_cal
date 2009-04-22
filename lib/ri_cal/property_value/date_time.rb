@@ -384,7 +384,7 @@ module RiCal
       end
       
       def add_date_times_to(required_timezones)
-        required_timezones.add_date_time(self) if has_local_timezone?
+        required_timezones.add_datetime(self) if has_local_timezone?
       end
 
       # Delegate unknown messages to the wrappered DateTime instance.

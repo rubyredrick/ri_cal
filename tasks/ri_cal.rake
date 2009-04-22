@@ -268,7 +268,7 @@ class VEntityUpdater
     blank_line
     indent("def add_date_times_to(required_timezones)")
     @date_time_props.each do | prop_name|
-      indent("  #{prop_name}.add_date_times_to(required_timezones) if #{prop_name}")
+      indent("  add_property_date_times_to(required_timezones, #{prop_name})")
     end    
     indent("end")
     blank_line

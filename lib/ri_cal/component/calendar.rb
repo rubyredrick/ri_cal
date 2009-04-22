@@ -5,12 +5,12 @@ module RiCal
     #
     # to see the property accessing methods for this class see the RiCal::Properties::Calendar module
     class Calendar < Component
-      include RiCal::Properties::Calendar    
+      include RiCal::Properties::Calendar
 
       def self.entity_name #:nodoc:
         "VCALENDAR"
       end
-      
+
       def required_timezones
         @required_timezones ||=  RequiredTimezones.new
       end
@@ -19,7 +19,7 @@ module RiCal
       def events
         subcomponents["VEVENT"]
       end
-      
+
       # add an event to the calendar
       def add_subcomponent(component)
         super(component)
@@ -45,16 +45,14 @@ module RiCal
       def timezones
         subcomponents["VTIMEZONE"]
       end
-      
+
       def export_required_timezones(export_stream)
-        required_timezones.each do |tz|
-          tz.export_to(export_stream, local_start, local_end)
-        end
+        required_timezones.export_to(export_stream)
       end
-      
+
       # Export this calendar as an iCalendar file.
       # if to is nil (the default) then this method will return a string,
-      # otherwise to should be an IO to which the iCalendar file contents will be written 
+      # otherwise to should be an IO to which the iCalendar file contents will be written
       def export(to=nil)
         export_stream = to || StringIO.new
         export_stream.puts("BEGIN:VCALENDAR")
@@ -70,9 +68,9 @@ module RiCal
           nil
         else
           export_stream.string
-        end          
+        end
       end
-      
-    end   
+
+    end
   end
 end

@@ -1174,14 +1174,14 @@ module RiCal
       end
 
       def add_date_times_to(required_timezones)
-        created_property.add_date_times_to(required_timezones)
-        dtstamp_property.add_date_times_to(required_timezones)
-        dtstart_property.add_date_times_to(required_timezones)
-        last_modified_property.add_date_times_to(required_timezones)
-        recurrence_id_property.add_date_times_to(required_timezones)
-        due_property.add_date_times_to(required_timezones)
-        exdate_property.add_date_times_to(required_timezones)
-        rdate_property.add_date_times_to(required_timezones)
+        add_property_date_times_to(required_timezones, created_property)
+        add_property_date_times_to(required_timezones, dtstamp_property)
+        add_property_date_times_to(required_timezones, dtstart_property)
+        add_property_date_times_to(required_timezones, last_modified_property)
+        add_property_date_times_to(required_timezones, recurrence_id_property)
+        add_property_date_times_to(required_timezones, due_property)
+        add_property_date_times_to(required_timezones, exdate_property)
+        add_property_date_times_to(required_timezones, rdate_property)
       end
 
       module ClassMethods
