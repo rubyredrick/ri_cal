@@ -162,8 +162,10 @@ module RiCal
           rputs "#{self}.next_time(#{previous_occurrence})"
           if current_occurrence
             sub_occurrence = sub_cycle_incrementer.next_time(previous_occurrence)
+            rputs "sub_occurrence is #{sub_occurrence}"
           else #first time
             sub_occurrence = sub_cycle_incrementer.first_sub_occurrence(previous_occurrence, update_cycle_range(previous_occurrence))
+            rputs "FIRST TIME sub_occurrence is #{sub_occurrence}"
           end
           if sub_occurrence
             candidate = sub_occurrence
@@ -261,8 +263,10 @@ module RiCal
         end
 
         def first_within_outer_cycle(previous_occurrence, outer_range)
+          rputs "#{short_name}.first_within_outer_cycle(#{previous_occurrence}, #{outer_range})"
           self.outer_range = outer_range
           self.occurrences = occurrences_within(outer_range)
+          rputs "  occurrences are #{occurrences.inspect}"
           occurrences.each { |occurrence|
             sub = sub_cycle_incrementer.first_within_outer_cycle(previous_occurrence, update_cycle_range(occurrence))
             return sub if sub && sub > previous_occurrence
@@ -363,14 +367,27 @@ module RiCal
 
         # Advance to the next occurrence, if the result is within the current cycles of all outer incrementers
         def next_cycle(previous_occurrence)
+          rputs "#{short_name}.next_cycle(#{previous_occurrence})"
           if current_occurrence
+            rputs "current occurrence, adjusting"
             candidate = sub_cycle_incrementer.cycle_adjust(step(current_occurrence))
           else
             candidate = step(previous_occurrence)
           end
-          if in_outer_cycle?(candidate)
+          rputs "candidate for next_cycle is #{candidate}"
+          if outermost?
+            rputs "outermost getting sub_occurrence"
+            sub_occurrence = sub_cycle_incrementer.first_within_outer_cycle(previous_occurrence, update_cycle_range(candidate))
+            until sub_occurrence
+              candidate = sub_cycle_incrementer.cycle_adjust(step(candidate))
+              sub_occurrence = sub_cycle_incrementer.first_within_outer_cycle(previous_occurrence, update_cycle_range(candidate))
+            end
+            sub_occurrence
+          elsif in_outer_cycle?(candidate)
+            rputs "getting sub_occurrence"
             sub_cycle_incrementer.first_within_outer_cycle(previous_occurrence, update_cycle_range(candidate))
           else
+            rputs "candidate rejected outer_range is #{outer_range}"
             nil
           end
         end
