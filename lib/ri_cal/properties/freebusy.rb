@@ -285,10 +285,40 @@ module RiCal
         @attendee_property= property_values
       end
 
-      # set the value of the ATTENDEE property
+      # set the value of the ATTENDEE property to multiple values
       # one or more instances of CalAddress may be passed to this method
-      def attendee=(*ruby_values)
+      def attendees=(*ruby_values)
         @attendee_property = ruby_values.map {|val| RiCal::PropertyValue::CalAddress.convert(val)}
+      end
+
+      # set the value of the ATTENDEE property to a single value
+      # one instance of CalAddress may be passed to this method
+      def attendee=(ruby_value)
+        @attendee_property = [RiCal::PropertyValue::CalAddress.convert(ruby_value)]
+      end
+
+      # add one or more values to the ATTENDEE property
+      # one or more instances of CalAddress may be passed to this method
+      def  add_attendees=(*ruby_values)
+       ruby_values.do {|val|  self.attendee_property << RiCal::PropertyValue::CalAddress.convert(val)}
+      end
+
+      # add one value to the ATTENDEE property
+      # one instances of CalAddress may be passed to this method
+      def  add_attendees=(ruby_value)
+       self.attendee_property << RiCal::PropertyValue::CalAddress.convert(val)
+      end
+
+      # remove one or more values from the ATTENDEE property
+      # one or more instances of CalAddress may be passed to this method
+      def  remove_attendees=(*ruby_values)
+       ruby_values.do {|val|  self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(val))}
+      end
+
+      # remove one value from the ATTENDEE property
+      # one instances of CalAddress may be passed to this method
+      def  remove_attendees=(ruby_value)
+       self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(val))
       end
 
       # return the value of the ATTENDEE property
@@ -318,10 +348,40 @@ module RiCal
         @comment_property= property_values
       end
 
-      # set the value of the COMMENT property
+      # set the value of the COMMENT property to multiple values
       # one or more instances of String may be passed to this method
-      def comment=(*ruby_values)
+      def comments=(*ruby_values)
         @comment_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(val)}
+      end
+
+      # set the value of the COMMENT property to a single value
+      # one instance of String may be passed to this method
+      def comment=(ruby_value)
+        @comment_property = [RiCal::PropertyValue::Text.convert(ruby_value)]
+      end
+
+      # add one or more values to the COMMENT property
+      # one or more instances of String may be passed to this method
+      def  add_comments=(*ruby_values)
+       ruby_values.do {|val|  self.comment_property << RiCal::PropertyValue::Text.convert(val)}
+      end
+
+      # add one value to the COMMENT property
+      # one instances of String may be passed to this method
+      def  add_comments=(ruby_value)
+       self.comment_property << RiCal::PropertyValue::Text.convert(val)
+      end
+
+      # remove one or more values from the COMMENT property
+      # one or more instances of String may be passed to this method
+      def  remove_comments=(*ruby_values)
+       ruby_values.do {|val|  self.comment_property.delete(RiCal::PropertyValue::Text.convert(val))}
+      end
+
+      # remove one value from the COMMENT property
+      # one instances of String may be passed to this method
+      def  remove_comments=(ruby_value)
+       self.comment_property.delete(RiCal::PropertyValue::Text.convert(val))
       end
 
       # return the value of the COMMENT property
@@ -351,10 +411,40 @@ module RiCal
         @freebusy_property= property_values
       end
 
-      # set the value of the FREEBUSY property
+      # set the value of the FREEBUSY property to multiple values
       # one or more instances of Period may be passed to this method
-      def freebusy=(*ruby_values)
+      def freebusys=(*ruby_values)
         @freebusy_property = ruby_values.map {|val| RiCal::PropertyValue::Period.convert(val)}
+      end
+
+      # set the value of the FREEBUSY property to a single value
+      # one instance of Period may be passed to this method
+      def freebusy=(ruby_value)
+        @freebusy_property = [RiCal::PropertyValue::Period.convert(ruby_value)]
+      end
+
+      # add one or more values to the FREEBUSY property
+      # one or more instances of Period may be passed to this method
+      def  add_freebusys=(*ruby_values)
+       ruby_values.do {|val|  self.freebusy_property << RiCal::PropertyValue::Period.convert(val)}
+      end
+
+      # add one value to the FREEBUSY property
+      # one instances of Period may be passed to this method
+      def  add_freebusys=(ruby_value)
+       self.freebusy_property << RiCal::PropertyValue::Period.convert(val)
+      end
+
+      # remove one or more values from the FREEBUSY property
+      # one or more instances of Period may be passed to this method
+      def  remove_freebusys=(*ruby_values)
+       ruby_values.do {|val|  self.freebusy_property.delete(RiCal::PropertyValue::Period.convert(val))}
+      end
+
+      # remove one value from the FREEBUSY property
+      # one instances of Period may be passed to this method
+      def  remove_freebusys=(ruby_value)
+       self.freebusy_property.delete(RiCal::PropertyValue::Period.convert(val))
       end
 
       # return the value of the FREEBUSY property
@@ -381,10 +471,40 @@ module RiCal
         @request_status_property= property_values
       end
 
-      # set the value of the REQUEST-STATUS property
+      # set the value of the REQUEST-STATUS property to multiple values
       # one or more instances of String may be passed to this method
-      def request_status=(*ruby_values)
+      def request_statuss=(*ruby_values)
         @request_status_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(val)}
+      end
+
+      # set the value of the REQUEST-STATUS property to a single value
+      # one instance of String may be passed to this method
+      def request_status=(ruby_value)
+        @request_status_property = [RiCal::PropertyValue::Text.convert(ruby_value)]
+      end
+
+      # add one or more values to the REQUEST-STATUS property
+      # one or more instances of String may be passed to this method
+      def  add_request_statuss=(*ruby_values)
+       ruby_values.do {|val|  self.request_status_property << RiCal::PropertyValue::Text.convert(val)}
+      end
+
+      # add one value to the REQUEST-STATUS property
+      # one instances of String may be passed to this method
+      def  add_request_statuss=(ruby_value)
+       self.request_status_property << RiCal::PropertyValue::Text.convert(val)
+      end
+
+      # remove one or more values from the REQUEST-STATUS property
+      # one or more instances of String may be passed to this method
+      def  remove_request_statuss=(*ruby_values)
+       ruby_values.do {|val|  self.request_status_property.delete(RiCal::PropertyValue::Text.convert(val))}
+      end
+
+      # remove one value from the REQUEST-STATUS property
+      # one instances of String may be passed to this method
+      def  remove_request_statuss=(ruby_value)
+       self.request_status_property.delete(RiCal::PropertyValue::Text.convert(val))
       end
 
       # return the value of the REQUEST-STATUS property
