@@ -30,6 +30,10 @@ module RiCal
       new(:value => string)
     end
     
+    def self.convert(value)
+      new(:value => value)
+    end
+    
     # Determine if another object is equivalent to the receiver.
     def ==(o)
       if o.class == self.class

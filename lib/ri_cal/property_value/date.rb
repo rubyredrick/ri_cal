@@ -57,6 +57,8 @@ module RiCal
       def to_ri_cal_ruby_value
         ::Date.parse(@date_time_value.strftime("%Y%m%d"))
       end
+      
+      alias_method :ruby_value, :to_ri_cal_ruby_value
 
       # Return an RiCal::PropertyValue::DateTime representing the receiver
       def to_ri_cal_date_time_value

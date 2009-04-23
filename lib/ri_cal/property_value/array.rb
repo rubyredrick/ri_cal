@@ -2,8 +2,13 @@ module RiCal
   class PropertyValue
     class Array < PropertyValue # :nodoc:
 
-      def value=(string)
-        @value = string.split(",")
+      def value=(val)
+        case val
+        when String
+          @value = val.split(",")
+        else
+          @value = val
+        end
       end
     end
   end

@@ -15,7 +15,7 @@ module RiCal
           end
         else
           sel = selector.to_s
-          sel = "#{sel}=" unless (sel[-1,1] == "=")
+          sel = "#{sel}=" unless /(^(add_)|(remove_))|(=$)/ =~ sel
           if @component.respond_to?(sel)
             @component.send(sel, *args)
           else
@@ -34,8 +34,8 @@ module RiCal
       end
     end
     
-    def subcomponent_methods
-      []
+    def subcomponent_class
+      {}
     end
 
     def self.from_parser(parser, parent) # :nodoc:

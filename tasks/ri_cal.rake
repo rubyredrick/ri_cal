@@ -196,26 +196,26 @@ class VEntityUpdater
         blank_line
         comment("add one or more values to the #{name.upcase} property")
         comment("one or more instances of #{describe_type(type)} may be passed to this method")
-        indent("def  add_#{plural_ruby_method}=(*ruby_values)")
+        indent("def  add_#{plural_ruby_method}(*ruby_values)")
         indent(" ruby_values.do {|val|  self.#{property} << #{type_class(type)}.convert(val)}")
         indent("end")
         blank_line
         comment("add one value to the #{name.upcase} property")
         comment("one instances of #{describe_type(type)} may be passed to this method")
-        indent("def  add_#{plural_ruby_method}=(ruby_value)")
-        indent(" self.#{property} << #{type_class(type)}.convert(val)")
+        indent("def  add_#{ruby_method}(ruby_value)")
+        indent(" self.#{property} << #{type_class(type)}.convert(ruby_value)")
         indent("end")
         blank_line
         comment("remove one or more values from the #{name.upcase} property")
         comment("one or more instances of #{describe_type(type)} may be passed to this method")
-        indent("def  remove_#{plural_ruby_method}=(*ruby_values)")
+        indent("def  remove_#{plural_ruby_method}(*ruby_values)")
         indent(" ruby_values.do {|val|  self.#{property}.delete(#{type_class(type)}.convert(val))}")
         indent("end")
         blank_line
         comment("remove one value from the #{name.upcase} property")
         comment("one instances of #{describe_type(type)} may be passed to this method")
-        indent("def  remove_#{plural_ruby_method}=(ruby_value)")
-        indent(" self.#{property}.delete(#{type_class(type)}.convert(val))")
+        indent("def  remove_#{ruby_method}(ruby_value)")
+        indent(" self.#{property}.delete(#{type_class(type)}.convert(ruby_value))")
         indent("end")
       end
       blank_line

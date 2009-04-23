@@ -134,26 +134,26 @@ module RiCal
 
       # add one or more values to the COMMENT property
       # one or more instances of String may be passed to this method
-      def  add_comments=(*ruby_values)
+      def  add_comments(*ruby_values)
        ruby_values.do {|val|  self.comment_property << RiCal::PropertyValue::Text.convert(val)}
       end
 
       # add one value to the COMMENT property
       # one instances of String may be passed to this method
-      def  add_comments=(ruby_value)
-       self.comment_property << RiCal::PropertyValue::Text.convert(val)
+      def  add_comment(ruby_value)
+       self.comment_property << RiCal::PropertyValue::Text.convert(ruby_value)
       end
 
       # remove one or more values from the COMMENT property
       # one or more instances of String may be passed to this method
-      def  remove_comments=(*ruby_values)
+      def  remove_comments(*ruby_values)
        ruby_values.do {|val|  self.comment_property.delete(RiCal::PropertyValue::Text.convert(val))}
       end
 
       # remove one value from the COMMENT property
       # one instances of String may be passed to this method
-      def  remove_comments=(ruby_value)
-       self.comment_property.delete(RiCal::PropertyValue::Text.convert(val))
+      def  remove_comment(ruby_value)
+       self.comment_property.delete(RiCal::PropertyValue::Text.convert(ruby_value))
       end
 
       # return the value of the COMMENT property
@@ -197,26 +197,26 @@ module RiCal
 
       # add one or more values to the RDATE property
       # one or more instances of OccurrenceList may be passed to this method
-      def  add_rdates=(*ruby_values)
+      def  add_rdates(*ruby_values)
        ruby_values.do {|val|  self.rdate_property << RiCal::PropertyValue::OccurrenceList.convert(val)}
       end
 
       # add one value to the RDATE property
       # one instances of OccurrenceList may be passed to this method
-      def  add_rdates=(ruby_value)
-       self.rdate_property << RiCal::PropertyValue::OccurrenceList.convert(val)
+      def  add_rdate(ruby_value)
+       self.rdate_property << RiCal::PropertyValue::OccurrenceList.convert(ruby_value)
       end
 
       # remove one or more values from the RDATE property
       # one or more instances of OccurrenceList may be passed to this method
-      def  remove_rdates=(*ruby_values)
+      def  remove_rdates(*ruby_values)
        ruby_values.do {|val|  self.rdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(val))}
       end
 
       # remove one value from the RDATE property
       # one instances of OccurrenceList may be passed to this method
-      def  remove_rdates=(ruby_value)
-       self.rdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(val))
+      def  remove_rdate(ruby_value)
+       self.rdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(ruby_value))
       end
 
       # return the value of the RDATE property
@@ -260,26 +260,26 @@ module RiCal
 
       # add one or more values to the RRULE property
       # one or more instances of RecurrenceRule may be passed to this method
-      def  add_rrules=(*ruby_values)
+      def  add_rrules(*ruby_values)
        ruby_values.do {|val|  self.rrule_property << RiCal::PropertyValue::RecurrenceRule.convert(val)}
       end
 
       # add one value to the RRULE property
       # one instances of RecurrenceRule may be passed to this method
-      def  add_rrules=(ruby_value)
-       self.rrule_property << RiCal::PropertyValue::RecurrenceRule.convert(val)
+      def  add_rrule(ruby_value)
+       self.rrule_property << RiCal::PropertyValue::RecurrenceRule.convert(ruby_value)
       end
 
       # remove one or more values from the RRULE property
       # one or more instances of RecurrenceRule may be passed to this method
-      def  remove_rrules=(*ruby_values)
+      def  remove_rrules(*ruby_values)
        ruby_values.do {|val|  self.rrule_property.delete(RiCal::PropertyValue::RecurrenceRule.convert(val))}
       end
 
       # remove one value from the RRULE property
       # one instances of RecurrenceRule may be passed to this method
-      def  remove_rrules=(ruby_value)
-       self.rrule_property.delete(RiCal::PropertyValue::RecurrenceRule.convert(val))
+      def  remove_rrule(ruby_value)
+       self.rrule_property.delete(RiCal::PropertyValue::RecurrenceRule.convert(ruby_value))
       end
 
       # return the value of the RRULE property
@@ -323,26 +323,26 @@ module RiCal
 
       # add one or more values to the TZNAME property
       # one or more instances of String may be passed to this method
-      def  add_tznames=(*ruby_values)
+      def  add_tznames(*ruby_values)
        ruby_values.do {|val|  self.tzname_property << RiCal::PropertyValue::Text.convert(val)}
       end
 
       # add one value to the TZNAME property
       # one instances of String may be passed to this method
-      def  add_tznames=(ruby_value)
-       self.tzname_property << RiCal::PropertyValue::Text.convert(val)
+      def  add_tzname(ruby_value)
+       self.tzname_property << RiCal::PropertyValue::Text.convert(ruby_value)
       end
 
       # remove one or more values from the TZNAME property
       # one or more instances of String may be passed to this method
-      def  remove_tznames=(*ruby_values)
+      def  remove_tznames(*ruby_values)
        ruby_values.do {|val|  self.tzname_property.delete(RiCal::PropertyValue::Text.convert(val))}
       end
 
       # remove one value from the TZNAME property
       # one instances of String may be passed to this method
-      def  remove_tznames=(ruby_value)
-       self.tzname_property.delete(RiCal::PropertyValue::Text.convert(val))
+      def  remove_tzname(ruby_value)
+       self.tzname_property.delete(RiCal::PropertyValue::Text.convert(ruby_value))
       end
 
       # return the value of the TZNAME property

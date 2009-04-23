@@ -24,7 +24,7 @@ module RiCal
         end
       end
 
-      def value=(string)
+      def value=(val)
         super
         case params[:value]
         when 'DATE-TIME', nil

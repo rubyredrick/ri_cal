@@ -206,6 +206,9 @@ module RiCal
       def to_ri_cal_ruby_value
         to_datetime
       end
+      
+      alias_method :ruby_value, :to_ri_cal_ruby_value
+      
 
       def compute_change(d, options) # :nodoc:
         ::DateTime.civil(

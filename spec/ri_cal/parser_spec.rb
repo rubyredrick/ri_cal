@@ -13,6 +13,7 @@ describe RiCal::Parser do
   def self.describe_named_property(entity_name, prop_text, prop_name, params, value, multi, type = RiCal::PropertyValue::Text)
     ruby_value_name = prop_name.tr("-", "_").downcase
     ruby_prop_name = "#{prop_text.tr('-', '_').downcase}_property"
+    expected_ruby_value = type.convert(value).ruby_value
     describe "#{prop_name} with value of #{value.inspect}" do
       parse_input = params.inject("BEGIN:#{entity_name.upcase}\n#{prop_text.upcase}") { |pi, assoc| "#{pi};#{assoc[0]}=#{assoc[1]}"}
       parse_input = "#{parse_input}:#{value.to_rfc2445_string}\nEND:#{entity_name.upcase}"
@@ -41,7 +42,7 @@ describe RiCal::Parser do
         it "should make the value accessible directly" do
           val = @entity.send(ruby_value_name)
           val = val.first if multi && Array === val
-          val.should == value
+          val.should == expected_ruby_value
         end
 
         it "should have the right parameters" do
