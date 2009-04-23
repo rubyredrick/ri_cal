@@ -167,10 +167,40 @@ class VEntityUpdater
         indent("  @#{property}= property_values")
         indent("end")
         blank_line
-        comment("set the value of the #{name.upcase} property")
+        comment("set the value of the #{name.upcase} property to multiple values")
         comment("one or more instances of #{describe_type(type)} may be passed to this method")
-        indent("def #{ruby_name.downcase}=(*ruby_values)")
+        indent("def #{ruby_name.downcase}s=(*ruby_values)")
         indent("  @#{property} = ruby_values.map {|val| #{type_class(type)}.convert(val)}")
+        indent("end")
+        blank_line
+        comment("set the value of the #{name.upcase} property to a single value")
+        comment("one instance of #{describe_type(type)} may be passed to this method")
+        indent("def #{ruby_name.downcase}=(ruby_value)")
+        indent("  @#{property} = #{type_class(type)}.convert(ruby_value)")
+        indent("end")
+        blank_line
+        comment("add one or more values to the #{name.upcase} property")
+        comment("one or more instances of #{describe_type(type)} may be passed to this method")
+        indent("def  add_#{ruby_name.downcase}s=(*ruby_values)")
+        indent(" ruby_values.do {|val|  @#{property} << #{type_class(type)}.convert(val)}")
+        indent("end")
+        blank_line
+        comment("add one value to the #{name.upcase} property")
+        comment("one instances of #{describe_type(type)} may be passed to this method")
+        indent("def  add_#{ruby_name.downcase}s=(ruby_value)")
+        indent(" @#{property} << #{type_class(type)}.convert(val)")
+        indent("end")
+        blank_line
+        comment("remove one or more values from the #{name.upcase} property")
+        comment("one or more instances of #{describe_type(type)} may be passed to this method")
+        indent("def  remove_#{ruby_name.downcase}s=(*ruby_values)")
+        indent(" ruby_values.do {|val|  @#{property}.delete(#{type_class(type)}.convert(val))}")
+        indent("end")
+        blank_line
+        comment("remove one value from the #{name.upcase} property")
+        comment("one instances of #{describe_type(type)} may be passed to this method")
+        indent("def  remove_#{ruby_name.downcase}s=(ruby_value)")
+        indent(" @#{property}.delete(#{type_class(type)}.convert(val))")
         indent("end")
       end
       blank_line

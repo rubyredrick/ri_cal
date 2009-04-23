@@ -14,6 +14,10 @@ module RiCal
       def self.entity_name #:nodoc:
         "VTODO"
       end
-    end    
+
+      def subcomponent_class
+        {:alarm => Alarm }
+      end
+    end
   end
 end

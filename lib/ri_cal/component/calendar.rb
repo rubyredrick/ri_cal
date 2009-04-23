@@ -14,6 +14,16 @@ module RiCal
       def required_timezones
         @required_timezones ||=  RequiredTimezones.new
       end
+      
+      def subcomponent_class
+        {
+          :event => Event,
+          :todo  => Todo,
+          :journal => Journal,
+          :freebusy => Freebusy,
+          :timezone => TimeZone,
+        }
+      end
 
       # return an array of event components contained within this Calendar
       def events

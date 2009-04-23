@@ -1,10 +1,41 @@
 module RiCal
   class Component
+    
+    class ComponentBuilder
+      def initialize(component)
+        @component = component
+      end
+
+      def method_missing(selector, *args, &init_block)
+        if(sub_comp_class = @component.subcomponent_class[selector])
+          if init_block
+            sub_comp = sub_comp_class.new(@component)
+            ComponentBuilder.new(sub_comp).instance_eval(&init_block)
+            self.add_subcomponent(sub_comp)
+          end
+        else
+          sel = selector.to_s
+          sel = "#{sel}=" unless (sel[-1,1] == "=")
+          if @component.respond_to?(sel)
+            @component.send(sel, *args)
+          else
+            super
+          end
+        end
+      end
+    end
 
     autoload :Timezone, "#{File.dirname(__FILE__)}/component/timezone.rb"
 
-    def initialize(parent=nil)
+    def initialize(parent=nil, &init_block)
       @parent = parent
+      if block_given?
+        ComponentBuilder.new(self).instance_eval(&init_block)
+      end
+    end
+    
+    def subcomponent_methods
+      []
     end
 
     def self.from_parser(parser, parent) # :nodoc:

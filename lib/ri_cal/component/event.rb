@@ -14,6 +14,10 @@ module RiCal
 
       include RiCal::Properties::Event
 
+      def subcomponent_class
+        {:alarm => Alarm }
+      end
+
       def self.entity_name #:nodoc:
         "VEVENT"
       end
