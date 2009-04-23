@@ -25,6 +25,10 @@ module RiCal
         end
       end
       
+      def visible_params # :nodoc:
+        {"VALUE" => "DATE"}.merge(params)
+      end      
+      
       def year
         @date_time_value.year
       end
@@ -61,6 +65,10 @@ module RiCal
 
       # Return an RiCal::PropertyValue::Date representing the receiver
       def to_ri_cal_date_value
+        self
+      end
+      
+      def to_ri_cal_date_or_date_time_value
         self
       end
       

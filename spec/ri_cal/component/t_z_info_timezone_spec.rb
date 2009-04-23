@@ -6,8 +6,11 @@ describe RiCal::Component::TZInfoTimezone do
 
   it "should produce an rfc representation" do
     tz = RiCal::Component::TZInfoTimezone.new(TZInfo::Timezone.get("America/New_York"))
-    rez = tz.to_rfc2445_string(tz.local_to_utc(DateTime.parse("Apr 10, 2007")),
-    tz.local_to_utc(DateTime.parse("Apr 6, 2008")))
+    local_first = DateTime.parse("Apr 10, 2007")
+    local_last = DateTime.parse("Apr 6, 2008")
+    utc_first = tz.local_to_utc(local_first)
+    utc_last = tz.local_to_utc(local_last)
+    rez = tz.to_rfc2445_string(utc_first, utc_last)
     rez.should == <<-ENDDATA
 BEGIN:VTIMEZONE
 TZID;X-RICAL-TZSOURCE=TZINFO:America/New_York

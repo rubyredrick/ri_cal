@@ -10,6 +10,8 @@ module RiCal
         def to_ri_cal_date_value
           RiCal::PropertyValue::Date.new(:value => self)
         end
+
+        alias_method :to_ri_cal_date_or_date_time_value, :to_ri_cal_date_value
         
         def to_ri_cal_property_value
           to_ri_cal_date_value

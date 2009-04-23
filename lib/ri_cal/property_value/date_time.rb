@@ -4,7 +4,7 @@ module RiCal
     # RiCal::PropertyValue::CalAddress represents an icalendar CalAddress property value
     # which is defined in RFC 2445 section 4.3.5 pp 35-37
     class DateTime < PropertyValue
-      
+
       attr_reader :timezone
 
       def self.debug # :nodoc:
@@ -50,6 +50,10 @@ module RiCal
 
       # Return an RiCal::PropertyValue::DateTime representing the receiver
       def to_ri_cal_date_time_value
+        self
+      end
+
+      def to_ri_cal_date_or_date_time_value
         self
       end
 
@@ -100,6 +104,10 @@ module RiCal
         end
       end
 
+      def visible_params # :nodoc:
+        {"VALUE" => "DATE-TIME"}.merge(params)
+      end
+
       def value=(val) # :nodoc:
         case val
         when nil
@@ -119,7 +127,7 @@ module RiCal
         activesupport_time = object.acts_like_time? rescue nil
         activesupport_time && object.time_zone rescue nil
       end
-      
+
       def init_timezone(time_zone)
         @timezone = time_zone
         self
@@ -135,7 +143,7 @@ module RiCal
           result.init_timezone(time_zone)
           result
         else
-          ruby_object.to_ri_cal_date_time_value
+          ruby_object.to_ri_cal_date_or_date_time_value
         end
       end
 
@@ -378,11 +386,11 @@ module RiCal
       def end_of_day
         change(:hour => 23, :min => 59, :sec => 59)
       end
-      
+
       def has_local_timezone?
         tzid && tzid != "UTC"
       end
-      
+
       def add_date_times_to(required_timezones)
         required_timezones.add_datetime(self) if has_local_timezone?
       end

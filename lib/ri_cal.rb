@@ -69,8 +69,6 @@ module RiCal
 
 end  # module RiCal
 
-# require File.join(File.dirname(__FILE__), *%w[ri_cal property_value])
-# require File.join(File.dirname(__FILE__), *%w[ri_cal component])
 RiCal.require_all_libs_relative_to(__FILE__)
 
 # EOF

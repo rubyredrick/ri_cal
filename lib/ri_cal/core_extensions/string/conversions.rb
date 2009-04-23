@@ -7,6 +7,8 @@ module RiCal
           RiCal::PropertyValue::DateTime.from_string(self)
         end
 
+        alias_method :to_ri_cal_date_or_date_time_value, :to_ri_cal_date_time_value
+
         # Parse the receiver as an RiCal::PropertyValue::DurationValue
         def to_ri_cal_duration_value
           RiCal::PropertyValue::Duration.from_string(self)
