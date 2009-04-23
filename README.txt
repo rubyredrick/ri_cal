@@ -18,6 +18,45 @@ This is a clean-slate implementation of RFC2445.
 
 == SYNOPSIS:
 
+=== Creating Calendars and Calendar Components
+
+==== Times, Timezones, and Floating Times
+
+RFC2445 describes three different kinds of DATE-TIME values with respect to time zones:
+
+  1. date-times with a local time. These have no actual time zone, instead they are to be interpreted
+in the local time zone of the viewer.  These floating times are used for things like the New Years celebration
+which is observed at local midnight whether you happen to be in Paris, London, or New York.
+
+  2. date-times with UTC time.  An application would either display these with an indication of the time zone, or
+convert them to the viewer's time zone, perhaps depending on user settings.
+
+  3. date-times with a specified time zone.
+
+RiCal can be given ruby Time, DateTime, or Date objects for the value of properties requiring an iCalendar DATE-TIME value.
+
+Note that a date only date-time value has no timezone by definition, effectively such values float and describe
+a date as viewed by the user in his/her local timezone.
+
+When a Ruby Time or DateTime instance is used to set properties with with a DATE-TIME value, it needs to determine
+which of the three types it represents.  RiCal is designed to make use of the TimeWithZone support which has been
+part of the ActiveSupport component of Ruby on Rails since Rails 2.2. However it's been carefully designed not
+to require Rails or ActiveSupport, but to dynamically detect the presence of the TimeWithZone support.
+
+When the value of a DATE-TIME property is set to a value, the following processing occurs:
+
+* If the object responds to both the :acts_as_time, and :timezone methods then the result of the timezone method
+(assumed to be an instance of TZInfoTimezone) is used as a specific local time zone.
+
+* If not then the default time zone id is used.  The normal default timezone id is "UTC". You can set the default
+by calling ::RiCal::PropertyValue::DateTime.default_tzid = timezone_identifier, where timezone_identifier is
+a string, or nil.  If you set the default tzid to 'none' or :none, then Times or DateTimes without timezones will
+be treated as floating times.
+
+To explicitly set a floating time you can use the method #with_floating_timezone on Time or DateTime instances as in
+
+   event.dtstart = Time.parse("1/1/2010 00:00:00").with_floating_timezone
+
 === Parsing
 
 RiCal can parse icalendar data from either a string or a Ruby io object.
