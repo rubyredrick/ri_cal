@@ -12,6 +12,10 @@ module RiCal
         def to_ri_cal_property_value
           to_ri_cal_date_time_value
         end
+        
+        def with_floating_timezone
+          RiCal::TimeWithFloatingTimezone.new(self)
+        end
       end
     end
   end

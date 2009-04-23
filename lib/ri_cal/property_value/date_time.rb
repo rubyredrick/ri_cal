@@ -128,12 +128,28 @@ module RiCal
         @timezone = time_zone
         self
       end
-
+      
+      def with_floating_timezone
+        if @time_zone == FloatingTimezone
+          self
+        else
+          @date_time_value.with_floating_timezone.to_ri_cal_date_time_value
+        end
+      end
+      
+      def self.params_for_timezone(time_zone)
+        if time_zone == FloatingTimezone
+          {}
+        else
+          {'TZID' => time_zone.identifier, 'X-RICAL-TZSOURCE' => 'TZINFO'}
+        end
+      end
+      
       def self.convert(ruby_object) # :nodoc:
         time_zone = object_time_zone(ruby_object)
         if time_zone
           result = new(
-          :params => {'TZID' => time_zone.identifier, 'X-RICAL-TZSOURCE' => 'TZINFO'},
+          :params => params_for_timezone(time_zone),
           :value => ruby_object.strftime("%Y%m%d%H%M%S")
           )
           result.init_timezone(time_zone)
@@ -174,7 +190,6 @@ module RiCal
 
       def visible_params # :nodoc:
         visible = {"VALUE" => "DATE-TIME"}.merge(params)
-        rputs "visible is #{visible.inspect}"
         if tzid == "UTC"
           Hash
           visible.delete('TZID')

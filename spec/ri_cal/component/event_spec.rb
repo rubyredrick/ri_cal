@@ -125,9 +125,19 @@ describe RiCal::Component::Event do
       @it.export.should match(/BEGIN:VTIMEZONE\nTZID;X-RICAL-TZSOURCE=TZINFO:America\/New_York\n/)
     end
 
-    it "should properly format dtstart with a date-time" do
+    it "should properly format dtstart with a UTC date-time" do
       @it.dtstart = DateTime.parse("4/22/2009 1:23:45")
       @it.export.should match(/^DTSTART;VALUE=DATE-TIME:20090422T012345Z$/)
+    end
+
+    it "should properly format dtstart with a floating date-time" do
+      @it.dtstart = DateTime.parse("4/22/2009 1:23:45").with_floating_timezone
+      @it.export.should match(/^DTSTART;VALUE=DATE-TIME:20090422T012345$/)
+    end
+
+    it "should properly format dtstart with a date-time with a local time zone" do
+      @it.dtstart = date_time_with_tzinfo_zone(DateTime.parse("4/22/2009 17:55"), "America/New_York")
+      @it.export.should match(/^DTSTART;TZID=America\/New_York;X-RICAL-TZSOURCE=TZINFO;VALUE=DATE-TIME:20090422T175500$/)
     end
 
     it "should properly format dtstart with a date" do
