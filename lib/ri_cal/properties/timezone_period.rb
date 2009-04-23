@@ -235,18 +235,14 @@ module RiCal
         tzname_property << RiCal::PropertyValue::Text.new(line)
       end
 
-      def to_s
-        entity_name = self.class.entity_name
-        collector = ["BEGIN:#{entity_name}"]
-        collector << prop_string("TZOFFSETTO", @tzoffsetto_property)
-        collector << prop_string("DTSTART", @dtstart_property)
-        collector << prop_string("RRULE", @rrule_property)
-        collector << prop_string("TZOFFSETFROM", @tzoffsetfrom_property)
-        collector << prop_string("TZNAME", @tzname_property)
-        collector << prop_string("RDATE", @rdate_property)
-        collector << prop_string("COMMENT", @comment_property)
-        collector << "END:#{entity_name}"
-        collector.compact.join("\n")
+      def export_properties_to(export_stream)
+        export_prop_to(export_stream, "TZOFFSETTO", @tzoffsetto_property)
+        export_prop_to(export_stream, "DTSTART", @dtstart_property)
+        export_prop_to(export_stream, "RRULE", @rrule_property)
+        export_prop_to(export_stream, "TZOFFSETFROM", @tzoffsetfrom_property)
+        export_prop_to(export_stream, "TZNAME", @tzname_property)
+        export_prop_to(export_stream, "RDATE", @rdate_property)
+        export_prop_to(export_stream, "COMMENT", @comment_property)
       end
 
       def ==(o)

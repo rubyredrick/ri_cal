@@ -103,14 +103,10 @@ module RiCal
       end
 
 
-      def to_s
-        entity_name = self.class.entity_name
-        collector = ["BEGIN:#{entity_name}"]
-        collector << prop_string("LAST-MODIFIED", @last_modified_property)
-        collector << prop_string("TZURL", @tzurl_property)
-        collector << prop_string("TZID", @tzid_property)
-        collector << "END:#{entity_name}"
-        collector.compact.join("\n")
+      def export_properties_to(export_stream)
+        export_prop_to(export_stream, "LAST-MODIFIED", @last_modified_property)
+        export_prop_to(export_stream, "TZURL", @tzurl_property)
+        export_prop_to(export_stream, "TZID", @tzid_property)
       end
 
       def ==(o)

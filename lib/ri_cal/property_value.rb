@@ -65,6 +65,5 @@ end
 
 Dir[File.dirname(__FILE__) + "/property_value/*.rb"].sort.each do |path|
   filename = File.basename(path)
-#  require "lib/ri_cal/property_value/#{filename}"
   require path
 end

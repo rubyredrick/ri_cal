@@ -104,10 +104,6 @@ module RiCal
         end
       end
 
-      def visible_params # :nodoc:
-        {"VALUE" => "DATE-TIME"}.merge(params)
-      end
-
       def value=(val) # :nodoc:
         case val
         when nil
@@ -177,12 +173,13 @@ module RiCal
       end
 
       def visible_params # :nodoc:
+        visible = {"VALUE" => "DATE-TIME"}.merge(params)
+        rputs "visible is #{visible.inspect}"
         if tzid == "UTC"
-          new_hash = params.dup.delete('tzid')
-          new_hash
-        else
-          params
+          Hash
+          visible.delete('TZID')
         end
+        visible
       end
 
       # Return the Ruby DateTime representation of the receiver

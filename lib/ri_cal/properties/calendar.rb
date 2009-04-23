@@ -114,15 +114,11 @@ module RiCal
       end
 
 
-      def to_s
-        entity_name = self.class.entity_name
-        collector = ["BEGIN:#{entity_name}"]
-        collector << prop_string("PRODID", @prodid_property)
-        collector << prop_string("CALSCALE", @calscale_property)
-        collector << prop_string("VERSION", @version_property)
-        collector << prop_string("METHOD", @method_property)
-        collector << "END:#{entity_name}"
-        collector.compact.join("\n")
+      def export_properties_to(export_stream)
+        export_prop_to(export_stream, "PRODID", @prodid_property)
+        export_prop_to(export_stream, "CALSCALE", @calscale_property)
+        export_prop_to(export_stream, "VERSION", @version_property)
+        export_prop_to(export_stream, "METHOD", @method_property)
       end
 
       def ==(o)

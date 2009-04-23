@@ -28,7 +28,7 @@ module RiCal
     def subcomponents # :nodoc:
       @subcomponents ||= Hash.new {|h, k| h[k] = []}
     end
-    
+
     def entity_name
       self.class.entity_name
     end
@@ -38,7 +38,7 @@ module RiCal
     def alarms
       subcomponents["VALARM"]
     end
-    
+
     def add_subcomponent(component)
       subcomponents[component.entity_name] << component
     end
@@ -86,7 +86,7 @@ module RiCal
         nil
       end
     end
-    
+
     def add_property_date_times_to(required_timezones, property)
       if property
         if Array === property
@@ -99,22 +99,42 @@ module RiCal
       end
     end
 
+    def export_prop_to(export_stream, name, prop)
+      if prop
+        string = prop_string(name, prop)
+        export_stream.puts(string) if string
+      end
+    end
+
+    def export_x_properties_to(export_stream)
+      x_properties.each do |name, prop|
+        export_stream.puts(prop_string(name, prop))
+      end
+    end
+
     def export_subcomponent_to(export_stream, subcomponent)
       subcomponent.each do |component|
         component.export_to(export_stream)
       end
+    end
+    
+    def to_s
+      io = StringIO.new
+      export_to(io)
+      io.string
     end
 
     # Export this component to an export stream
     # This is called from the Calendar#export method
     def export_to(export_stream)
       export_stream.puts("BEGIN:#{entity_name}")
+      export_properties_to(export_stream)
       subcomponents.values do |sub|
         export_subcomponent_to(export_subcomponent_to, sub)
       end
       export_stream.puts("END:#{entity_name}")
     end
-    
+
     # Export this single component as an iCalendar component containing only this component and
     # any required additional components (i.e. VTIMEZONES referenced from this component)
     # if stream is nil (the default) then this method will return a string,
@@ -124,7 +144,6 @@ module RiCal
       wrapper_calendar.add_subcomponent(self)
       wrapper_calendar.export(stream)
     end
-    
   end
 end
 

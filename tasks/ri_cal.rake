@@ -238,14 +238,10 @@ class VEntityUpdater
 
   def generate_support_methods
     blank_line
-    indent("def to_s")
-    indent("  entity_name = self.class.entity_name")
-    indent("  collector = [\"BEGIN:\#{entity_name}\"]")
+    indent("def export_properties_to(export_stream)")
     @all_props.each do |prop_attr, prop_name|
-      indent("  collector << prop_string(#{prop_name.inspect}, @#{prop_attr})")
+      indent("  export_prop_to(export_stream, #{prop_name.inspect}, @#{prop_attr})")
     end    
-    indent("  collector << \"END:\#{entity_name}\"")
-    indent("  collector.compact.join(\"\\n\")")
     indent("end")
     blank_line
     indent("def ==(o)")

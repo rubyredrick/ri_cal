@@ -268,19 +268,15 @@ module RiCal
         attach_property << RiCal::PropertyValue::Uri.new(line)
       end
 
-      def to_s
-        entity_name = self.class.entity_name
-        collector = ["BEGIN:#{entity_name}"]
-        collector << prop_string("ACTION", @action_property)
-        collector << prop_string("ATTENDEE", @attendee_property)
-        collector << prop_string("DURATION", @duration_property)
-        collector << prop_string("TRIGGER", @trigger_property)
-        collector << prop_string("DESCRIPTION", @description_property)
-        collector << prop_string("SUMMARY", @summary_property)
-        collector << prop_string("REPEAT", @repeat_property)
-        collector << prop_string("ATTACH", @attach_property)
-        collector << "END:#{entity_name}"
-        collector.compact.join("\n")
+      def export_properties_to(export_stream)
+        export_prop_to(export_stream, "ACTION", @action_property)
+        export_prop_to(export_stream, "ATTENDEE", @attendee_property)
+        export_prop_to(export_stream, "DURATION", @duration_property)
+        export_prop_to(export_stream, "TRIGGER", @trigger_property)
+        export_prop_to(export_stream, "DESCRIPTION", @description_property)
+        export_prop_to(export_stream, "SUMMARY", @summary_property)
+        export_prop_to(export_stream, "REPEAT", @repeat_property)
+        export_prop_to(export_stream, "ATTACH", @attach_property)
       end
 
       def ==(o)

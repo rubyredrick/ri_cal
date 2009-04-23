@@ -397,23 +397,19 @@ module RiCal
         request_status_property << RiCal::PropertyValue::Text.new(line)
       end
 
-      def to_s
-        entity_name = self.class.entity_name
-        collector = ["BEGIN:#{entity_name}"]
-        collector << prop_string("REQUEST-STATUS", @request_status_property)
-        collector << prop_string("DTSTAMP", @dtstamp_property)
-        collector << prop_string("DTEND", @dtend_property)
-        collector << prop_string("DTSTART", @dtstart_property)
-        collector << prop_string("CONTACT", @contact_property)
-        collector << prop_string("ATTENDEE", @attendee_property)
-        collector << prop_string("UID", @uid_property)
-        collector << prop_string("DURATION", @duration_property)
-        collector << prop_string("URL", @url_property)
-        collector << prop_string("ORGANIZER", @organizer_property)
-        collector << prop_string("FREEBUSY", @freebusy_property)
-        collector << prop_string("COMMENT", @comment_property)
-        collector << "END:#{entity_name}"
-        collector.compact.join("\n")
+      def export_properties_to(export_stream)
+        export_prop_to(export_stream, "REQUEST-STATUS", @request_status_property)
+        export_prop_to(export_stream, "DTSTAMP", @dtstamp_property)
+        export_prop_to(export_stream, "DTEND", @dtend_property)
+        export_prop_to(export_stream, "DTSTART", @dtstart_property)
+        export_prop_to(export_stream, "CONTACT", @contact_property)
+        export_prop_to(export_stream, "ATTENDEE", @attendee_property)
+        export_prop_to(export_stream, "UID", @uid_property)
+        export_prop_to(export_stream, "DURATION", @duration_property)
+        export_prop_to(export_stream, "URL", @url_property)
+        export_prop_to(export_stream, "ORGANIZER", @organizer_property)
+        export_prop_to(export_stream, "FREEBUSY", @freebusy_property)
+        export_prop_to(export_stream, "COMMENT", @comment_property)
       end
 
       def ==(o)
