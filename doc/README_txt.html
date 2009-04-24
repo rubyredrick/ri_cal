@@ -106,8 +106,6 @@
 				
 					<li><a href="./RiCal/CoreExtensions/Time/WeekDayPredicates.html">RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
 				
-					<li><a href="./RiCal/Event.html">RiCal::Event</a></li>
-				
 					<li><a href="./RiCal/FloatingTimezone.html">RiCal::FloatingTimezone</a></li>
 				
 					<li><a href="./RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
@@ -421,7 +419,7 @@ calendar, or just one or more subcomponents, e.g.
 </p>
 <p>
 <a
-href="RiCal.html#M000009">RiCal.parse_string</a>(&#8220;BEGIN:VEVENTnDTSTART;TZID=US/Eastern:20090224T090000nSUMMARY:Test
+href="RiCal.html#M000001">RiCal.parse_string</a>(&#8220;BEGIN:VEVENTnDTSTART;TZID=US/Eastern:20090224T090000nSUMMARY:Test
 EventnDTEND;TZID=US/Eastern:20090224T100000nRRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20090228T045959ZnEND:VEVENT&#8221;)
 </p>
 <h4>From an Io</h4>
@@ -445,7 +443,7 @@ module.
 <h4>Obtaining an array of occurrences</h4>
 <p>
 To get an array of occurrences, Use the <a
-href="RiCal/OccurrenceEnumerator.html#M000137">RiCal::OccurrenceEnumerator#occurrences</a>
+href="RiCal/OccurrenceEnumerator.html#M000110">RiCal::OccurrenceEnumerator#occurrences</a>
 method:
 </p>
 <pre>
@@ -456,13 +454,13 @@ This method may fail with an argument error, if the component has an
 unbounded recurrence definition. This happens when one or more of its
 RRULES don&#8217;t have a COUNT, or UNTIL part. This may be tested by using
 the <a
-href="RiCal/OccurrenceEnumerator.html#M000143">RiCal::OccurrenceEnumerator#bounded?</a>
+href="RiCal/OccurrenceEnumerator.html#M000112">RiCal::OccurrenceEnumerator#bounded?</a>
 method.
 </p>
 <p>
 In the case of unbounded components, you must either use the :count, or
 :before options of the <a
-href="RiCal/OccurrenceEnumerator.html#M000137">RiCal::OccurrenceEnumerator#occurrences</a>
+href="RiCal/OccurrenceEnumerator.html#M000110">RiCal::OccurrenceEnumerator#occurrences</a>
 method:
 </p>
 <pre>
@@ -476,7 +474,7 @@ or
 </pre>
 <p>
 Alternately, you can use the <a
-href="RiCal/OccurrenceEnumerator.html#M000142">RiCal::OccurrenceEnumerator#each</a>
+href="RiCal/OccurrenceEnumerator.html#M000111">RiCal::OccurrenceEnumerator#each</a>
 method, or another Enumerable method (<a
 href="RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a>
 includes Enumerable), and terminate when you wish by breaking out of the

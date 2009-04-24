@@ -28,29 +28,32 @@
 				<div class="section-body">
 					<ul>
 					
+						<li><a href="../lib/ri_cal/component.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/component.rb">lib/ri_cal/component.rb</a></li>
+					
 						<li><a href="../lib/ri_cal/component/alarm.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/component/alarm.rb">lib/ri_cal/component/alarm.rb</a></li>
-					
-						<li><a href="../lib/ri_cal/component/calendar.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-							class="thickbox" title="lib/ri_cal/component/calendar.rb">lib/ri_cal/component/calendar.rb</a></li>
 					
 						<li><a href="../lib/ri_cal/component/event.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/component/event.rb">lib/ri_cal/component/event.rb</a></li>
 					
-						<li><a href="../lib/ri_cal/component/journal.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-							class="thickbox" title="lib/ri_cal/component/journal.rb">lib/ri_cal/component/journal.rb</a></li>
+						<li><a href="../lib/ri_cal/component/calendar.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/component/calendar.rb">lib/ri_cal/component/calendar.rb</a></li>
 					
 						<li><a href="../lib/ri_cal/component/freebusy.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/component/freebusy.rb">lib/ri_cal/component/freebusy.rb</a></li>
 					
+						<li><a href="../lib/ri_cal/component/journal.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/component/journal.rb">lib/ri_cal/component/journal.rb</a></li>
+					
 						<li><a href="../lib/ri_cal/component/timezone.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/component/timezone.rb">lib/ri_cal/component/timezone.rb</a></li>
 					
-						<li><a href="../lib/ri_cal/component/timezone/daylight_period.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-							class="thickbox" title="lib/ri_cal/component/timezone/daylight_period.rb">lib/ri_cal/component/timezone/daylight_period.rb</a></li>
-					
 						<li><a href="../lib/ri_cal/component/timezone/standard_period.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/component/timezone/standard_period.rb">lib/ri_cal/component/timezone/standard_period.rb</a></li>
+					
+						<li><a href="../lib/ri_cal/component/timezone/daylight_period.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/component/timezone/daylight_period.rb">lib/ri_cal/component/timezone/daylight_period.rb</a></li>
 					
 						<li><a href="../lib/ri_cal/component/timezone/timezone_period.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/component/timezone/timezone_period.rb">lib/ri_cal/component/timezone/timezone_period.rb</a></li>
@@ -87,6 +90,8 @@
 					
 					<li><span class="type">CLASS</span> <a href="Component/Calendar.html">RiCal::Component::Calendar</a></li>
 					
+					<li><span class="type">CLASS</span> <a href="Component/ComponentBuilder.html">RiCal::Component::ComponentBuilder</a></li>
+					
 					<li><span class="type">CLASS</span> <a href="Component/Event.html">RiCal::Component::Event</a></li>
 					
 					<li><span class="type">CLASS</span> <a href="Component/Freebusy.html">RiCal::Component::Freebusy</a></li>
@@ -104,6 +109,27 @@
 			
 
 			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#M000024">#add_x_property</a></li>
+					
+					<li><a href="#M000019">#alarms</a></li>
+					
+					<li><a href="#M000035">#export</a></li>
+					
+					<li><a href="#M000033">#export_to</a></li>
+					
+					<li><a href="#M000032">#to_s</a></li>
+					
+					<li><a href="#M000025">#valid?</a></li>
+					
+					<li><a href="#M000023">#x_properties</a></li>
+					
+				</ul>
+			</div>
 			
 
 			<!-- Included Modules -->
@@ -193,8 +219,6 @@
 					<li><a href="../RiCal/CoreExtensions/Time/Conversions.html">RiCal::CoreExtensions::Time::Conversions</a></li>
 				
 					<li><a href="../RiCal/CoreExtensions/Time/WeekDayPredicates.html">RiCal::CoreExtensions::Time::WeekDayPredicates</a></li>
-				
-					<li><a href="../RiCal/Event.html">RiCal::Event</a></li>
 				
 					<li><a href="../RiCal/FloatingTimezone.html">RiCal::FloatingTimezone</a></li>
 				
@@ -321,6 +345,269 @@
 
 		<!-- Methods -->
 		
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="add-x-property-method" class="method-detail ">
+				<a name="M000024"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">add_x_property</span><span
+						class="method-args">(prop, name)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Add a n extended property
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="add-x-property-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/component.rb, line 100</span>
+100:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_x_property</span>(<span class="ruby-identifier">prop</span>, <span class="ruby-identifier">name</span>)
+101:       <span class="ruby-identifier">x_properties</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">prop</span>
+102:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="alarms-method" class="method-detail ">
+				<a name="M000019"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">alarms</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return an array of <a href="Component/Alarm.html">Alarm</a> components
+within this component :nodoc: Alarms may be contained within Events, and
+Todos
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="alarms-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/component.rb, line 68</span>
+68:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">alarms</span>
+69:       <span class="ruby-identifier">subcomponents</span>[<span class="ruby-value str">&quot;VALARM&quot;</span>]
+70:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="export-method" class="method-detail ">
+				<a name="M000035"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">export</span><span
+						class="method-args">(stream=nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Export this single component as an i<a
+href="Component/Calendar.html">Calendar</a> component containing only this
+component and any required additional components (i.e. VTIMEZONES
+referenced from this component) if stream is nil (the default) then this
+method will return a string, otherwise stream should be an IO to which the
+i<a href="Component/Calendar.html">Calendar</a> file contents will be
+written
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="export-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/component.rb, line 173</span>
+173:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">export</span>(<span class="ruby-identifier">stream</span>=<span class="ruby-keyword kw">nil</span>)
+174:       <span class="ruby-identifier">wrapper_calendar</span> = <span class="ruby-constant">Calendar</span>.<span class="ruby-identifier">new</span>
+175:       <span class="ruby-identifier">wrapper_calendar</span>.<span class="ruby-identifier">add_subcomponent</span>(<span class="ruby-keyword kw">self</span>)
+176:       <span class="ruby-identifier">wrapper_calendar</span>.<span class="ruby-identifier">export</span>(<span class="ruby-identifier">stream</span>)
+177:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="export-to-method" class="method-detail ">
+				<a name="M000033"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">export_to</span><span
+						class="method-args">(export_stream)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Export this component to an export stream
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="export-to-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/component.rb, line 160</span>
+160:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">export_to</span>(<span class="ruby-identifier">export_stream</span>)
+161:       <span class="ruby-identifier">export_stream</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;BEGIN:#{entity_name}&quot;</span>)
+162:       <span class="ruby-identifier">export_properties_to</span>(<span class="ruby-identifier">export_stream</span>)
+163:       <span class="ruby-identifier">subcomponents</span>.<span class="ruby-identifier">values</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sub</span><span class="ruby-operator">|</span>
+164:         <span class="ruby-identifier">export_subcomponent_to</span>(<span class="ruby-identifier">export_subcomponent_to</span>, <span class="ruby-identifier">sub</span>)
+165:       <span class="ruby-keyword kw">end</span>
+166:       <span class="ruby-identifier">export_stream</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;END:#{entity_name}&quot;</span>)
+167:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="to-s-method" class="method-detail ">
+				<a name="M000032"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_s</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return a string containing the rfc2445 format of the component
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-s-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/component.rb, line 153</span>
+153:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+154:       <span class="ruby-identifier">io</span> = <span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>
+155:       <span class="ruby-identifier">export_to</span>(<span class="ruby-identifier">io</span>)
+156:       <span class="ruby-identifier">io</span>.<span class="ruby-identifier">string</span>
+157:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="valid--method" class="method-detail ">
+				<a name="M000025"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">valid?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Predicate to determine if the component is valid according to RFC 2445
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="valid--source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/ri_cal/component.rb, line 105</span>
+105:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">valid?</span>
+106:       <span class="ruby-operator">!</span><span class="ruby-identifier">mutual_exclusion_violation</span>
+107:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+			<div id="x-properties-method" class="method-detail ">
+				<a name="M000023"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">x_properties</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return a hash of any extended properties, (i.e. those with a property name
+starting with &#8220;X-&#8221; representing an extension to the RFC 2445
+specification)
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="x-properties-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/ri_cal/component.rb, line 95</span>
+95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">x_properties</span>
+96:       <span class="ruby-ivar">@x_properties</span> <span class="ruby-operator">||=</span> {}
+97:     <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+			</div>
+
+		
+		</div>
+	
 
 	</div>
 
