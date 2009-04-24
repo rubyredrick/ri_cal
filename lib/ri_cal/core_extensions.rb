@@ -1,4 +1,4 @@
-# module RiCal
+# module RiCal #:nodoc:
 #   module CoreExtensions
 #   end
 # end

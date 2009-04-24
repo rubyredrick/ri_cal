@@ -1,3 +1,5 @@
+# The RiCal module provides the outermost namespace, along with several convenience methods for parsing
+# and building calendars and calendar components.
 module RiCal
   
   my_dir =  File.dirname(__FILE__)
@@ -59,14 +61,69 @@ module RiCal
     parse(StringIO.new(string))
   end
   
-  def self.debug
+  def self.debug # :nodoc:
     @debug
   end
   
-  def self.debug=(val)
+  def self.debug=(val) # :nodoc:
     @debug = val
-  end  
+  end
+ 
+  # return a new Alarm event or todo component.  If a block is provided it will will be executed in
+  # the context of a builder object which can be used to initialize the properties of the 
+  # new Alarm.  
+  def self.Alarm(&init_block)
+    Component::Alarm.new(&init_block)
+  end
+  
+  # return a new Calendar.  If a block is provided it will will be executed in
+  # the context of a builder object which can be used to initialize the properties and components of the 
+  # new calendar.  
+  def self.Calendar(&init_block)
+    Component::Calendar.new(&init_block)
+  end
 
+  # return a new Event calendar component.  If a block is provided it will will be executed in
+  # the context of a builder object which can be used to initialize the properties and alarms of the 
+  # new Event.  
+  def self.Event(&init_block)
+    Component::Event.new(&init_block)
+  end
+
+  # return a new Freebusy calendar component.  If a block is provided it will will be executed in
+  # the context of a builder object which can be used to initialize the properties and components of the 
+  # new Freebusy.  
+  def self.Freebusy(&init_block)
+    Component::Freebusy.new(&init_block)
+  end
+
+  # return a new Journal calendar component.  If a block is provided it will will be executed in
+  # the context of a builder object which can be used to initialize the properties and components of the 
+  # new Event.  
+  def self.Journal(&init_block)
+    Component::Journal.new(&init_block)
+  end
+
+  # return a new Timezone calendar component.  If a block is provided it will will be executed in
+  # the context of a builder object which can be used to initialize the properties and timezone periods of the 
+  # new Timezone.  
+  def self.Timezone(&init_block)
+    Component::Timezone.new(&init_block)
+  end
+
+  # return a new TimezonePeriod timezone component.  If a block is provided it will will be executed in
+  # the context of a builder object which can be used to initialize the properties of the 
+  # new TimezonePeriod.  
+  def self.TimezonePeriod(&init_block)
+    Component::TimezonePeriod.new(&init_block)
+  end
+
+  # return a new Todo calendar component.  If a block is provided it will will be executed in
+  # the context of a builder object which can be used to initialize the properties and alarms of the 
+  # new Todo.  
+  def self.Todo(&init_block)
+    Component::Todo.new(&init_block)
+  end
 end  # module RiCal
 
 RiCal.require_all_libs_relative_to(__FILE__)

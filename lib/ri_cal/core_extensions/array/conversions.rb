@@ -1,6 +1,6 @@
 module RiCal
-  module CoreExtensions
-    module Array
+  module CoreExtensions #:nodoc:
+    module Array #:nodoc:
       module Conversions
         # return the concatenation of the elements representation in rfc 2445 format
         def to_rfc2445_string # :doc:

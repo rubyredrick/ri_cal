@@ -1,6 +1,6 @@
 module RiCal
-  module CoreExtensions
-    module Time
+  module CoreExtensions #:nodoc:
+    module Time #:nodoc:
       # Provide calculation methods for use by the RiCal gem
       # This module is included by Time, Date, and DateTime
       module Calculations
@@ -102,11 +102,15 @@ module RiCal
           [iso_year, week_one_start]
         end
 
-        def iso_year_and_week_num(wkst)
+        def iso_year_and_week_num(wkst) #:nodoc:
           iso_year, week_one_start = *iso_year_and_week_one_start(wkst)
           [iso_year, (::Date.new(self.year, self.month, self.mday) - week_one_start).to_i / 7 + 1]
         end
 
+        # return the number of weeks in the the iso year containing the receiver
+        # == parameter
+        # wkst:: an integer representing the day of the week on which weeks are deemed to start. This uses
+        # the ruby convention where 0 represents Sunday.
         def iso_weeks_in_year(wkst)
           iso_year, week_one_start = *iso_year_and_week_one_start(wkst)
           probe_date = week_one_start + (7*52)
@@ -133,6 +137,10 @@ module RiCal
           iso_year_and_week_num(wkst)[0]
         end
         
+        # return the first day of the iso year of the receiver
+        # == parameter
+        # wkst:: an integer representing the day of the week on which weeks are deemed to start. This uses
+        # the ruby convention where 0 represents Sunday.
         def iso_year_start(wkst)
           iso_year_and_week_one_start(wkst)[1]
         end

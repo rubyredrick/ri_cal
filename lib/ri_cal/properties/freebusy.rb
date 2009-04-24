@@ -517,7 +517,7 @@ module RiCal
         request_status_property << RiCal::PropertyValue::Text.new(line)
       end
 
-      def export_properties_to(export_stream)
+      def export_properties_to(export_stream) #:nodoc:
         export_prop_to(export_stream, "REQUEST-STATUS", @request_status_property)
         export_prop_to(export_stream, "DTSTAMP", @dtstamp_property)
         export_prop_to(export_stream, "DTEND", @dtend_property)
@@ -532,7 +532,7 @@ module RiCal
         export_prop_to(export_stream, "COMMENT", @comment_property)
       end
 
-      def ==(o)
+      def ==(o) #:nodoc:
         if o.class == self.class
         (request_status_property == o.request_status_property) &&
         (dtstamp_property == o.dtstamp_property) &&
@@ -551,7 +551,7 @@ module RiCal
         end
       end
 
-      def initialize_copy(o)
+      def initialize_copy(o) #:nodoc:
         super
         request_status_property = request_status_property && request_status_property.dup
         dtstamp_property = dtstamp_property && dtstamp_property.dup
@@ -567,23 +567,23 @@ module RiCal
         comment_property = comment_property && comment_property.dup
       end
 
-      def add_date_times_to(required_timezones)
+      def add_date_times_to(required_timezones) #:nodoc:
         add_property_date_times_to(required_timezones, dtstart_property)
         add_property_date_times_to(required_timezones, dtend_property)
         add_property_date_times_to(required_timezones, dtstamp_property)
       end
 
-      module ClassMethods
+      module ClassMethods #:nodoc: all
         def property_parser
           {"DTEND"=>:dtend_property_from_string, "DTSTART"=>:dtstart_property_from_string, "DTSTAMP"=>:dtstamp_property_from_string, "URL"=>:url_property_from_string, "CONTACT"=>:contact_property_from_string, "UID"=>:uid_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "ORGANIZER"=>:organizer_property_from_string, "REQUEST-STATUS"=>:request_status_property_from_string, "FREEBUSY"=>:freebusy_property_from_string, "COMMENT"=>:comment_property_from_string, "DURATION"=>:duration_property_from_string}
         end
       end
 
-      def self.included(mod)
+      def self.included(mod) #:nodoc:
         mod.extend ClassMethods
       end
 
-      def mutual_exclusion_violation
+      def mutual_exclusion_violation #:nodoc:
         false
       end
     end

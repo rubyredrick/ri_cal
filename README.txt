@@ -18,25 +18,58 @@ This is a clean-slate implementation of RFC2445.
 
 == SYNOPSIS:
 
+=== Components and properties
+
+An iCalendar calendar comprises subcomponents like Events, Timezones and Todos.  Each component may have
+properties, for example an event has a dtstart property which defines the time (and date) on which the event
+starts.
+
+RiCal components will provide reasonable ruby objects as the values of these properties, and allow the properties
+to be set to ruby objects which are reasonable for the particular property.  For example time properties like dtstart
+can be set to a ruby Time, DateTime or Date object, and will return a DateTime or Date object when queried.
+
+The methods for accessing the properties of each type of component are defined in a module with the same name
+as the component class in the RiCal::properties module.  For example the property accessing methods for 
+RiCal::Component::Event are defined in RiCal::Properties::Event
+
 === Creating Calendars and Calendar Components
 
-==== Times, Timezones, and Floating Times
+RiCal provides a builder DSL for creating calendars and calendar components. An example
+
+  RiCal.Calendar do
+    event do
+      description "MA-6 First US Manned Spaceflight"
+      dtstart     DateTime.parse("2/20/1962 14:47:39")
+      dtend       DateTime.parse("2/20/1962 19:43:02")
+      location    "Cape Canaveral"
+      add_attendee "john.glenn@nasa.gov"
+      alarm do
+        description "Segment 51"
+      end
+    end
+  end
+  
+The blocks are evaluated in the context of an object which builds the calendar or calendar component. method names
+starting with add_ or remove_ are sent to the component, method names which correspond to a property value setter of
+the object being built will cause that setter to be sent to the component with the provided value.
+
+A method corresponding to the name of one of the components sub component will create the sub component and 
+evaluate the block in the context of the new subcomponent.
+
+=== Times, Time zones, and Floating Times
 
 RFC2445 describes three different kinds of DATE-TIME values with respect to time zones:
 
-  1. date-times with a local time. These have no actual time zone, instead they are to be interpreted
-in the local time zone of the viewer.  These floating times are used for things like the New Years celebration
-which is observed at local midnight whether you happen to be in Paris, London, or New York.
+  1. date-times with a local time. These have no actual time zone, instead they are to be interpreted in the local time zone of the viewer.  These floating times are used for things like the New Years celebration which is observed at local midnight whether you happen to be in Paris, London, or New York.
 
-  2. date-times with UTC time.  An application would either display these with an indication of the time zone, or
-convert them to the viewer's time zone, perhaps depending on user settings.
+  2. date-times with UTC time.  An application would either display these with an indication of the time zone, or convert them to the viewer's time zone, perhaps depending on user settings.
 
   3. date-times with a specified time zone.
 
 RiCal can be given ruby Time, DateTime, or Date objects for the value of properties requiring an iCalendar DATE-TIME value.
 
-Note that a date only date-time value has no timezone by definition, effectively such values float and describe
-a date as viewed by the user in his/her local timezone.
+Note that a date only DATE-TIME value has no time zone by definition, effectively such values float and describe
+a date as viewed by the user in his/her local time zone.
 
 When a Ruby Time or DateTime instance is used to set properties with with a DATE-TIME value, it needs to determine
 which of the three types it represents.  RiCal is designed to make use of the TimeWithZone support which has been
@@ -45,13 +78,9 @@ to require Rails or ActiveSupport, but to dynamically detect the presence of the
 
 When the value of a DATE-TIME property is set to a value, the following processing occurs:
 
-* If the object responds to both the :acts_as_time, and :timezone methods then the result of the timezone method
-(assumed to be an instance of TZInfoTimezone) is used as a specific local time zone.
+* If the object responds to both the :acts_as_time, and :timezone methods then the result of the timezone method (assumed to be an instance of TZInfoTimezone) is used as a specific local time zone.
 
-* If not then the default time zone id is used.  The normal default timezone id is "UTC". You can set the default
-by calling ::RiCal::PropertyValue::DateTime.default_tzid = timezone_identifier, where timezone_identifier is
-a string, or nil.  If you set the default tzid to 'none' or :none, then Times or DateTimes without timezones will
-be treated as floating times.
+* If not then the default time zone id is used.  The normal default timezone id is "UTC". You can set the default by calling ::RiCal::PropertyValue::DateTime.default_tzid = timezone_identifier, where timezone_identifier isa string, or nil.  If you set the default tzid to 'none' or :none, then Times or DateTimes without timezones will be treated as floating times.
 
 To explicitly set a floating time you can use the method #with_floating_timezone on Time or DateTime instances as in
 
@@ -61,7 +90,7 @@ To explicitly set a floating time you can use the method #with_floating_timezone
 
 RiCal can parse icalendar data from either a string or a Ruby io object.
 
-The data may consist of one or more icalendar calendars, or one or more icalendar compoentns (e.g. one or more 
+The data may consist of one or more icalendar calendars, or one or more icalendar components (e.g. one or more 
 VEVENT, or VTODO objects.)
 
 In either case the result will be an array of components.
@@ -106,7 +135,7 @@ In either case the result will be an array of components.
 	END:VCALENDAR
 	ENDCAL
 
-*bold*:: Beware of the initial whitespace in the above example which is for rdoc formatting. The parser does not strip initial whitespace from lines in the file and will fail.
+<b>Beware of the initial whitespace in the above example which is for rdoc formatting.</b> The parser does not strip initial whitespace from lines in the file and will fail.
 
 As already stated the string argument may be a full icalendar format calendar, or just one or more subcomponents, e.g.
 

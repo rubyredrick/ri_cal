@@ -14,7 +14,7 @@ module RiCal
 
       include RiCal::Properties::Event
 
-      def subcomponent_class
+      def subcomponent_class #:nodoc:
         {:alarm => Alarm }
       end
 

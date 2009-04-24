@@ -1,7 +1,7 @@
 module RiCal
-  module CoreExtensions
-    module Time
-      # Provide predicate methods for use by the RiCal gem
+  module CoreExtensions #:nodoc:
+    module Time #:nodoc:
+      # Provide predicate and related methods for use by the RiCal gem
       # This module is included by Time, Date, and DateTime
       module WeekDayPredicates
         

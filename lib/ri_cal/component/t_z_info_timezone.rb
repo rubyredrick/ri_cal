@@ -2,7 +2,7 @@
 # (or by Rails)
 class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
 
-  class Period
+  class Period #:nodoc: all
 
     def initialize(which, this_period, prev_period)
       @which = which
@@ -18,7 +18,7 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
     end
 
 
-    def format_rfc2445_offset(seconds) # :nodoc:
+    def format_rfc2445_offset(seconds) #:nodoc:
       abs_seconds = seconds.abs
       h = (abs_seconds/3600).floor
       m = (abs_seconds - (h * 3600))/60
@@ -37,7 +37,7 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
     end
   end
 
-  class Periods
+  class Periods #:nodoc: all
 
     def initialize
       @dst_period = @std_period = @previous_period = nil
@@ -74,35 +74,38 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
     end
   end
 
-  attr_reader :tzinfo_timezone
+  attr_reader :tzinfo_timezone #:nodoc:
 
-  def initialize(tzinfo_timezone)
+  def initialize(tzinfo_timezone) #:nodoc:
     @tzinfo_timezone = tzinfo_timezone
   end
 
+  # convert time from this time zone to utc time
   def local_to_utc(time)
     @tzinfo_timezone.local_to_utc(time)
   end
 
+  # convert time from utc time to this time zone
   def utc_to_local(time)
     @tzinfo_timezone.utc_to_local(time)
   end
 
+  # return the time zone identifier
   def identifier
     @tzinfo_timezone.identifier
   end
 
-  def export_local_to(export_stream, local_start, local_end)
+  def export_local_to(export_stream, local_start, local_end) #:nodoc:
     export_utc_to(export_stream, local_to_utc(local_start), local_to_utc(local_end))
   end
 
-  def to_rfc2445_string(utc_start, utc_end)
+  def to_rfc2445_string(utc_start, utc_end) #:nodoc:
     export_stream = StringIO.new
     export_utc_to(export_stream, utc_start, utc_end)
     export_stream.string
   end
 
-  def export_utc_to(export_stream, utc_start, utc_end)
+  def export_utc_to(export_stream, utc_start, utc_end) #:nodoc:
     export_stream.puts "BEGIN:VTIMEZONE","TZID;X-RICAL-TZSOURCE=TZINFO:#{identifier}"
     periods = Periods.new
     period = tzinfo_timezone.period_for_utc(utc_start)

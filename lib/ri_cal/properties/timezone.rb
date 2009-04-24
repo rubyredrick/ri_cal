@@ -103,13 +103,13 @@ module RiCal
       end
 
 
-      def export_properties_to(export_stream)
+      def export_properties_to(export_stream) #:nodoc:
         export_prop_to(export_stream, "LAST-MODIFIED", @last_modified_property)
         export_prop_to(export_stream, "TZURL", @tzurl_property)
         export_prop_to(export_stream, "TZID", @tzid_property)
       end
 
-      def ==(o)
+      def ==(o) #:nodoc:
         if o.class == self.class
         (last_modified_property == o.last_modified_property) &&
         (tzurl_property == o.tzurl_property) &&
@@ -119,28 +119,28 @@ module RiCal
         end
       end
 
-      def initialize_copy(o)
+      def initialize_copy(o) #:nodoc:
         super
         last_modified_property = last_modified_property && last_modified_property.dup
         tzurl_property = tzurl_property && tzurl_property.dup
         tzid_property = tzid_property && tzid_property.dup
       end
 
-      def add_date_times_to(required_timezones)
+      def add_date_times_to(required_timezones) #:nodoc:
         add_property_date_times_to(required_timezones, last_modified_property)
       end
 
-      module ClassMethods
+      module ClassMethods #:nodoc: all
         def property_parser
           {"TZID"=>:tzid_property_from_string, "TZURL"=>:tzurl_property_from_string, "LAST-MODIFIED"=>:last_modified_property_from_string}
         end
       end
 
-      def self.included(mod)
+      def self.included(mod) #:nodoc:
         mod.extend ClassMethods
       end
 
-      def mutual_exclusion_violation
+      def mutual_exclusion_violation #:nodoc:
         false
       end
     end

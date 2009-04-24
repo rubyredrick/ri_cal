@@ -355,7 +355,7 @@ module RiCal
         tzname_property << RiCal::PropertyValue::Text.new(line)
       end
 
-      def export_properties_to(export_stream)
+      def export_properties_to(export_stream) #:nodoc:
         export_prop_to(export_stream, "TZOFFSETTO", @tzoffsetto_property)
         export_prop_to(export_stream, "DTSTART", @dtstart_property)
         export_prop_to(export_stream, "RRULE", @rrule_property)
@@ -365,7 +365,7 @@ module RiCal
         export_prop_to(export_stream, "COMMENT", @comment_property)
       end
 
-      def ==(o)
+      def ==(o) #:nodoc:
         if o.class == self.class
         (tzoffsetto_property == o.tzoffsetto_property) &&
         (dtstart_property == o.dtstart_property) &&
@@ -379,7 +379,7 @@ module RiCal
         end
       end
 
-      def initialize_copy(o)
+      def initialize_copy(o) #:nodoc:
         super
         tzoffsetto_property = tzoffsetto_property && tzoffsetto_property.dup
         dtstart_property = dtstart_property && dtstart_property.dup
@@ -390,22 +390,22 @@ module RiCal
         comment_property = comment_property && comment_property.dup
       end
 
-      def add_date_times_to(required_timezones)
+      def add_date_times_to(required_timezones) #:nodoc:
         add_property_date_times_to(required_timezones, dtstart_property)
         add_property_date_times_to(required_timezones, rdate_property)
       end
 
-      module ClassMethods
+      module ClassMethods #:nodoc: all
         def property_parser
           {"RDATE"=>:rdate_property_from_string, "DTSTART"=>:dtstart_property_from_string, "TZNAME"=>:tzname_property_from_string, "RRULE"=>:rrule_property_from_string, "TZOFFSETFROM"=>:tzoffsetfrom_property_from_string, "COMMENT"=>:comment_property_from_string, "TZOFFSETTO"=>:tzoffsetto_property_from_string}
         end
       end
 
-      def self.included(mod)
+      def self.included(mod) #:nodoc:
         mod.extend ClassMethods
       end
 
-      def mutual_exclusion_violation
+      def mutual_exclusion_violation #:nodoc:
         false
       end
     end

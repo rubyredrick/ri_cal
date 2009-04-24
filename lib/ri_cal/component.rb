@@ -1,7 +1,6 @@
 module RiCal
-  class Component
-    
-    class ComponentBuilder
+  class Component    
+    class ComponentBuilder #:nodoc:
       def initialize(component)
         @component = component
       end
@@ -27,18 +26,18 @@ module RiCal
 
     autoload :Timezone, "#{File.dirname(__FILE__)}/component/timezone.rb"
 
-    def initialize(parent=nil, &init_block)
+    def initialize(parent=nil, &init_block) #:nodoc: 
       @parent = parent
       if block_given?
         ComponentBuilder.new(self).instance_eval(&init_block)
       end
     end
     
-    def subcomponent_class
+    def subcomponent_class #:nodoc:
       {}
     end
 
-    def self.from_parser(parser, parent) # :nodoc:
+    def self.from_parser(parser, parent) #:nodoc:
       entity = self.new(parent)
       line = parser.next_separated_line
       while parser.still_in(entity_name, line)
@@ -48,37 +47,37 @@ module RiCal
       entity
     end
 
-    def self.parse(io) # :nodoc:
+    def self.parse(io) #:nodoc:
       Parser.new(io).parse
     end
 
-    def self.parse_string(string) # :nodoc:
+    def self.parse_string(string) #:nodoc:
       parse(StringIO.new(string))
     end
 
-    def subcomponents # :nodoc:
+    def subcomponents #:nodoc:
       @subcomponents ||= Hash.new {|h, k| h[k] = []}
     end
 
-    def entity_name
+    def entity_name #:nodoc:
       self.class.entity_name
     end
 
-    # return an array of Alarm components within this component
+    # return an array of Alarm components within this component :nodoc:
     # Alarms may be contained within Events, and Todos
     def alarms
       subcomponents["VALARM"]
     end
 
-    def add_subcomponent(component)
+    def add_subcomponent(component) #:nodoc:
       subcomponents[component.entity_name] << component
     end
 
-    def parse_subcomponent(parser, line) # :nodoc:
+    def parse_subcomponent(parser, line) #:nodoc:
       subcomponents[line[:value]] << parser.parse_one(line, self)
     end
 
-    def process_line(parser, line) # :nodoc:
+    def process_line(parser, line) #:nodoc:
       if line[:name] == "BEGIN"
         parse_subcomponent(parser, line)
       else
@@ -97,7 +96,8 @@ module RiCal
       @x_properties ||= {}
     end
 
-    def add_x_property(prop, name) # :nodoc:
+    # Add a n extended property 
+    def add_x_property(prop, name)
       x_properties[name] = prop
     end
 
@@ -106,10 +106,10 @@ module RiCal
       !mutual_exclusion_violation
     end
 
-    def initialize_copy(original) # :nodoc:
+    def initialize_copy(original) #:nodoc:
     end
 
-    def prop_string(prop_name, *properties) # :nodoc:
+    def prop_string(prop_name, *properties) #:nodoc:
       properties = properties.flatten.compact
       if properties && !properties.empty?
         properties.map {|prop| "#{prop_name}#{prop.to_s}"}.join("\n")
@@ -118,7 +118,7 @@ module RiCal
       end
     end
 
-    def add_property_date_times_to(required_timezones, property)
+    def add_property_date_times_to(required_timezones, property) #:nodoc:
       if property
         if Array === property
           property.each do |prop|
@@ -130,25 +130,26 @@ module RiCal
       end
     end
 
-    def export_prop_to(export_stream, name, prop)
+    def export_prop_to(export_stream, name, prop) #:nodoc:
       if prop
         string = prop_string(name, prop)
         export_stream.puts(string) if string
       end
     end
 
-    def export_x_properties_to(export_stream)
+    def export_x_properties_to(export_stream) #:nodoc:
       x_properties.each do |name, prop|
         export_stream.puts(prop_string(name, prop))
       end
     end
 
-    def export_subcomponent_to(export_stream, subcomponent)
+    def export_subcomponent_to(export_stream, subcomponent) #:nodoc:
       subcomponent.each do |component|
         component.export_to(export_stream)
       end
     end
     
+    # return a string containing the rfc2445 format of the component
     def to_s
       io = StringIO.new
       export_to(io)
@@ -156,7 +157,6 @@ module RiCal
     end
 
     # Export this component to an export stream
-    # This is called from the Calendar#export method
     def export_to(export_stream)
       export_stream.puts("BEGIN:#{entity_name}")
       export_properties_to(export_stream)

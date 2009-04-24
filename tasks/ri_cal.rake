@@ -283,13 +283,13 @@ class VEntityUpdater
 
   def generate_support_methods
     blank_line
-    indent("def export_properties_to(export_stream)")
+    indent("def export_properties_to(export_stream) #:nodoc:")
     @all_props.each do |prop_attr, prop_name|
       indent("  export_prop_to(export_stream, #{prop_name.inspect}, @#{prop_attr})")
     end    
     indent("end")
     blank_line
-    indent("def ==(o)")
+    indent("def ==(o) #:nodoc:")
     indent("  if o.class == self.class")
     @all_props.keys.each_with_index do |prop_name, i|
       and_str = i < @all_props.length - 1 ? " &&" : ""
@@ -300,30 +300,30 @@ class VEntityUpdater
     indent("  end")
     indent("end")
     blank_line
-    indent("def initialize_copy(o)")
+    indent("def initialize_copy(o) #:nodoc:")
     indent("  super")
     @all_props.each_key do |prop_name|
       indent("  #{prop_name} = #{prop_name} && #{prop_name}.dup")
     end
     indent("end")
     blank_line
-    indent("def add_date_times_to(required_timezones)")
+    indent("def add_date_times_to(required_timezones) #:nodoc:")
     @date_time_props.each do | prop_name|
       indent("  add_property_date_times_to(required_timezones, #{prop_name})")
     end    
     indent("end")
     blank_line
-    indent("module ClassMethods")
-    indent("  def property_parser")
+    indent("module ClassMethods #:nodoc:")
+    indent("  def property_parser #:nodoc:")
     indent("    #{@property_map.inspect}")
     indent("  end")
     indent("end")
     blank_line
-    indent("def self.included(mod)")
+    indent("def self.included(mod) #:nodoc:")
     indent("  mod.extend ClassMethods")
     indent("end")
     blank_line
-    indent("def mutual_exclusion_violation")
+    indent("def mutual_exclusion_violation #:nodoc:")
     if mutually_exclusive_properties.empty?
       indent("  false")
     else

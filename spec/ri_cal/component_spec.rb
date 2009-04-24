@@ -3,9 +3,28 @@ require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 describe RiCal::Component do
 
   describe "building blocks" do
+    
+    describe "buildin an empty calendar" do
+      before(:each) do
+        @it = RiCal.Calendar.to_s
+      end
+      
+      it "should have the default prodid" do
+        @it.should match(%r{^PRODID:-//com.denhaven2/NONSGML ri_cal gem//EN$})
+      end
+      
+      it "should have the default calscale" do
+        @it.should match(%r{^CALSCALE:GREGORIAN$})
+      end
+      
+      it "should have the default icalendar version" do
+        @it.should match(%r{^VERSION:2\.0$})
+      end
+    end
+    
     describe "building an event for MA-6" do
       before(:each) do
-        @it = RiCal::Component::Event.new do
+        @it = RiCal.Event do
           description "MA-6 First US Manned Spaceflight"
           dtstart     DateTime.parse("2/20/1962 14:47:39")
           dtend       DateTime.parse("2/20/1962 19:43:02")

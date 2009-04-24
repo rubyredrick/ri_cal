@@ -11,11 +11,11 @@ module RiCal
         "VCALENDAR"
       end
 
-      def required_timezones
+      def required_timezones # :nodoc:
         @required_timezones ||=  RequiredTimezones.new
       end
       
-      def subcomponent_class
+      def subcomponent_class # :nodoc:
         {
           :event => Event,
           :todo  => Todo,
@@ -24,6 +24,14 @@ module RiCal
           :timezone => TimeZone,
         }
       end
+      
+      def export_properties_to(export_stream) # :nodoc:
+        export_prop_to(export_stream, "PRODID", prodid_property)
+        export_prop_to(export_stream, "CALSCALE", calscale_property)
+        export_prop_to(export_stream, "VERSION", version_property)
+        export_prop_to(export_stream, "METHOD", method_property)
+      end
+      
 
       # return an array of event components contained within this Calendar
       def events
@@ -56,7 +64,7 @@ module RiCal
         subcomponents["VTIMEZONE"]
       end
 
-      def export_required_timezones(export_stream)
+      def export_required_timezones(export_stream) # :nodoc:
         required_timezones.export_to(export_stream)
       end
 

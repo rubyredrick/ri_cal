@@ -67,7 +67,7 @@ module RiCal
       # 
       # see RFC 2445 4.7.3 pp 75-76
       def prodid_property
-        @prodid_property ||= RiCal::PropertyValue::Text.convert("-//com.denhaven2/NONSGML ri_cal gem//E")
+        @prodid_property ||= RiCal::PropertyValue::Text.convert("-//com.denhaven2/NONSGML ri_cal gem//EN")
       end
 
       # set the PRODID property
@@ -114,14 +114,14 @@ module RiCal
       end
 
 
-      def export_properties_to(export_stream)
+      def export_properties_to(export_stream) #:nodoc:
         export_prop_to(export_stream, "PRODID", @prodid_property)
         export_prop_to(export_stream, "CALSCALE", @calscale_property)
         export_prop_to(export_stream, "VERSION", @version_property)
         export_prop_to(export_stream, "METHOD", @method_property)
       end
 
-      def ==(o)
+      def ==(o) #:nodoc:
         if o.class == self.class
         (prodid_property == o.prodid_property) &&
         (calscale_property == o.calscale_property) &&
@@ -132,7 +132,7 @@ module RiCal
         end
       end
 
-      def initialize_copy(o)
+      def initialize_copy(o) #:nodoc:
         super
         prodid_property = prodid_property && prodid_property.dup
         calscale_property = calscale_property && calscale_property.dup
@@ -140,20 +140,20 @@ module RiCal
         method_property = method_property && method_property.dup
       end
 
-      def add_date_times_to(required_timezones)
+      def add_date_times_to(required_timezones) #:nodoc:
       end
 
-      module ClassMethods
+      module ClassMethods #:nodoc: all
         def property_parser
           {"METHOD"=>:method_property_from_string, "VERSION"=>:version_property_from_string, "PRODID"=>:prodid_property_from_string, "CALSCALE"=>:calscale_property_from_string}
         end
       end
 
-      def self.included(mod)
+      def self.included(mod) #:nodoc:
         mod.extend ClassMethods
       end
 
-      def mutual_exclusion_violation
+      def mutual_exclusion_violation #:nodoc:
         false
       end
     end

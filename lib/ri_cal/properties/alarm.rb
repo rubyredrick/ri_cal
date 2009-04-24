@@ -328,7 +328,7 @@ module RiCal
         attach_property << RiCal::PropertyValue::Uri.new(line)
       end
 
-      def export_properties_to(export_stream)
+      def export_properties_to(export_stream) #:nodoc:
         export_prop_to(export_stream, "ACTION", @action_property)
         export_prop_to(export_stream, "ATTENDEE", @attendee_property)
         export_prop_to(export_stream, "DURATION", @duration_property)
@@ -339,7 +339,7 @@ module RiCal
         export_prop_to(export_stream, "ATTACH", @attach_property)
       end
 
-      def ==(o)
+      def ==(o) #:nodoc:
         if o.class == self.class
         (action_property == o.action_property) &&
         (attendee_property == o.attendee_property) &&
@@ -354,7 +354,7 @@ module RiCal
         end
       end
 
-      def initialize_copy(o)
+      def initialize_copy(o) #:nodoc:
         super
         action_property = action_property && action_property.dup
         attendee_property = attendee_property && attendee_property.dup
@@ -366,20 +366,20 @@ module RiCal
         attach_property = attach_property && attach_property.dup
       end
 
-      def add_date_times_to(required_timezones)
+      def add_date_times_to(required_timezones) #:nodoc:
       end
 
-      module ClassMethods
+      module ClassMethods #:nodoc: all
         def property_parser
           {"ACTION"=>:action_property_from_string, "ATTACH"=>:attach_property_from_string, "REPEAT"=>:repeat_property_from_string, "SUMMARY"=>:summary_property_from_string, "TRIGGER"=>:trigger_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "DURATION"=>:duration_property_from_string, "DESCRIPTION"=>:description_property_from_string}
         end
       end
 
-      def self.included(mod)
+      def self.included(mod) #:nodoc:
         mod.extend ClassMethods
       end
 
-      def mutual_exclusion_violation
+      def mutual_exclusion_violation #:nodoc:
         false
       end
     end

@@ -1,6 +1,6 @@
 module RiCal
-  module CoreExtensions
-    module String
+  module CoreExtensions #:nodoc:
+    module String #:nodoc:
       module Conversions
         # Parse the receiver as an RiCal::PropertyValue::DateTime
         def to_ri_cal_date_time_value

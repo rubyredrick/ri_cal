@@ -9,7 +9,7 @@ method:
 prodid:
     purpose: This property specifies the identifier for the product that created the iCalendar object.
     required: true
-    default_value: '-//com.denhaven2/NONSGML ri_cal gem//E'
+    default_value: '-//com.denhaven2/NONSGML ri_cal gem//EN'
     rfc_ref: '4.7.3 pp 75-76'    
 version:
     purpose: This property specifies the identifier corresponding to thehighest version number or the minimum and maximum range of the iCalendar specification that is required in order to interpret the iCalendar object.

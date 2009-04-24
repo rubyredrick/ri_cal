@@ -2,6 +2,11 @@ require File.join(File.dirname(__FILE__), %w[.. properties timezone.rb])
 
 module RiCal
   class Component
+    # An Timezone (VTIMEZONE) calendar component describes a timezone used within the calendar.
+    # A Timezone has two or more TimezonePeriod subcomponents which describe the transitions between
+    # standard and daylight saving time.
+    #
+    # to see the property accessing methods for this class see the RiCal::Properties::Timezone module
     class Timezone < Component
       include RiCal::Properties::Timezone
 
@@ -9,15 +14,15 @@ module RiCal
         "VTIMEZONE"
       end
       
-      def standard
+      def standard #:nodoc:
         @subcomponents["STANDARD"]
       end
       
-      def daylight
+      def daylight #:nodoc:
         @subcomponents["DAYLIGHT"]
       end
       
-      def last_period(standard, daylight)
+      def last_period(standard, daylight) #:nodoc:
         if standard
           if daylight
             standard.dtstart > daylight.dtstart ? standard : daylight
@@ -29,7 +34,7 @@ module RiCal
         end
       end
       
-      def last_before_utc(period_array, time)
+      def last_before_utc(period_array, time) #:nodoc:
         candidates = period_array.map {|period| 
           period.last_before_utc(time)
         }
@@ -37,7 +42,7 @@ module RiCal
         result
       end
       
-      def last_before_local(period_array, time)
+      def last_before_local(period_array, time) #:nodoc:
         candidates = period_array.map {|period| 
           period.last_before_local(time)
         }
@@ -45,12 +50,14 @@ module RiCal
         result
       end
       
+      # convert time from utc time to this time zone
       def utc_to_local(time)
         time = time.to_ri_cal_date_time_value
         effective_period = last_period(last_before_utc(standard, time), last_before_utc(daylight, time))
         time + effective_period.tzoffsetto_property
       end
       
+      # convert time from this time zone to utc time
       def local_to_utc(time)
         time = time.to_ri_cal_date_time_value
         effective_period = last_period(last_before_local(standard, time), last_before_local(daylight, time))

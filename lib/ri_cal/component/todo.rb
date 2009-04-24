@@ -15,7 +15,7 @@ module RiCal
         "VTODO"
       end
 
-      def subcomponent_class
+      def subcomponent_class #:nodoc:
         {:alarm => Alarm }
       end
     end
