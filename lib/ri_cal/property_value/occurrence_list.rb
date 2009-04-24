@@ -24,7 +24,7 @@ module RiCal
         end
       end
 
-      def value=(val)
+      def value=(val) #:nodoc:
         super
         case params[:value]
         when 'DATE-TIME', nil
@@ -41,7 +41,7 @@ module RiCal
       OccurrenceList::Enumerator.new(@elements, component)
     end
     
-    def add_date_times_to(required_timezones)
+    def add_date_times_to(required_timezones) #:nodoc:
       if @elements
         @elements.each do | occurrence |
           occurrence.add_date_times_to(required_timezones)

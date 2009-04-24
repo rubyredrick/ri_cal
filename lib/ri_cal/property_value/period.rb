@@ -3,9 +3,16 @@ module RiCal
     # RiCal::PropertyValue::CalAddress represents an icalendar Period property value
     # which is defined in 
     # rfc 2445 section 4.3.9 p 39
+    #
+    # Known bugs.  This doesn't properly work when dtstart, dtend or duration are changed independently
     class Period < PropertyValue
 
-      attr_accessor :dtstart, :dtend, :duration
+      # The DATE-TIME on which the period starts
+      attr_accessor :dtstart
+      # The DATE-TIME on which the period ends
+      attr_accessor :dtend
+      # The DURATION of the period
+      attr_accessor :duration
 
       def value=(string) # :nodoc:
         starter, terminator = *string.split("/")
@@ -18,7 +25,7 @@ module RiCal
           self.duration = PropertyValue::Duration.from_datetimes(dtstart.to_datetime, dtend.to_datetime)        
         end
       end
-
+      
       def self.convert(ruby_object) # :nodoc:
         ruby_object.to_ri_cal_period_value
       end
@@ -29,11 +36,11 @@ module RiCal
       end
 
       # TODO: consider if this should be a period rather than a hash
-      def occurrence_hash(default_duration) # :nodoc:
+      def occurrence_hash(default_duration) #:nodoc:
         {:start => self, :end => (default_duration ? self + default_duration : nil)}
       end
 
-      def add_date_times_to(required_timezones)
+      def add_date_times_to(required_timezones) #:nodoc:
         dtstart.add_date_times_to(required_timezones)
         dtend.add_date_times_to(required_timezones)
       end

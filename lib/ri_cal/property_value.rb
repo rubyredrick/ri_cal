@@ -2,7 +2,7 @@ module RiCal
   # PropertyValue provides common implementation of various RFC 2445 property value types
   class PropertyValue
 
-    attr_accessor :params, :value
+    attr_accessor :params, :value #:nodoc:
     def initialize(separated_line) # :nodoc:
       val = separated_line[:value]
       raise "Invalid property value #{val.inspect}" if val.kind_of?(String) && /^;/.match(val)
@@ -30,7 +30,7 @@ module RiCal
       new(:value => string)
     end
     
-    def self.convert(value)
+    def self.convert(value) #:nodoc:
       new(:value => value)
     end
     
@@ -43,7 +43,7 @@ module RiCal
       end
     end
     
-    def equality_value
+    def equality_value #:nodoc:
       value
     end
     

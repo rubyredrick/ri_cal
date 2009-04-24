@@ -58,11 +58,11 @@
 						<li><a href="../lib/ri_cal/property_value/occurrence_list.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/property_value/occurrence_list.rb">lib/ri_cal/property_value/occurrence_list.rb</a></li>
 					
-						<li><a href="../lib/ri_cal/property_value/recurrence_rule.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule.rb">lib/ri_cal/property_value/recurrence_rule.rb</a></li>
-					
 						<li><a href="../lib/ri_cal/property_value/recurrence_rule/enumeration_support_methods.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/enumeration_support_methods.rb">lib/ri_cal/property_value/recurrence_rule/enumeration_support_methods.rb</a></li>
+					
+						<li><a href="../lib/ri_cal/property_value/recurrence_rule.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule.rb">lib/ri_cal/property_value/recurrence_rule.rb</a></li>
 					
 						<li><a href="../lib/ri_cal/property_value/recurrence_rule/enumerator.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/enumerator.rb">lib/ri_cal/property_value/recurrence_rule/enumerator.rb</a></li>
@@ -76,11 +76,11 @@
 						<li><a href="../lib/ri_cal/property_value/recurrence_rule/numbered_span.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/numbered_span.rb">lib/ri_cal/property_value/recurrence_rule/numbered_span.rb</a></li>
 					
-						<li><a href="../lib/ri_cal/property_value/recurrence_rule/recurring_day.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/recurring_day.rb">lib/ri_cal/property_value/recurrence_rule/recurring_day.rb</a></li>
-					
 						<li><a href="../lib/ri_cal/property_value/recurrence_rule/occurence_incrementer.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/occurence_incrementer.rb">lib/ri_cal/property_value/recurrence_rule/occurence_incrementer.rb</a></li>
+					
+						<li><a href="../lib/ri_cal/property_value/recurrence_rule/recurring_day.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/recurring_day.rb">lib/ri_cal/property_value/recurrence_rule/recurring_day.rb</a></li>
 					
 						<li><a href="../lib/ri_cal/property_value/recurrence_rule/recurring_month_day.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/property_value/recurrence_rule/recurring_month_day.rb">lib/ri_cal/property_value/recurrence_rule/recurring_month_day.rb</a></li>
@@ -97,8 +97,8 @@
 						<li><a href="../lib/ri_cal/property_value/text.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/property_value/text.rb">lib/ri_cal/property_value/text.rb</a></li>
 					
-						<li><a href="../lib/ri_cal/property_value/uri_value.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
-							class="thickbox" title="lib/ri_cal/property_value/uri_value.rb">lib/ri_cal/property_value/uri_value.rb</a></li>
+						<li><a href="../lib/ri_cal/property_value/uri.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="lib/ri_cal/property_value/uri.rb">lib/ri_cal/property_value/uri.rb</a></li>
 					
 						<li><a href="../lib/ri_cal/property_value/utc_offset.rb.html?TB_iframe=true&amp;height=550&amp;width=785"
 							class="thickbox" title="lib/ri_cal/property_value/utc_offset.rb">lib/ri_cal/property_value/utc_offset.rb</a></li>
@@ -164,19 +164,13 @@
 				<h3 class="section-header">Methods</h3>
 				<ul class="link-list">
 					
-					<li><a href="#M000766">::convert</a></li>
-					
 					<li><a href="#M000767">#==</a></li>
 					
-					<li><a href="#M001109">#add_date_times_to</a></li>
+					<li><a href="#M001103">#enumerator</a></li>
 					
-					<li><a href="#M001108">#enumerator</a></li>
+					<li><a href="#M000771">#ruby_value</a></li>
 					
-					<li><a href="#M000771">#equality_value</a></li>
-					
-					<li><a href="#M000774">#ruby_value</a></li>
-					
-					<li><a href="#M000773">#to_s</a></li>
+					<li><a href="#M000770">#to_s</a></li>
 					
 				</ul>
 			</div>
@@ -274,8 +268,6 @@
 				
 					<li><a href="../RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
 				
-					<li><a href="../RiCal/Properties.html">RiCal::Properties</a></li>
-				
 					<li><a href="../RiCal/Properties/Alarm.html">RiCal::Properties::Alarm</a></li>
 				
 					<li><a href="../RiCal/Properties/Calendar.html">RiCal::Properties::Calendar</a></li>
@@ -310,67 +302,9 @@
 				
 					<li><a href="../RiCal/PropertyValue/RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a></li>
 				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/ByDayIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByDayIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/ByHourIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByHourIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/ByMinuteIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByMinuteIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/ByMonthIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByMonthIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/ByMonthdayIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByMonthdayIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/ByNumberedDayIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByNumberedDayIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/BySecondIncrementer.html">RiCal::PropertyValue::RecurrenceRule::BySecondIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/ByWeekNoIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByWeekNoIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/ByYeardayIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByYeardayIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/DailyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::DailyIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/FrequencyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::FrequencyIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/HourlyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::HourlyIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/ListIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ListIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/MinutelyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::MinutelyIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/MonthlyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::MonthlyIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/OccurrenceIncrementer/NullSubCycleIncrementer.html">RiCal::PropertyValue::RecurrenceRule::OccurrenceIncrementer::NullSubCycleIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/SecondlyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::SecondlyIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/TimeManipulation.html">RiCal::PropertyValue::RecurrenceRule::TimeManipulation</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/WeeklyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::WeeklyIncrementer</a></li>
-				
-					<li><a href="../RiCal/PropertyValue/RecurrenceRule/YearlyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::YearlyIncrementer</a></li>
-				
 					<li><a href="../RiCal/PropertyValue/Text.html">RiCal::PropertyValue::Text</a></li>
 				
 					<li><a href="../RiCal/PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a></li>
-				
-					<li><a href="../RiCal/RequiredTimezones.html">RiCal::RequiredTimezones</a></li>
-				
-					<li><a href="../RiCal/RequiredTimezones/RequiredTimezone.html">RiCal::RequiredTimezones::RequiredTimezone</a></li>
-				
-					<li><a href="../RiCal/TimeWithFloatingTimezone.html">RiCal::TimeWithFloatingTimezone</a></li>
-				
-					<li><a href="../Array.html">Array</a></li>
-				
-					<li><a href="../Date.html">Date</a></li>
-				
-					<li><a href="../DateTime.html">DateTime</a></li>
-				
-					<li><a href="../Object.html">Object</a></li>
-				
-					<li><a href="../String.html">String</a></li>
 				
 				</ul>
 				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -385,9 +319,8 @@
 
 		<div id="description">
 			<p>
-<a href="PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a> represents
-an icalendar <a href="PropertyValue/Uri.html">Uri</a> property value which
-is defined in rfc 2445 section 4.8.4.6 p 110
+<a href="PropertyValue.html">PropertyValue</a> provides common
+implementation of various RFC 2445 property value types
 </p>
 
 		</div>
@@ -397,87 +330,9 @@ is defined in rfc 2445 section 4.8.4.6 p 110
 
 		<!-- Attributes -->
 		
-		<div id="attribute-method-details" class="method-section section">
-			<h3 class="section-header">Attributes</h3>
-
-			
-			<div id="params-attribute-method" class="method-detail">
-				<a name="params"></a>
-				
-				<a name="params="></a>
-				
-				<div class="method-heading attribute-method-heading">
-					<span class="method-name">params</span><span
-						class="attribute-access-type">[RW]</span>
-				</div>
-
-				<div class="method-description">
-				
-				<p class="missing-docs">(Not documented)</p>
-				
-				</div>
-			</div>
-			
-			<div id="value-attribute-method" class="method-detail">
-				<a name="value"></a>
-				
-				<a name="value="></a>
-				
-				<div class="method-heading attribute-method-heading">
-					<span class="method-name">value</span><span
-						class="attribute-access-type">[RW]</span>
-				</div>
-
-				<div class="method-description">
-				
-				<p class="missing-docs">(Not documented)</p>
-				
-				</div>
-			</div>
-			
-		</div>
-		
 
 		<!-- Methods -->
 		
-		<div id="public-class-method-details" class="method-section section">
-			<h3 class="section-header">Public Class Methods</h3>
-
-		
-			<div id="convert-method" class="method-detail ">
-				<a name="M000766"></a>
-
-				<div class="method-heading">
-				
-					<span class="method-name">convert</span><span
-						class="method-args">(value)</span>
-					<span class="method-click-advice">click to toggle source</span>
-				
-				</div>
-
-				<div class="method-description">
-					
-					<p class="missing-docs">(Not documented)</p>
-					
-
-					
-					<div class="method-source-code"
-						id="convert-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/ri_cal/property_value.rb, line 33</span>
-33:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">convert</span>(<span class="ruby-identifier">value</span>)
-34:       <span class="ruby-identifier">new</span>(<span class="ruby-identifier">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">value</span>)
-35:     <span class="ruby-keyword kw">end</span></pre>
-					</div>
-					
-				</div>
-
-				
-			</div>
-
-		
-		</div>
-	
 		<div id="public-instance-method-details" class="method-section section">
 			<h3 class="section-header">Public Instance Methods</h3>
 
@@ -520,44 +375,8 @@ Determine if another object is equivalent to the receiver.
 			</div>
 
 		
-			<div id="add-date-times-to-method" class="method-detail ">
-				<a name="M001109"></a>
-
-				<div class="method-heading">
-				
-					<span class="method-name">add_date_times_to</span><span
-						class="method-args">(required_timezones)</span>
-					<span class="method-click-advice">click to toggle source</span>
-				
-				</div>
-
-				<div class="method-description">
-					
-					<p class="missing-docs">(Not documented)</p>
-					
-
-					
-					<div class="method-source-code"
-						id="add-date-times-to-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/ri_cal/property_value/occurrence_list.rb, line 44</span>
-44:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_date_times_to</span>(<span class="ruby-identifier">required_timezones</span>)
-45:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@elements</span>
-46:         <span class="ruby-ivar">@elements</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">occurrence</span> <span class="ruby-operator">|</span>
-47:           <span class="ruby-identifier">occurrence</span>.<span class="ruby-identifier">add_date_times_to</span>(<span class="ruby-identifier">required_timezones</span>)
-48:         <span class="ruby-keyword kw">end</span>
-49:       <span class="ruby-keyword kw">end</span>
-50:     <span class="ruby-keyword kw">end</span></pre>
-					</div>
-					
-				</div>
-
-				
-			</div>
-
-		
 			<div id="enumerator-method" class="method-detail ">
-				<a name="M001108"></a>
+				<a name="M001103"></a>
 
 				<div class="method-heading">
 				
@@ -590,40 +409,8 @@ Return an enumerator which can produce the elements of the occurrence list
 			</div>
 
 		
-			<div id="equality-value-method" class="method-detail ">
-				<a name="M000771"></a>
-
-				<div class="method-heading">
-				
-					<span class="method-name">equality_value</span><span
-						class="method-args">()</span>
-					<span class="method-click-advice">click to toggle source</span>
-				
-				</div>
-
-				<div class="method-description">
-					
-					<p class="missing-docs">(Not documented)</p>
-					
-
-					
-					<div class="method-source-code"
-						id="equality-value-source">
-<pre>
-    <span class="ruby-comment cmt"># File lib/ri_cal/property_value.rb, line 46</span>
-46:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">equality_value</span>
-47:       <span class="ruby-identifier">value</span>
-48:     <span class="ruby-keyword kw">end</span></pre>
-					</div>
-					
-				</div>
-
-				
-			</div>
-
-		
 			<div id="ruby-value-method" class="method-detail ">
-				<a name="M000774"></a>
+				<a name="M000771"></a>
 
 				<div class="method-heading">
 				
@@ -657,7 +444,7 @@ return the ruby value
 
 		
 			<div id="to-s-method" class="method-detail ">
-				<a name="M000773"></a>
+				<a name="M000770"></a>
 
 				<div class="method-heading">
 				

@@ -18,47 +18,47 @@ module RiCal
         # Return the date on which the first iso week with a given starting week day occurs
         # for a given iso year
         # 
-        # == parameters
-        # year:: the iso year
-        # wkst:: an integer representing the day of the week on which weeks are deemed to start. This uses
-        # the ruby convention where 0 represents Sunday.
         #
         # From RFC 2445 page 43:
         # A week is defined as a seven day period, starting on the day of the week defined to be the
         # week start (see WKST). Week number one of the calendar year is the first week which contains 
         # at least four (4) days in that calendar
         # year.
-        # 
-        # Note that wkst uses the ruby definition, with Sunday = 0 
         #
-        # A good article about calculating ISO week number is at
-        # http://www.boyet.com/Articles/PublishedArticles/CalculatingtheISOweeknumb.html
-        #
-        # RFC 2445 generalizes the notion of ISO week by allowing the start of the week to vary.
-        # In order to adopt the algorithm in the referenced article, we must determine, for each
-        # wkst value, the day in January which must be contained in week 1 of the year.
-        # 
-        # For a given wkst week 1 for a year is the first week which
-        #   1) Starts with a day with a wday of wkst
-        #   2) Contains a majority (4 or more) of days in that year
-        # 
-        # If end of prior Dec, start of Jan          Week 1 starts on For WKST =
-
-        # MO TU WE TH FR SA SU MO TU WE TH FR SA SU  MO    TU    WE    TH    FR    SA    SU      
-        # 01 02 03 04 05 06 07 08 09 10 11 12 13 14 01-07 02-08 03-09 04-10 05-11 06-12 07-13
-        # 31 01 02 03 04 05 06 07 08 09 10 11 12 13 31-06 01-07 02-08 03-09 04-10 05-11 06-12
-        # 30 31 01 02 03 04 05 06 07 08 09 10 11 12 30-05 31-06 01-07 02-08 03-09 04-10 05-11
-        # 29 30 31 01 02 03 04 05 06 07 08 09 10 11 29-04 30-05 31-06 01-07 02-08 03-09 04-10
-        # 28 29 30 31 01 02 03 04 05 06 07 08 09 10 04-10 29-04 30-05 31-06 01-07 02-08 03-09
-        # 27 28 29 30 31 01 02 03 04 05 06 07 08 09 03-09 04-10 29-04 30-05 31-06 01-07 02-08
-        # 26 27 28 29 30 31 01 02 03 04 05 06 07 08 02-08 03-09 04-10 29-04 30-05 31-06 01-07
-        # 25 26 27 28 29 30 31 01 02 03 04 05 06 07 01-07 02-08 03-09 04-10 29-04 30-05 31-06
-        #                     Week 1 must contain     4     4     4     4     ?     ?     ?  
-        #
-        # So for a wkst of FR, SA, or SU, there is no date which MUST be contained in the 1st week
-        # We'll have to brute force that
-
+        # == parameters
+        # year:: the iso year
+        # wkst:: an integer representing the day of the week on which weeks are deemed to start. This uses
+        # the ruby convention where 0 represents Sunday.
         def self.iso_week_one(year, wkst)
+          # 
+          # Note that wkst uses the ruby definition, with Sunday = 0 
+          #
+          # A good article about calculating ISO week number is at
+          # http://www.boyet.com/Articles/PublishedArticles/CalculatingtheISOweeknumb.html
+          #
+          # RFC 2445 generalizes the notion of ISO week by allowing the start of the week to vary.
+          # In order to adopt the algorithm in the referenced article, we must determine, for each
+          # wkst value, the day in January which must be contained in week 1 of the year.
+          # 
+          # For a given wkst week 1 for a year is the first week which
+          #   1) Starts with a day with a wday of wkst
+          #   2) Contains a majority (4 or more) of days in that year
+          # 
+          # If end of prior Dec, start of Jan          Week 1 starts on For WKST =
+
+          # MO TU WE TH FR SA SU MO TU WE TH FR SA SU  MO    TU    WE    TH    FR    SA    SU      
+          # 01 02 03 04 05 06 07 08 09 10 11 12 13 14 01-07 02-08 03-09 04-10 05-11 06-12 07-13
+          # 31 01 02 03 04 05 06 07 08 09 10 11 12 13 31-06 01-07 02-08 03-09 04-10 05-11 06-12
+          # 30 31 01 02 03 04 05 06 07 08 09 10 11 12 30-05 31-06 01-07 02-08 03-09 04-10 05-11
+          # 29 30 31 01 02 03 04 05 06 07 08 09 10 11 29-04 30-05 31-06 01-07 02-08 03-09 04-10
+          # 28 29 30 31 01 02 03 04 05 06 07 08 09 10 04-10 29-04 30-05 31-06 01-07 02-08 03-09
+          # 27 28 29 30 31 01 02 03 04 05 06 07 08 09 03-09 04-10 29-04 30-05 31-06 01-07 02-08
+          # 26 27 28 29 30 31 01 02 03 04 05 06 07 08 02-08 03-09 04-10 29-04 30-05 31-06 01-07
+          # 25 26 27 28 29 30 31 01 02 03 04 05 06 07 01-07 02-08 03-09 04-10 29-04 30-05 31-06
+          #                     Week 1 must contain     4     4     4     4     ?     ?     ?  
+          #
+          # So for a wkst of FR, SA, or SU, there is no date which MUST be contained in the 1st week
+          # We'll have to brute force that
           if (1..4).include?(wkst)
             # return the date of the wkst day which is less than or equal to jan4th
             jan4th = ::Date.new(year, 1, 4)

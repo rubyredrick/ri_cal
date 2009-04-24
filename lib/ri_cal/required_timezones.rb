@@ -1,11 +1,11 @@
 module RiCal
   # RequireTimezones collects the timezones used by a given calendar component or set of calendar components
   # For each timezone we collect it's id, and the earliest and latest times which reference the zone
-  class RequiredTimezones
+  class RequiredTimezones #:nodoc:
     
     
     # A required timezone represents a single timezone and the earliest and latest times which reference it.
-    class RequiredTimezone
+    class RequiredTimezone #:nodoc:
       
       attr_reader :first_time, :last_time, :timezone
       

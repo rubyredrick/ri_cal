@@ -1,7 +1,7 @@
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
-      module Validations
+      module Validations #:nodoc:
         # Validate that the parameters of the reciever conform to RFC 2445
         # If errors are found they will be added to the receivers errors
         #

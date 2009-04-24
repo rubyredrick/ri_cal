@@ -110,8 +110,6 @@
 				
 					<li><a href="./RiCal/OccurrenceEnumerator.html">RiCal::OccurrenceEnumerator</a></li>
 				
-					<li><a href="./RiCal/Properties.html">RiCal::Properties</a></li>
-				
 					<li><a href="./RiCal/Properties/Alarm.html">RiCal::Properties::Alarm</a></li>
 				
 					<li><a href="./RiCal/Properties/Calendar.html">RiCal::Properties::Calendar</a></li>
@@ -146,67 +144,9 @@
 				
 					<li><a href="./RiCal/PropertyValue/RecurrenceRule.html">RiCal::PropertyValue::RecurrenceRule</a></li>
 				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/ByDayIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByDayIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/ByHourIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByHourIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/ByMinuteIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByMinuteIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/ByMonthIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByMonthIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/ByMonthdayIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByMonthdayIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/ByNumberedDayIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByNumberedDayIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/BySecondIncrementer.html">RiCal::PropertyValue::RecurrenceRule::BySecondIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/ByWeekNoIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByWeekNoIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/ByYeardayIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ByYeardayIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/DailyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::DailyIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/FrequencyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::FrequencyIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/HourlyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::HourlyIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/ListIncrementer.html">RiCal::PropertyValue::RecurrenceRule::ListIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/MinutelyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::MinutelyIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/MonthlyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::MonthlyIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/OccurrenceIncrementer/NullSubCycleIncrementer.html">RiCal::PropertyValue::RecurrenceRule::OccurrenceIncrementer::NullSubCycleIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/SecondlyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::SecondlyIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/TimeManipulation.html">RiCal::PropertyValue::RecurrenceRule::TimeManipulation</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/Validations.html">RiCal::PropertyValue::RecurrenceRule::Validations</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/WeeklyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::WeeklyIncrementer</a></li>
-				
-					<li><a href="./RiCal/PropertyValue/RecurrenceRule/YearlyIncrementer.html">RiCal::PropertyValue::RecurrenceRule::YearlyIncrementer</a></li>
-				
 					<li><a href="./RiCal/PropertyValue/Text.html">RiCal::PropertyValue::Text</a></li>
 				
 					<li><a href="./RiCal/PropertyValue/Uri.html">RiCal::PropertyValue::Uri</a></li>
-				
-					<li><a href="./RiCal/RequiredTimezones.html">RiCal::RequiredTimezones</a></li>
-				
-					<li><a href="./RiCal/RequiredTimezones/RequiredTimezone.html">RiCal::RequiredTimezones::RequiredTimezone</a></li>
-				
-					<li><a href="./RiCal/TimeWithFloatingTimezone.html">RiCal::TimeWithFloatingTimezone</a></li>
-				
-					<li><a href="./Array.html">Array</a></li>
-				
-					<li><a href="./Date.html">Date</a></li>
-				
-					<li><a href="./DateTime.html">DateTime</a></li>
-				
-					<li><a href="./Object.html">Object</a></li>
-				
-					<li><a href="./String.html">String</a></li>
 				
 				</ul>
 				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
@@ -253,10 +193,8 @@ starts.
 <a href="RiCal.html">RiCal</a> components will provide reasonable ruby
 objects as the values of these properties, and allow the properties to be
 set to ruby objects which are reasonable for the particular property. For
-example time properties like dtstart can be set to a ruby Time, <a
-href="DateTime.html">DateTime</a> or <a href="Date.html">Date</a> object,
-and will return a <a href="DateTime.html">DateTime</a> or <a
-href="Date.html">Date</a> object when queried.
+example time properties like dtstart can be set to a ruby Time, DateTime or
+Date object, and will return a DateTime or Date object when queried.
 </p>
 <p>
 The methods for accessing the properties of each type of component are
@@ -309,9 +247,8 @@ time zones:
   3. date-times with a specified time zone.
 </pre>
 <p>
-<a href="RiCal.html">RiCal</a> can be given ruby Time, <a
-href="DateTime.html">DateTime</a>, or <a href="Date.html">Date</a> objects
-for the value of properties requiring an iCalendar DATE-TIME value.
+<a href="RiCal.html">RiCal</a> can be given ruby Time, DateTime, or Date
+objects for the value of properties requiring an iCalendar DATE-TIME value.
 </p>
 <p>
 Note that a date only DATE-TIME value has no time zone by definition,
@@ -319,13 +256,13 @@ effectively such values float and describe a date as viewed by the user in
 his/her local time zone.
 </p>
 <p>
-When a Ruby Time or <a href="DateTime.html">DateTime</a> instance is used
-to set properties with with a DATE-TIME value, it needs to determine which
-of the three types it represents. <a href="RiCal.html">RiCal</a> is
-designed to make use of the TimeWithZone support which has been part of the
-ActiveSupport component of Ruby on Rails since Rails 2.2. However
-it&#8217;s been carefully designed not to require Rails or ActiveSupport,
-but to dynamically detect the presence of the TimeWithZone support.
+When a Ruby Time or DateTime instance is used to set properties with with a
+DATE-TIME value, it needs to determine which of the three types it
+represents. <a href="RiCal.html">RiCal</a> is designed to make use of the
+TimeWithZone support which has been part of the ActiveSupport component of
+Ruby on Rails since Rails 2.2. However it&#8217;s been carefully designed
+not to require Rails or ActiveSupport, but to dynamically detect the
+presence of the TimeWithZone support.
 </p>
 <p>
 When the value of a DATE-TIME property is set to a value, the following
@@ -348,8 +285,7 @@ be treated as floating times.
 </ul>
 <p>
 To explicitly set a floating time you can use the method
-#with_floating_timezone on Time or <a href="DateTime.html">DateTime</a>
-instances as in
+#with_floating_timezone on Time or DateTime instances as in
 </p>
 <pre>
    event.dtstart = Time.parse(&quot;1/1/2010 00:00:00&quot;).with_floating_timezone

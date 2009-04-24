@@ -1,4 +1,4 @@
 require "#{File.dirname(__FILE__)}/array/conversions.rb"
-class Array
+class Array #:nodoc:
   include RiCal::CoreExtensions::Array::Conversions
 end

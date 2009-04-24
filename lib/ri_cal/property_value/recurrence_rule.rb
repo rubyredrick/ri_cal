@@ -13,7 +13,10 @@ module RiCal
       include InitializationMethods
       include EnumerationSupportMethods
 
-      attr_reader :count, :until
+      # The integer count value of the receiver, or nil
+      attr_reader :count
+      # The DATE-TIME value of until limit of the receiver, or nil
+      attr_reader :until
 
       def value=(string) # :nodoc:
         if string

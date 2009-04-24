@@ -4,10 +4,11 @@ module RiCal
     # which is defined in 
     # rfc 2445 section 4.3.11 pp 45-46
     class Text < PropertyValue
-      def initialize(line)
+      def initialize(line) #:nodoc:
         super
       end
       
+      # Return the string value of the receiver
       def ruby_value
         value.gsub(/\\[;,nN\\]/) {|match|
           case match[1,1]
@@ -21,7 +22,7 @@ module RiCal
         }
       end
       
-      def self.convert(string)
+      def self.convert(string) #:nodoc:
         ical_str = string.gsub(/\n|,|;/) {|match|
           if match == "\n"
             '\n'

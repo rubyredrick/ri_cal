@@ -1,7 +1,7 @@
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
-      module TimeManipulation
+      module TimeManipulation #:nodoc:
 
         def advance_day(date_time)
           date_time.advance(:days => 1)
@@ -45,7 +45,7 @@ module RiCal
 
         include TimeManipulation
 
-        class NullSubCycleIncrementer
+        class NullSubCycleIncrementer #:nodoc:
           def self.next_time(previous)
             nil
           end
@@ -172,7 +172,7 @@ module RiCal
       # It keeps a collection of occurrences within a given range called a cycle
       # When the collection of occurrences is exhausted it is refreshed if there is no
       # outer incrementer, or if a new cycle would start in the current cycle of the outer incrementers.
-      class ListIncrementer < OccurrenceIncrementer
+      class ListIncrementer < OccurrenceIncrementer #:nodoc:
         attr_accessor :occurrences, :list, :outer_occurrence, :cycle_start
 
         def initialize(rrule, list, sub_cycle_incrementer)
@@ -254,7 +254,7 @@ module RiCal
 
       # A FrequenceIncrementer represents the xxxLY and FREQ parts of a recurrence rule
       # A FrequenceIncrementer has a single occurrence within each cycle.
-      class FrequencyIncrementer < OccurrenceIncrementer
+      class FrequencyIncrementer < OccurrenceIncrementer #:nodoc:
         attr_accessor :interval, :outer_occurrence, :skip_increment
 
         alias_method :cycle_start, :current_occurrence
@@ -313,7 +313,7 @@ module RiCal
         end
       end
 
-      class SecondlyIncrementer < FrequencyIncrementer
+      class SecondlyIncrementer < FrequencyIncrementer #:nodoc:
 
         def self.for_rrule(rrule)
           if rrule.freq == "SECONDLY"
@@ -333,7 +333,7 @@ module RiCal
       end
 
 
-      class BySecondIncrementer < ListIncrementer
+      class BySecondIncrementer < ListIncrementer #:nodoc:
 
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, :bysecond, SecondlyIncrementer)
@@ -356,7 +356,7 @@ module RiCal
         end
       end
 
-      class MinutelyIncrementer < FrequencyIncrementer
+      class MinutelyIncrementer < FrequencyIncrementer #:nodoc:
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, "MINUTELY", BySecondIncrementer)
         end
@@ -370,7 +370,7 @@ module RiCal
         end
       end
 
-      class ByMinuteIncrementer < ListIncrementer
+      class ByMinuteIncrementer < ListIncrementer #:nodoc:
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, :byminute, MinutelyIncrementer)
         end
@@ -392,7 +392,7 @@ module RiCal
         end
       end
 
-      class HourlyIncrementer < FrequencyIncrementer
+      class HourlyIncrementer < FrequencyIncrementer #:nodoc:
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, "HOURLY", ByMinuteIncrementer)
         end
@@ -406,14 +406,13 @@ module RiCal
         end
       end
 
-
-      class ByHourIncrementer < ListIncrementer
+      class ByHourIncrementer < ListIncrementer #:nodoc:
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, :byhour, HourlyIncrementer)
         end
 
         def start_of_cycle(date_time)
-          date_time.change(:hour => 1)
+          date_time.change(:hour => 0)
         end
 
         def varying_time_attribute
@@ -429,7 +428,7 @@ module RiCal
         end
       end
 
-      class DailyIncrementer < FrequencyIncrementer
+      class DailyIncrementer < FrequencyIncrementer #:nodoc:
 
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, "DAILY", ByHourIncrementer)
@@ -448,7 +447,7 @@ module RiCal
         end
       end
 
-      class ByNumberedDayIncrementer < ListIncrementer
+      class ByNumberedDayIncrementer < ListIncrementer #:nodoc:
 
         def daily_incrementer?
           true
@@ -473,7 +472,7 @@ module RiCal
         end
       end
 
-      class ByMonthdayIncrementer < ByNumberedDayIncrementer
+      class ByMonthdayIncrementer < ByNumberedDayIncrementer #:nodoc:
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, :bymonthday, DailyIncrementer)
         end
@@ -495,7 +494,7 @@ module RiCal
         end
       end
 
-      class ByYeardayIncrementer < ByNumberedDayIncrementer
+      class ByYeardayIncrementer < ByNumberedDayIncrementer #:nodoc:
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, :byyearday, ByMonthdayIncrementer)
         end
@@ -517,7 +516,7 @@ module RiCal
         end
       end
 
-      class ByDayIncrementer < ListIncrementer
+      class ByDayIncrementer < ListIncrementer #:nodoc:
 
         def initialize(rrule, list, by_monthday_list, by_yearday_list, parent)
           super(rrule, list, parent)
@@ -590,7 +589,7 @@ module RiCal
         end
       end
 
-      class WeeklyIncrementer < FrequencyIncrementer
+      class WeeklyIncrementer < FrequencyIncrementer #:nodoc:
 
         attr_reader :wkst
 
@@ -618,7 +617,7 @@ module RiCal
         end
       end
 
-      class ByWeekNoIncrementer < ListIncrementer
+      class ByWeekNoIncrementer < ListIncrementer #:nodoc:
         attr_reader :wkst
         # include WeeklyBydayMethods
 
@@ -674,7 +673,7 @@ module RiCal
         end
       end
 
-      class MonthlyIncrementer < FrequencyIncrementer
+      class MonthlyIncrementer < FrequencyIncrementer #:nodoc:
 
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, "MONTHLY", ByWeekNoIncrementer)
@@ -698,7 +697,7 @@ module RiCal
         end
       end
 
-      class ByMonthIncrementer < ListIncrementer
+      class ByMonthIncrementer < ListIncrementer #:nodoc:
 
         def self.for_rrule(rrule)
           conditional_incrementer(rrule, :bymonth, MonthlyIncrementer)
@@ -741,7 +740,7 @@ module RiCal
         end
       end
 
-      class YearlyIncrementer < FrequencyIncrementer
+      class YearlyIncrementer < FrequencyIncrementer #:nodoc:
 
         attr_reader :wkst
 

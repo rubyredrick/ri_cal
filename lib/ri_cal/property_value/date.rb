@@ -14,71 +14,72 @@ module RiCal
         end
       end 
 
-      def value=(val) # :nodoc:
+      # Set the value of the property to val
+      #
+      # val may be either:
+      #
+      # * A string which can be parsed as a DateTime
+      # * A Time instance
+      # * A Date instance
+      # * A DateTime instance
+      def value=(val)
         case val
         when nil
           @date_time_value = nil
         when String
-          @date_time_value = ::DateTime.parse(val)
+          @date_time_value = ::DateTime.parse(::DateTime.parse(val).strftime("%Y%m%d"))
         when ::Time, ::Date, ::DateTime
           @date_time_value = ::DateTime.parse(val.strftime("%Y%m%d"))
         end
       end
       
-      def visible_params # :nodoc:
+      def visible_params #:nodoc:
         {"VALUE" => "DATE"}.merge(params)
       end      
       
+      # Returns the year (including the century) 
       def year
         @date_time_value.year
       end
       
+      # Returns the month of the year (1..12)
       def month
         @date_time_value.month
       end
       
+      # Returns the day of the month
       def day
         @date_time_value.day
       end
       
-      def year
-        @date_time_value.year
-      end
-      
-      def month
-        @date_time_value.month
-      end
-      
-      def day
-        @date_time_value.day
-      end
 
-      # Used by RiCal specs - returns a Ruby Date
-      def to_ri_cal_ruby_value
+      # Returns the ruby representation a ::Date
+      def ruby_value
         ::Date.parse(@date_time_value.strftime("%Y%m%d"))
       end
       
-      alias_method :ruby_value, :to_ri_cal_ruby_value
+      alias_method :to_ri_cal_ruby_value, :ruby_value
 
-      # Return an RiCal::PropertyValue::DateTime representing the receiver
+      # Return an instance of RiCal::PropertyValue::DateTime representing the start of this date
       def to_ri_cal_date_time_value
         PropertyValue::DateTime.new(:value => @date_time_value)
       end    
 
-      # Return an RiCal::PropertyValue::Date representing the receiver
+      # Return this date property
       def to_ri_cal_date_value
         self
       end
       
+      # Return the "Natural' property value for the date_property, in this case the date property itself."
       def to_ri_cal_date_or_date_time_value
         self
       end
       
-      def compute_change(d, options) # :nodoc:
+      def compute_change(d, options) #:nodoc:
         ::Date.civil((options[:year] || d.year), (options[:month] || d.month), (options[:day] || d.day))
       end
 
-      def compute_advance(d, options) # :nodoc:
+      def compute_advance(d, options) #:nodoc:
         d = d >> options[:years] * 12 if options[:years]
         d = d >> options[:months]     if options[:months]
         d = d +  options[:weeks] * 7  if options[:weeks]
@@ -86,27 +87,27 @@ module RiCal
         compute_change(@date_time_value, :year => d.year, :month => d.month, :day => d.day)
       end
 
-      def advance(options) # :nodoc:
+      def advance(options) #:nodoc:
         PropertyValue::Date.new(:value => compute_advance(@date_time_value, options), :params =>(params ? params.dup : nil) )
       end
 
-      def change(options) # :nodoc:
+      def change(options) #:nodoc:
         PropertyValue::Date.new(:value => compute_change(@date_time_value, options), :params => (params ? params.dup : nil) )
       end
       
-      def add_date_times_to(required_timezones)
+      def add_date_times_to(required_timezones) #:nodoc:
         # Do nothing since dates don't have a timezone
       end
 
 
       # Delegate unknown messages to the wrappered Date instance.
       # TODO: Is this really necessary?
-      def method_missing(selector, *args)
+      def method_missing(selector, *args) #:nodoc:
         @date_time_value.send(selector, *args)
       end
       
       # TODO: consider if this should be a period rather than a hash
-      def occurrence_hash(default_duration) # :nodoc:
+      def occurrence_hash(default_duration) #:nodoc:
         date_time = self.to_ri_cal_date_time_value
         {:start => date_time, 
           :end => date_time.advance(:hours => 24, :seconds => -1)}
