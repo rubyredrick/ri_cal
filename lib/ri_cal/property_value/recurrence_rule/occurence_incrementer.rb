@@ -138,7 +138,7 @@ module RiCal
         end
 
         def in_outer_cycle?(candidate)
-          candidate && (outer_range.nil? || outer_range.include?(candidate))
+          candidate && (outer_range.nil? || (outer_range.first <= candidate && outer_range.last >= candidate))
         end
 
         def first_sub_occurrence(previous_occurrence, outer_cycle_range)

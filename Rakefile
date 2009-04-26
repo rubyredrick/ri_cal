@@ -29,6 +29,4 @@ PROJ.spec.opts << '--color'
 PROJ.spec.opts << '--format nested'
 PROJ.rdoc.opts = ['-SHN','-f', 'darkfish' ]
 
-require 'metric_fu'
-
 # EOF

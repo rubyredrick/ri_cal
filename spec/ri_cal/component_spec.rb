@@ -26,8 +26,8 @@ describe RiCal::Component do
       before(:each) do
         @it = RiCal.Event do
           description "MA-6 First US Manned Spaceflight"
-          dtstart     DateTime.parse("2/20/1962 14:47:39")
-          dtend       DateTime.parse("2/20/1962 19:43:02")
+          dtstart     DateTime.parse("Feb 20, 1962 14:47:39")
+          dtend       DateTime.parse("Feb 20, 1962 19:43:02")
           location    "Cape Canaveral"
           add_attendee "john.glenn@nasa.gov"
           alarm do
@@ -41,7 +41,7 @@ describe RiCal::Component do
       end
 
       it "should have the right dtstart" do
-        @it.dtstart.should == DateTime.parse("2/20/1962 14:47:39")
+        @it.dtstart.should == DateTime.parse("Feb 20, 1962 14:47:39")
       end
 
       it "should have a zulu time dtstart property" do
@@ -49,7 +49,7 @@ describe RiCal::Component do
       end
 
       it "should have the right dtend" do
-        @it.dtend.should == DateTime.parse("2/20/1962 19:43:02")
+        @it.dtend.should == DateTime.parse("Feb 20, 1962 19:43:02")
       end
 
       it "should have a zulu time dtend property" do

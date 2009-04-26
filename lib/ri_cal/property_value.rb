@@ -53,8 +53,9 @@ module RiCal
 
     # Return a string representing the receiver in RFC 2445 format
     def to_s
-      if visible_params && !visible_params.empty?
-        "#{visible_params.map {|key, val| ";#{key}=#{val}"}}:#{value}"
+      # We only sort for testability reasons
+      if (vp = visible_params) && !vp.empty?
+        "#{vp.keys.sort.map {|key| ";#{key}=#{vp[key]}"}.join}:#{value}"
       else
         ":#{value}"
       end

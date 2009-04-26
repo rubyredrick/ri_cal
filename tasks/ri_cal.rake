@@ -1,4 +1,4 @@
-require 'active_support'
+#require 'active_support'
 require 'yaml'
 
 # code stolen from ActiveSupport Gem

@@ -39,14 +39,14 @@ TZEND
     describe ".local_to_utc" do
       it "should produce 2/27/2009 18:00 UTC for 2/27/2009 13:00" do
         expected = RiCal::PropertyValue::DateTime.new(:value => "20090227T1800Z" )
-        @it.local_to_utc(DateTime.parse("2/27/2009 13:00")).should == expected
+        @it.local_to_utc(DateTime.parse("Feb 27, 2009 13:00")).should == expected
       end
     end
     
     describe ".utc_to_local" do
       it "should produce 2/27/2009 13:00 EST for 2/27/2009 18:00 UTC" do
         expected = RiCal::PropertyValue::DateTime.new(:value => "20090227T1300Z" )
-        @it.utc_to_local(DateTime.parse("2/27/2009 18:00")).should == expected
+        @it.utc_to_local(DateTime.parse("Feb 27, 2009 18:00")).should == expected
       end
     end
     

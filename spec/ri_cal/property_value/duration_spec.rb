@@ -43,8 +43,8 @@ describe RiCal::PropertyValue::Duration do
     describe "starting at 11:00 pm, and ending at 1:01:02 am the next day" do
       before(:each) do
         @it = RiCal::PropertyValue::Duration.from_datetimes(
-                      DateTime.parse("9/1/2008 23:00"), 
-                      DateTime.parse("9/2/2008 1:01:02")
+                      DateTime.parse("Sep 1, 2008 23:00"), 
+                      DateTime.parse("Sep 2, 2008 1:01:02")
                   ) 
       end
 
