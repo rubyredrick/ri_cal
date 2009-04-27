@@ -2,9 +2,9 @@ require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
 describe RiCal::Component do
 
-  describe "building blocks" do
+  context "building blocks" do
     
-    describe "buildin an empty calendar" do
+    context "building an empty calendar" do
       before(:each) do
         @it = RiCal.Calendar.to_s
       end
@@ -22,7 +22,61 @@ describe RiCal::Component do
       end
     end
     
-    describe "building an event for MA-6" do
+    context "with a block with 1 parameter" do
+      before(:each) do
+        @it = RiCal.Event do |event|
+          event.description = "MA-6 First US Manned Spaceflight"
+          event.dtstart = DateTime.parse("Feb 20, 1962 14:47:39")
+          event.dtend = DateTime.parse("Feb 20, 1962 19:43:02")
+          event.location = "Cape Canaveral"
+          event.add_attendee "john.glenn@nasa.gov"
+          event.alarm do
+            description "Segment 51"
+          end
+          event.alarm do |alarm|
+            alarm.description = "Second alarm"
+          end
+        end
+      end
+
+      it "should have the right description" do
+        @it.description.should == "MA-6 First US Manned Spaceflight"
+      end   
+      it "should have the right dtstart" do
+        @it.dtstart.should == DateTime.parse("Feb 20, 1962 14:47:39")
+      end
+
+      it "should have a zulu time dtstart property" do
+        @it.dtstart_property.tzid.should == "UTC"
+      end
+
+      it "should have the right dtend" do
+        @it.dtend.should == DateTime.parse("Feb 20, 1962 19:43:02")
+      end
+
+      it "should have a zulu time dtend property" do
+        @it.dtend_property.tzid.should == "UTC"
+      end
+
+      it "should have the right location" do
+        @it.location.should == "Cape Canaveral"
+      end
+
+      it "should have the right attendee" do
+        @it.attendee.should include("john.glenn@nasa.gov")
+      end
+
+      it "should have 2 alarms" do
+        @it.alarms.length.should == 2
+      end
+
+      it ".the alarms should have the right description" do
+        @it.alarms.first.description.should == "Segment 51"
+        @it.alarms.last.description.should == "Second alarm"
+      end
+    end
+
+    context "building an event for MA-6" do
       before(:each) do
         @it = RiCal.Event do
           description "MA-6 First US Manned Spaceflight"

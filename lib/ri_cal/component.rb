@@ -9,7 +9,11 @@ module RiCal
         if(sub_comp_class = @component.subcomponent_class[selector])
           if init_block
             sub_comp = sub_comp_class.new(@component)
-            ComponentBuilder.new(sub_comp).instance_eval(&init_block)
+            if init_block.arity == 1
+              yield ComponentBuilder.new(sub_comp)
+            else
+              ComponentBuilder.new(sub_comp).instance_eval(&init_block)
+            end
             self.add_subcomponent(sub_comp)
           end
         else
@@ -29,7 +33,11 @@ module RiCal
     def initialize(parent=nil, &init_block) #:nodoc: 
       @parent = parent
       if block_given?
-        ComponentBuilder.new(self).instance_eval(&init_block)
+        if init_block.arity == 1
+          init_block.call(ComponentBuilder.new(self))
+        else
+          ComponentBuilder.new(self).instance_eval(&init_block)
+        end
       end
     end
     

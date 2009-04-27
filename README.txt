@@ -49,6 +49,28 @@ RiCal provides a builder DSL for creating calendars and calendar components. An 
     end
   end
   
+This style is for compatibility with the iCalendar and vpim to ease migration.  The downside is that the block is evaluated
+in the context of a different object which cause surprising if the block contains direct instance variable references or
+implicit references to self.  Note that, in this style, one must use 'declarative' method calls like dtstart to set values
+rather than more natural attribute writer methods, like dtstart=
+  
+Alternatively you can pass a block with a single argument, in this case the component being built will be passed as that argument
+
+  RiCal.Calendar do |cal|
+    cal.event do |event|
+      event.description = "MA-6 First US Manned Spaceflight"
+      event.dtstart =  DateTime.parse("2/20/1962 14:47:39")
+      event.dtend = DateTime.parse("2/20/1962 19:43:02")
+      event.location = "Cape Canaveral"
+      event.add_attendee "john.glenn@nasa.gov"
+      event.alarm do
+        description "Segment 51"
+      end
+    end
+  end
+
+As the example shows, the two styles can be mixed, the inner block which builds the alarm uses the first style.
+  
 The blocks are evaluated in the context of an object which builds the calendar or calendar component. method names
 starting with add_ or remove_ are sent to the component, method names which correspond to a property value setter of
 the object being built will cause that setter to be sent to the component with the provided value.
