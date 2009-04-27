@@ -1,32 +1,28 @@
-# Look in the tasks/setup.rb file for the various options that can be
-# configured in this Rakefile. The .rake files in the tasks directory
-# are where the options are used.
+%w[rubygems rake rake/clean fileutils newgem rubigen].each { |f| require f }
+require File.dirname(__FILE__) + '/lib/ri_cal'
 
-gem 'rdoc', ">2"
+# Generate all the Rake tasks
+# Run 'rake -T' to see list of generated tasks (from gem root directory)
+$hoe = Hoe.new('ri_cal', RiCal::VERSION) do |p|
+  p.developer('author=Rick DeNatale', 'rick.denatale@gmail.com')
+  p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
+  # p.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
+  p.rubyforge_name       = 'rical'
+  # p.extra_deps         = [
+  #   ['tzinfo','>= 2.0.2'],
+  # ]
+  p.extra_dev_deps = [
+    ['newgem', ">= #{::Newgem::VERSION}"]
+  ]
 
-
-begin
-  require 'bones'
-  Bones.setup
-rescue LoadError
-  load 'tasks/setup.rb'
+  p.clean_globs |= %w[**/.DS_Store tmp *.log]
+  path = (p.rubyforge_name == p.name) ? p.rubyforge_name : "\#{p.rubyforge_name}/\#{p.name}"
+  p.remote_rdoc_dir = File.join(path.gsub(/^#{p.rubyforge_name}\/?/,''), 'rdoc')
+  p.rsync_args = '-av --delete --ignore-errors'
 end
 
-ensure_in_path 'lib'
-require 'ri_cal'
+require 'newgem/tasks' # load /tasks/*.rake
+Dir['tasks/**/*.rake'].each { |t| load t }
 
-task :default => 'spec:run'
-
-PROJ.name = 'ri_cal'
-PROJ.authors = 'Rick DeNatale'
-PROJ.email = 'rick.denatale@gmail.com'
-PROJ.url = 'FIXME (project homepage)'
-PROJ.version = RiCal::VERSION
-PROJ.rubyforge.name = 'ri_cal'
-PROJ.ruby_opts = []
-
-PROJ.spec.opts << '--color'
-PROJ.spec.opts << '--format nested'
-PROJ.rdoc.opts = ['-SHN','-f', 'darkfish' ]
-
-# EOF
+# TODO - want other tests/tasks run by default? Add them to the list
+task :default => [:spec]

@@ -202,42 +202,50 @@ or another Enumerable method (RiCal::OccurrenceEnumerator includes Enumerable), 
 
 == REQUIREMENTS:
 
-* FIXME (list of requirements)
+* RiCal requires that an implementation of TZInfo::Timezone. This requirement may be satisfied by either the TzInfo gem,
+or by a recent(>= 2.2) version of the ActiveSupport gem which is part of Ruby on Rails.
 
 == INSTALL:
 
-This project was built using the bones gem.
+=== From RubyForge
 
-For this preview release, I'm assuming that you received the code from my private git repository.
+    sudo gem install ri_cal
+    
+=== From github
 
-You can validate it by running
-   rake
-which will run all of the specs.
+    #TODO: publish to github
 
-If you would like to use it as a gem you can use the bones rake tasks:
+==== As a Gem
 
-   rake gem
-   rake gem:install
+    #TODO: add the gem source info for github
+    sudo gem install ????? --source http://github.com/????
+   
+==== From source
 
-The command
-   rake -T
-will show additional tasks.
+    1. cd to a directory in which you want to install ri_cal as a subdirectory
+    2. git clone http://github.com/rubyredrick/ri_cal  your_install_subdirectory
+    3. cd your_install_directory
+    4. rake spec
+    5. rake install_gem
+
+
 
 == LICENSE:
 
+(The MIT License)
+
 Copyright (c) 2009 Richard J. DeNatale
 
-This software and associated documentation files (the
-'Software') is an early access version.
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
 
-A Restricted License is hereby granted, free of charge, 
-to use the Software for evaluation and feedback only
-
-This license does not grant you the permission to publish,
-distribute, sublicense, or sell copies of the Software.
-
-This license applies to previous and future versions of the software, until such time
-as a version is released with a license granting additional rights,
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
 EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF

@@ -1,0 +1,103 @@
+h1. RiCal
+
+
+h2. What
+
+RiCal is a new Ruby Library for parsing, generating, and using iCalendar (RFC 2445) format data.
+
+h2. Installing
+
+<pre syntax="ruby">sudo gem install ri_cal</pre>
+
+h2. The basics
+
+RiCal distinguishes itself from existing Ruby libraries in providing support for
+
+* Timezone components in Calendars.  This means that RiCal parses VTIMEZONE data and instantiates timezone objects
+which can be used to convert times in the calendar to and from UTC time.  In addition, RiCal allows created calendars
+and components to use time zones understood by TZInfo gem (from either the TZInfo gem or from Rails ActiveSupport => 2.2). 
+When a calendar with TZInfo time zones is exported, RFC 2445 conforming VTIMEZONE components will be included, allowing
+other programs to process the result.
+
+* Enumeration of recurring occurrences. For example, if an Event has one or more recurrence rules, then the occurrences 
+of the event can be enumerated as a series of Event occurrences.
+
+h2. Demonstration of usage
+
+RiCal provides a builder DSL for creating calendars and calendar components. An example
+
+  RiCal.Calendar do
+    event do
+      description "MA-6 First US Manned Spaceflight"
+      dtstart     DateTime.parse("2/20/1962 14:47:39")
+      dtend       DateTime.parse("2/20/1962 19:43:02")
+      location    "Cape Canaveral"
+      add_attendee "john.glenn@nasa.gov"
+      alarm do
+        description "Segment 51"
+      end
+    end
+  end
+  
+The blocks are evaluated in the context of an object which builds the calendar or calendar component. method names
+starting with add_ or remove_ are sent to the component, method names which correspond to a property value setter of
+the object being built will cause that setter to be sent to the component with the provided value.
+
+A method corresponding to the name of one of the components sub component will create the sub component and 
+evaluate the block in the context of the new subcomponent.
+
+h2. Forum
+
+"http://groups.google.com/group/rical_gem":http://groups.google.com/group/rical_gem
+
+h2. How to submit patches
+
+Read the "8 steps for fixing other people's code":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/ and for section "8b: Submit patch to Google Groups":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups, use the Google Group above.
+
+You can fetch the source from either:
+
+<% if rubyforge_project_id %>
+
+* rubyforge: "http://rubyforge.org/scm/?group_id=<%= rubyforge_project_id %>":http://rubyforge.org/scm/?group_id=<%= rubyforge_project_id %>
+
+<pre>git clone git://rubyforge.org/ri_cal.git</pre>
+
+<% else %>
+
+* rubyforge: MISSING IN ACTION
+
+TODO - You can not created a RubyForge project, OR have not run <code>rubyforge config</code>
+yet to refresh your local rubyforge data with this projects' id information.
+
+When you do this, this message will magically disappear!
+
+Or you can hack website/index.txt and make it all go away!!
+
+<% end %>
+
+* github: "http://github.com/rubyredrick/ri_cal/tree/master":http://github.com/rubyredrick/ri_cal/tree/master
+
+<pre>git clone git://github.com/rubyredrick/ri_cal.git</pre>
+
+
+TODO - add "rubyredrick: username" to ~/.rubyforge/user-config.yml and newgem will reuse it for future projects.
+
+
+* gitorious: "git://gitorious.org/ri_cal/mainline.git":git://gitorious.org/ri_cal/mainline.git
+
+<pre>git clone git://gitorious.org/ri_cal/mainline.git</pre>
+
+h3. Build and test instructions
+
+<pre>cd ri_cal
+rake spec
+rake install_gem</pre>
+
+
+h2. License
+
+This code is free to use under the terms of the MIT license. 
+
+h2. Contact
+
+Comments are welcome. Send an email to "Rick DeNatale":mailto:rick.denatale@gmail.com
