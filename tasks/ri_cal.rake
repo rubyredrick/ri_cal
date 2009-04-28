@@ -92,7 +92,7 @@ class VEntityUpdater
    end
     
   def cast_value(ruby_val, type)
-    "#{type_class(type)}.convert(#{ruby_val.inspect})"
+    "#{type_class(type)}.convert(self, #{ruby_val.inspect})"
   end
   
   def lazy_init_var(var, options)
@@ -149,6 +149,7 @@ class VEntityUpdater
     if conflicts
       mutually_exclusive(name, *conflicts)
     end
+    needs_tz_access =  %w{OccurrenceList date_time_or_date DateTime Date}.include?(type)
     ruby_name = ruby_name.tr("-", "_")
     ruby_method = ruby_name.downcase
     property = "#{name.tr("-", "_").downcase}_property"
@@ -157,10 +158,11 @@ class VEntityUpdater
     end
     @all_props[property] = name.upcase
     @property_map[name.upcase] = :"#{property}_from_string"
+    parent_set = needs_tz_access ? ".for_parent(self)" : ""
     if type == 'date_time_or_date'
-      line_evaluator = "RiCal::PropertyValue::DateTime.from_separated_line(line)"
+      line_evaluator = "RiCal::PropertyValue::DateTime.or_date(self, line)"
     else
-      line_evaluator = "#{type_class(type)}.new(line)"
+      line_evaluator = "#{type_class(type)}.new(self, line)"
     end
     blank_line
     if multi
@@ -179,43 +181,47 @@ class VEntityUpdater
         comment("set the the #{name.upcase} property")
         comment("one or more instances of #{describe_property(type)} may be passed to this method")
         indent("def #{property}=(*property_values)")
-        indent("  @#{property}= property_values")
+        if needs_tz_access
+          indent("  @#{property}= property_values.map{|prop| prop.for_parent(self)}")
+        else
+          indent("  @#{property}= property_values")
+        end
         indent("end")
         blank_line
         comment("set the value of the #{name.upcase} property to multiple values")
         comment("one or more instances of #{describe_type(type)} may be passed to this method")
         indent("def #{plural_ruby_method}=(*ruby_values)")
-        indent("  @#{property} = ruby_values.map {|val| #{type_class(type)}.convert(val)}")
+        indent("  @#{property} = ruby_values.map {|val| #{type_class(type)}.convert(self, val)}")
         indent("end")
         blank_line
         comment("set the value of the #{name.upcase} property to a single value")
         comment("one instance of #{describe_type(type)} may be passed to this method")
         indent("def #{ruby_method}=(ruby_value)")
-        indent("  @#{property} = [#{type_class(type)}.convert(ruby_value)]")
+        indent("  @#{property} = [#{type_class(type)}.convert(self, ruby_value)]")
         indent("end")
         blank_line
         comment("add one or more values to the #{name.upcase} property")
         comment("one or more instances of #{describe_type(type)} may be passed to this method")
         indent("def  add_#{plural_ruby_method}(*ruby_values)")
-        indent(" ruby_values.do {|val|  self.#{property} << #{type_class(type)}.convert(val)}")
+        indent(" ruby_values.do {|val|  self.#{property} << #{type_class(type)}.convert(self, val)}")
         indent("end")
         blank_line
         comment("add one value to the #{name.upcase} property")
         comment("one instances of #{describe_type(type)} may be passed to this method")
         indent("def  add_#{ruby_method}(ruby_value)")
-        indent(" self.#{property} << #{type_class(type)}.convert(ruby_value)")
+        indent(" self.#{property} << #{type_class(type)}.convert(self, val)")
         indent("end")
         blank_line
         comment("remove one or more values from the #{name.upcase} property")
         comment("one or more instances of #{describe_type(type)} may be passed to this method")
         indent("def  remove_#{plural_ruby_method}(*ruby_values)")
-        indent(" ruby_values.do {|val|  self.#{property}.delete(#{type_class(type)}.convert(val))}")
+        indent(" ruby_values.do {|val|  self.#{property}.delete(#{type_class(type)}.convert(self, val))}")
         indent("end")
         blank_line
         comment("remove one value from the #{name.upcase} property")
         comment("one instances of #{describe_type(type)} may be passed to this method")
         indent("def  remove_#{ruby_method}(ruby_value)")
-        indent(" self.#{property}.delete(#{type_class(type)}.convert(ruby_value))")
+        indent(" self.#{property}.delete(#{type_class(type)}.convert(self, ruby_value))")
         indent("end")
       end
       blank_line
@@ -243,7 +249,7 @@ class VEntityUpdater
         comment("set the #{name.upcase} property")
         comment("property value should be an instance of #{describe_property(type)}")
         indent("def #{property}=(property_value)")
-        indent("  @#{property} = property_value")
+        indent("  @#{property} = property_value#{parent_set}")
         if conflicts
           conflicts.each do |conflict|
             indent("  @#{conflict}_property = nil")
@@ -253,7 +259,7 @@ class VEntityUpdater
         blank_line
         comment("set the value of the #{name.upcase} property")
         indent("def #{ruby_method}=(ruby_value)")
-        indent("  self.#{property}= #{type_class(type)}.convert(ruby_value)")
+        indent("  self.#{property}= #{type_class(type)}.convert(self, ruby_value)")
         indent("end")
       end
       blank_line

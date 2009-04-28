@@ -13,7 +13,7 @@ describe RiCal::Parser do
   def self.describe_named_property(entity_name, prop_text, prop_name, params, value, multi, type = RiCal::PropertyValue::Text)
     ruby_value_name = prop_name.tr("-", "_").downcase
     ruby_prop_name = "#{prop_text.tr('-', '_').downcase}_property"
-    expected_ruby_value = type.convert(value).ruby_value
+    expected_ruby_value = type.convert(nil, value).ruby_value
     describe "#{prop_name} with value of #{value.inspect}" do
       parse_input = params.inject("BEGIN:#{entity_name.upcase}\n#{prop_text.upcase}") { |pi, assoc| "#{pi};#{assoc[0]}=#{assoc[1]}"}
       parse_input = "#{parse_input}:#{value.to_rfc2445_string}\nEND:#{entity_name.upcase}"

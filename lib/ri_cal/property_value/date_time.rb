@@ -40,11 +40,11 @@ module RiCal
 
       include Comparable
 
-      def self.from_separated_line(line) # :nodoc:
+      def self.or_date(parent, line) # :nodoc:
         if /T/.match(line[:value] || "")
           new(line)
         else
-          PropertyValue::Date.new(line)
+          PropertyValue::Date.new(parent, line)
         end
       end
 
@@ -146,17 +146,18 @@ module RiCal
         end
       end
 
-      def self.convert(ruby_object) # :nodoc:
+      def self.convert(parent, ruby_object) # :nodoc:
         time_zone = object_time_zone(ruby_object)
         if time_zone
           result = new(
+          parent,
           :params => params_for_timezone(time_zone),
           :value => ruby_object.strftime("%Y%m%d%H%M%S")
           )
           result.init_timezone(time_zone)
           result
         else
-          ruby_object.to_ri_cal_date_or_date_time_value
+          ruby_object.to_ri_cal_date_or_date_time_value.for_parent(parent)
         end
       end
 
@@ -187,7 +188,19 @@ module RiCal
           new(:value => time_or_date_time.strftime("%Y%m%dT%H%M%S"), :params => default_tzid_hash)
         end
       end
-
+      
+      
+      def for_parent(parent)
+        rputs "#{self}.for_parent(#{parent.inspect})"
+        if parent_component.nil?
+          @parent_component = parent
+        elsif parent == parent_component
+          self
+        else
+          DateTime.new(parent, :value => value, :params => params, :tzid => tzid)
+        end
+      end
+      
       # Return the timezone id of the receiver, or nil if it is a floating time
       def tzid
         @tzid

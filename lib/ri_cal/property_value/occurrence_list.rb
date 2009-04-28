@@ -28,11 +28,24 @@ module RiCal
         super
         case params[:value]
         when 'DATE-TIME', nil
-          @elements = @value.map {|string| PropertyValue::DateTime.new(:value => string)}.sort
+          @elements = @value.map {|string| PropertyValue::DateTime.new(self, :value => string)}.sort
         when 'DATE'
-          @elements = @value.map {|string| PropertyValue::Date.new(:value => string)}.sort
+          @elements = @value.map {|string| PropertyValue::Date.new(self, :value => string)}.sort
         when 'PERIOD'
         end
+      end
+    end
+    
+    attr_writer :elements
+    private :elements=
+    
+    def for_parent(parent)
+      if parent_component.nil
+        @parent_component = parent
+      elsif parent_component == parent
+        self
+      else
+        OccurrenceList.new(parent, :value => value)
       end
     end
     

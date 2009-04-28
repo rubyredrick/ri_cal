@@ -16,18 +16,28 @@ module RiCal
 
       def value=(string) # :nodoc:
         starter, terminator = *string.split("/")
-        self.dtstart = PropertyValue::DateTime.new(:value => starter)
+        self.dtstart = PropertyValue::DateTime.new(self, :value => starter)
         if /P/ =~ terminator
-          self.duration = PropertyValue::Duration.new(:value => terminator)
+          self.duration = PropertyValue::Duration.new(self, :value => terminator)
           self.dtend = dtstart + duration
         else
-          self.dtend   = PropertyValue::DateTime.new(:value => terminator)
-          self.duration = PropertyValue::Duration.from_datetimes(dtstart.to_datetime, dtend.to_datetime)        
+          self.dtend   = PropertyValue::DateTime.new(self, :value => terminator)
+          self.duration = PropertyValue::Duration.from_datetimes(self, dtstart.to_datetime, dtend.to_datetime)        
         end
       end
       
-      def self.convert(ruby_object) # :nodoc:
-        ruby_object.to_ri_cal_period_value
+      def for_parent(parent)
+        if parent_component.nil
+          @parent_component = parent
+        elsif parent_component == parent
+          self
+        else
+          Period.new(parent, :value => value)
+        end
+      end
+      
+      def self.convert(parent, ruby_object) # :nodoc:
+        ruby_object.to_ri_cal_period_value.for_parent(parent)
       end
 
       # return the receiver

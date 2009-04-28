@@ -9,18 +9,18 @@ module RiCal
     # rfc 2445 section 4.3.10 pp 40-45
     class RecurrenceRule < PropertyValue
       
-      def initialize(value_hash) # :nodoc:
+      def initialize(parent, value_hash) # :nodoc:
         @by_list_hash = {}
         super
         init_by_lists
         @by_list_hash = nil
       end
       
-      def self.convert(value) #:nodoc:
+      def self.convert(parent, value) #:nodoc:
         if String === value
-          result = new(:value => value)
+          result = new(parent, :value => value)
         else
-          result = new(value)
+          result = new(parent, value)
         end
         result
       end
@@ -115,6 +115,10 @@ module RiCal
         reset_errors
         @interval = interval_value
       end
+      
+      def value
+        @value || to_ical
+      end      
 
       # Return a string containing the RFC 2445 representation of the recurrence rule
       def to_ical

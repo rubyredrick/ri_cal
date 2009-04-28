@@ -3,7 +3,9 @@ module RiCal
   class PropertyValue
 
     attr_writer :params, :value #:nodoc:
-    def initialize(options) # :nodoc:
+    attr_reader :parent_component #:nodoc:
+    def initialize(parent, options={}) # :nodoc:
+      @parent_component = parent
       validate_value(options)
       ({:params => {}}).merge(options).each do |attribute, val|
         unless attribute == :name
@@ -47,8 +49,8 @@ module RiCal
       new(:value => string)
     end
 
-    def self.convert(value) #:nodoc:
-      new(:value => value)
+    def self.convert(parent, value) #:nodoc:
+      new(parent, :value => value)
     end
 
     # Determine if another object is equivalent to the receiver.
@@ -61,9 +63,9 @@ module RiCal
     end
 
     def value
-      @value || to_ical
+      @value
     end
-
+    
     def equality_value #:nodoc:
       value
     end
