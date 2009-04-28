@@ -67,12 +67,40 @@ module RiCal
       def export_required_timezones(export_stream) # :nodoc:
         required_timezones.export_to(export_stream)
       end
+      
+      class FoldingStream
+        attr_reader :stream
+        def initialize(stream)
+          @stream = stream || StringIO.new
+        end
+        
+        def string
+          stream.string
+        end
+        
+        def fold(string)
+          stream.puts(string[0,73])
+          string = string[73..-1]
+          while string
+            stream.puts " #{string[0, 72]}"
+            string = string[72..-1]
+          end
+        end
+        
+        def puts(*strings)
+          strings.each do |string|
+            string.split("\n").each do |line|
+              fold(line)
+            end
+          end
+        end
+      end
 
       # Export this calendar as an iCalendar file.
       # if to is nil (the default) then this method will return a string,
       # otherwise to should be an IO to which the iCalendar file contents will be written
       def export(to=nil)
-        export_stream = to || StringIO.new
+        export_stream = FoldingStream.new(to)
         export_stream.puts("BEGIN:VCALENDAR")
         #TODO: right now I'm assuming that all timezones are internal what happens when we export
         #      an imported calendar.

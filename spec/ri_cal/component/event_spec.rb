@@ -115,6 +115,11 @@ describe RiCal::Component::Event do
       result.stub!(:time_zone).and_return(time_zone)
       result
     end
+    
+    # Undo the effects of RFC2445 line folding
+    def unfold(string)
+      string.gsub("\n ", "")
+    end
 
     before(:each) do
       @it = RiCal::Component::Event.new
@@ -122,27 +127,27 @@ describe RiCal::Component::Event do
 
     it "should cause a VTIMEZONE to be included for a dtstart with a local timezone" do
       @it.dtstart = date_time_with_tzinfo_zone(DateTime.parse("April 22, 2009 17:55"), "America/New_York")
-      @it.export.should match(/BEGIN:VTIMEZONE\nTZID;X-RICAL-TZSOURCE=TZINFO:America\/New_York\n/)
+      unfold(@it.export).should match(/BEGIN:VTIMEZONE\nTZID;X-RICAL-TZSOURCE=TZINFO:America\/New_York\n/)
     end
 
     it "should properly format dtstart with a UTC date-time" do
       @it.dtstart = DateTime.parse("April 22, 2009 1:23:45")
-      @it.export.should match(/^DTSTART;VALUE=DATE-TIME:20090422T012345Z$/)
+      unfold(@it.export).should match(/^DTSTART;VALUE=DATE-TIME:20090422T012345Z$/)
     end
 
     it "should properly format dtstart with a floating date-time" do
       @it.dtstart = DateTime.parse("April 22, 2009 1:23:45").with_floating_timezone
-      @it.export.should match(/^DTSTART;VALUE=DATE-TIME:20090422T012345$/)
+      unfold(@it.export).should match(/^DTSTART;VALUE=DATE-TIME:20090422T012345$/)
     end
 
     it "should properly format dtstart with a local time zone" do
       @it.dtstart = date_time_with_tzinfo_zone(DateTime.parse("April 22, 2009 17:55"), "America/New_York")
-      @it.export.should match(/^DTSTART;TZID=America\/New_York;VALUE=DATE-TIME;X-RICAL-TZSOURCE=TZINFO:20090422T175500$/)
+      unfold(@it.export).should match(/^DTSTART;TZID=America\/New_York;VALUE=DATE-TIME;X-RICAL-TZSOURCE=TZINFO:20090422T175500$/)
     end
 
     it "should properly format dtstart with a date" do
       @it.dtstart = Date.parse("April 22, 2009")
-      @it.export.should match(/^DTSTART;VALUE=DATE:20090422$/)
+      unfold(@it.export).should match(/^DTSTART;VALUE=DATE:20090422$/)
     end
   end
 end

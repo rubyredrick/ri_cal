@@ -134,7 +134,7 @@ describe RiCal::Component do
           add_x_property 'x_wr_calname', 'My Personal Calendar'
           event do
             summary     'A Recurring Event'
-            description 'This event occurs day at 8:30pm'
+            description "This is some really long note content. It should be appropriately folded in the generated file.\nCarriage returns should work, too."
             dtstart     DateTime.parse('Feb 20, 2009 20:30:00')
             dtend       DateTime.parse('Feb 20, 2009 21:30:00')
             location    'North Carolina'
@@ -143,27 +143,36 @@ describe RiCal::Component do
           end
         end
       end
-      
+
       it 'should have an x_wr_calname property with the value "My Personal Calendar"' do
         @it.x_wr_calname.should == "My Personal Calendar"
       end
-      
-      context "event with a dsl built recurence rule" do
+
+      context "event with a long description and a dsl built recurence rule" do
         before(:each) do
           @cal = @it
           @it = @cal.events.first
         end
-        
-        it "should have a 1 rrule" do
-          @it.rrule.length.should == 1
+
+        context "its description" do
+          it "should pass through correctly" do
+           @it.description.should == "This is some really long note content. It should be appropriately folded in the generated file.\nCarriage returns should work, too."
+          end
         end
-        
-        it "should have the right rrule" do
-          @it.rrule.first.should == "FREQ=DAILY"
-        end
-        
-        it "should have the right rrule hash" do
-          @it.rrule_property.first.to_options_hash.should == {:freq => 'DAILY', :interval => 1}
+
+        context "its rrule" do
+
+          it "should have a 1 rrule" do
+            @it.rrule.length.should == 1
+          end
+
+          it "should have the right rrule" do
+            @it.rrule.first.should == "FREQ=DAILY"
+          end
+
+          it "should have the right rrule hash" do
+            @it.rrule_property.first.to_options_hash.should == {:freq => 'DAILY', :interval => 1}
+          end
         end
       end
     end
