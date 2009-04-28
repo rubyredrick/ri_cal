@@ -4,11 +4,11 @@ describe RiCal::PropertyValue::DateTime do
 
   describe ".from_separated_line" do
     it "should return a RiCal::PropertyValue::Date if the value doesn't contain a time specification" do
-      RiCal::PropertyValue::DateTime.from_separated_line(:name => "dtstart", :value => "19970714").should be_kind_of(RiCal::PropertyValue::Date)
+      RiCal::PropertyValue::DateTime.from_separated_line(:value => "19970714").should be_kind_of(RiCal::PropertyValue::Date)
     end
 
     it "should return a RiCal::PropertyValue::DateTime if the value does contain a time specification" do
-      RiCal::PropertyValue::DateTime.from_separated_line(:name => "dtstart", :value => "19980118T230000").should be_kind_of(RiCal::PropertyValue::DateTime)
+      RiCal::PropertyValue::DateTime.from_separated_line(:value => "19980118T230000").should be_kind_of(RiCal::PropertyValue::DateTime)
     end
   end
   

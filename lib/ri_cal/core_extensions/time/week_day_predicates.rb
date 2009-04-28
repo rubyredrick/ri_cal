@@ -14,13 +14,13 @@ module RiCal
         # e.g. to obtain the 2nd Monday of the receivers year use
         #
         #   time.nth_wday_in_year(2, 1)
-        def nth_wday_in_year(n, which_wday)
+        def nth_wday_in_year(n, which_wday, for_time = self)
           if n > 0
-            first_of_year = self.to_ri_cal_property_value.change(:month => 1, :day => 1)
+            first_of_year = for_time.to_ri_cal_property_value.change(:month => 1, :day => 1)
             first_in_year = first_of_year.advance(:days => (which_wday - first_of_year.wday + 7) % 7)
             first_in_year.advance(:days => (7*(n - 1)))
           else
-            december25 = self.to_ri_cal_property_value.change(:month => 12, :day => 25)
+            december25 = for_time.to_ri_cal_property_value.change(:month => 12, :day => 25)
             last_in_year = december25.advance(:days => (which_wday - december25.wday + 7) % 7)
             last_in_year.advance(:days => (7 * (n + 1)))
           end
@@ -47,8 +47,8 @@ module RiCal
         # e.g. to obtain the 3nd Tuesday of the receivers month use
         #
         #   time.nth_wday_in_month(2, 2)
-        def nth_wday_in_month(n, which_wday)
-          first_of_month = self.to_ri_cal_property_value.change(:day => 1)
+        def nth_wday_in_month(n, which_wday, for_time = self)
+          first_of_month = for_time.to_ri_cal_property_value.change(:day => 1)
           first_in_month = first_of_month.advance(:days => (which_wday - first_of_month.wday))
           first_in_month = first_in_month.advance(:days => 7) if first_in_month.month != first_of_month.month
           if n > 0

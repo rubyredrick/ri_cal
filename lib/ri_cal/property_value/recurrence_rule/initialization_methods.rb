@@ -5,47 +5,65 @@ module RiCal
         
         attr_reader :by_day_scope
         
-        def initialize(value_hash) # :nodoc:
-          super
-          initialize_from_hash(value_hash) unless value_hash[:value]
+        def add_to_options_hash(options_hash, key, value)
+          options_hash[key] = value if value
+          options_hash
+        end
+        
+        def add_byrule_strings_to_options_hash(options_hash, key)
+          if (rules = by_list[key])
+            if rules.length = 1
+              options_hash[key] = rules.first.source
+            else
+              options_hash[key] = rules.map {|rule| rule.source}
+            end
+          end
+        end
+        
+        def to_options_hash
+          options_hash = {:freq => freq, :interval => interval}
+          options_hash[:params] = params unless params.empty?
+          add_to_options_hash(options_hash, :count, @count)
+          add_to_options_hash(options_hash, :until, @until)
+          add_to_options_hash(options_hash, :interval, @interval)
+          [:bysecond, :byminute, :byhour, :bymonth, :bysetpos].each do |bypart|
+              add_to_options_hash(options_hash, bypart, by_list[bypart])
+            end
+          [:byday, :bymonthday, :byyearday, :byweekno].each do |bypart|
+             add_byrule_strings_to_options_hash(options_hash, bypart)
+          end
+          options_hash
         end
 
-        def initialize_from_hash(value_hash) # :nodoc:
-          self.freq = value_hash[:freq]
-          self.wkst = value_hash[:wkst]
-          set_count(value_hash[:count])
-          set_until(value_hash[:until])
-          self.interval = value_hash[:interval]
-          set_by_lists(value_hash)
-        end
-
-        def add_part_to_hash(hash, part) # :nodoc:
+        def initialize_from_value_part(part, dup_hash) # :nodoc:
           part_name, value = part.split("=")
-          puts "part=#{part.inspect}" unless part_name
-          attribute = part_name.downcase.to_sym
-          errors << "Repeated rule part #{attribute} last occurrence was used" if hash[attribute]
+          attribute = part_name.downcase
+          errors << "Repeated rule part #{attribute} last occurrence was used" if dup_hash[attribute]
           case attribute
-          when :freq, :wkst
-          when :until
-            value = PropertyValue.date_or_date_time(:value => value)
-          when :interval, :count
-            value = value.to_i
-          when :bysecond, :byminute, :byhour, :bymonthday, :byyearday, :byweekno, :bymonth, :bysetpos
-            value = value.split(",").map {|int| int.to_i} 
-          when :byday
-            value = value.split(",")
+          when "freq"
+            self.freq = value
+          when "wkst"
+            self.wkst = value
+          when "until"
+            @until = PropertyValue.date_or_date_time(:value => value)
+          when "count"
+            @count = value.to_i
+          when "interval"
+            self.interval = value.to_i
+          when "bysecond", "byminute", "byhour", "bymonthday", "byyearday", "byweekno", "bymonth", "bysetpos"
+            send("#{attribute}=", value.split(",").map {|int| int.to_i})
+          when "byday"
+            self.byday = value.split(",")
           else
             errors << "Invalid rule part #{part}"
           end
-          hash[attribute] = value
-          hash
         end
 
         def by_list
           @by_list ||= {}
         end
-
-        def calc_by_day_scope(by_lists_hash)
+        
+        def calc_by_day_scope
           case freq
           when "YEARLY"
             scope = :yearly
@@ -56,87 +74,71 @@ module RiCal
           else
             scope = :daily
           end
-          scope = :monthly if scope != :weekly && by_lists_hash[:bymonth]
-          scope = :weekly if scope != :daily && by_lists_hash[:byweekno]
+          scope = :monthly if scope != :weekly && @by_list_hash[:bymonth]
+          scope = :weekly if scope != :daily && @by_list_hash[:byweekno]
           @by_day_scope = scope
         end
-
-        def compute_resets
-          @yearly_resets = {}
-          @monthly_resets = {}
-          @daily_resets = {}
-          @hourly_resets = {}
-          @minutely_resets = {}
-          if by_list[:bysecond]
-            [@yearly_resets, @monthly_resets, @daily_resets, @hourly_resets, @minutely_resets].each  do |reset|
-              reset[:second] = 0
-            end
-          end
-          if by_list[:byminute]
-            [@yearly_resets, @monthly_resets, @daily_resets, @hourly_resets].each  do |reset|
-              reset[:minute] = 0
-            end
-          end
-          if by_list[:byhour]
-            [@yearly_resets, @monthly_resets, @daily_resets].each  do |reset|
-              reset[:minute] = 0
-            end
-          end
-          if by_list[:byday]
-            @yearly_resets[:day] = 1
-            @monthly_resets[:day] = 1 if @by_day_scope == :monthly
-          end
-          if by_list[:bymonth]
-            @yearly_resets[:month] = 1
-            @monthly_resets[:enumerate] = true
-          end
-          if by_list[:bymonthday]
-            [@yearly_resets, @monthly_resets].each  do |reset|
-              reset[:day] = 1
-            end
-          end
-          if by_list[:byyearday] || by_list[:byweekno]
-            @yearly_resets[:month] = 1
-            @yearly_resets[:day] = 1
-          end
-
-          @yearly_resets = nil if @yearly_resets.empty?
-          @monthly_resets = nil if @monthly_resets.empty?
-          @daily_resets = nil if @daily_resets.empty?
-          @hourly_resets = nil if @hourly_resets.empty? 
-          @minutely_resets = nil if @minutely_resets.empty?
-        end
         
-        def clear_caches
-          @first_from_bymonth =
-          nil
+        def bysecond=(val)
+          @by_list_hash[:bysecond] = val
         end
 
-        def set_by_lists(value_hash)
+        def byminute=(val)
+          @by_list_hash[:byminute] = val
+        end
+
+        def byhour=(val)
+          @by_list_hash[:byhour] = val
+        end
+
+        def bymonth=(val)
+          @by_list_hash[:bymonth] = val
+        end
+
+        def bysetpos=(val)
+          @by_list_hash[:bysetpos] = val
+        end
+
+        def byday=(val)
+          @by_list_hash[:byday] = val
+        end
+
+        def bymonthday=(val)
+          @by_list_hash[:bymonthday] = val
+        end
+
+        def byyearday=(val)
+          @by_list_hash[:byyearday] = val
+        end
+
+        def byweekno=(val)
+          @by_list_hash[:byweekno] = val
+        end
+
+        def init_by_lists
           [:bysecond,
             :byminute,
             :byhour,
             :bymonth,
             :bysetpos
             ].each do |which|
-              if val = value_hash[which]
+              if val = @by_list_hash[which]
                 by_list[which] = [val].flatten.sort
               end
             end
-            if val = value_hash[:byday]
-              by_list[:byday] = [val].flatten.map {|day| RecurringDay.new(day, self, calc_by_day_scope(value_hash))}
+            if val = @by_list_hash[:byday]
+              byday_scope =  calc_by_day_scope 
+              by_list[:byday] = [val].flatten.map {|day| RecurringDay.new(day, self, byday_scope)}
             end
-            if val = value_hash[:bymonthday]
+            if val = @by_list_hash[:bymonthday]
               by_list[:bymonthday] = [val].flatten.map {|md| RecurringMonthDay.new(md)}
             end
-            if val = value_hash[:byyearday]
+            if val = @by_list_hash[:byyearday]
               by_list[:byyearday] = [val].flatten.map {|yd| RecurringYearDay.new(yd)}
             end
-            if val = value_hash[:byweekno]
+            if val = @by_list_hash[:byweekno]
               by_list[:byweekno] = [val].flatten.map {|wkno| RecurringNumberedWeek.new(wkno, self)}
             end
-            compute_resets
-            clear_caches
           end
         end
       end

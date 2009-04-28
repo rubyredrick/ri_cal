@@ -93,7 +93,7 @@ module RiCal
         if setter
           send(setter, line)
         else
-          self.add_x_property(PropertyValue::Text.new(line), line[:name])
+          self.add_x_property(line[:name], PropertyValue::Text.new(line))
         end
       end
     end
@@ -105,8 +105,21 @@ module RiCal
     end
 
     # Add a n extended property 
-    def add_x_property(prop, name)
+    def add_x_property(name, prop)
       x_properties[name] = prop
+    end
+    
+    def method_missing(selector, *args, &b)
+      xprop_candidate = selector.to_s
+      if (match = /^x_(.+)(=?)$/.match(xprop_candidate))
+        if match[2] == "="
+          add_x_property("x_#{match[1]}", *args)
+        else
+          x_properties[xprop_candidate]
+        end
+      else
+        super
+      end
     end
 
     # Predicate to determine if the component is valid according to RFC 2445

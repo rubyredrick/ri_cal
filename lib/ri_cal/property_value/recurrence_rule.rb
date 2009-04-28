@@ -9,6 +9,22 @@ module RiCal
     # rfc 2445 section 4.3.10 pp 40-45
     class RecurrenceRule < PropertyValue
       
+      def initialize(value_hash) # :nodoc:
+        @by_list_hash = {}
+        super
+        init_by_lists
+        @by_list_hash = nil
+      end
+      
+      def self.convert(value) #:nodoc:
+        if String === value
+          result = new(:value => value)
+        else
+          result = new(value)
+        end
+        result
+      end
+      
       include Validations
       include InitializationMethods
       include EnumerationSupportMethods
@@ -21,9 +37,10 @@ module RiCal
       def value=(string) # :nodoc:
         if string
           @value = string
-          parts = string.split(";")
-          value_hash = parts.inject({}) { |hash, part| add_part_to_hash(hash, part) }
-          initialize_from_hash(value_hash)
+          dup_hash = {}
+          string.split(";").each do |value_part|
+            initialize_from_value_part(value_part, dup_hash)
+          end
         end
       end
 
@@ -65,14 +82,11 @@ module RiCal
       # Set the count parameter of the recurrence rule, the count value will be converted to an integer using to_i
       # 
       # This method resets the receivers list of errors
+      
       def count=(count_value)
         reset_errors
-        set_count(count_value)
-        @until = nil unless count_value.nil?
-      end
-
-      def set_count(count_value) # :nodoc:
         @count = count_value
+        @until = nil unless @count.nil? || @by_list_hash
       end
 
       # Set the until parameter of the recurrence rule
@@ -80,15 +94,10 @@ module RiCal
       # until_value:: the value to be set, this may be either a string in RFC 2446 Date or DateTime value format
       # Or a Date, Time, DateTime, RiCal::PropertyValue::Date, or RiCal::PropertyValue::DateTime
       #
-      # This method resets the receivers list of errors
       def until=(until_value)
         reset_errors
-        set_until
-        @count = nil unless until_value.nil?
-      end
-
-      def set_until(until_value) # :nodoc:
         @until = until_value && until_value.to_ri_cal_date_time_value
+        @count = nil unless @count.nil? || @by_list_hash
       end
 
       # return the INTERVAL parameter of the recurrence rule

@@ -2,12 +2,29 @@ module RiCal
   # PropertyValue provides common implementation of various RFC 2445 property value types
   class PropertyValue
 
-    attr_accessor :params, :value #:nodoc:
-    def initialize(separated_line) # :nodoc:
-      val = separated_line[:value]
+    attr_writer :params, :value #:nodoc:
+    def initialize(options) # :nodoc:
+      validate_value(options)
+      ({:params => {}}).merge(options).each do |attribute, val|
+        unless attribute == :name
+          setter = :"#{attribute.to_s}="
+          send(setter, val)
+        end
+      end
+    end
+
+    def validate_value(options)
+      val = options[:value]
       raise "Invalid property value #{val.inspect}" if val.kind_of?(String) && /^;/.match(val)
-      self.params = separated_line[:params] || {}
-      self.value = val
+    end
+    
+    def params
+      @params ||= {}
+    end
+    
+    def to_options_hash
+      options_hash = {:value => value}
+      options_hash[:params] = params unless params.empty?
     end
 
     def self.date_or_date_time(separated_line) # :nodoc:
@@ -29,11 +46,11 @@ module RiCal
     def self.from_string(string) # :nodoc:
       new(:value => string)
     end
-    
+
     def self.convert(value) #:nodoc:
       new(:value => value)
     end
-    
+
     # Determine if another object is equivalent to the receiver.
     def ==(o)
       if o.class == self.class
@@ -42,11 +59,15 @@ module RiCal
         super
       end
     end
-    
+
+    def value
+      @value || to_ical
+    end
+
     def equality_value #:nodoc:
       value
     end
-    
+
     def visible_params # :nodoc:
       params
     end
@@ -60,10 +81,14 @@ module RiCal
         ":#{value}"
       end
     end
-    
+
     # return the ruby value
     def ruby_value
       self.value
+    end
+    
+    def to_ri_cal_property_value #:nodoc:
+      self
     end
   end
 end

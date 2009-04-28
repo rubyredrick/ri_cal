@@ -6,10 +6,10 @@ module RiCal
 
       # return the the CLASS property
       # which will be an instances of RiCal::PropertyValueText
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines the access classification for a calendar component.
-      # 
+      #
       # see RFC 2445 4.8.1.3 pp 79-80
       def class_property
         @class_property
@@ -39,10 +39,10 @@ module RiCal
 
       # return the the CREATED property
       # which will be an instances of RiCal::PropertyValueDateTime
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property specifies the date and time that the calendar information was created by teh calendar user agent in the calendar store.
-      # 
+      #
       # see RFC 2445 4.8.7.1 pp 129-130
       def created_property
         @created_property
@@ -72,10 +72,10 @@ module RiCal
 
       # return the the DESCRIPTION property
       # which will be an instances of RiCal::PropertyValueText
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property provides a more complete description of the calendar component, than that provided by the "SUMMARY" property.
-      # 
+      #
       # see RFC 2445 4.8.1.5 pp 81-82
       def description_property
         @description_property
@@ -105,10 +105,10 @@ module RiCal
 
       # return the the DTSTART property
       # which will be an instances of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property specifies when the calendar component begins.
-      # 
+      #
       # see RFC 2445 4.8.2.4 pp 93-94
       def dtstart_property
         @dtstart_property
@@ -138,10 +138,10 @@ module RiCal
 
       # return the the GEO property
       # which will be an instances of RiCal::PropertyValueGeo
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property specifies information related to the global position for the activity specified by a calendar component.
-      # 
+      #
       # see RFC 2445 4.8.1.6 pp 82-83
       def geo_property
         @geo_property
@@ -171,10 +171,10 @@ module RiCal
 
       # return the the LAST-MODIFIED property
       # which will be an instances of RiCal::PropertyValueDateTime
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property specifies the date and time that the information associated with the calendar component was last revised in teh calendar store.
-      # 
+      #
       # see RFC 2445 4.8.7.3 p 131
       def last_modified_property
         @last_modified_property
@@ -204,10 +204,10 @@ module RiCal
 
       # return the the LOCATION property
       # which will be an instances of RiCal::PropertyValueText
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines the intended venue for the activity defined by a calendar component.
-      # 
+      #
       # see RFC 2445 4.8.1.7 pp 84
       def location_property
         @location_property
@@ -237,10 +237,10 @@ module RiCal
 
       # return the the ORGANIZER property
       # which will be an instances of RiCal::PropertyValueCalAddress
-      # 
+      #
       # [purpose (from RFC 2445)]
       # The property defines the organizer for a calendar component.
-      # 
+      #
       # see RFC 2445 4.8.4.3 pp 106-107
       def organizer_property
         @organizer_property
@@ -270,10 +270,10 @@ module RiCal
 
       # return the the PRIORITY property
       # which will be an instances of RiCal::PropertyValueInteger
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines the relative priority for a calendar component.
-      # 
+      #
       # see RFC 2445 4.8.1.9 pp 85-87
       def priority_property
         @priority_property
@@ -303,10 +303,10 @@ module RiCal
 
       # return the the DTSTAMP property
       # which will be an instances of RiCal::PropertyValueDateTime
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property indicates the date/time that the instance of the iCalendar object was created.
-      # 
+      #
       # see RFC 2445 4.8.7.2 pp 130-131
       def dtstamp_property
         @dtstamp_property
@@ -336,10 +336,10 @@ module RiCal
 
       # return the the SEQUENCE property
       # which will be an instances of RiCal::PropertyValueInteger
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines the revision sequence number of the calendar component within a sequence of revisions.
-      # 
+      #
       # see RFC 2445 4.8.7.4 pp 131-133
       def sequence_property
         @sequence_property
@@ -369,10 +369,10 @@ module RiCal
 
       # return the the STATUS property
       # which will be an instances of RiCal::PropertyValueText
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines a short summary or subject for the calendar component.
-      # 
+      #
       # see RFC 2445 4.8.1.11 pp 80-89
       def status_property
         @status_property
@@ -402,10 +402,10 @@ module RiCal
 
       # return the the SUMMARY property
       # which will be an instances of RiCal::PropertyValueText
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines a short summary or subject for the calendar component.
-      # 
+      #
       # see RFC 2445 4.8.1.12 pp 89-90
       def summary_property
         @summary_property
@@ -435,10 +435,10 @@ module RiCal
 
       # return the the TRANSP property
       # which will be an instances of RiCal::PropertyValueText
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines whether an event is transparent or not to busy time searches.
-      # 
+      #
       # see RFC 2445 4.8.2.7 pp 96-97
       def transp_property
         @transp_property
@@ -468,10 +468,10 @@ module RiCal
 
       # return the the UID property
       # which will be an instances of RiCal::PropertyValueText
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines the persistent, globally unique identifier for the calendar component.
-      # 
+      #
       # see RFC 2445 4.8.4.7 pp 111-112
       def uid_property
         @uid_property
@@ -501,10 +501,10 @@ module RiCal
 
       # return the the URL property
       # which will be an instances of RiCal::PropertyValueUri
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines a Uniform Resource Locator (URL) associated with the iCalendar object.
-      # 
+      #
       # see RFC 2445 4.8.4.6 pp 110-111
       def url_property
         @url_property
@@ -534,10 +534,10 @@ module RiCal
 
       # return the the RECURRENCE-ID property
       # which will be an instances of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property is used in conjunction with the "UID" and "SEQUENCE" property to identify a specific instance of a recurring "VEVENT", "VTODO" or "VJOURNAL" calendar component. The property value is the effective value of the "DTSTART" property of the recurrence instance.
-      # 
+      #
       # see RFC 2445 4.8.4.4 pp 107-109
       def recurrence_id_property
         @recurrence_id_property
@@ -567,10 +567,10 @@ module RiCal
 
       # return the the DTEND property
       # which will be an instances of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property specifies the date and time that a calendar component ends.
-      # 
+      #
       # see RFC 2445 4.8.2.2 pp 91-92
       def dtend_property
         @dtend_property
@@ -601,10 +601,10 @@ module RiCal
 
       # return the the DURATION property
       # which will be an instances of RiCal::PropertyValueDuration
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property specifies a positive duration of time.
-      # 
+      #
       # see RFC 2445 4.8.2.5 pp 94-95
       def duration_property
         @duration_property
@@ -635,10 +635,10 @@ module RiCal
 
       # return the the ATTACH property
       # which will be an array of instances of RiCal::PropertyValueUri
-      # 
+      #
       # [purpose (from RFC 2445)]
       # The property provides the capability to associate a document object with a calendar component.
-      # 
+      #
       # see RFC 2445 4.8.1.1 pp 77-78
       def attach_property
         @attach_property ||= []
@@ -698,10 +698,10 @@ module RiCal
 
       # return the the ATTENDEE property
       # which will be an array of instances of RiCal::PropertyValueCalAddress
-      # 
+      #
       # [purpose (from RFC 2445)]
       # The property defines an 'Attendee' within a calendar component.
-      # 
+      #
       # see RFC 2445 4.8.4.1 pp 102-104
       def attendee_property
         @attendee_property ||= []
@@ -761,10 +761,10 @@ module RiCal
 
       # return the the CATEGORIES property
       # which will be an array of instances of RiCal::PropertyValueArray
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines the categories for a calendar component.
-      # 
+      #
       # see RFC 2445 4.8.1.2 pp 78-79
       def categories_property
         @categories_property ||= []
@@ -824,10 +824,10 @@ module RiCal
 
       # return the the COMMENT property
       # which will be an array of instances of RiCal::PropertyValueText
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property specifies non-processing information intended to provide a comment to the calendar user.
-      # 
+      #
       # see RFC 2445 4.8.1.4 pp 80-81
       def comment_property
         @comment_property ||= []
@@ -887,10 +887,10 @@ module RiCal
 
       # return the the CONTACT property
       # which will be an array of instances of RiCal::PropertyValueText
-      # 
+      #
       # [purpose (from RFC 2445)]
       # The property is used to represent contact information oralternately a reference to contact information associated with the calendar component.
-      # 
+      #
       # see RFC 2445 4.8.4.2 pp 104-106
       def contact_property
         @contact_property ||= []
@@ -950,10 +950,10 @@ module RiCal
 
       # return the the EXDATE property
       # which will be an array of instances of RiCal::PropertyValueOccurrenceList
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines the list of date/time exceptions for a recurring calendar component.
-      # 
+      #
       # see RFC 2445 4.8.5.1 pp 112-114
       def exdate_property
         @exdate_property ||= []
@@ -1013,10 +1013,10 @@ module RiCal
 
       # return the the RDATE property
       # which will be an array of instances of RiCal::PropertyValueOccurrenceList
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines the list of date/times for a recurring calendar component.
-      # 
+      #
       # see RFC 2445 4.8.5.3 pp 115-117
       def rdate_property
         @rdate_property ||= []
@@ -1076,10 +1076,10 @@ module RiCal
 
       # return the the EXRULE property
       # which will be an array of instances of RiCal::PropertyValueRecurrenceRule
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines a rule or repeating pattern for an exception to a recurrence set.
-      # 
+      #
       # see RFC 2445 4.8.5.2 pp 114-125
       def exrule_property
         @exrule_property ||= []
@@ -1139,7 +1139,7 @@ module RiCal
 
       # return the the REQUEST-STATUS property
       # which will be an array of instances of RiCal::PropertyValueText
-      # 
+      #
       # see RFC 2445 4.8.8.2 pp 134-136
       def request_status_property
         @request_status_property ||= []
@@ -1199,10 +1199,10 @@ module RiCal
 
       # return the the RELATED-TO property
       # which will be an array of instances of RiCal::PropertyValueText
-      # 
+      #
       # [purpose (from RFC 2445)]
       # The property is used to represent a relationship or reference between one calendar component and another.
-      # 
+      #
       # see RFC 2445 4.8.4.5 pp 109-110
       def related_to_property
         @related_to_property ||= []
@@ -1262,10 +1262,10 @@ module RiCal
 
       # return the the RESOURCES property
       # which will be an array of instances of RiCal::PropertyValueArray
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines the equipment or resources anticipated for an activity specified by a calendar entity.
-      # 
+      #
       # see RFC 2445 4.8.1.10 pp 87-88
       def resources_property
         @resources_property ||= []
@@ -1325,10 +1325,10 @@ module RiCal
 
       # return the the RRULE property
       # which will be an array of instances of RiCal::PropertyValueRecurrenceRule
-      # 
+      #
       # [purpose (from RFC 2445)]
       # This property defines a rule or repeating pattern for recurring events, to-dos, or time zone definitions.
-      # 
+      #
       # see RFC 2445 4.8.5.4 pp 117-125
       def rrule_property
         @rrule_property ||= []
@@ -1349,7 +1349,8 @@ module RiCal
       # set the value of the RRULE property to a single value
       # one instance of RecurrenceRule may be passed to this method
       def rrule=(ruby_value)
-        @rrule_property = [RiCal::PropertyValue::RecurrenceRule.convert(ruby_value)]
+        val = RiCal::PropertyValue::RecurrenceRule.convert(ruby_value)
+        @rrule_property = [val]
       end
 
       # add one or more values to the RRULE property

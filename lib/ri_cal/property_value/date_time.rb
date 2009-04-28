@@ -65,7 +65,7 @@ module RiCal
       end
 
       # Return the difference between the receiver and other
-      # 
+      #
       # The parameter other should be either a RiCal::PropertyValue::Duration or a RiCal::PropertyValue::DateTime
       #
       # If other is a Duration, the result will be a DateTime, if it is a DateTime the result will be a Duration
@@ -108,7 +108,7 @@ module RiCal
         when nil
           @date_time_value = nil
         when String
-          @params['TZID'] = 'UTC' if val =~/Z/
+          self.tzid = 'UTC' if val =~/Z/
           @date_time_value = ::DateTime.parse(val)
         when ::DateTime
           @date_time_value = val
@@ -161,7 +161,11 @@ module RiCal
       end
 
       def self.from_string(string) # :nodoc:
-        new(:value => string, :params => default_tzid_hash)
+        if string.match(/Z$/)
+          new(:value => string, :tzid => 'UTC')
+        else
+          new(:value => string)
+        end
       end
 
       # Create an instance of RiCal::PropertyValue::DateTime representing a Ruby Time or DateTime
@@ -186,15 +190,30 @@ module RiCal
 
       # Return the timezone id of the receiver, or nil if it is a floating time
       def tzid
-        params && params['TZID']
+        @tzid
+      end
+
+      def tzid=(string)
+        @tzid = string
       end
 
       def visible_params # :nodoc:
-        visible = {"VALUE" => "DATE-TIME"}.merge(params)
-        if tzid == "UTC"
-          visible.delete('TZID')
+        result = {"VALUE" => "DATE-TIME"}.merge(params)
+        if has_local_timezone?
+          result['TZID'] = tzid
+        else
+          result.delete('TZID')
         end
-        visible
+        result
+      end
+
+      def params=(value)
+        @params = value.dup
+        if params_timezone = params['TZID']
+          if params_timezone == 'UTC'
+          end
+          @tzid = params_timezone
+        end
       end
 
       def compute_change(d, options) # :nodoc:
@@ -221,16 +240,25 @@ module RiCal
       end
 
       def advance(options) # :nodoc:
-        PropertyValue::DateTime.new(:value => compute_advance(@date_time_value, options), :params =>(params ? params.dup : nil) )
+        PropertyValue::DateTime.new(
+          :value => compute_advance(@date_time_value, options),
+          :tzid => tzid,
+          :params =>(params ? params.dup : nil)
+        )
       end
 
       def change(options) # :nodoc:
-        PropertyValue::DateTime.new(:value => compute_change(@date_time_value, options), :params => (params ? params.dup : nil) )
+        PropertyValue::DateTime.new(
+          :value => compute_change(@date_time_value, options),
+          :tzid => tzid,
+          :params => (params ? params.dup : nil)
+        )
       end
 
       def self.civil(year, month, day, hour, min, sec, offset, start, params) # :nodoc:
         PropertyValue::DateTime.new(
            :value => ::DateTime.civil(year, month, day, hour, min, sec, offset, start),
+           :tzid => tzid,
            :params =>(params ? params.dup : nil)
         )
       end
@@ -278,12 +306,20 @@ module RiCal
         date = @date_time_value.start_of_week_with_wkst(wkst)
         change(:year => date.year, :month => date.month, :day => date.day)
       end
-      
+
       # Determine if the receiver and other are in the same month
       def in_same_month_as?(other)
         [other.year, other.month] == [year, month]
       end
-
+      
+      def nth_wday_in_month(n, which_wday)
+        @date_time_value.nth_wday_in_month(n, which_wday, self)
+      end
+      
+      def nth_wday_in_year(n, which_wday)
+        @date_time_value.nth_wday_in_year(n, which_wday, self)
+      end
+      
       # Return the number of days in the month containing the receiver
       def days_in_month
         @date_time_value.days_in_month
@@ -318,6 +354,11 @@ module RiCal
       def end_of_day
         change(:hour => 23, :min => 59, :sec => 59)
       end
+      
+      # Return a Ruby Date representing the first day of the ISO week starting with wkst containing the receiver
+      def start_of_week_with_wkst(wkst)
+        @date_time_value.start_of_week_with_wkst(wkst)
+      end
 
       # Return a DATE_TIME value representing the last second of the ISO week starting with wkst containing the receiver
       def end_of_week_with_wkst(wkst)
@@ -344,28 +385,28 @@ module RiCal
         change(:month => 12, :day => 31, :hour => 23, :min => 59, :sec => 59)
       end
 
-      # Return a DATE_TIME value representing the same time on the first day of the ISO year with weeks 
+      # Return a DATE_TIME value representing the same time on the first day of the ISO year with weeks
       # starting on wkst containing the receiver
       def at_start_of_iso_year(wkst)
         start_of_year = @date_time_value.iso_year_start(wkst)
         change(:year => start_of_year.year, :month => start_of_year.month, :day => start_of_year.day)
       end
 
-      # Return a DATE_TIME value representing the same time on the last day of the ISO year with weeks 
+      # Return a DATE_TIME value representing the same time on the last day of the ISO year with weeks
       # starting on wkst containing the receiver
       def at_end_of_iso_year(wkst)
         num_weeks = @date_time_value.iso_weeks_in_year(wkst)
         at_start_of_iso_year(wkst).advance(:weeks => (num_weeks - 1), :days => 6)
       end
 
-      # Return a DATE_TIME value representing the same time on the first day of the ISO year with weeks 
+      # Return a DATE_TIME value representing the same time on the first day of the ISO year with weeks
       # starting on wkst after the ISO year containing the receiver
       def at_start_of_next_iso_year(wkst)
         num_weeks = @date_time_value.iso_weeks_in_year(wkst)
         at_start_of_iso_year(wkst).advance(:weeks => num_weeks)
       end
 
-      # Return a DATE_TIME value representing the last second of the last day of the ISO year with weeks 
+      # Return a DATE_TIME value representing the last second of the last day of the ISO year with weeks
       # starting on wkst containing the receiver
       def end_of_iso_year(wkst)
         at_end_of_iso_year(wkst).end_of_day
@@ -382,7 +423,7 @@ module RiCal
       # Determine if the receiver and another object are equivalent RiCal::PropertyValue::DateTime instances
       def ==(other)
         if self.class === other
-          self.value == other.value && self.params == other.params
+          self.value == other.value && self.visible_params == other.visible_params && self.tzid == other.tzid
         else
           super
         end
@@ -408,9 +449,40 @@ module RiCal
         @date_time_value.day
       end
       
+      alias_method :mday, :day
+
+      # Return the day of the week
+      def wday
+        @date_time_value.wday
+      end
+
+      # Return the hour
+      def hour
+        @date_time_value.hour
+      end
+
+      # Return the minute
+      def min
+        @date_time_value.min
+      end
+      
+       # Return the second
+      def sec
+        @date_time_value.sec
+      end
+
+
       # Return an RiCal::PropertyValue::DateTime representing the receiver.
       def to_ri_cal_date_time_value
         self
+      end
+      
+      def iso_year_and_week_one_start(wkst) #:nodoc:
+        @date_time_value.iso_year_and_week_one_start(wkst)
+      end
+      
+      def iso_weeks_in_year(wkst)
+        @date_time_value.iso_weeks_in_year(wkst)
       end
 
       # Return the "Natural' property value for the receover, in this case the receiver itself."
@@ -427,9 +499,9 @@ module RiCal
        def ruby_value
         to_datetime
       end
-      
+
       alias_method :to_ri_cal_ruby_value, :ruby_value
-      
+
       # Determine if the receiver has a local time zone, i.e. it is not a floating time or a UTC time
       def has_local_timezone?
         tzid && tzid != "UTC"
@@ -437,12 +509,6 @@ module RiCal
 
       def add_date_times_to(required_timezones) #:nodoc:
         required_timezones.add_datetime(self) if has_local_timezone?
-      end
-
-      # Delegate unknown messages to the wrappered DateTime instance.
-      # TODO: Is this really necessary?
-      def method_missing(selector, *args) #:nodoc:
-        @date_time_value.send(selector, *args)
       end
     end
   end

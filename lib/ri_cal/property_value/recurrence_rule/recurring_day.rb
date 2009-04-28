@@ -48,7 +48,7 @@ module RiCal
           when :monthly
             (time.year * 100) + time.month
           when :weekly
-            time.start_of_week_with_wkst(rrule.wkst_day).jd
+            time.at_start_of_week_with_wkst(rrule.wkst_day).jd
           end
         end
         

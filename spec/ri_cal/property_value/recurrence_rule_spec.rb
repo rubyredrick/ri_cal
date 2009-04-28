@@ -18,13 +18,13 @@ describe RiCal::PropertyValue::RecurrenceRule do
       @it.should_not be_valid
       @it.errors.should include("RecurrenceRule must have a value for FREQ")
     end
-
+  
     it "accept reject an invalid frequency" do
       @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "blort")
       @it.should_not be_valid
       @it.errors.should include("Invalid frequency 'blort'")
     end
-
+  
     %w{secondly SECONDLY minutely MINUTELY hourly HOURLY daily DAILY weekly WEEKLY monthly MONTHLY
       yearly YEARLY
       }.each do | freq_val |
@@ -32,87 +32,87 @@ describe RiCal::PropertyValue::RecurrenceRule do
           RiCal::PropertyValue::RecurrenceRule.new(:freq => freq_val).should be_valid
         end
       end
-
+  
     it "should reject setting both until and count" do
       @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :until => Time.now, :count => 10)
       @it.should_not be_valid
       @it.errors.should include("COUNT and UNTIL cannot both be specified")
     end
-
+  
     describe "interval parameter" do
-
+  
       # p 42
       it "should default to 1" do
         RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily").interval.should == 1
       end
-
+  
       it "should accept an explicit value" do
         RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :interval => 42).interval.should == 42
       end
-
+  
       it "should reject a negative value" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :interval => -1)
         @it.should_not be_valid
       end
     end
-
+  
     describe "bysecond parameter" do
-
+  
       it "should accept a single integer" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bysecond => 10)
         @it.send(:by_list)[:bysecond].should == [10]
       end
-
+  
       it "should accept an array of integers" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bysecond => [10, 20])
         @it.send(:by_list)[:bysecond].should == [10, 20]
       end
-
+  
       it "should reject invalid values" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bysecond => [-1, 0, 59, 60])
         @it.should_not be_valid
         @it.errors.should == ['-1 is invalid for bysecond', '60 is invalid for bysecond']
       end
     end
-
+  
     describe "byminute parameter" do
-
-      it "should accept a single integer" do
-        @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byminute => 10)
-        @it.send(:by_list)[:byminute].should == [10]
-      end
-
-      it "should accept an array of integers" do
-        @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byminute => [10, 20])
-        @it.send(:by_list)[:byminute].should == [10, 20]
-      end
-
-      it "should reject invalid values" do
-        @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byminute => [-1, 0, 59, 60])
-        @it.should_not be_valid
-        @it.errors.should == ['-1 is invalid for byminute', '60 is invalid for byminute']
-      end
-    end
-
-    describe "byhour parameter" do
-
-      it "should accept a single integer" do
-        @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byhour => 10)
-        @it.send(:by_list)[:byhour].should == [10]
-      end
-
-      it "should accept an array of integers" do
-        @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byhour => [10, 12])
-        @it.send(:by_list)[:byhour].should == [10, 12]
-      end
-
+   
+       it "should accept a single integer" do
+         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byminute => 10)
+         @it.send(:by_list)[:byminute].should == [10]
+       end
+   
+       it "should accept an array of integers" do
+         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byminute => [10, 20])
+         @it.send(:by_list)[:byminute].should == [10, 20]
+       end
+   
+       it "should reject invalid values" do
+         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byminute => [-1, 0, 59, 60])
+         @it.should_not be_valid
+         @it.errors.should == ['-1 is invalid for byminute', '60 is invalid for byminute']
+       end
+     end
+   
+     describe "byhour parameter" do
+   
+       it "should accept a single integer" do
+         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byhour => 10)
+         @it.send(:by_list)[:byhour].should == [10]
+       end
+   
+       it "should accept an array of integers" do
+         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byhour => [10, 12])
+         @it.send(:by_list)[:byhour].should == [10, 12]
+       end
+   
       it "should reject invalid values" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byhour => [-1, 0, 23, 24])
         @it.should_not be_valid
         @it.errors.should == ['-1 is invalid for byhour', '24 is invalid for byhour']
       end
     end
-
+  
     describe "byday parameter" do
       
       def anyMonday(rule)
@@ -123,175 +123,175 @@ describe RiCal::PropertyValue::RecurrenceRule do
         RiCal::PropertyValue::RecurrenceRule::RecurringDay.new("WE", rule)
       end
       
-
+  
       it "should accept a single value" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byday => 'MO')
         @it.send(:by_list)[:byday].should == [anyMonday(@it)]
       end
-
+  
       it "should accept an array of values" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byday => ['MO', 'WE'])
         @it.send(:by_list)[:byday].should == [anyMonday(@it), anyWednesday(@it)]
       end
-
+  
       it "should reject invalid values" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byday => ['VE'])
         @it.should_not be_valid
         @it.errors.should == ['"VE" is not a valid day']
       end
     end
-
+  
     describe "bymonthday parameter" do
-
+  
       it "should accept a single value" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bymonthday => 1)
         @it.send(:by_list)[:bymonthday].should == [FirstOfMonth]
       end
-
+  
       it "should accept an array of values" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bymonthday => [1, 10])
         @it.send(:by_list)[:bymonthday].should == [FirstOfMonth, TenthOfMonth]
       end
-
+  
       it "should reject invalid values" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bymonthday => [0, 32, 'VE'])
         @it.should_not be_valid
         @it.errors.should == ['0 is not a valid month day','32 is not a valid month day', '"VE" is not a valid month day']
       end
     end
-
+  
     describe "byyearday parameter" do
-
+  
       it "should accept a single value" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byyearday => 1)
         @it.send(:by_list)[:byyearday].should == [FirstOfYear]
       end
-
-      it "should accept an array of values" do
-        @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byyearday => [1, 10])
-        @it.send(:by_list)[:byyearday].should == [FirstOfYear, TenthOfYear]
-      end
-
-      it "should reject invalid values" do
-        @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byyearday => [0, 370, 'VE'])
-        @it.should_not be_valid
-        @it.errors.should == ['0 is not a valid year day', '370 is not a valid year day', '"VE" is not a valid year day']
-      end
-    end
-
-    describe "byweekno parameter" do
-
-      it "should accept a single value" do
-        @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byweekno => 2)
-        @it.send(:by_list)[:byweekno].should == [SecondWeekOfYear]
-      end
-
-      it "should accept an array of values" do
-        @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byweekno => [2, -1])
-        @it.send(:by_list)[:byweekno].should == [SecondWeekOfYear, LastWeekOfYear]
-      end
-
-      it "should reject invalid values" do
-        @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byweekno => [0, 54, 'VE'])
-        @it.should_not be_valid
-        @it.errors.should == ['0 is not a valid week number', '54 is not a valid week number', '"VE" is not a valid week number']
-      end
-    end
-
-    describe "bymonth parameter" do
-
+  
+       it "should accept an array of values" do
+         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byyearday => [1, 10])
+         @it.send(:by_list)[:byyearday].should == [FirstOfYear, TenthOfYear]
+       end
+   
+       it "should reject invalid values" do
+         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byyearday => [0, 370, 'VE'])
+         @it.should_not be_valid
+         @it.errors.should == ['0 is not a valid year day', '370 is not a valid year day', '"VE" is not a valid year day']
+       end
+     end
+   
+     describe "byweekno parameter" do
+   
+       it "should accept a single value" do
+         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byweekno => 2)
+         @it.send(:by_list)[:byweekno].should == [SecondWeekOfYear]
+       end
+   
+       it "should accept an array of values" do
+         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byweekno => [2, -1])
+         @it.send(:by_list)[:byweekno].should == [SecondWeekOfYear, LastWeekOfYear]
+       end
+   
+       it "should reject invalid values" do
+         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byweekno => [0, 54, 'VE'])
+         @it.should_not be_valid
+         @it.errors.should == ['0 is not a valid week number', '54 is not a valid week number', '"VE" is not a valid week number']
+       end
+     end
+   
+     describe "bymonth parameter" do
+  
       it "should accept a single integer" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bymonth => 10)
         @it.send(:by_list)[:bymonth].should == [10]
       end
-
+  
       it "should accept an array of integers" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bymonth => [10, 12])
         @it.send(:by_list)[:bymonth].should == [10, 12]
       end
-
+  
       it "should reject invalid values" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bymonth => [-1, 0, 1, 12, 13])
         @it.should_not be_valid
         @it.errors.should == ['-1 is invalid for bymonth', '0 is invalid for bymonth', '13 is invalid for bymonth']
       end
     end
-
+  
     describe "bysetpos parameter" do
-
+  
       it "should accept a single integer" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bymonth => 10, :bysetpos => 2)
         @it.send(:by_list)[:bysetpos].should == [2]
       end
-
+  
       it "should accept an array of integers" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bymonth => 10, :bysetpos => [2, 3])
         @it.send(:by_list)[:bysetpos].should == [2, 3]
       end
-
+  
       it "should reject invalid values" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bymonth => 10, :bysetpos => [-367, -366, -1, 0, 1, 366, 367])
         @it.should_not be_valid
         @it.errors.should == ['-367 is invalid for bysetpos', '0 is invalid for bysetpos', '367 is invalid for bysetpos']
       end
-
+  
       it "should require another BYxxx rule part" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bysetpos => 2)
         @it.should_not be_valid
         @it.errors.should == ['bysetpos cannot be used without another by_xxx rule part']
       end
     end
-
+  
     describe "wkst parameter" do
-
+  
       it "should default to MO" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily")
         @it.wkst.should == 'MO'
       end
-
+  
       it "should accept a single string" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :wkst => 'SU')
         @it.wkst.should == 'SU'
       end
-
+  
       %w{MO TU WE TH FR SA SU}.each do |valid|
         it "should accept #{valid} as a valid value" do
           RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :wkst => valid).should be_valid
         end
       end
-
+  
       it "should reject invalid values" do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :wkst => "bogus")
         @it.should_not be_valid
         @it.errors.should == ['"bogus" is invalid for wkst']
       end
     end
-
+  
     describe "freq accessors" do
       before(:each) do
         @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => 'daily')
       end
-
+  
       it "should convert the initial value to uppercase" do
         @it.freq.should == 'DAILY'
       end
-
+  
       it "should convert the setter value to uppercase " do
         @it.freq = 'weekly'
         @it.freq.should == 'WEEKLY'
       end
-
+  
       it "should not accept an invalid value" do
         @it.freq = 'bogus'
         @it.should_not be_valid
       end
     end
   end
-
+  
   describe "initialized from parser" do
-
+  
     describe "from 'FREQ=YEARLY;INTERVAL=2;BYMONTH=1;BYDAY=SU;BYHOUR=8,9;BYMINUTE=30'" do
-
+  
       before(:all) do
         lambda {
           @it = RiCal::PropertyValue::RecurrenceRule.new(:value => 'FREQ=YEARLY;INTERVAL=2;BYMONTH=1;BYDAY=SU;BYHOUR=8,9;BYMINUTE=30')
@@ -307,13 +307,13 @@ describe RiCal::PropertyValue::RecurrenceRule do
       end
     end
   end
-
+  
   describe "to_ical" do
-
+  
     it "should handle basic cases" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily").to_ical.should == "FREQ=DAILY"
     end
-
+  
     it "should handle multiple parts" do
       @it = RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :count => 10, :interval => 2).to_ical
       @it.should match(/^FREQ=DAILY;/)
@@ -321,71 +321,71 @@ describe RiCal::PropertyValue::RecurrenceRule do
       parts.should include("COUNT=10")
       parts.should include("INTERVAL=2")
     end
-
+  
     it "should supress the default interval value" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :interval => 1).to_ical.should_not match(/INTERVAL=/)
     end
-
+  
     it "should support the wkst value" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :wkst => 'SU').to_ical.split(";").should include("WKST=SU")
     end
-
+  
     it "should supress the default wkst value" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :wkst => 'MO').to_ical.split(";").should_not include("WKST=SU")
     end
-
+  
     it "should handle a scalar bysecond" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bysecond => 15).to_ical.split(";").should include("BYSECOND=15")
     end
-
+  
     it "should handle an array bysecond" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bysecond => [15, 45]).to_ical.split(";").should include("BYSECOND=15,45")
     end
-
+  
     it "should handle a scalar byday" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "monthly", :byday => 'MO').to_ical.split(";").should include("BYDAY=MO")
     end
-
+  
     it "should handle an array byday" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byday => ["MO", "-3SU"]).to_ical.split(";").should include("BYDAY=MO,-3SU")
     end
-
+  
     it "should handle a scalar bymonthday" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "monthly", :bymonthday => 14).to_ical.split(";").should include("BYMONTHDAY=14")
     end
-
+  
     it "should handle an array bymonthday" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bymonthday => [15, -10]).to_ical.split(";").should include("BYMONTHDAY=15,-10")
     end
-
+  
     it "should handle a scalar byyearday" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "monthly", :byyearday => 14).to_ical.split(";").should include("BYYEARDAY=14")
     end
-
+  
     it "should handle an array byyearday" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byyearday => [15, -10]).to_ical.split(";").should include("BYYEARDAY=15,-10")
     end
-
+  
     it "should handle a scalar byweekno" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "monthly", :byweekno => 14).to_ical.split(";").should include("BYWEEKNO=14")
     end
-
+  
     it "should handle an array byyearday" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :byweekno => [15, -10]).to_ical.split(";").should include("BYWEEKNO=15,-10")
     end
-
+  
     it "should handle a scalar bymonth" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "monthly", :bymonth => 2).to_ical.split(";").should include("BYMONTH=2")
     end
-
+  
     it "should handle an array bymonth" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "daily", :bymonth => [5, 6]).to_ical.split(";").should include("BYMONTH=5,6")
     end
-
+  
     it "should handle a scalar bysetpos" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "monthly", :byday => %w{MO TU WE TH FR}, :bysetpos => -1).to_ical.split(";").should include("BYSETPOS=-1")
     end
-
+  
     it "should handle an array bysetpos" do
       RiCal::PropertyValue::RecurrenceRule.new(:freq => "monthly", :byday => %w{MO TU WE TH FR}, :bysetpos => [2, -1]).to_ical.split(";").should include("BYSETPOS=-1,2")
     end
@@ -410,8 +410,9 @@ describe RiCal::PropertyValue::RecurrenceRule do
           rrule = RiCal::PropertyValue::RecurrenceRule.new(
           :value => rrule_string
           )
-          @enum = rrule.enumerator(mock("EventValue", :default_start_time => DateTime.parse(dtstart_string).to_ri_cal_date_time_value, :default_duration => nil))
-          @expectations = (expectation.map {|str| str.gsub(/E.T$/,'').to_ri_cal_date_time_value})
+          default_start_time = RiCal::PropertyValue::DateTime.new(:value => dtstart_string, :tzid => tzid)
+          @enum = rrule.enumerator(mock("EventValue", :default_start_time => default_start_time, :default_duration => nil))
+          @expectations = (expectation.map {|str| RiCal::PropertyValue::DateTime.new(:value => str.gsub(/E.T$/,''), :tzid => tzid)})
         end
         
         after(:each) do
@@ -574,7 +575,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Dec 23, 1997 9:00 AM EST",
       ]
       )
-
+      
       enumeration_spec(
       "Every other day - forever (RFC 2445 p 118)",
       "19970902T090000",
@@ -631,7 +632,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "Every 10 days, 5 occurrences (RFC 2445 p 118-19)",
       "19970902T090000",
@@ -903,7 +904,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Oct 16, 1997 9:00 AM EDT"
       ], true
       )
-
+      
       enumeration_spec(
       "Monthly on the 1st Friday for ten occurrences (RFC 2445 p 120)",
       "19970905T090000",
@@ -922,7 +923,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Jun 5, 1998 9:00 AM EDT",
       ]
       )
-
+      
       enumeration_spec(
       "Monthly on the 1st Friday until December 24, 1997 (RFC 2445 p 120)",
       "19970905T090000",
@@ -935,7 +936,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Dec 5, 1997 9:00 AM EST"
       ]
       )
-
+      
       enumeration_spec(
       "Every other month on the 1st and last Sunday of the month for 10 occurrences (RFC 2445 p 120)",
       "19970907T090000",
@@ -954,7 +955,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "May 31, 1998 9:00 AM EST"
       ]
       )
-
+      
       enumeration_spec(
       "Monthly on the second to last Monday of the month for 6 months (RFC 2445 p 121)",
       "19970922T090000",
@@ -969,7 +970,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Feb 16, 1998 9:00 AM EST"
       ]
       )
-
+      
       enumeration_spec(
       "Monthly on the third the to last day of the month forever (RFC 2445 p 121)",
       "19970928T090000",
@@ -985,7 +986,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "Monthly on the first and last day of the month for 10 occurrences (RFC 2445 p 121)",
       "19970930T090000",
@@ -1004,7 +1005,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Feb 1, 1998 9:00 AM EST"
       ]
       )
-
+      
       enumeration_spec(
       "Every 18 months on the 10th thru 15th of the month for 10 occurrences (RFC 2445 p 121)",
       "19970910T090000",
@@ -1023,7 +1024,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Mar 13, 1999 9:00 AM EDT"
       ]
       )
-
+      
       enumeration_spec(
       "Every Tuesday, every other month (RFC 2445 p 122)",
       "19970902T090000",
@@ -1051,7 +1052,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "Yearly in June and July for 10 occurrences (RFC 2445 p 122)",
       "19970610T090000",
@@ -1070,7 +1071,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Jul 10, 2001 9:00 AM EDT"
       ]
       )
-
+      
       enumeration_spec(
       "Every other year on January, February, and March for 10 occurrences (RFC 2445 p 122)",
       "19970310T090000",
@@ -1089,7 +1090,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Mar 10, 2003 9:00 AM EST",
       ]
       )
-
+      
       enumeration_spec(
       "Every 3rd year on the 1st, 100th and 200th day for 10 occurrences (RFC 2445 p 122)",
       "19970101T090000",
@@ -1108,7 +1109,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Jan 1, 2006 9:00 AM EST"
       ]
       )
-
+      
       enumeration_spec(
       "Every 20th Monday of the year, forever (RFC 2445 p 122-3)",
       "19970519T090000",
@@ -1121,7 +1122,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "Every second to last Wednesday of the year, forever",
       "19971224T090000",
@@ -1135,7 +1136,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "Monday of week number 20 (where the default start of the week is Monday), forever (RFC 2445 p 123)",
       "19970512T090000",
@@ -1169,7 +1170,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "Every Thursday, but only during June, July, and August, forever (RFC 2445 p 123)",
       "19970605T090000",
@@ -1218,7 +1219,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "Every Friday the 13th, forever (RFC 2445 p 123-4)",
       "19970902T090000",
@@ -1236,7 +1237,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "The first Saturday that follows the first Sunday of the month, forever (RFC 2445 p 124)",
       "19970913T090000",
@@ -1256,7 +1257,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "Every four years, the first Tuesday after a Monday in November, forever(U.S. Presidential Election day) (RFC 2445 p 124)",
       "19961105T090000",
@@ -1269,7 +1270,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "3rd instance into the month of one of Tuesday, Wednesday or Thursday, for the next 3 months (RFC 2445 p 124)",
       "19970904T090000",
@@ -1281,7 +1282,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Nov 6, 1997 9:00 AM EST",
       ]
       )
-
+      
       enumeration_spec(
       "The 2nd to last weekday of the month (RFC 2445 p 124)",
       "19970929T090000",
@@ -1298,7 +1299,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "Every 3 hours from 9:00 AM to 5:00 PM on a specific day (RFC 2445 p 125)",
       "19970902T090000",
@@ -1310,7 +1311,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Sep 2, 1997 15:00 EDT",
       ]
       )
-
+      
       enumeration_spec(
       "Every 15 minutes for 6 occurrences (RFC 2445 p 125)",
       "19970902T090000",
@@ -1325,7 +1326,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Sep 2, 1997 10:15 EDT",
       ]
       )
-
+      
       enumeration_spec(
       "Every hour and a half for 4 occurrences (RFC 2445 p 125)",
       "19970902T090000",
@@ -1338,7 +1339,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Sep 2, 1997 13:30 EDT",
       ]
       )
-
+      
       enumeration_spec(
       "Every 20 minutes from 9:00 AM to 4:40 PM every day - alternative 1 (RFC 2445 p 125)",
       "19970902T090000",
@@ -1396,7 +1397,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "Every 20 minutes from 9:00 AM to 4:40 PM every day - alternative 2 (RFC 2445 p 125)",
       "19970902T090000",
@@ -1454,7 +1455,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "..."
       ]
       )
-
+      
       enumeration_spec(
       "An example where the days generated makes a difference because of WKST (MO case) (RFC 2445 p 125)",
       "19970805T090000",
@@ -1467,7 +1468,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
         "Aug 24, 1997 09:00 EDT"
       ]
       )
-
+      
       enumeration_spec(
       "An example where the days generated makes a difference because of WKST (MO case) (RFC 2445 p 125)",
       "19970805T090000",

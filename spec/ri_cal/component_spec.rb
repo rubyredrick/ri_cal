@@ -3,25 +3,25 @@ require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 describe RiCal::Component do
 
   context "building blocks" do
-    
+
     context "building an empty calendar" do
       before(:each) do
         @it = RiCal.Calendar.to_s
       end
-      
+
       it "should have the default prodid" do
         @it.should match(%r{^PRODID:-//com.denhaven2/NONSGML ri_cal gem//EN$})
       end
-      
+
       it "should have the default calscale" do
         @it.should match(%r{^CALSCALE:GREGORIAN$})
       end
-      
+
       it "should have the default icalendar version" do
         @it.should match(%r{^VERSION:2\.0$})
       end
     end
-    
+
     context "with a block with 1 parameter" do
       before(:each) do
         @it = RiCal.Event do |event|
@@ -41,7 +41,7 @@ describe RiCal::Component do
 
       it "should have the right description" do
         @it.description.should == "MA-6 First US Manned Spaceflight"
-      end   
+      end
       it "should have the right dtstart" do
         @it.dtstart.should == DateTime.parse("Feb 20, 1962 14:47:39")
       end
@@ -91,7 +91,7 @@ describe RiCal::Component do
       end
 
       it "should have the right description" do
-        @it.description.should == "MA-6 First US Manned Spaceflight"     
+        @it.description.should == "MA-6 First US Manned Spaceflight"
       end
 
       it "should have the right dtstart" do
@@ -117,14 +117,56 @@ describe RiCal::Component do
       it "should have the right attendee" do
         @it.attendee.should include("john.glenn@nasa.gov")
       end
-      
+
       it "should have 1 alarm" do
         @it.alarms.length.should == 1
       end
-      
+
       it "should have an alarm with the right description" do
         @it.alarms.first.description.should == "Segment 51"
       end
     end
+
+    context "building a complex calendar" do
+
+      before(:each) do
+        @it = RiCal.Calendar do
+          add_x_property 'x_wr_calname', 'My Personal Calendar'
+          event do
+            summary     'A Recurring Event'
+            description 'This event occurs day at 8:30pm'
+            dtstart     DateTime.parse('Feb 20, 2009 20:30:00')
+            dtend       DateTime.parse('Feb 20, 2009 21:30:00')
+            location    'North Carolina'
+            dtstamp     Time.now
+            rrule       :freq => 'daily', :interval => 1
+          end
+        end
+      end
+      
+      it 'should have an x_wr_calname property with the value "My Personal Calendar"' do
+        @it.x_wr_calname.should == "My Personal Calendar"
+      end
+      
+      context "event with a dsl built recurence rule" do
+        before(:each) do
+          @cal = @it
+          @it = @cal.events.first
+        end
+        
+        it "should have a 1 rrule" do
+          @it.rrule.length.should == 1
+        end
+        
+        it "should have the right rrule" do
+          @it.rrule.first.should == "FREQ=DAILY"
+        end
+        
+        it "should have the right rrule hash" do
+          @it.rrule_property.first.to_options_hash.should == {:freq => 'DAILY', :interval => 1}
+        end
+      end
+    end
+
   end
 end

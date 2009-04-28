@@ -21,7 +21,7 @@ module RiCal
           :todo  => Todo,
           :journal => Journal,
           :freebusy => Freebusy,
-          :timezone => TimeZone,
+          :timezone => Timezone,
         }
       end
       
