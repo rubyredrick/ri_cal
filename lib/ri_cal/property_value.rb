@@ -3,9 +3,9 @@ module RiCal
   class PropertyValue
 
     attr_writer :params, :value #:nodoc:
-    attr_reader :parent_component #:nodoc:
+    attr_reader :timezone_finder #:nodoc:
     def initialize(parent, options={}) # :nodoc:
-      @parent_component = parent
+      @timezone_finder = parent
       validate_value(options)
       ({:params => {}}).merge(options).each do |attribute, val|
         unless attribute == :name

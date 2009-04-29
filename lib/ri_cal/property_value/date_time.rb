@@ -51,12 +51,12 @@ module RiCal
       #  if end_time is nil => nil
       #  otherwise convert end_time to a DateTime and compute the difference
       def duration_until(end_time) # :nodoc:
-        end_time  && RiCal::PropertyValue::Duration.from_datetimes(parent_component, to_datetime, end_time.to_datetime)
+        end_time  && RiCal::PropertyValue::Duration.from_datetimes(timezone_finder, to_datetime, end_time.to_datetime)
       end
 
       # Double-dispatch method for subtraction.
       def subtract_from_date_time_value(dtvalue) #:nodoc:
-        RiCal::PropertyValue::Duration.from_datetimes(parent_component, to_datetime,dtvalue.to_datetime)
+        RiCal::PropertyValue::Duration.from_datetimes(timezone_finder, to_datetime,dtvalue.to_datetime)
       end
 
       # Double-dispatch method for addition.
@@ -191,10 +191,10 @@ module RiCal
       
       
       def for_parent(parent)
-        if parent_component.nil?
-          @parent_component = parent
+        if timezone_finder.nil?
+          @timezone_finder = parent
           self
-        elsif parent == parent_component
+        elsif parent == timezone_finder
           self
         else
           DateTime.new(parent, :value => @date_time_value, :params => params, :tzid => tzid)
@@ -253,7 +253,7 @@ module RiCal
       end
 
       def advance(options) # :nodoc:
-        PropertyValue::DateTime.new(parent_component,
+        PropertyValue::DateTime.new(timezone_finder,
                                     :value => compute_advance(@date_time_value, options),
                                     :tzid => tzid,
                                     :params =>(params ? params.dup : nil)
@@ -261,7 +261,7 @@ module RiCal
       end
 
       def change(options) # :nodoc:
-        PropertyValue::DateTime.new(parent_component,
+        PropertyValue::DateTime.new(timezone_finder,
                                     :value => compute_change(@date_time_value, options),
                                     :tzid => tzid,
                                     :params => (params ? params.dup : nil)
@@ -269,7 +269,7 @@ module RiCal
       end
 
       def self.civil(year, month, day, hour, min, sec, offset, start, params) # :nodoc:
-        PropertyValue::DateTime.new(parent_component,
+        PropertyValue::DateTime.new(timezone_finder,
                                    :value => ::DateTime.civil(year, month, day, hour, min, sec, offset, start),
                                    :tzid => tzid,
                                    :params =>(params ? params.dup : nil)

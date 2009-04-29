@@ -27,10 +27,10 @@ module RiCal
       end
       
       def for_parent(parent)
-        if parent_component.nil
-          @parent_component = parent
+        if timezone_finder.nil
+          @timezone_finder = parent
           self
-        elsif parent_component == parent
+        elsif timezone_finder == parent
           self
         else
           Period.new(parent, :value => value)
