@@ -240,7 +240,7 @@ module RiCal
       # add one value to the ATTENDEE property
       # one instances of CalAddress may be passed to this method
       def  add_attendee(ruby_value)
-       self.attendee_property << RiCal::PropertyValue::CalAddress.convert(self, val)
+       self.attendee_property << RiCal::PropertyValue::CalAddress.convert(self, ruby_value)
       end
 
       # remove one or more values from the ATTENDEE property
@@ -303,7 +303,7 @@ module RiCal
       # add one value to the ATTACH property
       # one instances of Uri may be passed to this method
       def  add_attach(ruby_value)
-       self.attach_property << RiCal::PropertyValue::Uri.convert(self, val)
+       self.attach_property << RiCal::PropertyValue::Uri.convert(self, ruby_value)
       end
 
       # remove one or more values from the ATTACH property

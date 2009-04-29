@@ -306,7 +306,7 @@ module RiCal
       # add one value to the ATTENDEE property
       # one instances of CalAddress may be passed to this method
       def  add_attendee(ruby_value)
-       self.attendee_property << RiCal::PropertyValue::CalAddress.convert(self, val)
+       self.attendee_property << RiCal::PropertyValue::CalAddress.convert(self, ruby_value)
       end
 
       # remove one or more values from the ATTENDEE property
@@ -369,7 +369,7 @@ module RiCal
       # add one value to the COMMENT property
       # one instances of String may be passed to this method
       def  add_comment(ruby_value)
-       self.comment_property << RiCal::PropertyValue::Text.convert(self, val)
+       self.comment_property << RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # remove one or more values from the COMMENT property
@@ -432,7 +432,7 @@ module RiCal
       # add one value to the FREEBUSY property
       # one instances of Period may be passed to this method
       def  add_freebusy(ruby_value)
-       self.freebusy_property << RiCal::PropertyValue::Period.convert(self, val)
+       self.freebusy_property << RiCal::PropertyValue::Period.convert(self, ruby_value)
       end
 
       # remove one or more values from the FREEBUSY property
@@ -492,7 +492,7 @@ module RiCal
       # add one value to the REQUEST-STATUS property
       # one instances of String may be passed to this method
       def  add_request_status(ruby_value)
-       self.request_status_property << RiCal::PropertyValue::Text.convert(self, val)
+       self.request_status_property << RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # remove one or more values from the REQUEST-STATUS property
