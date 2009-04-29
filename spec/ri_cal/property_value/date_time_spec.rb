@@ -4,18 +4,18 @@ describe RiCal::PropertyValue::DateTime do
 
   describe ".from_separated_line" do
     it "should return a RiCal::PropertyValue::Date if the value doesn't contain a time specification" do
-      RiCal::PropertyValue::DateTime.from_separated_line(:value => "19970714").should be_kind_of(RiCal::PropertyValue::Date)
+      RiCal::PropertyValue::DateTime.or_date(nil, :value => "19970714").should be_kind_of(RiCal::PropertyValue::Date)
     end
 
     it "should return a RiCal::PropertyValue::DateTime if the value does contain a time specification" do
-      RiCal::PropertyValue::DateTime.from_separated_line(:value => "19980118T230000").should be_kind_of(RiCal::PropertyValue::DateTime)
+      RiCal::PropertyValue::DateTime.or_date(nil, :value => "19980118T230000").should be_kind_of(RiCal::PropertyValue::DateTime)
     end
   end
   
   describe ".advance" do
     it "should advance by one week if passed :days => 7" do
-      dt1 = RiCal::PropertyValue::DateTime.new(:value => "20050131T230000")
-      dt2 = RiCal::PropertyValue::DateTime.new(:value => "20050207T230000")
+      dt1 = RiCal::PropertyValue::DateTime.new(nil, :value => "20050131T230000")
+      dt2 = RiCal::PropertyValue::DateTime.new(nil, :value => "20050207T230000")
       dt1.advance(:days => 7).should == dt2
     end
   end
@@ -23,30 +23,30 @@ describe RiCal::PropertyValue::DateTime do
   describe "subtracting one date-time from another" do
     
     it "should produce the right RiCal::PropertyValue::Duration" do
-      dt1 = RiCal::PropertyValue::DateTime.new(:value => "19980118T230000")
-      dt2 = RiCal::PropertyValue::DateTime.new(:value => "19980119T010000")
+      dt1 = RiCal::PropertyValue::DateTime.new(nil, :value => "19980118T230000")
+      dt2 = RiCal::PropertyValue::DateTime.new(nil, :value => "19980119T010000")
       @it = dt2 - dt1
-      @it.should == RiCal::PropertyValue::Duration.new(:value => "+PT2H")
+      @it.should == RiCal::PropertyValue::Duration.new(nil, :value => "+PT2H")
     end      
   end
   
   describe "adding a RiCal::PropertyValue::Duration to a RiCal::PropertyValue::DateTime" do
 
     it "should produce the right RiCal::PropertyValue::DateTime" do
-      dt1 = RiCal::PropertyValue::DateTime.new(:value => "19980118T230000")
-      duration = RiCal::PropertyValue::Duration.new(:value => "+PT2H")
+      dt1 = RiCal::PropertyValue::DateTime.new(nil, :value => "19980118T230000")
+      duration = RiCal::PropertyValue::Duration.new(nil, :value => "+PT2H")
       @it = dt1 + duration
-      @it.should == RiCal::PropertyValue::DateTime.new(:value => "19980119T010000")
+      @it.should == RiCal::PropertyValue::DateTime.new(nil, :value => "19980119T010000")
     end
   end
 
   describe "subtracting a RiCal::PropertyValue::Duration from a RiCal::PropertyValue::DateTime" do
 
     it "should produce the right RiCal::PropertyValue::DateTime" do
-      dt1 = RiCal::PropertyValue::DateTime.new(:value => "19980119T010000")
-      duration = RiCal::PropertyValue::Duration.new(:value => "+PT2H")
+      dt1 = RiCal::PropertyValue::DateTime.new(nil, :value => "19980119T010000")
+      duration = RiCal::PropertyValue::Duration.new(nil, :value => "+PT2H")
       @it = dt1 - duration
-      @it.should == RiCal::PropertyValue::DateTime.new(:value => "19980118T230000")
+      @it.should == RiCal::PropertyValue::DateTime.new(nil, :value => "19980118T230000")
     end
   end
 
@@ -59,7 +59,7 @@ describe RiCal::PropertyValue::DateTime do
     describe "with a normal a normal time instance" do
       describe "when the default timezone identifier is UTC" do
         before(:each) do
-          @it = RiCal::PropertyValue::DateTime.convert(@time)
+          @it = RiCal::PropertyValue::DateTime.convert(nil, @time)
         end
 
         it "should have a TZID of UTC" do
@@ -73,7 +73,7 @@ describe RiCal::PropertyValue::DateTime do
       describe "when the default timezone has been set to 'America/Chicago" do
         before(:each) do
           RiCal::PropertyValue::DateTime.stub!(:default_tzid).and_return("America/Chicago")
-          @it = RiCal::PropertyValue::DateTime.convert(@time)
+          @it = RiCal::PropertyValue::DateTime.convert(nil, @time)
         end
 
         it "should have a TZID of America/Chicago" do
@@ -94,7 +94,7 @@ describe RiCal::PropertyValue::DateTime do
       
       describe "when the default timezone identifier is UTC" do
         before(:each) do
-          @it = RiCal::PropertyValue::DateTime.convert(@time)
+          @it = RiCal::PropertyValue::DateTime.convert(nil, @time)
         end
         
         it "should have the correct parameters" do
@@ -112,7 +112,7 @@ describe RiCal::PropertyValue::DateTime do
       describe "when the default timezone has been set to 'America/Chicago" do
         before(:each) do
           RiCal::PropertyValue::DateTime.stub!(:default_tzid).and_return("America/Chicago")
-          @it = RiCal::PropertyValue::DateTime.convert(@time)
+          @it = RiCal::PropertyValue::DateTime.convert(nil, @time)
         end
         
         it "should have the correct parameters" do

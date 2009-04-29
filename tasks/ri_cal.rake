@@ -209,7 +209,7 @@ class VEntityUpdater
         comment("add one value to the #{name.upcase} property")
         comment("one instances of #{describe_type(type)} may be passed to this method")
         indent("def  add_#{ruby_method}(ruby_value)")
-        indent(" self.#{property} << #{type_class(type)}.convert(self, val)")
+        indent(" self.#{property} << #{type_class(type)}.convert(self, ruby_value)")
         indent("end")
         blank_line
         comment("remove one or more values from the #{name.upcase} property")

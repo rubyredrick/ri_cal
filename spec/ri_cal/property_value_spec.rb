@@ -5,20 +5,20 @@ describe RiCal::PropertyValue do
   describe ".initialize" do
     
     it "should reject a value starting with ';'" do
-      lambda {RiCal::PropertyValue.new(:value => ";bogus")}.should raise_error {|err| err.message.should == "Invalid property value \";bogus\""}
+      lambda {RiCal::PropertyValue.new(nil, :value => ";bogus")}.should raise_error {|err| err.message.should == "Invalid property value \";bogus\""}
     end
   end
 
   describe "#date_or_date_time" do
 
     it "should raise an exception on an invalid date" do
-      lambda {RiCal::PropertyValue.date_or_date_time(:value => "foo")}.should raise_error
+      lambda {RiCal::PropertyValue.date_or_date_time(nil, :value => "foo")}.should raise_error
     end 
     
     
     describe "rfc 2445 section 4.3.4 p 34" do
       before(:each) do
-        @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714")
+        @prop = RiCal::PropertyValue.date_or_date_time(nil, :value => "19970714")
       end
 
       it "should return a PropertyValue::Date" do
@@ -33,7 +33,7 @@ describe RiCal::PropertyValue do
     describe "rfc 2445 section 4.3.5 p 35" do
       describe "FORM #1 date with local time p 36" do
         before(:each) do
-          @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714T123456")
+          @prop = RiCal::PropertyValue.date_or_date_time(nil, :value => "19970714T123456")
         end
 
         it "should return a PropertyValue::DateTime" do
@@ -55,7 +55,7 @@ describe RiCal::PropertyValue do
       
       describe "FORM #2 date with UTC time p 36" do
         before(:each) do
-          @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714T123456Z")
+          @prop = RiCal::PropertyValue.date_or_date_time(nil, :value => "19970714T123456Z")
         end
 
         it "should return a PropertyValue::DateTime" do
@@ -78,7 +78,7 @@ describe RiCal::PropertyValue do
       
       describe "FORM #3 date with local time and time zone reference p 36" do
         before(:each) do
-          @prop = RiCal::PropertyValue.date_or_date_time(:value => "19970714T123456", :params => {'TZID' => 'US-Eastern'})
+          @prop = RiCal::PropertyValue.date_or_date_time(nil, :value => "19970714T123456", :params => {'TZID' => 'US-Eastern'})
         end
 
         it "should return a PropertyValue::DateTime" do
@@ -99,7 +99,7 @@ describe RiCal::PropertyValue do
         end
         
         it "should raise an error if combined with a zulu time" do
-          lambda {RiCal::PropertyValue.date_or_date_time(:value => "19970714T123456Z", :params => {:tzid => 'US-Eastern'})}.should raise_error
+          lambda {RiCal::PropertyValue.date_or_date_time(nil, :value => "19970714T123456Z", :params => {:tzid => 'US-Eastern'})}.should raise_error
         end  
       end
     end

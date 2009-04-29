@@ -23,7 +23,7 @@ module RiCal
 
       # set the value of the CLASS property
       def security_class=(ruby_value)
-        self.class_property= RiCal::PropertyValue::Text.convert(ruby_value)
+        self.class_property= RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # return the value of the CLASS property
@@ -51,12 +51,12 @@ module RiCal
       # set the CREATED property
       # property value should be an instance of RiCal::PropertyValueDateTime
       def created_property=(property_value)
-        @created_property = property_value.for_component(self)
+        @created_property = property_value.for_parent(self)
       end
 
       # set the value of the CREATED property
       def created=(ruby_value)
-        self.created_property= RiCal::PropertyValue::DateTime.convert(ruby_value).for_component(self)
+        self.created_property= RiCal::PropertyValue::DateTime.convert(self, ruby_value)
       end
 
       # return the value of the CREATED property
@@ -89,7 +89,7 @@ module RiCal
 
       # set the value of the DESCRIPTION property
       def description=(ruby_value)
-        self.description_property= RiCal::PropertyValue::Text.convert(ruby_value)
+        self.description_property= RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # return the value of the DESCRIPTION property
@@ -117,12 +117,12 @@ module RiCal
       # set the DTSTART property
       # property value should be an instance of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
       def dtstart_property=(property_value)
-        @dtstart_property = property_value.for_component(self)
+        @dtstart_property = property_value.for_parent(self)
       end
 
       # set the value of the DTSTART property
       def dtstart=(ruby_value)
-        self.dtstart_property= RiCal::PropertyValue::DateTime.convert(ruby_value).for_component(self)
+        self.dtstart_property= RiCal::PropertyValue::DateTime.convert(self, ruby_value)
       end
 
       # return the value of the DTSTART property
@@ -150,12 +150,12 @@ module RiCal
       # set the DTSTAMP property
       # property value should be an instance of RiCal::PropertyValueDateTime
       def dtstamp_property=(property_value)
-        @dtstamp_property = property_value.for_component(self)
+        @dtstamp_property = property_value.for_parent(self)
       end
 
       # set the value of the DTSTAMP property
       def dtstamp=(ruby_value)
-        self.dtstamp_property= RiCal::PropertyValue::DateTime.convert(ruby_value).for_component(self)
+        self.dtstamp_property= RiCal::PropertyValue::DateTime.convert(self, ruby_value)
       end
 
       # return the value of the DTSTAMP property
@@ -183,12 +183,12 @@ module RiCal
       # set the LAST-MODIFIED property
       # property value should be an instance of RiCal::PropertyValueDateTime
       def last_modified_property=(property_value)
-        @last_modified_property = property_value.for_component(self)
+        @last_modified_property = property_value.for_parent(self)
       end
 
       # set the value of the LAST-MODIFIED property
       def last_modified=(ruby_value)
-        self.last_modified_property= RiCal::PropertyValue::DateTime.convert(ruby_value).for_component(self)
+        self.last_modified_property= RiCal::PropertyValue::DateTime.convert(self, ruby_value)
       end
 
       # return the value of the LAST-MODIFIED property
@@ -221,7 +221,7 @@ module RiCal
 
       # set the value of the ORGANIZER property
       def organizer=(ruby_value)
-        self.organizer_property= RiCal::PropertyValue::CalAddress.convert(ruby_value)
+        self.organizer_property= RiCal::PropertyValue::CalAddress.convert(self, ruby_value)
       end
 
       # return the value of the ORGANIZER property
@@ -249,12 +249,12 @@ module RiCal
       # set the RECURRENCE-ID property
       # property value should be an instance of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
       def recurrence_id_property=(property_value)
-        @recurrence_id_property = property_value.for_component(self)
+        @recurrence_id_property = property_value.for_parent(self)
       end
 
       # set the value of the RECURRENCE-ID property
       def recurrence_id=(ruby_value)
-        self.recurrence_id_property= RiCal::PropertyValue::DateTime.convert(ruby_value).for_component(self)
+        self.recurrence_id_property= RiCal::PropertyValue::DateTime.convert(self, ruby_value)
       end
 
       # return the value of the RECURRENCE-ID property
@@ -287,7 +287,7 @@ module RiCal
 
       # set the value of the SEQUENCE property
       def sequence=(ruby_value)
-        self.sequence_property= RiCal::PropertyValue::Integer.convert(ruby_value)
+        self.sequence_property= RiCal::PropertyValue::Integer.convert(self, ruby_value)
       end
 
       # return the value of the SEQUENCE property
@@ -320,7 +320,7 @@ module RiCal
 
       # set the value of the STATUS property
       def status=(ruby_value)
-        self.status_property= RiCal::PropertyValue::Text.convert(ruby_value)
+        self.status_property= RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # return the value of the STATUS property
@@ -353,7 +353,7 @@ module RiCal
 
       # set the value of the SUMMARY property
       def summary=(ruby_value)
-        self.summary_property= RiCal::PropertyValue::Text.convert(ruby_value)
+        self.summary_property= RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # return the value of the SUMMARY property
@@ -386,7 +386,7 @@ module RiCal
 
       # set the value of the UID property
       def uid=(ruby_value)
-        self.uid_property= RiCal::PropertyValue::Text.convert(ruby_value)
+        self.uid_property= RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # return the value of the UID property
@@ -419,7 +419,7 @@ module RiCal
 
       # set the value of the URL property
       def url=(ruby_value)
-        self.url_property= RiCal::PropertyValue::Uri.convert(ruby_value)
+        self.url_property= RiCal::PropertyValue::Uri.convert(self, ruby_value)
       end
 
       # return the value of the URL property
@@ -453,37 +453,37 @@ module RiCal
       # set the value of the ATTACH property to multiple values
       # one or more instances of Uri may be passed to this method
       def attachments=(*ruby_values)
-        @attach_property = ruby_values.map {|val| RiCal::PropertyValue::Uri.convert(val)}
+        @attach_property = ruby_values.map {|val| RiCal::PropertyValue::Uri.convert(self, val)}
       end
 
       # set the value of the ATTACH property to a single value
       # one instance of Uri may be passed to this method
       def attach=(ruby_value)
-        @attach_property = [RiCal::PropertyValue::Uri.convert(ruby_value)]
+        @attach_property = [RiCal::PropertyValue::Uri.convert(self, ruby_value)]
       end
 
       # add one or more values to the ATTACH property
       # one or more instances of Uri may be passed to this method
       def  add_attachments(*ruby_values)
-       ruby_values.do {|val|  self.attach_property << RiCal::PropertyValue::Uri.convert(val)}
+       ruby_values.do {|val|  self.attach_property << RiCal::PropertyValue::Uri.convert(self, val)}
       end
 
       # add one value to the ATTACH property
       # one instances of Uri may be passed to this method
       def  add_attach(ruby_value)
-       self.attach_property << RiCal::PropertyValue::Uri.convert(ruby_value)
+       self.attach_property << RiCal::PropertyValue::Uri.convert(self, val)
       end
 
       # remove one or more values from the ATTACH property
       # one or more instances of Uri may be passed to this method
       def  remove_attachments(*ruby_values)
-       ruby_values.do {|val|  self.attach_property.delete(RiCal::PropertyValue::Uri.convert(val))}
+       ruby_values.do {|val|  self.attach_property.delete(RiCal::PropertyValue::Uri.convert(self, val))}
       end
 
       # remove one value from the ATTACH property
       # one instances of Uri may be passed to this method
       def  remove_attach(ruby_value)
-       self.attach_property.delete(RiCal::PropertyValue::Uri.convert(ruby_value))
+       self.attach_property.delete(RiCal::PropertyValue::Uri.convert(self, ruby_value))
       end
 
       # return the value of the ATTACH property
@@ -516,37 +516,37 @@ module RiCal
       # set the value of the ATTENDEE property to multiple values
       # one or more instances of CalAddress may be passed to this method
       def attendees=(*ruby_values)
-        @attendee_property = ruby_values.map {|val| RiCal::PropertyValue::CalAddress.convert(val)}
+        @attendee_property = ruby_values.map {|val| RiCal::PropertyValue::CalAddress.convert(self, val)}
       end
 
       # set the value of the ATTENDEE property to a single value
       # one instance of CalAddress may be passed to this method
       def attendee=(ruby_value)
-        @attendee_property = [RiCal::PropertyValue::CalAddress.convert(ruby_value)]
+        @attendee_property = [RiCal::PropertyValue::CalAddress.convert(self, ruby_value)]
       end
 
       # add one or more values to the ATTENDEE property
       # one or more instances of CalAddress may be passed to this method
       def  add_attendees(*ruby_values)
-       ruby_values.do {|val|  self.attendee_property << RiCal::PropertyValue::CalAddress.convert(val)}
+       ruby_values.do {|val|  self.attendee_property << RiCal::PropertyValue::CalAddress.convert(self, val)}
       end
 
       # add one value to the ATTENDEE property
       # one instances of CalAddress may be passed to this method
       def  add_attendee(ruby_value)
-       self.attendee_property << RiCal::PropertyValue::CalAddress.convert(ruby_value)
+       self.attendee_property << RiCal::PropertyValue::CalAddress.convert(self, val)
       end
 
       # remove one or more values from the ATTENDEE property
       # one or more instances of CalAddress may be passed to this method
       def  remove_attendees(*ruby_values)
-       ruby_values.do {|val|  self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(val))}
+       ruby_values.do {|val|  self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(self, val))}
       end
 
       # remove one value from the ATTENDEE property
       # one instances of CalAddress may be passed to this method
       def  remove_attendee(ruby_value)
-       self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(ruby_value))
+       self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(self, ruby_value))
       end
 
       # return the value of the ATTENDEE property
@@ -579,37 +579,37 @@ module RiCal
       # set the value of the CATEGORIES property to multiple values
       # one or more instances of Array may be passed to this method
       def multiple_categories=(*ruby_values)
-        @categories_property = ruby_values.map {|val| RiCal::PropertyValue::Array.convert(val)}
+        @categories_property = ruby_values.map {|val| RiCal::PropertyValue::Array.convert(self, val)}
       end
 
       # set the value of the CATEGORIES property to a single value
       # one instance of Array may be passed to this method
       def categories=(ruby_value)
-        @categories_property = [RiCal::PropertyValue::Array.convert(ruby_value)]
+        @categories_property = [RiCal::PropertyValue::Array.convert(self, ruby_value)]
       end
 
       # add one or more values to the CATEGORIES property
       # one or more instances of Array may be passed to this method
       def  add_multiple_categories(*ruby_values)
-       ruby_values.do {|val|  self.categories_property << RiCal::PropertyValue::Array.convert(val)}
+       ruby_values.do {|val|  self.categories_property << RiCal::PropertyValue::Array.convert(self, val)}
       end
 
       # add one value to the CATEGORIES property
       # one instances of Array may be passed to this method
       def  add_categories(ruby_value)
-       self.categories_property << RiCal::PropertyValue::Array.convert(ruby_value)
+       self.categories_property << RiCal::PropertyValue::Array.convert(self, val)
       end
 
       # remove one or more values from the CATEGORIES property
       # one or more instances of Array may be passed to this method
       def  remove_multiple_categories(*ruby_values)
-       ruby_values.do {|val|  self.categories_property.delete(RiCal::PropertyValue::Array.convert(val))}
+       ruby_values.do {|val|  self.categories_property.delete(RiCal::PropertyValue::Array.convert(self, val))}
       end
 
       # remove one value from the CATEGORIES property
       # one instances of Array may be passed to this method
       def  remove_categories(ruby_value)
-       self.categories_property.delete(RiCal::PropertyValue::Array.convert(ruby_value))
+       self.categories_property.delete(RiCal::PropertyValue::Array.convert(self, ruby_value))
       end
 
       # return the value of the CATEGORIES property
@@ -642,37 +642,37 @@ module RiCal
       # set the value of the COMMENT property to multiple values
       # one or more instances of String may be passed to this method
       def comments=(*ruby_values)
-        @comment_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(val)}
+        @comment_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(self, val)}
       end
 
       # set the value of the COMMENT property to a single value
       # one instance of String may be passed to this method
       def comment=(ruby_value)
-        @comment_property = [RiCal::PropertyValue::Text.convert(ruby_value)]
+        @comment_property = [RiCal::PropertyValue::Text.convert(self, ruby_value)]
       end
 
       # add one or more values to the COMMENT property
       # one or more instances of String may be passed to this method
       def  add_comments(*ruby_values)
-       ruby_values.do {|val|  self.comment_property << RiCal::PropertyValue::Text.convert(val)}
+       ruby_values.do {|val|  self.comment_property << RiCal::PropertyValue::Text.convert(self, val)}
       end
 
       # add one value to the COMMENT property
       # one instances of String may be passed to this method
       def  add_comment(ruby_value)
-       self.comment_property << RiCal::PropertyValue::Text.convert(ruby_value)
+       self.comment_property << RiCal::PropertyValue::Text.convert(self, val)
       end
 
       # remove one or more values from the COMMENT property
       # one or more instances of String may be passed to this method
       def  remove_comments(*ruby_values)
-       ruby_values.do {|val|  self.comment_property.delete(RiCal::PropertyValue::Text.convert(val))}
+       ruby_values.do {|val|  self.comment_property.delete(RiCal::PropertyValue::Text.convert(self, val))}
       end
 
       # remove one value from the COMMENT property
       # one instances of String may be passed to this method
       def  remove_comment(ruby_value)
-       self.comment_property.delete(RiCal::PropertyValue::Text.convert(ruby_value))
+       self.comment_property.delete(RiCal::PropertyValue::Text.convert(self, ruby_value))
       end
 
       # return the value of the COMMENT property
@@ -705,37 +705,37 @@ module RiCal
       # set the value of the CONTACT property to multiple values
       # one or more instances of String may be passed to this method
       def contacts=(*ruby_values)
-        @contact_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(val)}
+        @contact_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(self, val)}
       end
 
       # set the value of the CONTACT property to a single value
       # one instance of String may be passed to this method
       def contact=(ruby_value)
-        @contact_property = [RiCal::PropertyValue::Text.convert(ruby_value)]
+        @contact_property = [RiCal::PropertyValue::Text.convert(self, ruby_value)]
       end
 
       # add one or more values to the CONTACT property
       # one or more instances of String may be passed to this method
       def  add_contacts(*ruby_values)
-       ruby_values.do {|val|  self.contact_property << RiCal::PropertyValue::Text.convert(val)}
+       ruby_values.do {|val|  self.contact_property << RiCal::PropertyValue::Text.convert(self, val)}
       end
 
       # add one value to the CONTACT property
       # one instances of String may be passed to this method
       def  add_contact(ruby_value)
-       self.contact_property << RiCal::PropertyValue::Text.convert(ruby_value)
+       self.contact_property << RiCal::PropertyValue::Text.convert(self, val)
       end
 
       # remove one or more values from the CONTACT property
       # one or more instances of String may be passed to this method
       def  remove_contacts(*ruby_values)
-       ruby_values.do {|val|  self.contact_property.delete(RiCal::PropertyValue::Text.convert(val))}
+       ruby_values.do {|val|  self.contact_property.delete(RiCal::PropertyValue::Text.convert(self, val))}
       end
 
       # remove one value from the CONTACT property
       # one instances of String may be passed to this method
       def  remove_contact(ruby_value)
-       self.contact_property.delete(RiCal::PropertyValue::Text.convert(ruby_value))
+       self.contact_property.delete(RiCal::PropertyValue::Text.convert(self, ruby_value))
       end
 
       # return the value of the CONTACT property
@@ -762,43 +762,43 @@ module RiCal
       # set the the EXDATE property
       # one or more instances of RiCal::PropertyValueOccurrenceList may be passed to this method
       def exdate_property=(*property_values)
-        @exdate_property= property_values.map{|prop| prop.for_component(self)}
+        @exdate_property= property_values.map{|prop| prop.for_parent(self)}
       end
 
       # set the value of the EXDATE property to multiple values
       # one or more instances of OccurrenceList may be passed to this method
       def exdates=(*ruby_values)
-        @exdate_property = ruby_values.map {|val| RiCal::PropertyValue::OccurrenceList.convert(val).for_component(self)}
+        @exdate_property = ruby_values.map {|val| RiCal::PropertyValue::OccurrenceList.convert(self, val)}
       end
 
       # set the value of the EXDATE property to a single value
       # one instance of OccurrenceList may be passed to this method
       def exdate=(ruby_value)
-        @exdate_property = [RiCal::PropertyValue::OccurrenceList.convert(ruby_value).for_component(self)]
+        @exdate_property = [RiCal::PropertyValue::OccurrenceList.convert(self, ruby_value)]
       end
 
       # add one or more values to the EXDATE property
       # one or more instances of OccurrenceList may be passed to this method
       def  add_exdates(*ruby_values)
-       ruby_values.do {|val|  self.exdate_property << RiCal::PropertyValue::OccurrenceList.convert(val).for_component(self)}
+       ruby_values.do {|val|  self.exdate_property << RiCal::PropertyValue::OccurrenceList.convert(self, val)}
       end
 
       # add one value to the EXDATE property
       # one instances of OccurrenceList may be passed to this method
       def  add_exdate(ruby_value)
-       self.exdate_property << RiCal::PropertyValue::OccurrenceList.convert(ruby_value).for_component(self)
+       self.exdate_property << RiCal::PropertyValue::OccurrenceList.convert(self, val)
       end
 
       # remove one or more values from the EXDATE property
       # one or more instances of OccurrenceList may be passed to this method
       def  remove_exdates(*ruby_values)
-       ruby_values.do {|val|  self.exdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(val))}
+       ruby_values.do {|val|  self.exdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(self, val))}
       end
 
       # remove one value from the EXDATE property
       # one instances of OccurrenceList may be passed to this method
       def  remove_exdate(ruby_value)
-       self.exdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(ruby_value))
+       self.exdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(self, ruby_value))
       end
 
       # return the value of the EXDATE property
@@ -831,37 +831,37 @@ module RiCal
       # set the value of the EXRULE property to multiple values
       # one or more instances of RecurrenceRule may be passed to this method
       def exrules=(*ruby_values)
-        @exrule_property = ruby_values.map {|val| RiCal::PropertyValue::RecurrenceRule.convert(val)}
+        @exrule_property = ruby_values.map {|val| RiCal::PropertyValue::RecurrenceRule.convert(self, val)}
       end
 
       # set the value of the EXRULE property to a single value
       # one instance of RecurrenceRule may be passed to this method
       def exrule=(ruby_value)
-        @exrule_property = [RiCal::PropertyValue::RecurrenceRule.convert(ruby_value)]
+        @exrule_property = [RiCal::PropertyValue::RecurrenceRule.convert(self, ruby_value)]
       end
 
       # add one or more values to the EXRULE property
       # one or more instances of RecurrenceRule may be passed to this method
       def  add_exrules(*ruby_values)
-       ruby_values.do {|val|  self.exrule_property << RiCal::PropertyValue::RecurrenceRule.convert(val)}
+       ruby_values.do {|val|  self.exrule_property << RiCal::PropertyValue::RecurrenceRule.convert(self, val)}
       end
 
       # add one value to the EXRULE property
       # one instances of RecurrenceRule may be passed to this method
       def  add_exrule(ruby_value)
-       self.exrule_property << RiCal::PropertyValue::RecurrenceRule.convert(ruby_value)
+       self.exrule_property << RiCal::PropertyValue::RecurrenceRule.convert(self, val)
       end
 
       # remove one or more values from the EXRULE property
       # one or more instances of RecurrenceRule may be passed to this method
       def  remove_exrules(*ruby_values)
-       ruby_values.do {|val|  self.exrule_property.delete(RiCal::PropertyValue::RecurrenceRule.convert(val))}
+       ruby_values.do {|val|  self.exrule_property.delete(RiCal::PropertyValue::RecurrenceRule.convert(self, val))}
       end
 
       # remove one value from the EXRULE property
       # one instances of RecurrenceRule may be passed to this method
       def  remove_exrule(ruby_value)
-       self.exrule_property.delete(RiCal::PropertyValue::RecurrenceRule.convert(ruby_value))
+       self.exrule_property.delete(RiCal::PropertyValue::RecurrenceRule.convert(self, ruby_value))
       end
 
       # return the value of the EXRULE property
@@ -894,37 +894,37 @@ module RiCal
       # set the value of the RELATED-TO property to multiple values
       # one or more instances of String may be passed to this method
       def multiple_related_to=(*ruby_values)
-        @related_to_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(val)}
+        @related_to_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(self, val)}
       end
 
       # set the value of the RELATED-TO property to a single value
       # one instance of String may be passed to this method
       def related_to=(ruby_value)
-        @related_to_property = [RiCal::PropertyValue::Text.convert(ruby_value)]
+        @related_to_property = [RiCal::PropertyValue::Text.convert(self, ruby_value)]
       end
 
       # add one or more values to the RELATED-TO property
       # one or more instances of String may be passed to this method
       def  add_multiple_related_to(*ruby_values)
-       ruby_values.do {|val|  self.related_to_property << RiCal::PropertyValue::Text.convert(val)}
+       ruby_values.do {|val|  self.related_to_property << RiCal::PropertyValue::Text.convert(self, val)}
       end
 
       # add one value to the RELATED-TO property
       # one instances of String may be passed to this method
       def  add_related_to(ruby_value)
-       self.related_to_property << RiCal::PropertyValue::Text.convert(ruby_value)
+       self.related_to_property << RiCal::PropertyValue::Text.convert(self, val)
       end
 
       # remove one or more values from the RELATED-TO property
       # one or more instances of String may be passed to this method
       def  remove_multiple_related_to(*ruby_values)
-       ruby_values.do {|val|  self.related_to_property.delete(RiCal::PropertyValue::Text.convert(val))}
+       ruby_values.do {|val|  self.related_to_property.delete(RiCal::PropertyValue::Text.convert(self, val))}
       end
 
       # remove one value from the RELATED-TO property
       # one instances of String may be passed to this method
       def  remove_related_to(ruby_value)
-       self.related_to_property.delete(RiCal::PropertyValue::Text.convert(ruby_value))
+       self.related_to_property.delete(RiCal::PropertyValue::Text.convert(self, ruby_value))
       end
 
       # return the value of the RELATED-TO property
@@ -951,43 +951,43 @@ module RiCal
       # set the the RDATE property
       # one or more instances of RiCal::PropertyValueOccurrenceList may be passed to this method
       def rdate_property=(*property_values)
-        @rdate_property= property_values.map{|prop| prop.for_component(self)}
+        @rdate_property= property_values.map{|prop| prop.for_parent(self)}
       end
 
       # set the value of the RDATE property to multiple values
       # one or more instances of OccurrenceList may be passed to this method
       def rdates=(*ruby_values)
-        @rdate_property = ruby_values.map {|val| RiCal::PropertyValue::OccurrenceList.convert(val).for_component(self)}
+        @rdate_property = ruby_values.map {|val| RiCal::PropertyValue::OccurrenceList.convert(self, val)}
       end
 
       # set the value of the RDATE property to a single value
       # one instance of OccurrenceList may be passed to this method
       def rdate=(ruby_value)
-        @rdate_property = [RiCal::PropertyValue::OccurrenceList.convert(ruby_value).for_component(self)]
+        @rdate_property = [RiCal::PropertyValue::OccurrenceList.convert(self, ruby_value)]
       end
 
       # add one or more values to the RDATE property
       # one or more instances of OccurrenceList may be passed to this method
       def  add_rdates(*ruby_values)
-       ruby_values.do {|val|  self.rdate_property << RiCal::PropertyValue::OccurrenceList.convert(val).for_component(self)}
+       ruby_values.do {|val|  self.rdate_property << RiCal::PropertyValue::OccurrenceList.convert(self, val)}
       end
 
       # add one value to the RDATE property
       # one instances of OccurrenceList may be passed to this method
       def  add_rdate(ruby_value)
-       self.rdate_property << RiCal::PropertyValue::OccurrenceList.convert(ruby_value).for_component(self)
+       self.rdate_property << RiCal::PropertyValue::OccurrenceList.convert(self, val)
       end
 
       # remove one or more values from the RDATE property
       # one or more instances of OccurrenceList may be passed to this method
       def  remove_rdates(*ruby_values)
-       ruby_values.do {|val|  self.rdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(val))}
+       ruby_values.do {|val|  self.rdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(self, val))}
       end
 
       # remove one value from the RDATE property
       # one instances of OccurrenceList may be passed to this method
       def  remove_rdate(ruby_value)
-       self.rdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(ruby_value))
+       self.rdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(self, ruby_value))
       end
 
       # return the value of the RDATE property
@@ -1020,37 +1020,37 @@ module RiCal
       # set the value of the RRULE property to multiple values
       # one or more instances of RecurrenceRule may be passed to this method
       def rrules=(*ruby_values)
-        @rrule_property = ruby_values.map {|val| RiCal::PropertyValue::RecurrenceRule.convert(val)}
+        @rrule_property = ruby_values.map {|val| RiCal::PropertyValue::RecurrenceRule.convert(self, val)}
       end
 
       # set the value of the RRULE property to a single value
       # one instance of RecurrenceRule may be passed to this method
       def rrule=(ruby_value)
-        @rrule_property = [RiCal::PropertyValue::RecurrenceRule.convert(ruby_value)]
+        @rrule_property = [RiCal::PropertyValue::RecurrenceRule.convert(self, ruby_value)]
       end
 
       # add one or more values to the RRULE property
       # one or more instances of RecurrenceRule may be passed to this method
       def  add_rrules(*ruby_values)
-       ruby_values.do {|val|  self.rrule_property << RiCal::PropertyValue::RecurrenceRule.convert(val)}
+       ruby_values.do {|val|  self.rrule_property << RiCal::PropertyValue::RecurrenceRule.convert(self, val)}
       end
 
       # add one value to the RRULE property
       # one instances of RecurrenceRule may be passed to this method
       def  add_rrule(ruby_value)
-       self.rrule_property << RiCal::PropertyValue::RecurrenceRule.convert(ruby_value)
+       self.rrule_property << RiCal::PropertyValue::RecurrenceRule.convert(self, val)
       end
 
       # remove one or more values from the RRULE property
       # one or more instances of RecurrenceRule may be passed to this method
       def  remove_rrules(*ruby_values)
-       ruby_values.do {|val|  self.rrule_property.delete(RiCal::PropertyValue::RecurrenceRule.convert(val))}
+       ruby_values.do {|val|  self.rrule_property.delete(RiCal::PropertyValue::RecurrenceRule.convert(self, val))}
       end
 
       # remove one value from the RRULE property
       # one instances of RecurrenceRule may be passed to this method
       def  remove_rrule(ruby_value)
-       self.rrule_property.delete(RiCal::PropertyValue::RecurrenceRule.convert(ruby_value))
+       self.rrule_property.delete(RiCal::PropertyValue::RecurrenceRule.convert(self, ruby_value))
       end
 
       # return the value of the RRULE property
@@ -1080,37 +1080,37 @@ module RiCal
       # set the value of the REQUEST-STATUS property to multiple values
       # one or more instances of String may be passed to this method
       def request_statuses=(*ruby_values)
-        @request_status_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(val)}
+        @request_status_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(self, val)}
       end
 
       # set the value of the REQUEST-STATUS property to a single value
       # one instance of String may be passed to this method
       def request_status=(ruby_value)
-        @request_status_property = [RiCal::PropertyValue::Text.convert(ruby_value)]
+        @request_status_property = [RiCal::PropertyValue::Text.convert(self, ruby_value)]
       end
 
       # add one or more values to the REQUEST-STATUS property
       # one or more instances of String may be passed to this method
       def  add_request_statuses(*ruby_values)
-       ruby_values.do {|val|  self.request_status_property << RiCal::PropertyValue::Text.convert(val)}
+       ruby_values.do {|val|  self.request_status_property << RiCal::PropertyValue::Text.convert(self, val)}
       end
 
       # add one value to the REQUEST-STATUS property
       # one instances of String may be passed to this method
       def  add_request_status(ruby_value)
-       self.request_status_property << RiCal::PropertyValue::Text.convert(ruby_value)
+       self.request_status_property << RiCal::PropertyValue::Text.convert(self, val)
       end
 
       # remove one or more values from the REQUEST-STATUS property
       # one or more instances of String may be passed to this method
       def  remove_request_statuses(*ruby_values)
-       ruby_values.do {|val|  self.request_status_property.delete(RiCal::PropertyValue::Text.convert(val))}
+       ruby_values.do {|val|  self.request_status_property.delete(RiCal::PropertyValue::Text.convert(self, val))}
       end
 
       # remove one value from the REQUEST-STATUS property
       # one instances of String may be passed to this method
       def  remove_request_status(ruby_value)
-       self.request_status_property.delete(RiCal::PropertyValue::Text.convert(ruby_value))
+       self.request_status_property.delete(RiCal::PropertyValue::Text.convert(self, ruby_value))
       end
 
       # return the value of the REQUEST-STATUS property

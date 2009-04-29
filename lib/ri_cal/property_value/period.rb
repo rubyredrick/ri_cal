@@ -29,6 +29,7 @@ module RiCal
       def for_parent(parent)
         if parent_component.nil
           @parent_component = parent
+          self
         elsif parent_component == parent
           self
         else

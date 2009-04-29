@@ -45,7 +45,7 @@ module RiCal
           when "wkst"
             self.wkst = value
           when "until"
-            @until = PropertyValue.date_or_date_time(:value => value)
+            @until = PropertyValue.date_or_date_time(self, :value => value)
           when "count"
             @count = value.to_i
           when "interval"

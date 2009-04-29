@@ -12,7 +12,7 @@ module RiCal
       # 
       # see RFC 2445 4.7.1 p 73
       def calscale_property
-        @calscale_property ||= RiCal::PropertyValue::Text.convert("GREGORIAN")
+        @calscale_property ||= RiCal::PropertyValue::Text.convert(self, "GREGORIAN")
       end
 
       # return the value of the CALSCALE property
@@ -45,7 +45,7 @@ module RiCal
 
       # set the value of the METHOD property
       def icalendar_method=(ruby_value)
-        self.method_property= RiCal::PropertyValue::Text.convert(ruby_value)
+        self.method_property= RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # return the value of the METHOD property
@@ -67,7 +67,7 @@ module RiCal
       # 
       # see RFC 2445 4.7.3 pp 75-76
       def prodid_property
-        @prodid_property ||= RiCal::PropertyValue::Text.convert("-//com.denhaven2/NONSGML ri_cal gem//EN")
+        @prodid_property ||= RiCal::PropertyValue::Text.convert(self, "-//com.denhaven2/NONSGML ri_cal gem//EN")
       end
 
       # set the PRODID property
@@ -78,7 +78,7 @@ module RiCal
 
       # set the value of the PRODID property
       def prodid=(ruby_value)
-        self.prodid_property= RiCal::PropertyValue::Text.convert(ruby_value)
+        self.prodid_property= RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # return the value of the PRODID property
@@ -100,7 +100,7 @@ module RiCal
       # 
       # see RFC 2445 4.7.4 pp 76-77
       def version_property
-        @version_property ||= RiCal::PropertyValue::Text.convert("2.0")
+        @version_property ||= RiCal::PropertyValue::Text.convert(self, "2.0")
       end
 
       # return the value of the VERSION property

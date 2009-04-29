@@ -40,8 +40,9 @@ module RiCal
     private :elements=
     
     def for_parent(parent)
-      if parent_component.nil
+      if parent_component.nil?
         @parent_component = parent
+        self
       elsif parent_component == parent
         self
       else

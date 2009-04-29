@@ -29,7 +29,7 @@ module RiCal
       options_hash[:params] = params unless params.empty?
     end
 
-    def self.date_or_date_time(separated_line) # :nodoc:
+    def self.date_or_date_time(parent, separated_line) # :nodoc:
       match = separated_line[:value].match(/(\d\d\d\d)(\d\d)(\d\d)((T?)((\d\d)(\d\d)(\d\d))(Z?))?/)
       raise Exception.new("Invalid date") unless match
       if match[5] == "T" # date-time
@@ -39,14 +39,14 @@ module RiCal
           raise Exception.new("Invalid time, cannot combine Zulu with timezone reference") if parms[:tzid]
           parms['TZID'] = "UTC"
         end
-        PropertyValue::DateTime.new(separated_line.merge(:params => parms))
+        PropertyValue::DateTime.new(parent, separated_line.merge(:params => parms))
       else
-        PropertyValue::Date.new(separated_line)
+        PropertyValue::Date.new(parent, separated_line)
       end
     end
 
     def self.from_string(string) # :nodoc:
-      new(:value => string)
+      new(nil, :value => string)
     end
 
     def self.convert(parent, value) #:nodoc:

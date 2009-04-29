@@ -14,27 +14,27 @@ describe RiCal::PropertyValue::Duration do
     end
     
     it ".+P7W should have represent 7 weeks" do
-      value_expectations(RiCal::PropertyValue::Duration.new(:value => "+P7W"), :weeks => 7)
+      value_expectations(RiCal::PropertyValue::Duration.new(nil, :value => "+P7W"), :weeks => 7)
     end
     
     it ".P15DT5H0M20S should have represent 15 days, 5 hours and 20 seconds" do
-      value_expectations(RiCal::PropertyValue::Duration.new(:value => "P15DT5H0M20S"), :days => 15, :hours => 5, :seconds => 20)
+      value_expectations(RiCal::PropertyValue::Duration.new(nil, :value => "P15DT5H0M20S"), :days => 15, :hours => 5, :seconds => 20)
     end
     
     it ".+P2D should have represent 2 days" do
-      value_expectations(RiCal::PropertyValue::Duration.new(:value => "+P2D"), :days => 2)
+      value_expectations(RiCal::PropertyValue::Duration.new(nil, :value => "+P2D"), :days => 2)
     end
     
     it ".+PT3H should have represent 3 hours" do
-      value_expectations(RiCal::PropertyValue::Duration.new(:value => "+PT3H"), :hours => 3)
+      value_expectations(RiCal::PropertyValue::Duration.new(nil, :value => "+PT3H"), :hours => 3)
     end
     
     it ".+PT15M should have represent 15 minutes" do
-      value_expectations(RiCal::PropertyValue::Duration.new(:value => "+PT15M"), :minutes => 15)
+      value_expectations(RiCal::PropertyValue::Duration.new(nil, :value => "+PT15M"), :minutes => 15)
     end
     
     it ".+PT45S should have represent 45 seconds" do
-      value_expectations(RiCal::PropertyValue::Duration.new(:value => "+PT45S"), :seconds => 45)
+      value_expectations(RiCal::PropertyValue::Duration.new(nil, :value => "+PT45S"), :seconds => 45)
     end
   end
   
@@ -42,7 +42,7 @@ describe RiCal::PropertyValue::Duration do
     
     describe "starting at 11:00 pm, and ending at 1:01:02 am the next day" do
       before(:each) do
-        @it = RiCal::PropertyValue::Duration.from_datetimes(
+        @it = RiCal::PropertyValue::Duration.from_datetimes(nil, 
                       DateTime.parse("Sep 1, 2008 23:00"), 
                       DateTime.parse("Sep 2, 2008 1:01:02")
                   ) 

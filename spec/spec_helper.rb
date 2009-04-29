@@ -17,5 +17,5 @@ def date_time_with_zone(date_time, tzid = "US/Eastern")
 end
 
 def dt_prop(date_time, tzid = "US/Eastern")
-  RiCal::PropertyValue::DateTime.convert(date_time_with_zone(date_time, tzid))
+  RiCal::PropertyValue::DateTime.convert(nil, date_time_with_zone(date_time, tzid))
 end

@@ -88,11 +88,11 @@ module RiCal
       end
 
       def advance(options) #:nodoc:
-        PropertyValue::Date.new(:value => compute_advance(@date_time_value, options), :params =>(params ? params.dup : nil) )
+        PropertyValue::Date.new(parent_component, :value => compute_advance(@date_time_value, options), :params =>(params ? params.dup : nil) )
       end
 
       def change(options) #:nodoc:
-        PropertyValue::Date.new(:value => compute_change(@date_time_value, options), :params => (params ? params.dup : nil) )
+        PropertyValue::Date.new(parent_component,:value => compute_change(@date_time_value, options), :params => (params ? params.dup : nil) )
       end
       
       def add_date_times_to(required_timezones) #:nodoc:

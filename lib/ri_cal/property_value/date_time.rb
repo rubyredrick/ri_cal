@@ -7,6 +7,14 @@ module RiCal
 
       attr_reader :timezone #:nodoc:
 
+      def self.or_date(parent, line) # :nodoc:
+        if /T/.match(line[:value] || "")
+          new(parent, line)
+        else
+          PropertyValue::Date.new(parent, line)
+        end
+      end
+
       def self.debug # :nodoc:
         @debug
       end
@@ -40,23 +48,15 @@ module RiCal
 
       include Comparable
 
-      def self.or_date(parent, line) # :nodoc:
-        if /T/.match(line[:value] || "")
-          new(line)
-        else
-          PropertyValue::Date.new(parent, line)
-        end
-      end
-
       #  if end_time is nil => nil
       #  otherwise convert end_time to a DateTime and compute the difference
       def duration_until(end_time) # :nodoc:
-        end_time  && RiCal::PropertyValue::Duration.from_datetimes(to_datetime, end_time.to_datetime)
+        end_time  && RiCal::PropertyValue::Duration.from_datetimes(parent_component, to_datetime, end_time.to_datetime)
       end
 
       # Double-dispatch method for subtraction.
       def subtract_from_date_time_value(dtvalue) #:nodoc:
-        RiCal::PropertyValue::Duration.from_datetimes(to_datetime,dtvalue.to_datetime)
+        RiCal::PropertyValue::Duration.from_datetimes(parent_component, to_datetime,dtvalue.to_datetime)
       end
 
       # Double-dispatch method for addition.
@@ -163,9 +163,9 @@ module RiCal
 
       def self.from_string(string) # :nodoc:
         if string.match(/Z$/)
-          new(:value => string, :tzid => 'UTC')
+          new(nil, :value => string, :tzid => 'UTC')
         else
-          new(:value => string)
+          new(nil, :value => string)
         end
       end
 
@@ -185,19 +185,19 @@ module RiCal
           :value => time_or_date_time.strftime("%Y%m%d%H%M%S")
           )
         else
-          new(:value => time_or_date_time.strftime("%Y%m%dT%H%M%S"), :params => default_tzid_hash)
+          new(nil, :value => time_or_date_time.strftime("%Y%m%dT%H%M%S"), :params => default_tzid_hash)
         end
       end
       
       
       def for_parent(parent)
-        rputs "#{self}.for_parent(#{parent.inspect})"
         if parent_component.nil?
           @parent_component = parent
+          self
         elsif parent == parent_component
           self
         else
-          DateTime.new(parent, :value => value, :params => params, :tzid => tzid)
+          DateTime.new(parent, :value => @date_time_value, :params => params, :tzid => tzid)
         end
       end
       
@@ -253,26 +253,26 @@ module RiCal
       end
 
       def advance(options) # :nodoc:
-        PropertyValue::DateTime.new(
-          :value => compute_advance(@date_time_value, options),
-          :tzid => tzid,
-          :params =>(params ? params.dup : nil)
+        PropertyValue::DateTime.new(parent_component,
+                                    :value => compute_advance(@date_time_value, options),
+                                    :tzid => tzid,
+                                    :params =>(params ? params.dup : nil)
         )
       end
 
       def change(options) # :nodoc:
-        PropertyValue::DateTime.new(
-          :value => compute_change(@date_time_value, options),
-          :tzid => tzid,
-          :params => (params ? params.dup : nil)
+        PropertyValue::DateTime.new(parent_component,
+                                    :value => compute_change(@date_time_value, options),
+                                    :tzid => tzid,
+                                    :params => (params ? params.dup : nil)
         )
       end
 
       def self.civil(year, month, day, hour, min, sec, offset, start, params) # :nodoc:
-        PropertyValue::DateTime.new(
-           :value => ::DateTime.civil(year, month, day, hour, min, sec, offset, start),
-           :tzid => tzid,
-           :params =>(params ? params.dup : nil)
+        PropertyValue::DateTime.new(parent_component,
+                                   :value => ::DateTime.civil(year, month, day, hour, min, sec, offset, start),
+                                   :tzid => tzid,
+                                   :params =>(params ? params.dup : nil)
         )
       end
 

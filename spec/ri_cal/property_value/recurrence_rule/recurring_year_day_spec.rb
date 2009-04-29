@@ -7,7 +7,7 @@ describe RiCal::PropertyValue::RecurrenceRule::RecurringYearDay do
   end
   
   def time_property(str)
-    RiCal::PropertyValue.date_or_date_time(:value => str)
+    RiCal::PropertyValue.date_or_date_time(nil, :value => str)
   end
 
   describe ".matches_for(time)" do

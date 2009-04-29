@@ -9,7 +9,7 @@ module RiCal
         (diff == 0) ? nil : "#{diff}#{unit}"
       end
 
-      def self.from_datetimes(start, finish, sign='+') # :nodoc:
+      def self.from_datetimes(parent, start, finish, sign='+') # :nodoc:
         if start > finish
           from_datetimes(finish, start, '-')
         else
@@ -26,12 +26,12 @@ module RiCal
           hour_part = value_part('H', hour_diff)
           min_part = value_part('M', min_diff)
           sec_part = value_part('S', sec_diff)
-          new(:value => "#{sign}P#{day_part}T#{day_part}#{hour_part}#{min_part}#{sec_part}")        
+          new(parent, :value => "#{sign}P#{day_part}T#{day_part}#{hour_part}#{min_part}#{sec_part}")        
         end
       end
 
       def self.convert(parent, ruby_object) # :nodoc:
-        ruby_object.to_ri_cal_duration_value
+        ruby_object.to_ri_cal_duration_value.for_parent(parent)
       end
 
       def value=(string) # :nodoc:

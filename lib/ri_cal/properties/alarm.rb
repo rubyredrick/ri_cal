@@ -23,7 +23,7 @@ module RiCal
 
       # set the value of the ACTION property
       def action=(ruby_value)
-        self.action_property= RiCal::PropertyValue::Text.convert(ruby_value)
+        self.action_property= RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # return the value of the ACTION property
@@ -56,7 +56,7 @@ module RiCal
 
       # set the value of the DESCRIPTION property
       def description=(ruby_value)
-        self.description_property= RiCal::PropertyValue::Text.convert(ruby_value)
+        self.description_property= RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # return the value of the DESCRIPTION property
@@ -89,7 +89,7 @@ module RiCal
 
       # set the value of the TRIGGER property
       def trigger=(ruby_value)
-        self.trigger_property= RiCal::PropertyValue::duration_or_utc_date_time.convert(ruby_value)
+        self.trigger_property= RiCal::PropertyValue::duration_or_utc_date_time.convert(self, ruby_value)
       end
 
       # return the value of the TRIGGER property
@@ -122,7 +122,7 @@ module RiCal
 
       # set the value of the DURATION property
       def duration=(ruby_value)
-        self.duration_property= RiCal::PropertyValue::Duration.convert(ruby_value)
+        self.duration_property= RiCal::PropertyValue::Duration.convert(self, ruby_value)
       end
 
       # return the value of the DURATION property
@@ -155,7 +155,7 @@ module RiCal
 
       # set the value of the REPEAT property
       def repeat=(ruby_value)
-        self.repeat_property= RiCal::PropertyValue::Integer.convert(ruby_value)
+        self.repeat_property= RiCal::PropertyValue::Integer.convert(self, ruby_value)
       end
 
       # return the value of the REPEAT property
@@ -188,7 +188,7 @@ module RiCal
 
       # set the value of the SUMMARY property
       def summary=(ruby_value)
-        self.summary_property= RiCal::PropertyValue::Text.convert(ruby_value)
+        self.summary_property= RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # return the value of the SUMMARY property
@@ -222,37 +222,37 @@ module RiCal
       # set the value of the ATTENDEE property to multiple values
       # one or more instances of CalAddress may be passed to this method
       def attendees=(*ruby_values)
-        @attendee_property = ruby_values.map {|val| RiCal::PropertyValue::CalAddress.convert(val)}
+        @attendee_property = ruby_values.map {|val| RiCal::PropertyValue::CalAddress.convert(self, val)}
       end
 
       # set the value of the ATTENDEE property to a single value
       # one instance of CalAddress may be passed to this method
       def attendee=(ruby_value)
-        @attendee_property = [RiCal::PropertyValue::CalAddress.convert(ruby_value)]
+        @attendee_property = [RiCal::PropertyValue::CalAddress.convert(self, ruby_value)]
       end
 
       # add one or more values to the ATTENDEE property
       # one or more instances of CalAddress may be passed to this method
       def  add_attendees(*ruby_values)
-       ruby_values.do {|val|  self.attendee_property << RiCal::PropertyValue::CalAddress.convert(val)}
+       ruby_values.do {|val|  self.attendee_property << RiCal::PropertyValue::CalAddress.convert(self, val)}
       end
 
       # add one value to the ATTENDEE property
       # one instances of CalAddress may be passed to this method
       def  add_attendee(ruby_value)
-       self.attendee_property << RiCal::PropertyValue::CalAddress.convert(ruby_value)
+       self.attendee_property << RiCal::PropertyValue::CalAddress.convert(self, val)
       end
 
       # remove one or more values from the ATTENDEE property
       # one or more instances of CalAddress may be passed to this method
       def  remove_attendees(*ruby_values)
-       ruby_values.do {|val|  self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(val))}
+       ruby_values.do {|val|  self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(self, val))}
       end
 
       # remove one value from the ATTENDEE property
       # one instances of CalAddress may be passed to this method
       def  remove_attendee(ruby_value)
-       self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(ruby_value))
+       self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(self, ruby_value))
       end
 
       # return the value of the ATTENDEE property
@@ -285,37 +285,37 @@ module RiCal
       # set the value of the ATTACH property to multiple values
       # one or more instances of Uri may be passed to this method
       def attachments=(*ruby_values)
-        @attach_property = ruby_values.map {|val| RiCal::PropertyValue::Uri.convert(val)}
+        @attach_property = ruby_values.map {|val| RiCal::PropertyValue::Uri.convert(self, val)}
       end
 
       # set the value of the ATTACH property to a single value
       # one instance of Uri may be passed to this method
       def attach=(ruby_value)
-        @attach_property = [RiCal::PropertyValue::Uri.convert(ruby_value)]
+        @attach_property = [RiCal::PropertyValue::Uri.convert(self, ruby_value)]
       end
 
       # add one or more values to the ATTACH property
       # one or more instances of Uri may be passed to this method
       def  add_attachments(*ruby_values)
-       ruby_values.do {|val|  self.attach_property << RiCal::PropertyValue::Uri.convert(val)}
+       ruby_values.do {|val|  self.attach_property << RiCal::PropertyValue::Uri.convert(self, val)}
       end
 
       # add one value to the ATTACH property
       # one instances of Uri may be passed to this method
       def  add_attach(ruby_value)
-       self.attach_property << RiCal::PropertyValue::Uri.convert(ruby_value)
+       self.attach_property << RiCal::PropertyValue::Uri.convert(self, val)
       end
 
       # remove one or more values from the ATTACH property
       # one or more instances of Uri may be passed to this method
       def  remove_attachments(*ruby_values)
-       ruby_values.do {|val|  self.attach_property.delete(RiCal::PropertyValue::Uri.convert(val))}
+       ruby_values.do {|val|  self.attach_property.delete(RiCal::PropertyValue::Uri.convert(self, val))}
       end
 
       # remove one value from the ATTACH property
       # one instances of Uri may be passed to this method
       def  remove_attach(ruby_value)
-       self.attach_property.delete(RiCal::PropertyValue::Uri.convert(ruby_value))
+       self.attach_property.delete(RiCal::PropertyValue::Uri.convert(self, ruby_value))
       end
 
       # return the value of the ATTACH property

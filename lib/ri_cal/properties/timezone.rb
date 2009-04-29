@@ -23,7 +23,7 @@ module RiCal
 
       # set the value of the TZID property
       def tzid=(ruby_value)
-        self.tzid_property= RiCal::PropertyValue::Text.convert(ruby_value)
+        self.tzid_property= RiCal::PropertyValue::Text.convert(self, ruby_value)
       end
 
       # return the value of the TZID property
@@ -51,12 +51,12 @@ module RiCal
       # set the LAST-MODIFIED property
       # property value should be an instance of RiCal::PropertyValueDateTime
       def last_modified_property=(property_value)
-        @last_modified_property = property_value.for_component(self)
+        @last_modified_property = property_value.for_parent(self)
       end
 
       # set the value of the LAST-MODIFIED property
       def last_modified=(ruby_value)
-        self.last_modified_property= RiCal::PropertyValue::DateTime.convert(ruby_value).for_component(self)
+        self.last_modified_property= RiCal::PropertyValue::DateTime.convert(self, ruby_value)
       end
 
       # return the value of the LAST-MODIFIED property
@@ -89,7 +89,7 @@ module RiCal
 
       # set the value of the TZURL property
       def tzurl=(ruby_value)
-        self.tzurl_property= RiCal::PropertyValue::Uri.convert(ruby_value)
+        self.tzurl_property= RiCal::PropertyValue::Uri.convert(self, ruby_value)
       end
 
       # return the value of the TZURL property

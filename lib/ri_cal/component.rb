@@ -93,7 +93,7 @@ module RiCal
         if setter
           send(setter, line)
         else
-          self.add_x_property(line[:name], PropertyValue::Text.new(line))
+          self.add_x_property(line[:name], PropertyValue::Text.new(self, line))
         end
       end
     end

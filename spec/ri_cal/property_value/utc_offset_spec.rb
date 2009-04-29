@@ -4,7 +4,7 @@ describe RiCal::PropertyValue::UtcOffset do
   
   describe "with a positive sign and seconds" do
     before(:each) do
-      @it = RiCal::PropertyValue::UtcOffset.new(:value => "+013015")
+      @it = RiCal::PropertyValue::UtcOffset.new(nil, :value => "+013015")
     end
     
     it "should have +1 as its sign" do
@@ -26,7 +26,7 @@ describe RiCal::PropertyValue::UtcOffset do
   
   describe "with seconds omitted" do
     before(:each) do
-      @it = RiCal::PropertyValue::UtcOffset.new(:value => "+0130")
+      @it = RiCal::PropertyValue::UtcOffset.new(nil, :value => "+0130")
     end
         
     it "should have 0 as its seconds" do
@@ -35,7 +35,7 @@ describe RiCal::PropertyValue::UtcOffset do
   end
   describe "with a negative sign" do
     before(:each) do
-      @it = RiCal::PropertyValue::UtcOffset.new(:value => "-013015")
+      @it = RiCal::PropertyValue::UtcOffset.new(nil, :value => "-013015")
     end
     
     it "should have +1 as its sign" do
