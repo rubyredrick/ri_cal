@@ -120,7 +120,18 @@ module RiCal
       # determine if the object acts like an activesupport enhanced time, and return it's timezone if it has one.
       def self.object_time_zone(object)
         activesupport_time = object.acts_like_time? rescue nil
-        activesupport_time && object.time_zone rescue nil
+        time_zone = activesupport_time && object.time_zone rescue nil
+        time_zone.respond_to?(:tzinfo) ? ActiveSupportTimeZoneWrapper.new(time_zone) : time_zone
+      end
+      
+      class ActiveSupportTimeZoneWrapper
+        def initialize(active_support_time_zone)
+          @active_support_time_zone = active_support_time_zone
+        end
+        
+        def identifier
+          @active_support_time_zone.tzinfo.identifier
+        end
       end
 
       def init_timezone(time_zone) #:nodoc:
