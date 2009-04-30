@@ -93,7 +93,7 @@ module RiCal
           results = periods_for_local(local)
 
           if results.empty?
-            raise period_not_found_exception
+            raise TZInfo::PeriodNotFound
           elsif results.size < 2
             results.first
           else
@@ -118,7 +118,7 @@ module RiCal
               elsif results && results.size == 1
                 results.first
               else
-                raise AmbiguousTime, "#{local} is an ambiguous local time."
+                raise TZInfo::AmbiguousTime, "#{local} is an ambiguous local time."
               end
             end
           end
