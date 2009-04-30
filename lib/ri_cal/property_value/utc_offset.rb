@@ -14,6 +14,10 @@ module RiCal
         end
       end
       
+      def to_seconds
+        @sign * ((((hours*60) + minutes) * 60) + seconds)
+      end
+      
       def add_to_date_time_value(date_time_value)
         date_time_value.advance(:hours => sign * hours, :minutes => sign * minutes, :seconds => sign * minutes)
       end

@@ -7,6 +7,14 @@ module RiCal
         def self.entity_name #:nodoc:
           "STANDARD"
         end
+        
+        def dst?
+          false
+        end
+        
+        def ambiguous_local?(time)
+          [time.year, time.month, time.day] == [dtstart.year, dtstart.month, dtstart.day]
+        end
       end
     end
   end

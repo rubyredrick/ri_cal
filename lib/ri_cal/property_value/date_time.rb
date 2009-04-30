@@ -303,7 +303,7 @@ module RiCal
       # Compare the receiver with another object which must respond to the to_datetime message
       # The comparison is done using the Ruby DateTime representations of the two objects
       def <=>(other)
-        @date_time_value <=> other.to_datetime
+       @date_time_value <=> other.to_datetime
       end
 
       # Return a DATE-TIME property representing the receiver on a different day (if necessary) so that
