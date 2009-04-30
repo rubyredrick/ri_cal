@@ -1,8 +1,7 @@
 == RI_CAL -- a new implementation of RFC2445 in Ruby
+http://rical.rubyforge.org/
 
     by Rick DeNatale
-    http://talklikeaduck.denhaven2.com
-
 == DESCRIPTION:
 
 A new Ruby implementation of RFC2445 iCalendar.
