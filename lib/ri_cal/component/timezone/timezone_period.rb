@@ -37,23 +37,15 @@ module RiCal
         end
 
         def last_before_local(local_time) #:nodoc:
-          around_local(local_time).first
-        end
-        
-        # return an array of the  the last occurence which starts before the time,
-        # and the occurrence after that.
-        def around_local(local_time) #:nodoc:
           cand_occurrence = nil
           each do |occurrence|
-            if occurrence.dtstart_property > local_time
-              return [cand_occurrence, occurrence]
-            else
-              cand_occurrence = occurrence
-            end
+            return cand_occurrence if occurrence.dtstart_property > local_time
+            cand_occurrence = occurrence
           end
-          return [cand_occurrence, nil]
+          return cand_occurrence
         end
       end
     end
   end
 end
+

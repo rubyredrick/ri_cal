@@ -33,17 +33,8 @@ module RiCal
         # Returns an empty array if no periods are found for the given time.
         def periods_for_local(local)
           local = local.to_ri_cal_date_time_value
-          candidate_standard, next_standard = *around_std = around_local(standard, local)
-          candidate_daylight, next_daylight = *around_dst = around_local(daylight, local)
-          # Invalid local time example 8 March 2009 2:30 a.m.  springing ahead
-          #    candidate_standard = 11/2/2008 2:00 a.m. local
-          #
-          #    candidate_daylight = 3/09/2008 2:00 a.m. local
-          # Ambiguous local time example 2 November 2008, 1:30 a.m. local falling back
-          #    candidate_standard = 11/4/2007 2:00 a.m. local
-          #    next_standard =      11/2/2008 2:00 a.m. local
-          #
-          #    candidate_daylight = 3/09/2008 2:00 a.m. local
+          candidate_standard = last_before_local(standard, local)
+          candidate_daylight = last_before_local(daylight, local)
           if candidate_daylight && candidate_daylight.swallows_local?(local, candidate_standard)
             []  # Invalid local time
           elsif candidate_standard
@@ -179,11 +170,11 @@ module RiCal
         result
       end
 
-      def around_local(period_array, time) #:nodoc:
+      def last_before_local(period_array, time) #:nodoc:
         candidates = period_array.map {|period|
-          period.around_local(time)
+          period.last_before_local(time)
         }
-        result = candidates.max {|a, b| a[1].dtstart_property <=> b[1].dtstart_property}
+        result = candidates.max {|a, b| a.dtstart_property <=> b.dtstart_property}
         result
       end
   end
