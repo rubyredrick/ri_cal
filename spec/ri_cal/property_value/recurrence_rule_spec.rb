@@ -389,6 +389,10 @@ describe RiCal::PropertyValue::RecurrenceRule do
     it "should handle an array bysetpos" do
       RiCal::PropertyValue::RecurrenceRule.new(nil, :freq => "monthly", :byday => %w{MO TU WE TH FR}, :bysetpos => [2, -1]).to_ical.split(";").should include("BYSETPOS=-1,2")
     end
+
+    it "should handle until as a date" do
+      RiCal::PropertyValue::RecurrenceRule.new(nil, :freq => "daily", :until => Date.new(2009,10,17)).to_ical.should include("UNTIL=20091017")
+    end
   end
   
   def ruby19_date_str_fix(string)

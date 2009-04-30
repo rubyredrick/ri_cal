@@ -96,7 +96,7 @@ module RiCal
       #
       def until=(until_value)
         reset_errors
-        @until = until_value && until_value.to_ri_cal_date_time_value
+        @until = until_value && until_value.to_ri_cal_date_or_date_time_value
         @count = nil unless @count.nil? || @by_list_hash
       end
 
@@ -123,8 +123,9 @@ module RiCal
       # Return a string containing the RFC 2445 representation of the recurrence rule
       def to_ical
         result = ["FREQ=#{freq}"]
-        result << "COUNT=#{count}" if count
         result << "INTERVAL=#{interval}" unless interval == 1
+        result << "COUNT=#{count}" if count
+        result << "UNTIL=#{self.until.to_s(false)}" if self.until
         %w{bysecond byminute byhour byday bymonthday byyearday byweekno bymonth bysetpos}.each do |by_part|
           val = by_list[by_part.to_sym]
           result << "#{by_part.upcase}=#{[val].flatten.join(',')}" if val
