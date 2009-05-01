@@ -1,8 +1,49 @@
 require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
+require 'tzinfo'
 
 describe RiCal::PropertyValue::DateTime do
+  
+  def utc_datetime(string)
+    RiCal::PropertyValue::DateTime.new(nil, :value => "#{string}Z")
+  end
+  
+  def local_datetime(string, tzid = "America/New_York")
+    RiCal::PropertyValue::DateTime.new(@timezone_finder, :value => string, :timezone => TZInfo::Timezone.get(tzid))
+  end
+  
+  context "time_with_zone_methods" do
+    context ".utc" do
+      context "for a datetime already in zulu time" do
+        before(:each) do
+          @it = utc_datetime("19970101T012300").utc
+        end
+        
+        it "should return the same datetime" do
+          @it.should == utc_datetime("19970101T012300")
+        end
+        
+        it "should return a result with a tzid of UTC" do
+          @it.utc.tzid.should == "UTC"
+        end
+      end
 
-  describe ".from_separated_line" do
+      context "for a datetime with a tzid of America/New_York" do
+        before(:each) do
+          @it = local_datetime("19970101T012300").utc
+        end
+        
+        it "should return the equivalent utc time" do
+          @it.should == utc_datetime("19970101T062300")
+        end
+        
+        it "should return a result with a tzid of UTC" do
+          @it.tzid.should == "UTC"
+        end
+      end
+    end
+  end
+
+  context ".from_separated_line" do
     it "should return a RiCal::PropertyValue::Date if the value doesn't contain a time specification" do
       RiCal::PropertyValue::DateTime.or_date(nil, :value => "19970714").should be_kind_of(RiCal::PropertyValue::Date)
     end
@@ -133,7 +174,7 @@ describe RiCal::PropertyValue::DateTime do
       before(:each) do
         @time.stub!(:"acts_like_time?").and_return(true)
         @tzinfo_timezone = mock("TZInfo_TimeZone", :identifier => "America/New_York")
-        @active_support_timezone = mock("ActiveSupport::TimeZone", :tzinfo => @tzinfo_timezone )
+        @active_support_timezone = mock("ActiveSupport::TimeZone", :identifier => "America/New_York", :tzinfo => @tzinfo_timezone )
         @time.stub!(:time_zone).and_return(@active_support_timezone)
       end
       

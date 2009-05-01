@@ -120,23 +120,64 @@ module RiCal
       # determine if the object acts like an activesupport enhanced time, and return it's timezone if it has one.
       def self.object_time_zone(object)
         activesupport_time = object.acts_like_time? rescue nil
-        time_zone = activesupport_time && object.time_zone rescue nil
-        time_zone.respond_to?(:tzinfo) ? ActiveSupportTimeZoneWrapper.new(time_zone) : time_zone
+        activesupport_time && object.time_zone rescue nil
       end
-      
-      class ActiveSupportTimeZoneWrapper
-        def initialize(active_support_time_zone)
-          @active_support_time_zone = active_support_time_zone
+
+      class TZInfoTimeZoneWrapper
+
+        attr_accessor :tzinfo_timezone, :date_time_prop
+
+        def initialize(tzinfo_timezone, date_time_prop)
+          self.tzinfo_timezone, self.date_time_prop = tzinfo_timezone, date_time_prop
         end
         
+        def timezone_finder
+          date_time_prop.timezone_finder
+        end
+
         def identifier
-          @active_support_time_zone.tzinfo.identifier
+          tzinfo_timezone.identifier
+        end
+
+        def local_to_utc(local)
+          DateTime.new(timezone_finder, :tzid => "UTC", :value => tzinfo_timezone.local_to_utc(date_time_prop.to_datetime))
+        end
+
+        def period_for_utc(utc_time)
+          tzinfo_timezone.period_for_utc(utc_time.to_ri_cal_ruby_value)
         end
       end
 
-      def init_timezone(time_zone) #:nodoc:
-        @timezone = time_zone
-        self
+      class ActiveSupportTimeZoneWrapper < TZInfoTimeZoneWrapper
+        def initialize(active_support_time_zone, date_time_prop)
+          super(active_support_time_zone.tzinfo, date_time_prop)
+        end
+      end
+
+      class TimezoneID
+        attr_reader :identifier
+        def initialize(identifier, date_time_prop)
+          @identifer = identifier
+          @date_time_prop = date_time_prop
+        end
+        
+        def tzinfo_timezone
+          nil
+        end
+      end
+
+      def timezone=(time_zone) #:nodoc:
+        @timezone = if time_zone.respond_to?(:tzinfo)
+          ActiveSupportTimeZoneWrapper.new(time_zone, self)
+        elsif TZInfo::Timezone === time_zone
+          TZInfoTimeZoneWrapper.new(time_zone, self)
+        else
+          TimezoneID.new(timezone, self)
+        end
+      end
+
+      def timezone
+        @timezone
       end
 
       # Return the receiver if it has a floating time zone already,
@@ -157,16 +198,24 @@ module RiCal
         end
       end
 
+      # Returns a instance that represents the time in UTC.
+      def utc
+        if tzid == "UTC"
+          self
+        else
+          timezone.local_to_utc(self)
+        end
+      end
+
       def self.convert(parent, ruby_object) # :nodoc:
         time_zone = object_time_zone(ruby_object)
         if time_zone
           result = new(
           parent,
           :params => params_for_timezone(time_zone),
-          :value => ruby_object.strftime("%Y%m%d%H%M%S")
+          :value => ruby_object.strftime("%Y%m%d%H%M%S"),
+          :timezone => time_zone
           )
-          result.init_timezone(time_zone)
-          result
         else
           ruby_object.to_ri_cal_date_or_date_time_value.for_parent(parent)
         end
@@ -199,8 +248,8 @@ module RiCal
           new(nil, :value => time_or_date_time.strftime("%Y%m%dT%H%M%S"), :params => default_tzid_hash)
         end
       end
-      
-      
+
+
       def for_parent(parent)
         if timezone_finder.nil?
           @timezone_finder = parent
@@ -211,7 +260,7 @@ module RiCal
           DateTime.new(parent, :value => @date_time_value, :params => params, :tzid => tzid)
         end
       end
-      
+
       # Return the timezone id of the receiver, or nil if it is a floating time
       def tzid
         @tzid
@@ -335,15 +384,15 @@ module RiCal
       def in_same_month_as?(other)
         [other.year, other.month] == [year, month]
       end
-      
+
       def nth_wday_in_month(n, which_wday)
         @date_time_value.nth_wday_in_month(n, which_wday, self)
       end
-      
+
       def nth_wday_in_year(n, which_wday)
         @date_time_value.nth_wday_in_year(n, which_wday, self)
       end
-      
+
       # Return the number of days in the month containing the receiver
       def days_in_month
         @date_time_value.days_in_month
@@ -378,7 +427,7 @@ module RiCal
       def end_of_day
         change(:hour => 23, :min => 59, :sec => 59)
       end
-      
+
       # Return a Ruby Date representing the first day of the ISO week starting with wkst containing the receiver
       def start_of_week_with_wkst(wkst)
         @date_time_value.start_of_week_with_wkst(wkst)
@@ -472,7 +521,7 @@ module RiCal
       def day
         @date_time_value.day
       end
-      
+
       alias_method :mday, :day
 
       # Return the day of the week
@@ -489,7 +538,7 @@ module RiCal
       def min
         @date_time_value.min
       end
-      
+
        # Return the second
       def sec
         @date_time_value.sec
@@ -500,11 +549,11 @@ module RiCal
       def to_ri_cal_date_time_value
         self
       end
-      
+
       def iso_year_and_week_one_start(wkst) #:nodoc:
         @date_time_value.iso_year_and_week_one_start(wkst)
       end
-      
+
       def iso_weeks_in_year(wkst)
         @date_time_value.iso_weeks_in_year(wkst)
       end
@@ -532,7 +581,8 @@ module RiCal
       end
 
       def add_date_times_to(required_timezones) #:nodoc:
-        required_timezones.add_datetime(self) if has_local_timezone?
+        tzinfo_timezone = timezone && timezone.tzinfo_timezone
+        required_timezones.add_datetime(self, tzinfo_timezone) if tzinfo_timezone
       end
     end
   end

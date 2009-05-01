@@ -1,7 +1,6 @@
 History.txt
 Manifest.txt
 README.txt
-Rakefile
 bin/ri_cal
 component_attributes/alarm.yml
 component_attributes/calendar.yml
@@ -117,4 +116,3 @@ spec/ri_cal/required_timezones_spec.rb
 spec/ri_cal_spec.rb
 spec/spec.opts
 spec/spec_helper.rb
-tasks/spec.rake

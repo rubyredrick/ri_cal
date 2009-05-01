@@ -1,5 +1,7 @@
 require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
+require 'tzinfo'
+
 describe RiCal::RequiredTimezones::RequiredTimezone do
 
   before(:each) do
@@ -48,11 +50,16 @@ describe RiCal::RequiredTimezones do
   before(:each) do
     @it = RiCal::RequiredTimezones.new
   end
+  
+  def localtime_and_zone(date_time, tzid = "US/Eastern")
+    [dt_prop(DateTime.parse(date_time), tzid), mock("timezone", :identifier => tzid)]
+  end
+  
 
   it "should create a RequiredTimezone for each new timezone presented" do
-    @it.add_datetime(dt_prop(DateTime.parse("Mar 22, 2009 1:00")))
-    @it.add_datetime(dt_prop(DateTime.parse("Apr 16/2008 12:00"), "US/Central"))
-    @it.add_datetime(dt_prop(DateTime.parse("Apr 16, 2008 12:00")))
+    @it.add_datetime(*localtime_and_zone("Mar 22, 2009 1:00"))
+    @it.add_datetime(*localtime_and_zone("Apr 16, 2008 12:00", "US/Central"))
+    @it.add_datetime(*localtime_and_zone("Apr 16, 2008 12:00"))
     @it.required_zones.map {|zone| zone.tzid}.sort.should == ["US/Central", "US/Eastern"]
   end
 end

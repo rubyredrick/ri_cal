@@ -46,8 +46,8 @@ module RiCal
       end
     end
     
-    def add_datetime(date_time)
-      (required_timezones[date_time.tzid] ||= RequiredTimezone.new(date_time.timezone)).add_datetime(date_time)
+    def add_datetime(date_time, tzinfo_timezone)
+      (required_timezones[tzinfo_timezone.identifier] ||= RequiredTimezone.new(tzinfo_timezone)).add_datetime(date_time)
     end
   end
 end
