@@ -4,6 +4,14 @@ module RiCal
     # RiCal::PropertyValue::CalAddress represents an icalendar CalAddress property value
     # which is defined in RFC 2445 section 4.3.5 pp 35-37
     class DateTime < PropertyValue
+      
+      Dir[File.dirname(__FILE__) + "/date_time/*.rb"].sort.each do |path|
+        require path
+      end
+      include Comparable
+      include AdditiveMethods
+      include TimezoneSupport
+      include TimeMachine
 
       def self.or_date(parent, line) # :nodoc:
         if /T/.match(line[:value] || "")
@@ -13,12 +21,22 @@ module RiCal
         end
       end
 
-      def self.debug # :nodoc:
-        @debug
-      end
-
       def self.default_tzid # :nodoc:
         @default_tzid ||= "UTC"
+      end
+      
+      # determine if the object acts like an activesupport enhanced time, and return it's timezone if it has one.
+      def self.object_time_zone(object)
+        activesupport_time = object.acts_like_time? rescue nil
+        activesupport_time && object.time_zone rescue nil
+      end
+      
+      def self.params_for_timezone(time_zone) #:nodoc:
+        if time_zone == FloatingTimezone
+          {}
+        else
+          {'TZID' => time_zone.identifier, 'X-RICAL-TZSOURCE' => 'TZINFO'}
+        end
       end
 
       # Set the default tzid to be used when instantiating an instance from a ruby object
@@ -38,46 +56,6 @@ module RiCal
         else
           {'TZID' => default_tzid}
         end
-      end
-
-      def self.debug= val # :nodoc:
-        @debug = val
-      end
-
-      include Comparable
-
-      #  if end_time is nil => nil
-      #  otherwise convert end_time to a DateTime and compute the difference
-      def duration_until(end_time) # :nodoc:
-        end_time  && RiCal::PropertyValue::Duration.from_datetimes(timezone_finder, to_datetime, end_time.to_datetime)
-      end
-
-      # Double-dispatch method for subtraction.
-      def subtract_from_date_time_value(dtvalue) #:nodoc:
-        RiCal::PropertyValue::Duration.from_datetimes(timezone_finder, to_datetime,dtvalue.to_datetime)
-      end
-
-      # Double-dispatch method for addition.
-      def add_to_date_time_value(date_time_value) #:nodoc:
-        raise ArgumentError.new("Cannot add #{date_time_value} to #{self}")
-      end
-
-      # Return the difference between the receiver and other
-      #
-      # The parameter other should be either a RiCal::PropertyValue::Duration or a RiCal::PropertyValue::DateTime
-      #
-      # If other is a Duration, the result will be a DateTime, if it is a DateTime the result will be a Duration
-      def -(other)
-        other.subtract_from_date_time_value(self)
-      end
-
-      # Return the sum of the receiver and duration
-      #
-      # The parameter other duration should be  a RiCal::PropertyValue::Duration
-      #
-      # The result will be an RiCal::PropertyValue::DateTime
-      def +(duration)
-        duration.add_to_date_time_value(self)
       end
 
       def inspect # :nodoc:
@@ -114,121 +92,6 @@ module RiCal
           @date_time_value = ::DateTime.parse(val.to_s)
         end
       end
-
-      # determine if the object acts like an activesupport enhanced time, and return it's timezone if it has one.
-      def self.object_time_zone(object)
-        activesupport_time = object.acts_like_time? rescue nil
-        activesupport_time && object.time_zone rescue nil
-      end
-
-      class TZInfoTimeZoneWrapper
-
-        attr_accessor :tzinfo_timezone, :date_time_prop
-
-        def initialize(tzinfo_timezone, date_time_prop)
-          self.tzinfo_timezone, self.date_time_prop = tzinfo_timezone, date_time_prop
-        end
-        
-        def timezone_finder
-          date_time_prop.timezone_finder
-        end
-
-        def identifier
-          tzinfo_timezone.identifier
-        end
-
-        def local_to_utc(local)
-          DateTime.new(timezone_finder, :tzid => "UTC", :value => tzinfo_timezone.local_to_utc(date_time_prop.to_datetime))
-        end
-
-        def period_for_utc(utc_time)
-          tzinfo_timezone.period_for_utc(utc_time.to_ri_cal_ruby_value)
-        end
-      end
-
-      class ActiveSupportTimeZoneWrapper < TZInfoTimeZoneWrapper
-        def initialize(active_support_time_zone, date_time_prop)
-          super(active_support_time_zone.tzinfo, date_time_prop)
-        end
-      end
-
-      class TimezoneID
-        attr_reader :identifier, :date_time_prop
-        def initialize(identifier, date_time_prop)
-           @identifier = identifier
-          @date_time_prop = date_time_prop
-        end
-
-        def tzinfo_timezone
-          nil
-        end
-        
-        def timezone_finder
-          date_time_prop.timezone_finder
-        end
-
-        def resolved
-          @date_time_prop.timezone_finder.find_timezone(identifier)
-        end
-        
-        def local_to_utc(local)
-          resolved.local_to_utc(date_time_prop)
-        end
-      end
-      
-      def timezone
-        @timezone ||= TimezoneID.new(tzid, self)
-      end
-      
-      def timezone=(time_zone) #:nodoc:
-        @timezone = if time_zone.respond_to?(:tzinfo)
-          ActiveSupportTimeZoneWrapper.new(time_zone, self)
-        elsif TZInfo::Timezone === time_zone
-          TZInfoTimeZoneWrapper.new(time_zone, self)
-        elsif time_zone = FloatingTimezone
-          time_zone
-        else
-          TimezoneID.new(time_zone, self)
-        end
-        self.tzid = @timezone.identifier
-      end
-
-      # Return the receiver if it has a floating time zone already,
-      # otherwise return a DATETIME property with the same time as the receiver but with a floating time zone
-      def with_floating_timezone
-        if @time_zone == FloatingTimezone
-          self
-        else
-          @date_time_value.with_floating_timezone.to_ri_cal_date_time_value
-        end
-      end
-
-      def self.params_for_timezone(time_zone) #:nodoc:
-        if time_zone == FloatingTimezone
-          {}
-        else
-          {'TZID' => time_zone.identifier, 'X-RICAL-TZSOURCE' => 'TZINFO'}
-        end
-      end
-
-      # Returns a instance that represents the time in UTC.
-      def utc
-        if has_local_timezone?
-          timezone.local_to_utc(self)
-        else  # Already local or a floating time
-          self
-        end
-      end
-
-      # Returns the simultaneous time in <tt>Time.zone</tt>, or the specified zone.
-      def in_time_zone(new_zone = nil)
-        if new_zone.nil?
-        end
-        return self if time_zone == new_zone
-        utc.in_time_zone(new_zone)
-      end
-
-      #TODO: implement localtime - How do we know the local timezone in general.
 
       def self.convert(parent, ruby_object) # :nodoc:
         time_zone = object_time_zone(ruby_object)
@@ -284,15 +147,6 @@ module RiCal
         end
       end
 
-      # Return the timezone id of the receiver, or nil if it is a floating time
-      def tzid
-        @tzid
-      end
-
-      def tzid=(string)
-        @tzid = string
-      end
-
       def visible_params # :nodoc:
         result = {"VALUE" => "DATE-TIME"}.merge(params)
         if has_local_timezone?
@@ -310,95 +164,10 @@ module RiCal
         end
       end
 
-      def compute_change(d, options) # :nodoc:
-        ::DateTime.civil(
-        options[:year]  || d.year,
-        options[:month] || d.month,
-        options[:day]   || d.day,
-        options[:hour]  || d.hour,
-        options[:min]   || (options[:hour] ? 0 : d.min),
-        options[:sec]   || ((options[:hour] || options[:min]) ? 0 : d.sec),
-        options[:offset]  || d.offset,
-        options[:start]  || d.start
-        )
-      end
-
-      def compute_advance(d, options) # :nodoc:
-        d = d >> options[:years] * 12 if options[:years]
-        d = d >> options[:months]     if options[:months]
-        d = d +  options[:weeks] * 7  if options[:weeks]
-        d = d +  options[:days]       if options[:days]
-        datetime_advanced_by_date = compute_change(@date_time_value, :year => d.year, :month => d.month, :day => d.day)
-        seconds_to_advance = (options[:seconds] || 0) + (options[:minutes] || 0) * 60 + (options[:hours] || 0) * 3600
-        seconds_to_advance == 0 ? datetime_advanced_by_date : datetime_advanced_by_date + Rational(seconds_to_advance.round, 86400)
-      end
-
-      def advance(options) # :nodoc:
-        PropertyValue::DateTime.new(timezone_finder,
-                                    :value => compute_advance(@date_time_value, options),
-                                    :tzid => tzid,
-                                    :params =>(params ? params.dup : nil)
-        )
-      end
-
-      def change(options) # :nodoc:
-        PropertyValue::DateTime.new(timezone_finder,
-                                    :value => compute_change(@date_time_value, options),
-                                    :tzid => tzid,
-                                    :params => (params ? params.dup : nil)
-        )
-      end
-
-      def self.civil(year, month, day, hour, min, sec, offset, start, params) # :nodoc:
-        PropertyValue::DateTime.new(timezone_finder,
-                                   :value => ::DateTime.civil(year, month, day, hour, min, sec, offset, start),
-                                   :tzid => tzid,
-                                   :params =>(params ? params.dup : nil)
-        )
-      end
-
-      def change_sec(new_sec) #:nodoc:
-        PropertyValue::DateTime.civil(self.year, self.month, self.day, self.hour, self.min, sec, self.offset, self.start, params)
-      end
-
-      def change_min(new_min) #:nodoc:
-        PropertyValue::DateTime.civil(self.year, self.month, self.day, self.hour, new_min, self.sec, self.offset, self.start, params)
-      end
-
-      def change_hour(new_hour) #:nodoc:
-        PropertyValue::DateTime.civil(self.year, self.month, self.day, new_hour, self.min, self.sec, self.offset, self.start, params)
-      end
-
-      def change_day(new_day) #:nodoc:
-        PropertyValue::DateTime.civil(self.year, self.month, new_day, self.hour, self.min, self.sec, self.offset, self.start, params)
-      end
-
-      def change_month(new_month) #:nodoc:
-        PropertyValue::DateTime.civil(self.year, new_month, self.day, self.hour, self.min, self.sec, self.offset, self.start, params)
-      end
-
-      def change_year(new_year) #:nodoc:
-        PropertyValue::DateTime.civil(new_year, self.month, self.day, self.hour, self.min, self.sec, self.offset, self.start, params)
-      end
-
       # Compare the receiver with another object which must respond to the to_datetime message
       # The comparison is done using the Ruby DateTime representations of the two objects
       def <=>(other)
        @date_time_value <=> other.to_datetime
-      end
-
-      # Return a DATE-TIME property representing the receiver on a different day (if necessary) so that
-      # the result is within the 7 days starting with date
-      def in_week_starting?(date)
-        wkst_jd = date.jd
-        @date_time_value.jd.between?(wkst_jd, wkst_jd + 6)
-      end
-
-      # Return a DATE-TIME property representing the receiver on a different day (if necessary) so that
-      # the result is the first day of the ISO week starting on the wkst day containing the receiver.
-      def at_start_of_week_with_wkst(wkst)
-        date = @date_time_value.start_of_week_with_wkst(wkst)
-        change(:year => date.year, :month => date.month, :day => date.day)
       end
 
       # Determine if the receiver and other are in the same month
@@ -419,100 +188,7 @@ module RiCal
         @date_time_value.days_in_month
       end
 
-      # Return a DATE_TIME value representing the first second of the minute containing the receiver
-      def start_of_minute
-        change(:sec => 0)
-      end
 
-      # Return a DATE_TIME value representing the last second of the minute containing the receiver
-      def end_of_minute
-        change(:sec => 59)
-      end
-
-      # Return a DATE_TIME value representing the first second of the hour containing the receiver
-      def start_of_hour
-        change(:min => 0, :sec => 0)
-      end
-
-      # Return a DATE_TIME value representing the last second of the hour containing the receiver
-      def end_of_hour
-        change(:min => 59, :sec => 59)
-      end
-
-      # Return a DATE_TIME value representing the first second of the day containing the receiver
-      def start_of_day
-        change(:hour => 0, :min => 0, :sec => 0)
-      end
-
-      # Return a DATE_TIME value representing the last second of the day containing the receiver
-      def end_of_day
-        change(:hour => 23, :min => 59, :sec => 59)
-      end
-
-      # Return a Ruby Date representing the first day of the ISO week starting with wkst containing the receiver
-      def start_of_week_with_wkst(wkst)
-        @date_time_value.start_of_week_with_wkst(wkst)
-      end
-
-      # Return a DATE_TIME value representing the last second of the ISO week starting with wkst containing the receiver
-      def end_of_week_with_wkst(wkst)
-        date = at_start_of_week_with_wkst(wkst).advance(:days => 6).end_of_day
-      end
-
-      # Return a DATE_TIME value representing the first second of the month containing the receiver
-      def start_of_month
-        change(:day => 1, :hour => 0, :min => 0, :sec => 0)
-      end
-
-      # Return a DATE_TIME value representing the last second of the month containing the receiver
-      def end_of_month
-        change(:day => days_in_month, :hour => 23, :min => 59, :sec => 59)
-      end
-
-      # Return a DATE_TIME value representing the first second of the month containing the receiver
-      def start_of_year
-        change(:month => 1, :day => 1, :hour => 0, :min => 0, :sec => 0)
-      end
-
-      # Return a DATE_TIME value representing the last second of the month containing the receiver
-      def end_of_year
-        change(:month => 12, :day => 31, :hour => 23, :min => 59, :sec => 59)
-      end
-
-      # Return a DATE_TIME value representing the same time on the first day of the ISO year with weeks
-      # starting on wkst containing the receiver
-      def at_start_of_iso_year(wkst)
-        start_of_year = @date_time_value.iso_year_start(wkst)
-        change(:year => start_of_year.year, :month => start_of_year.month, :day => start_of_year.day)
-      end
-
-      # Return a DATE_TIME value representing the same time on the last day of the ISO year with weeks
-      # starting on wkst containing the receiver
-      def at_end_of_iso_year(wkst)
-        num_weeks = @date_time_value.iso_weeks_in_year(wkst)
-        at_start_of_iso_year(wkst).advance(:weeks => (num_weeks - 1), :days => 6)
-      end
-
-      # Return a DATE_TIME value representing the same time on the first day of the ISO year with weeks
-      # starting on wkst after the ISO year containing the receiver
-      def at_start_of_next_iso_year(wkst)
-        num_weeks = @date_time_value.iso_weeks_in_year(wkst)
-        at_start_of_iso_year(wkst).advance(:weeks => num_weeks)
-      end
-
-      # Return a DATE_TIME value representing the last second of the last day of the ISO year with weeks
-      # starting on wkst containing the receiver
-      def end_of_iso_year(wkst)
-        at_end_of_iso_year(wkst).end_of_day
-      end
-
-      # Return a DATE-TIME representing the same time, on the same day of the month in month.
-      # If the month of the receiver has more days than the target month the last day of the target month
-      # will be used.
-      def in_month(month)
-        first = change(:day => 1, :month => month)
-        first.change(:day => [first.days_in_month, day].min)
-      end
 
       # Determine if the receiver and another object are equivalent RiCal::PropertyValue::DateTime instances
       def ==(other)
@@ -595,15 +271,6 @@ module RiCal
       end
 
       alias_method :to_ri_cal_ruby_value, :ruby_value
-
-      # Determine if the receiver has a local time zone, i.e. it is not a floating time or a UTC time
-      def has_local_timezone?
-        tzid && tzid != "UTC"
-      end
-      
-      def tzinfo_timezone
-        timezone && timezone.tzinfo_timezone
-      end
 
       def add_date_times_to(required_timezones) #:nodoc:
         required_timezones.add_datetime(self, tzinfo_timezone) if tzinfo_timezone
