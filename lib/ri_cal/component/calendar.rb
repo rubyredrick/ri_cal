@@ -63,6 +63,10 @@ module RiCal
       def timezones
         subcomponents["VTIMEZONE"]
       end
+      
+      def find_timezone(identifier)
+        timezones.find {|tz| tz.tzid == identifier}
+      end
 
       def export_required_timezones(export_stream) # :nodoc:
         required_timezones.export_to(export_stream)

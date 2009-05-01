@@ -46,7 +46,7 @@ TZEND
 
     context ".utc_to_local" do
       it "should produce 2/27/2009 13:00 EST for 2/27/2009 18:00 UTC" do
-        expected = RiCal::PropertyValue::DateTime.new(nil, :value => "20090227T1300Z" )
+        expected = RiCal::PropertyValue::DateTime.new(nil, :params => {'TZID' => 'US/Eastern'}, :value => "20090227T1300" )
         @it.utc_to_local(DateTime.parse("Feb 27, 2009 18:00")).should == expected
       end
     end

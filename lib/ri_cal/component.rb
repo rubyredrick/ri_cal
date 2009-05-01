@@ -41,6 +41,10 @@ module RiCal
       end
     end
     
+    def find_timezone(identifier)
+      @parent.find_timezone(identifier)
+    end
+    
     def subcomponent_class #:nodoc:
       {}
     end

@@ -127,14 +127,18 @@ module RiCal
         # convert time from utc time to this time zone
         def utc_to_local(time)
           time = time.to_ri_cal_date_time_value
-          time + period_for_utc(time).tzoffsetto_property
+          converted = time + period_for_utc(time).tzoffsetto_property
+          converted.tzid = identifier
+          converted
         end
 
         # convert time from this time zone to utc time
         def local_to_utc(time)
           time = time.to_ri_cal_date_time_value
           period = period_for_local(time)
-           time - period.tzoffsetto_property
+          converted = time - period.tzoffsetto_property
+          converted.tzid = "UTC"
+          converted
         end
       end
 

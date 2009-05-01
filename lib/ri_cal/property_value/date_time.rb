@@ -5,8 +5,6 @@ module RiCal
     # which is defined in RFC 2445 section 4.3.5 pp 35-37
     class DateTime < PropertyValue
 
-      attr_reader :timezone #:nodoc:
-
       def self.or_date(parent, line) # :nodoc:
         if /T/.match(line[:value] || "")
           new(parent, line)
@@ -155,29 +153,44 @@ module RiCal
       end
 
       class TimezoneID
-        attr_reader :identifier
+        attr_reader :identifier, :date_time_prop
         def initialize(identifier, date_time_prop)
-          @identifer = identifier
+           @identifier = identifier
           @date_time_prop = date_time_prop
         end
-        
+
         def tzinfo_timezone
           nil
         end
-      end
+        
+        def timezone_finder
+          date_time_prop.timezone_finder
+        end
 
+        def resolved
+          @date_time_prop.timezone_finder.find_timezone(identifier)
+        end
+        
+        def local_to_utc(local)
+          resolved.local_to_utc(date_time_prop)
+        end
+      end
+      
+      def timezone
+        @timezone ||= TimezoneID.new(tzid, self)
+      end
+      
       def timezone=(time_zone) #:nodoc:
         @timezone = if time_zone.respond_to?(:tzinfo)
           ActiveSupportTimeZoneWrapper.new(time_zone, self)
         elsif TZInfo::Timezone === time_zone
           TZInfoTimeZoneWrapper.new(time_zone, self)
+        elsif time_zone = FloatingTimezone
+          time_zone
         else
-          TimezoneID.new(timezone, self)
+          TimezoneID.new(time_zone, self)
         end
-      end
-
-      def timezone
-        @timezone
+        self.tzid = @timezone.identifier
       end
 
       # Return the receiver if it has a floating time zone already,
@@ -200,12 +213,22 @@ module RiCal
 
       # Returns a instance that represents the time in UTC.
       def utc
-        if tzid == "UTC"
-          self
-        else
+        if has_local_timezone?
           timezone.local_to_utc(self)
+        else  # Already local or a floating time
+          self
         end
       end
+
+      # Returns the simultaneous time in <tt>Time.zone</tt>, or the specified zone.
+      def in_time_zone(new_zone = nil)
+        if new_zone.nil?
+        end
+        return self if time_zone == new_zone
+        utc.in_time_zone(new_zone)
+      end
+
+      #TODO: implement localtime - How do we know the local timezone in general.
 
       def self.convert(parent, ruby_object) # :nodoc:
         time_zone = object_time_zone(ruby_object)
@@ -283,8 +306,6 @@ module RiCal
       def params=(value)
         @params = value.dup
         if params_timezone = params['TZID']
-          if params_timezone == 'UTC'
-          end
           @tzid = params_timezone
         end
       end
@@ -579,9 +600,12 @@ module RiCal
       def has_local_timezone?
         tzid && tzid != "UTC"
       end
+      
+      def tzinfo_timezone
+        timezone && timezone.tzinfo_timezone
+      end
 
       def add_date_times_to(required_timezones) #:nodoc:
-        tzinfo_timezone = timezone && timezone.tzinfo_timezone
         required_timezones.add_datetime(self, tzinfo_timezone) if tzinfo_timezone
       end
     end
