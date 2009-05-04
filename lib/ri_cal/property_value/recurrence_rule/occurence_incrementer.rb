@@ -1,6 +1,3 @@
-#- ©2009 Rick DeNatale
-#- All rights reserved
-
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
@@ -38,7 +35,9 @@ module RiCal
           date_time.change(:month => 1, :day => 1)
         end
       end
-
+      #- ©2009 Rick DeNatale
+      #- All rights reserved. Refer to the file README.txt for the license
+      #
       class OccurrenceIncrementer # :nodoc:
 
         attr_accessor :sub_cycle_incrementer, :current_occurrence, :outer_range

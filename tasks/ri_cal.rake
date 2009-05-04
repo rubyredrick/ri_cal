@@ -349,7 +349,7 @@ class VEntityUpdater
       module_name = @name.camelize
       class_name = module_name.sub(/Properties$/, "")
       ruby_out_file.puts("module RiCal")
-      ruby_out_file.puts("  module Properties")
+      ruby_out_file.puts("  module Properties #:nodoc:")
       @indent = "    "
       ruby_out_file.puts("    #- ©2009 Rick DeNatale")
       ruby_out_file.puts("    #- #- All rights reserved. Refer to the file README.txt for the license")

@@ -8,7 +8,7 @@ module RiCal
         @component = component
       end
 
-      def method_missing(selector, *args, &init_block)
+      def method_missing(selector, *args, &init_block) #:nodoc:
         if(sub_comp_class = @component.subcomponent_class[selector])
           if init_block
             sub_comp = sub_comp_class.new(@component)
@@ -33,7 +33,7 @@ module RiCal
 
     autoload :Timezone, "#{File.dirname(__FILE__)}/component/timezone.rb"
     
-    attr_accessor :imported
+    attr_accessor :imported #:nodoc:
 
     def initialize(parent=nil, &init_block) #:nodoc:
       @parent = parent
@@ -46,12 +46,12 @@ module RiCal
       end
     end
     
-    def find_timezone(identifier)
+    def find_timezone(identifier) #:nodoc:
       @parent.find_timezone(identifier)
     end
     
     def time_zone_for(ruby_object)
-      @parent.time_zone_for(ruby_object)
+      @parent.time_zone_for(ruby_object) #:nodoc:
     end
     
     def subcomponent_class #:nodoc:
@@ -73,7 +73,7 @@ module RiCal
       Parser.new(io).parse
     end
     
-    def imported?
+    def imported? #:nodoc:
       imported
     end
 

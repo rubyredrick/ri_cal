@@ -1,8 +1,8 @@
-#- ©2009 Rick DeNatale
-#- All rights reserved
-
 module RiCal
   class PropertyValue
+    #- ©2009 Rick DeNatale
+    #- All rights reserved. Refer to the file README.txt for the license
+    #
     # Methods for DateTime which support getting values at different point in time.
     module TimeMachine
       def compute_change(d, options) # :nodoc:

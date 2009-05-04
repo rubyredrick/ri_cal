@@ -1,8 +1,8 @@
-#- ©2009 Rick DeNatale
-#- All rights reserved
-
 module RiCal
   class PropertyValue
+    #- ©2009 Rick DeNatale
+    #- All rights reserved. Refer to the file README.txt for the license
+    #
     # Time zone related ethods for DateTime
     module TimezoneSupport      
       # Return the timezone id of the receiver, or nil if it is a floating time

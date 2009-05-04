@@ -2,9 +2,8 @@ module RiCal
   #- ©2009 Rick DeNatale
   #- All rights reserved. Refer to the file README.txt for the license
   #
-  class Parser
-    Parser # :nodoc:
-    def next_line
+  class Parser # :nodoc:
+    def next_line #:nodoc:
       result = nil
       begin
         result = buffer_or_line
@@ -20,7 +19,7 @@ module RiCal
       end
     end
 
-    def parse_params(string)
+    def parse_params(string) #:nodoc:
       if string
         string.split(";").inject({}) { |result, val|
           m = /^(.+)=(.+)$/.match(val)
@@ -33,7 +32,7 @@ module RiCal
       end
     end
 
-    def params_and_value(string)
+    def params_and_value(string) #:nodoc:
       string = string.sub(/^:/,'')
       return ["", string] unless string.match(/^;/)
       segments = string.sub(';','').split(":")
@@ -54,7 +53,7 @@ module RiCal
       [params.join(":"), values.join(":")]
     end
 
-    def separate_line(string)
+    def separate_line(string) #:nodoc:
       match = string.match(/^([^;:]*)(.*)$/)
       name = match[1]
       params, value = *params_and_value(match[2])
@@ -65,33 +64,33 @@ module RiCal
       }
     end
 
-    def next_separated_line
+    def next_separated_line #:nodoc:
       line = next_line
       line ? separate_line(line) : nil
     end
 
-    def buffer_or_line
+    def buffer_or_line #:nodoc:
       @buffer ||= @io.readline.chomp
     end
 
-    def initialize(io = StringIO.new(""))
+    def initialize(io = StringIO.new("")) #:nodoc:
       @io = io
     end
 
-    def self.parse(io = StringIO.new(""))
+    def self.parse(io = StringIO.new("")) #:nodoc:
       new(io).parse
     end
 
-    def invalid
+    def invalid #:nodoc:
       raise Exception.new("Invalid icalendar file")
     end
 
-    def still_in(component, separated_line)
+    def still_in(component, separated_line) #:nodoc:
       invalid unless separated_line
       separated_line[:value] != component || separated_line[:name] != "END"
     end
 
-    def parse
+    def parse #:nodoc:
       result = []
       while start_line = next_line
         @parent_stack = []
@@ -100,8 +99,8 @@ module RiCal
       result
     end
 
-    # TODO: Need to parse non-standard component types (iana-tokey or x-name)
-    def parse_one(start, parent_component)
+    # TODO: Need to parse non-standard component types (iana-token or x-name)
+    def parse_one(start, parent_component) #:nodoc:
 
       @parent_stack << parent_component
       if Hash === start

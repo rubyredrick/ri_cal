@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved. Refer to the file README.txt for the license
+#
 %w[rubygems rake rake/clean fileutils newgem rubigen].each { |f| require f }
 require File.dirname(__FILE__) + '/lib/ri_cal'
 

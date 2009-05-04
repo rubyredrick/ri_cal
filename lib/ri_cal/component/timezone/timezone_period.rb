@@ -15,7 +15,7 @@ module RiCal
 
         include OccurrenceEnumerator
 
-        def zone_identifier
+        def zone_identifier #:nodoc:
           tzname.first
         end
 
@@ -27,7 +27,7 @@ module RiCal
           nil
         end
         
-        def utc_total_offset
+        def utc_total_offset #:nodoc:
           tzoffsetfrom_property.to_seconds
         end
 

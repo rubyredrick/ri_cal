@@ -8,7 +8,7 @@ module RiCal
     # to see the property accessing methods for this class see the RiCal::Properties::Calendar module
     class Calendar < Component
       include RiCal::Properties::Calendar
-      attr_reader :tz_source
+      attr_reader :tz_source #:nodoc:
 
       def initialize(parent=nil, &init_block) #:nodoc:
         super
@@ -19,7 +19,7 @@ module RiCal
         "VCALENDAR"
       end
 
-      def tz_info_source?
+      def tz_info_source? #:nodoc:
         @tz_source == 'TZINFO'
       end
 
@@ -101,31 +101,31 @@ module RiCal
         subcomponents["VTIMEZONE"]
       end
       
-      class TZInfoWrapper
-        attr_reader :tzinfo, :calendar
-        def initialize(tzinfo, calendar)
+      class TZInfoWrapper #:nodoc:
+        attr_reader :tzinfo, :calendar #:nodoc:
+        def initialize(tzinfo, calendar) #:nodoc:
           @tzinfo = tzinfo
           @calendar = calendar
         end
         
-        def identifier
+        def identifier #:nodoc:
           tzinfo.identifier
         end
         
-        def date_time(ruby_time, tzid)
+        def date_time(ruby_time, tzid) #:nodoc:
           RiCal::PropertyValue::DateTime.new(calendar, :value => ruby_time, :params => {'TZID' => tzid})
         end
         
-        def local_to_utc(utc)
+        def local_to_utc(utc) #:nodoc:
           date_time(tzinfo.local_to_utc(utc.to_ri_cal_ruby_value), 'UTC')
         end
         
-        def utc_to_local(local)
+        def utc_to_local(local) #:nodoc:
           date_time(tzinfo.utc_to_local(local.to_ri_cal_ruby_value), tzinfo.identifier)
         end
       end
 
-      def find_timezone(identifier)
+      def find_timezone(identifier)  #:nodoc:
         if tz_info_source?
           TZInfoWrapper.new(TZInfo::Timezone.get(identifier), self)
         else
@@ -137,17 +137,17 @@ module RiCal
         required_timezones.export_to(export_stream)
       end
 
-      class FoldingStream
-        attr_reader :stream
-        def initialize(stream)
+      class FoldingStream #:nodoc:
+        attr_reader :stream #:nodoc:
+        def initialize(stream) #:nodoc:
           @stream = stream || StringIO.new
         end
 
-        def string
+        def string #:nodoc:
           stream.string
         end
 
-        def fold(string)
+        def fold(string) #:nodoc:
           stream.puts(string[0,73])
           string = string[73..-1]
           while string
@@ -156,7 +156,7 @@ module RiCal
           end
         end
 
-        def puts(*strings)
+        def puts(*strings) #:nodoc:
           strings.each do |string|
             string.split("\n").each do |line|
               fold(line)

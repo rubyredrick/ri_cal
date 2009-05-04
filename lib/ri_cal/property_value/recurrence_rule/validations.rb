@@ -1,9 +1,9 @@
-#- ©2009 Rick DeNatale
-#- All rights reserved
-
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
+      #- ©2009 Rick DeNatale
+      #- All rights reserved. Refer to the file README.txt for the license
+      #
       module Validations #:nodoc:
         # Validate that the parameters of the reciever conform to RFC 2445
         # If errors are found they will be added to the receivers errors
