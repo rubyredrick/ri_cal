@@ -44,7 +44,7 @@ module RiCal
     end
 
     def to_ri_cal_date_time_value #:nodoc:
-      ::RiCal::PropertyValue::DateTime.convert(self)
+      ::RiCal::PropertyValue::DateTime.new(nil, :value => @time, :params => {'TZID' => nil})
     end
 
     alias_method :to_ri_cal_date_or_date_time_value, :to_ri_cal_date_time_value #:nodoc:

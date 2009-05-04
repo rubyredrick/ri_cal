@@ -2,13 +2,16 @@ require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 require 'tzinfo'
 
 describe RiCal::PropertyValue::DateTime do
+  before(:each) do
+    @cal = RiCal.Calendar
+  end
   
   def utc_datetime(string)
-    RiCal::PropertyValue::DateTime.new(nil, :value => "#{string}Z")
+    RiCal::PropertyValue::DateTime.new(@cal, :value => "#{string}Z")
   end
   
   def local_datetime(string, tzid = "America/New_York")
-    RiCal::PropertyValue::DateTime.new(@timezone_finder, :value => string, :timezone => TZInfo::Timezone.get(tzid))
+    RiCal::PropertyValue::DateTime.new(@cal, :value => string, :params => {'TZID' => tzid})
   end
   
   context "time_with_zone_methods" do
@@ -256,7 +259,7 @@ END:VCALENDAR
         end
         
         it "should have the correct parameters" do
-          @it.params.should == {'TZID' => 'America/New_York', 'X-RICAL-TZSOURCE' => 'TZINFO'}
+          @it.params.should == {'TZID' => 'America/New_York'}
         end
 
         it "should have a TZID of America/New_York" do
@@ -274,7 +277,7 @@ END:VCALENDAR
         end
         
         it "should have the correct parameters" do
-          @it.params.should == {'TZID' => 'America/New_York', 'X-RICAL-TZSOURCE' => 'TZINFO'}
+          @it.params.should == {'TZID' => 'America/New_York'}
         end
 
         it "should have a TZID of America/New_York" do
@@ -301,7 +304,7 @@ END:VCALENDAR
         end
         
         it "should have the correct parameters" do
-          @it.params.should == {'TZID' => 'America/New_York', 'X-RICAL-TZSOURCE' => 'TZINFO'}
+          @it.params.should == {'TZID' => 'America/New_York'}
         end
 
         it "should have a TZID of America/New_York" do
@@ -319,7 +322,7 @@ END:VCALENDAR
         end
         
         it "should have the correct parameters" do
-          @it.params.should == {'TZID' => 'America/New_York', 'X-RICAL-TZSOURCE' => 'TZINFO'}
+          @it.params.should == {'TZID' => 'America/New_York'}
         end
 
         it "should have a TZID of America/New_York" do

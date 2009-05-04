@@ -29,8 +29,10 @@ module RiCal
     end
 
     autoload :Timezone, "#{File.dirname(__FILE__)}/component/timezone.rb"
+    
+    attr_accessor :imported
 
-    def initialize(parent=nil, &init_block) #:nodoc: 
+    def initialize(parent=nil, &init_block) #:nodoc:
       @parent = parent
       if block_given?
         if init_block.arity == 1
@@ -45,12 +47,17 @@ module RiCal
       @parent.find_timezone(identifier)
     end
     
+    def time_zone_for(ruby_object)
+      @parent.time_zone_for(ruby_object)
+    end
+    
     def subcomponent_class #:nodoc:
       {}
     end
 
     def self.from_parser(parser, parent) #:nodoc:
       entity = self.new(parent)
+      entity.imported = true
       line = parser.next_separated_line
       while parser.still_in(entity_name, line)
         entity.process_line(parser, line)
@@ -62,11 +69,15 @@ module RiCal
     def self.parse(io) #:nodoc:
       Parser.new(io).parse
     end
+    
+    def imported?
+      imported
+    end
 
     def self.parse_string(string) #:nodoc:
       parse(StringIO.new(string))
     end
-
+    
     def subcomponents #:nodoc:
       @subcomponents ||= Hash.new {|h, k| h[k] = []}
     end
@@ -185,6 +196,7 @@ module RiCal
     def export_to(export_stream)
       export_stream.puts("BEGIN:#{entity_name}")
       export_properties_to(export_stream)
+      export_x_properties_to(export_stream)
       subcomponents.values do |sub|
         export_subcomponent_to(export_subcomponent_to, sub)
       end

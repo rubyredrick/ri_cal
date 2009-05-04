@@ -6,15 +6,25 @@ module RiCal
     # to see the property accessing methods for this class see the RiCal::Properties::Calendar module
     class Calendar < Component
       include RiCal::Properties::Calendar
+      attr_reader :tz_source
+
+      def initialize(parent=nil, &init_block) #:nodoc:
+        super
+        @tz_source = 'TZINFO' # Until otherwise told
+      end
 
       def self.entity_name #:nodoc:
         "VCALENDAR"
       end
 
+      def tz_info_source?
+        @tz_source == 'TZINFO'
+      end
+
       def required_timezones # :nodoc:
         @required_timezones ||=  RequiredTimezones.new
       end
-      
+
       def subcomponent_class # :nodoc:
         {
           :event => Event,
@@ -24,14 +34,20 @@ module RiCal
           :timezone => Timezone,
         }
       end
-      
+
       def export_properties_to(export_stream) # :nodoc:
+        prodid_property.params["X-RICAL-TZSOURCE"] = @tz_source
         export_prop_to(export_stream, "PRODID", prodid_property)
         export_prop_to(export_stream, "CALSCALE", calscale_property)
         export_prop_to(export_stream, "VERSION", version_property)
         export_prop_to(export_stream, "METHOD", method_property)
       end
-      
+
+      def prodid_property_from_string(line) # :nodoc:
+        result = super
+        @tz_source = prodid_property.params["X-RICAL-TZSOURCE"]
+        result
+      end
 
       # return an array of event components contained within this Calendar
       def events
@@ -41,7 +57,7 @@ module RiCal
       # add an event to the calendar
       def add_subcomponent(component)
         super(component)
-        component.add_date_times_to(required_timezones)
+        component.add_date_times_to(required_timezones) if tz_info_source?
       end
 
       # return an array of todo components contained within this Calendar
@@ -59,29 +75,71 @@ module RiCal
         subcomponents["VFREEBUSY"]
       end
 
+      class TimezoneID
+        attr_reader :identifier, :calendar
+        def initialize(identifier, calendar)
+          self.identifier, self.calendar = identifier, calendar
+        end
+
+        def tzinfo_timezone
+          nil
+        end
+
+        def resolved
+          calendar.find_timezone(identifier)
+        end
+
+        def local_to_utc(local)
+          resolved.local_to_utc(date_time_prop)
+        end
+      end
+
       # return an array of timezone components contained within this calendar
       def timezones
         subcomponents["VTIMEZONE"]
       end
       
+      class TZInfoWrapper
+        attr_reader :tzinfo
+        def initialize(tzinfo)
+          @tzinfo = tzinfo
+        end
+        
+        def date_time(ruby_time, tzid)
+          RiCal::PropertyValue::DateTime.new(self, :value => ruby_time, :params => {'TZID' => tzid})
+        end
+        
+        def local_to_utc(utc)
+          date_time(tzinfo.local_to_utc(utc.to_ri_cal_ruby_value), 'UTC')
+        end
+        
+        def utc_to_local(local)
+          date_time(tzinfo.utc_to_local(local.to_ri_cal_ruby_value), tzinfo.identifier)
+        end
+      end
+
       def find_timezone(identifier)
-        timezones.find {|tz| tz.tzid == identifier}
+        if tz_info_source?
+          TZInfoWrapper.new(TZInfo::Timezone.get(identifier))
+        else
+          timezones.find {|tz| tz.tzid == identifier}
+        end
       end
 
       def export_required_timezones(export_stream) # :nodoc:
         required_timezones.export_to(export_stream)
       end
-      
+
       class FoldingStream
         attr_reader :stream
         def initialize(stream)
           @stream = stream || StringIO.new
         end
-        
+
         def string
           stream.string
         end
-        
+
         def fold(string)
           stream.puts(string[0,73])
           string = string[73..-1]
@@ -90,7 +148,7 @@ module RiCal
             string = string[72..-1]
           end
         end
-        
+
         def puts(*strings)
           strings.each do |string|
             string.split("\n").each do |line|
@@ -108,6 +166,8 @@ module RiCal
         export_stream.puts("BEGIN:VCALENDAR")
         #TODO: right now I'm assuming that all timezones are internal what happens when we export
         #      an imported calendar.
+        export_properties_to(export_stream)
+        export_x_properties_to(export_stream)
         export_required_timezones(export_stream)
         export_subcomponent_to(export_stream, events)
         export_subcomponent_to(export_stream, todos)

@@ -8,11 +8,16 @@ module RiCal
       Dir[File.dirname(__FILE__) + "/date_time/*.rb"].sort.each do |path|
         require path
       end
+      
       include Comparable
       include AdditiveMethods
       include TimezoneSupport
       include TimeMachine
 
+      # def initialize(timezone_finder, options={}) #:nodoc:
+      #   super(timezone_finder ? timezone_finder : Calendar.new, options)
+      # end
+      # 
       def self.or_date(parent, line) # :nodoc:
         if /T/.match(line[:value] || "")
           new(parent, line)
@@ -24,18 +29,12 @@ module RiCal
       def self.default_tzid # :nodoc:
         @default_tzid ||= "UTC"
       end
-      
-      # determine if the object acts like an activesupport enhanced time, and return it's timezone if it has one.
-      def self.object_time_zone(object)
-        activesupport_time = object.acts_like_time? rescue nil
-        activesupport_time && object.time_zone rescue nil
-      end
-      
-      def self.params_for_timezone(time_zone) #:nodoc:
-        if time_zone == FloatingTimezone
+
+      def self.params_for_tzid(tzid) #:nodoc:
+        if tzid == FloatingTimezone
           {}
         else
-          {'TZID' => time_zone.identifier, 'X-RICAL-TZSOURCE' => 'TZINFO'}
+          {'TZID' => tzid}
         end
       end
 
@@ -92,27 +91,16 @@ module RiCal
           @date_time_value = ::DateTime.parse(val.to_s)
         end
       end
-
-      def self.convert(parent, ruby_object) # :nodoc:
-        time_zone = object_time_zone(ruby_object)
-        if time_zone
-          result = new(
-          parent,
-          :params => params_for_timezone(time_zone),
-          :value => ruby_object.strftime("%Y%m%d%H%M%S"),
-          :timezone => time_zone
-          )
-        else
-          ruby_object.to_ri_cal_date_or_date_time_value.for_parent(parent)
-        end
+      
+      # determine if the object acts like an activesupport enhanced time, and return it's timezone if it has one.
+      def self.object_tzid(object)
+        activesupport_time = object.acts_like_time? rescue nil
+        time_zone = activesupport_time && object.time_zone rescue nil
+        time_zone && (time_zone.respond_to?(:tzinfo) ? time_zone.tzinfo  : time_zone).identifier
       end
 
-      def self.from_string(string) # :nodoc:
-        if string.match(/Z$/)
-          new(nil, :value => string, :tzid => 'UTC')
-        else
-          new(nil, :value => string)
-        end
+      def self.convert(timezone_finder, ruby_object) # :nodoc:
+        convert_with_tzid_or_nil(timezone_finder, ruby_object) || ruby_object.to_ri_cal_date_or_date_time_value.for_parent(timezone_finder)
       end
 
       # Create an instance of RiCal::PropertyValue::DateTime representing a Ruby Time or DateTime
@@ -124,17 +112,30 @@ module RiCal
       # * RiCal::PropertyValue::DateTime.default_tzid
       # * RiCal::PropertyValue::DateTime#object_time_zone
       def self.from_time(time_or_date_time)
-        time_zone = object_time_zone(time_or_date_time)
-        if time_zone
+        convert_with_tzid_or_nil(nil, time_or_date_time) || 
+        new(nil, :value => time_or_date_time.strftime("%Y%m%dT%H%M%S"), :params => default_tzid_hash)
+      end
+
+      def self.convert_with_tzid_or_nil(timezone_finder, ruby_object) # :nodoc:
+        tzid = self.object_tzid(ruby_object)
+        if tzid
           new(
-          :params => {'TZID' => time_zone.identifier, 'X-RICAL-TZSOURCE' => 'TZINFO'},
-          :value => time_or_date_time.strftime("%Y%m%d%H%M%S")
+          timezone_finder,
+          :params => params_for_tzid(tzid),
+          :value => ruby_object.strftime("%Y%m%d%H%M%S")
           )
         else
-          new(nil, :value => time_or_date_time.strftime("%Y%m%dT%H%M%S"), :params => default_tzid_hash)
+          nil
         end
       end
 
+      def self.from_string(string) # :nodoc:
+        if string.match(/Z$/)
+          new(nil, :value => string, :tzid => 'UTC')
+        else
+          new(nil, :value => string)
+        end
+      end
 
       def for_parent(parent)
         if timezone_finder.nil?
@@ -273,7 +274,7 @@ module RiCal
       alias_method :to_ri_cal_ruby_value, :ruby_value
 
       def add_date_times_to(required_timezones) #:nodoc:
-        required_timezones.add_datetime(self, tzinfo_timezone) if tzinfo_timezone
+        required_timezones.add_datetime(self, tzid) if has_local_timezone?
       end
     end
   end

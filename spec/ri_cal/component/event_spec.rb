@@ -8,7 +8,7 @@ describe RiCal::Component::Event do
     end
   end
 
-  describe "with an rrule" do
+  context "with an rrule" do
     before(:each) do
       @it = RiCal::Component::Event.parse_string("BEGIN:VEVENT\nRRULE:FREQ=DAILY\nEND:VEVENT").first
     end
@@ -18,7 +18,7 @@ describe RiCal::Component::Event do
     end
   end
 
-  describe "description property" do
+  context "description property" do
     before(:each) do
       @ical_desc = "posted by Joyce per Zan\\nASheville\\, Rayan's Restauratn\\, Biltm\n ore Square"
       @ruby_desc = "posted by Joyce per Zan\nASheville, Rayan's Restauratn, Biltmore Square"
@@ -36,7 +36,7 @@ describe RiCal::Component::Event do
 
   end
 
-  describe "with both dtend and duration specified" do
+  context "with both dtend and duration specified" do
     before(:each) do
       @it = RiCal::Component::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\nDURATION:H1\nEND:VEVENT").first
     end
@@ -46,7 +46,7 @@ describe RiCal::Component::Event do
     end
   end
 
-  describe "with a duration property" do
+  context "with a duration property" do
     before(:each) do
       @it = RiCal::Component::Event.parse_string("BEGIN:VEVENT\nDURATION:H1\nEND:VEVENT").first
     end
@@ -70,7 +70,7 @@ describe RiCal::Component::Event do
     end
   end
 
-  describe "with a dtend property" do
+  context "with a dtend property" do
     before(:each) do
       @it = RiCal::Component::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\nEND:VEVENT").first
     end
@@ -90,7 +90,7 @@ describe RiCal::Component::Event do
     end
   end
 
-  describe "with a nested alarm component" do
+  context "with a nested alarm component" do
     before(:each) do
       @it = RiCal::Component::Event.parse_string("BEGIN:VEVENT\nDTEND:19970903T190000Z\n\nBEGIN:VALARM\nEND:VALARM\nEND:VEVENT").first
     end
@@ -104,7 +104,7 @@ describe RiCal::Component::Event do
     end
   end
 
-  describe ".export" do
+  context ".export" do
     require 'rubygems'
     require 'tzinfo'
 
@@ -122,7 +122,8 @@ describe RiCal::Component::Event do
     end
 
     before(:each) do
-      @it = RiCal::Component::Event.new
+      cal = RiCal.Calendar
+      @it = RiCal::Component::Event.new(cal)
     end
 
     it "should cause a VTIMEZONE to be included for a dtstart with a local timezone" do
@@ -142,7 +143,7 @@ describe RiCal::Component::Event do
 
     it "should properly format dtstart with a local time zone" do
       @it.dtstart = date_time_with_tzinfo_zone(DateTime.parse("April 22, 2009 17:55"), "America/New_York")
-      unfold(@it.export).should match(/^DTSTART;TZID=America\/New_York;VALUE=DATE-TIME;X-RICAL-TZSOURCE=TZINFO:20090422T175500$/)
+      unfold(@it.export).should match(/^DTSTART;TZID=America\/New_York;VALUE=DATE-TIME:20090422T175500$/)
     end
 
     it "should properly format dtstart with a date" do

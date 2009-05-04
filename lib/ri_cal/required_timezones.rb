@@ -9,8 +9,8 @@ module RiCal
       
       attr_reader :first_time, :last_time, :timezone
       
-      def initialize(timezone)
-        @timezone = timezone
+      def initialize(tzid)
+        @timezone = RiCal::Component::TZInfoTimezone.new(TZInfo::Timezone.get(tzid))
       end
       
       def tzid
@@ -41,13 +41,13 @@ module RiCal
     
     def export_to(export_stream)
       required_zones.each do |z|
-        tzinfo_timezone = RiCal::Component::TZInfoTimezone.new(z.timezone)
-        tzinfo_timezone.export_local_to(export_stream, z.first_time.to_ri_cal_ruby_value, z.last_time.to_ri_cal_ruby_value)
+        tzinfo_timezone =z.timezone
+        tzinfo_timezone.export_local_to(export_stream, z.first_time, z.last_time)
       end
     end
     
-    def add_datetime(date_time, tzinfo_timezone)
-      (required_timezones[tzinfo_timezone.identifier] ||= RequiredTimezone.new(tzinfo_timezone)).add_datetime(date_time)
+    def add_datetime(date_time, tzid)
+      (required_timezones[tzid] ||= RequiredTimezone.new(tzid)).add_datetime(date_time)
     end
   end
 end

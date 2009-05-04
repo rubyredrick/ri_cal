@@ -82,12 +82,12 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
 
   # convert time from this time zone to utc time
   def local_to_utc(time)
-    @tzinfo_timezone.local_to_utc(time)
+    @tzinfo_timezone.local_to_utc(time.to_ri_cal_ruby_value)
   end
 
   # convert time from utc time to this time zone
   def utc_to_local(time)
-    @tzinfo_timezone.utc_to_local(time)
+    @tzinfo_timezone.utc_to_local(time.to_ri_cal_ruby_value)
   end
 
   # return the time zone identifier
@@ -96,7 +96,7 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
   end
 
   def export_local_to(export_stream, local_start, local_end) #:nodoc:
-    export_utc_to(export_stream, local_to_utc(local_start), local_to_utc(local_end))
+    export_utc_to(export_stream, local_to_utc(local_start.to_ri_cal_ruby_value), local_to_utc(local_end.to_ri_cal_ruby_value))
   end
 
   def to_rfc2445_string(utc_start, utc_end) #:nodoc:
@@ -108,7 +108,9 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
   def export_utc_to(export_stream, utc_start, utc_end) #:nodoc:
     export_stream.puts "BEGIN:VTIMEZONE","TZID;X-RICAL-TZSOURCE=TZINFO:#{identifier}"
     periods = Periods.new
+    rputs "export_utc_to utc_start is #{utc_start.inspect} #{tzinfo_timezone.inspect}"
     period = tzinfo_timezone.period_for_utc(utc_start)
+    rputs = "  period is #{period.inspect}"
     #start with the period before the one containing utc_start
     period = tzinfo_timezone.period_for_utc(period.utc_start - 1)
     while period && period.utc_start < utc_end

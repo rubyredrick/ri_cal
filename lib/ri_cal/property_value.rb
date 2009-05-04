@@ -4,8 +4,8 @@ module RiCal
 
     attr_writer :params, :value #:nodoc:
     attr_reader :timezone_finder #:nodoc:
-    def initialize(parent, options={}) # :nodoc:
-      @timezone_finder = parent
+    def initialize(timezone_finder, options={}) # :nodoc:
+      @timezone_finder = timezone_finder
       validate_value(options)
       ({:params => {}}).merge(options).each do |attribute, val|
         unless attribute == :name

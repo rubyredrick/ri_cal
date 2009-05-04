@@ -10,7 +10,7 @@ describe RiCal::Component do
       end
 
       it "should have the default prodid" do
-        @it.should match(%r{^PRODID:-//com.denhaven2/NONSGML ri_cal gem//EN$})
+        @it.should match(%r{^PRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN$})
       end
 
       it "should have the default calscale" do

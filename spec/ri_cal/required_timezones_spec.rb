@@ -5,12 +5,12 @@ require 'tzinfo'
 describe RiCal::RequiredTimezones::RequiredTimezone do
 
   before(:each) do
-    @timezone = mock("timezone")
-    @it = RiCal::RequiredTimezones::RequiredTimezone.new(@timezone)
+    @tzid = "America/New_York"
+    @it = RiCal::RequiredTimezones::RequiredTimezone.new(@tzid)
   end
 
   it "should have the right timezone" do
-    @it.timezone.should == @timezone
+    @it.timezone.identifier.should == @tzid
   end
 
   it "should set the first_time to the first date_time added" do
@@ -52,7 +52,7 @@ describe RiCal::RequiredTimezones do
   end
   
   def localtime_and_zone(date_time, tzid = "US/Eastern")
-    [dt_prop(DateTime.parse(date_time), tzid), mock("timezone", :identifier => tzid)]
+    [dt_prop(DateTime.parse(date_time), tzid), tzid]
   end
   
 
