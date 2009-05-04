@@ -1,9 +1,9 @@
-#- ©2009 Rick DeNatale
-#- All rights reserved
-
 module RiCal
   class Component
     class Timezone
+      #- ©2009 Rick DeNatale
+      #- All rights reserved. Refer to the file README.txt for the license
+      #
       # A StandardPeriod is a TimezonePeriod during which daylight saving time is *not* in effect
       class StandardPeriod < TimezonePeriod #:nodoc: all
 

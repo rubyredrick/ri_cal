@@ -1,10 +1,9 @@
-#- ©2009 Rick DeNatale
-#- All rights reserved
-
 require File.join(File.dirname(__FILE__), %w[.. properties calendar.rb])
 
 module RiCal
   class Component
+    #- ©2009 Rick DeNatale
+    #- All rights reserved. Refer to the file README.txt for the license
     #
     # to see the property accessing methods for this class see the RiCal::Properties::Calendar module
     class Calendar < Component

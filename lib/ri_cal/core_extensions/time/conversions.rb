@@ -1,9 +1,9 @@
-#- ©2009 Rick DeNatale
-#- All rights reserved
-
 module RiCal
   module CoreExtensions #:nodoc:
     module Time #:nodoc:
+      #- ©2009 Rick DeNatale
+      #- All rights reserved. Refer to the file README.txt for the license
+      #
       module Conversions
         # Return an RiCal::PropertyValue::DateTime representing the receiver
         def to_ri_cal_date_time_value

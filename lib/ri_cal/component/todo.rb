@@ -1,10 +1,10 @@
-#- ©2009 Rick DeNatale
-#- All rights reserved
-
 require File.join(File.dirname(__FILE__), %w[.. properties todo.rb])
 
 module RiCal
   class Component
+    #- ©2009 Rick DeNatale
+    #- All rights reserved. Refer to the file README.txt for the license
+    #
     # A Todo (VTODO) calendar component groups properties describing a to-do
     # Todos may have multiple occurrences
     #

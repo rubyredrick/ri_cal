@@ -87,7 +87,9 @@ RFC2445 describes three different kinds of DATE-TIME values with respect to time
 
   3. date-times with a specified time zone.
 
-RiCal can be given ruby Time, DateTime, or Date objects for the value of properties requiring an iCalendar DATE-TIME value.
+RiCal can be given ruby Time, DateTime, or Date objects for the value of properties requiring an 
+iCalendar DATE-TIME value. It can also be given a two element array where the first element is a Time or DateTime,
+and the second is a string representation of the time zone identifier.
 
 Note that a date only DATE-TIME value has no time zone by definition, effectively such values float and describe
 a date as viewed by the user in his/her local time zone.
@@ -102,6 +104,16 @@ When the value of a DATE-TIME property is set to a value, the following processi
 * If the object responds to both the :acts_as_time, and :timezone methods then the result of the timezone method (assumed to be an instance of TZInfoTimezone) is used as a specific local time zone.
 
 * If not then the default time zone id is used.  The normal default timezone id is "UTC". You can set the default by calling ::RiCal::PropertyValue::DateTime.default_tzid = timezone_identifier, where timezone_identifier isa string, or nil.  If you set the default tzid to 'none' or :none, then Times or DateTimes without timezones will be treated as floating times.
+
+Note it is likely that in a future version of RiCal that the default timezone will be set on a Calendar by Calendar
+basis rather than on the DateTime property class.
+
+Also note that time zone identifiers are not standardized by RFC 2445. The results are unpredictable if you use
+a timezone identifer within a calendar which is not defined within the calendar.  For an RiCal originated calendar
+time zone identifiers recognized by the TZInfo gem, or the TZInfo implementation provided by ActiveSupport as the case
+may be may be used.
+
+A future version will add checks which will raise a defined exception when a unrecognized time zone identifer is encountered.
 
 To explicitly set a floating time you can use the method #with_floating_timezone on Time or DateTime instances as in
 

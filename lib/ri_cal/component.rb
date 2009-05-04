@@ -1,7 +1,7 @@
-#- ©2009 Rick DeNatale
-#- All rights reserved
-
 module RiCal
+  #- ©2009 Rick DeNatale
+  #- All rights reserved. Refer to the file README.txt for the license
+  #
   class Component    
     class ComponentBuilder #:nodoc:
       def initialize(component)
