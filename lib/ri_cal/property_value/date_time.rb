@@ -92,11 +92,23 @@ module RiCal
         end
       end
       
-      # determine if the object acts like an activesupport enhanced time, and return it's timezone if it has one.
-      def self.object_tzid(object)
-        activesupport_time = object.acts_like_time? rescue nil
-        time_zone = activesupport_time && object.time_zone rescue nil
-        time_zone && (time_zone.respond_to?(:tzinfo) ? time_zone.tzinfo  : time_zone).identifier
+      # Extract the time and timezone identifier from an object used to set the value of a DATETIME property.
+      # 
+      # If the object is an array it is expected to have a time or datetime as its first element, and a time zone
+      # identifier string as the second element
+      #
+      # Otherwise determine if the object acts like an activesupport enhanced time, and extract its timezone 
+      # idenfifier if it has one.
+      #
+      def self.time_and_tzid(object)
+        if Array === object
+          object, identifier = object[0], object[1]
+        else
+          activesupport_time = object.acts_like_time? rescue nil
+          time_zone = activesupport_time && object.time_zone rescue nil
+          identifier = time_zone && (time_zone.respond_to?(:tzinfo) ? time_zone.tzinfo  : time_zone).identifier
+        end
+        [object, identifier]
       end
 
       def self.convert(timezone_finder, ruby_object) # :nodoc:
@@ -117,12 +129,12 @@ module RiCal
       end
 
       def self.convert_with_tzid_or_nil(timezone_finder, ruby_object) # :nodoc:
-        tzid = self.object_tzid(ruby_object)
-        if tzid
+        time, identifier = *self.time_and_tzid(ruby_object)
+        if identifier
           new(
           timezone_finder,
-          :params => params_for_tzid(tzid),
-          :value => ruby_object.strftime("%Y%m%d%H%M%S")
+          :params => params_for_tzid(identifier),
+          :value => time.strftime("%Y%m%d%H%M%S")
           )
         else
           nil
