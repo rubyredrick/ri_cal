@@ -1,6 +1,7 @@
 History.txt
 Manifest.txt
 README.txt
+Rakefile
 bin/ri_cal
 component_attributes/alarm.yml
 component_attributes/calendar.yml
@@ -16,15 +17,6 @@ docs/draft-ietf-calsify-2446bis-08.txt
 docs/draft-ietf-calsify-rfc2445bis-09.txt
 docs/incrementers.txt
 docs/rfc2445.pdf
-help/History.txt
-help/Manifest.txt
-help/README.txt
-help/Rakefile
-help/bin/help
-help/lib/help.rb
-help/spec/help_spec.rb
-help/spec/spec_helper.rb
-help/test/test_help.rb
 lib/ri_cal.rb
 lib/ri_cal/component.rb
 lib/ri_cal/component/alarm.rb
@@ -68,6 +60,9 @@ lib/ri_cal/property_value/array.rb
 lib/ri_cal/property_value/cal_address.rb
 lib/ri_cal/property_value/date.rb
 lib/ri_cal/property_value/date_time.rb
+lib/ri_cal/property_value/date_time/additive_methods.rb
+lib/ri_cal/property_value/date_time/time_machine.rb
+lib/ri_cal/property_value/date_time/timezone_support.rb
 lib/ri_cal/property_value/duration.rb
 lib/ri_cal/property_value/geo.rb
 lib/ri_cal/property_value/integer.rb
@@ -91,7 +86,13 @@ lib/ri_cal/property_value/utc_offset.rb
 lib/ri_cal/required_timezones.rb
 lib/ri_cal/time_with_floating_timezone.rb
 ri_cal.gemspec
+sample_ical_files/from_ical_dot_app/test1.ics
+script/console
+script/destroy
+script/generate
+script/txt2html
 spec/ri_cal/component/alarm_spec.rb
+spec/ri_cal/component/calendar_spec.rb
 spec/ri_cal/component/event_spec.rb
 spec/ri_cal/component/freebusy_spec.rb
 spec/ri_cal/component/journal_spec.rb
@@ -116,3 +117,5 @@ spec/ri_cal/required_timezones_spec.rb
 spec/ri_cal_spec.rb
 spec/spec.opts
 spec/spec_helper.rb
+tasks/ri_cal.rake
+tasks/spec.rake

@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 module RiCal
   class PropertyValue
     # Time zone related ethods for DateTime

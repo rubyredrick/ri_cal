@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 module RiCal
   module Properties
     # Properties::Timezone provides property accessing methods for the Timezone class

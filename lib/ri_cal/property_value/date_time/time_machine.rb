@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 module RiCal
   class PropertyValue
     # Methods for DateTime which support getting values at different point in time.

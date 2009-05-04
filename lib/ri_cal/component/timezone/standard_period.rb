@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 module RiCal
   class Component
     class Timezone

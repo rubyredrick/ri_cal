@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 # module RiCal #:nodoc:
 #   module CoreExtensions
 #   end

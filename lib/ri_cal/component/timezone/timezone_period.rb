@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 require File.join(File.dirname(__FILE__), %w[.. .. properties timezone_period.rb])
 
 module RiCal

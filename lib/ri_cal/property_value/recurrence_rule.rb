@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 Dir[File.dirname(__FILE__) + "/recurrence_rule/*.rb"].sort.each do |path|
   require path
 end

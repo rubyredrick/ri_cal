@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 require 'date'
 module RiCal
   class PropertyValue

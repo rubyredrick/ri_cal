@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 module RiCal
   # PropertyValue provides common implementation of various RFC 2445 property value types
   class PropertyValue

@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 module RiCal
   class PropertyValue
     # Methods for DateTime which support adding or subtracting another DateTime or Duration

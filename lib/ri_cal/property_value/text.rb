@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 module RiCal
   class PropertyValue
     # RiCal::PropertyValue::Text represents an icalendar Text property value

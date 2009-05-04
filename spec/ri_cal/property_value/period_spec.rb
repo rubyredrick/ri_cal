@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 # RFC 2445 Section 4.3.9 pp 39-40

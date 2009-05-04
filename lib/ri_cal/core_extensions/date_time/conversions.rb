@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 module RiCal
   module CoreExtensions #:nodoc:
     module DateTime #:nodoc:

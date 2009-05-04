@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 require "#{File.dirname(__FILE__)}/date_time/conversions.rb"
 require "#{File.dirname(__FILE__)}/time/week_day_predicates.rb"
 require "#{File.dirname(__FILE__)}/time/calculations.rb"

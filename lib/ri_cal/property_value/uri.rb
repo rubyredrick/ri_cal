@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 module RiCal
   class PropertyValue
     # RiCal::PropertyValue::Uri represents an icalendar Uri property value

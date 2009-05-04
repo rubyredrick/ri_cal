@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 module RiCal
   # RequireTimezones collects the timezones used by a given calendar component or set of calendar components
   # For each timezone we collect it's id, and the earliest and latest times which reference the zone

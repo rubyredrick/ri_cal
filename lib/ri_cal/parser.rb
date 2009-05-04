@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 class RiCal::Parser # :nodoc:
   def next_line
     result = nil

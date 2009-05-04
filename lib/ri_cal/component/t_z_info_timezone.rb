@@ -1,3 +1,6 @@
+#- ©2009 Rick DeNatale
+#- All rights reserved
+
 # A wrapper class for a Timezone implemented by the TZInfo Gem
 # (or by Rails)
 class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
