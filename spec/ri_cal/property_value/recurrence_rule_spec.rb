@@ -420,6 +420,10 @@ describe RiCal::PropertyValue::RecurrenceRule do
         after(:each) do
           RiCal.debug = false
         end
+        
+        after(:each) do
+          RiCal.debug = false
+        end
 
         it "should produce the correct occurrences" do
           actuals = []

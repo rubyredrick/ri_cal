@@ -18,7 +18,6 @@ module RiCal
         def with_floating_timezone
           RiCal::TimeWithFloatingTimezone.new(self)
         end
-        
       end
     end
   end
