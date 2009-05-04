@@ -43,12 +43,55 @@ describe RiCal::PropertyValue::DateTime do
           @it.tzid.should == "UTC"
         end
       end
+      context ".in_timezone('America/New_York')" do
+        context "for a datetime 19970101T012300 in zulu time" do
+          before(:each) do
+            @it = utc_datetime("19970101T012300").in_time_zone('America/New_York')
+          end
+
+          it "should return the 8:23 p. Dec 31, 1996" do
+            @it.should == local_datetime("19961231T202300")
+          end
+
+          it "should return a result with a tzid of UTC" do
+            @it.tzid.should == "America/New_York"
+          end
+        end
+
+        context "for a datetime 19970101T012300 with a tzid of America/New_York" do
+          before(:each) do
+            @it = local_datetime("19970101T012300").in_time_zone('America/New_York')
+          end
+        
+          it "should return the same time" do
+            @it.should == local_datetime("19970101T012300")
+          end
+        
+          it "should return a result with a tzid of UTC" do
+            @it.tzid.should == "America/New_York"
+          end
+        end
+
+        context "for a datetime 19970101T012300 with a tzid of America/Chicago" do
+          before(:each) do
+            @it = local_datetime("19970101T012300", "America/Chicago").in_time_zone('America/New_York')
+          end
+
+          it "should return Jan 1, 1997 02:23 a.m." do
+            @it.should == local_datetime("19970101T022300")
+          end
+
+          it "should return a result with a tzid of America/New_York" do
+            @it.tzid.should == "America/New_York"
+          end
+        end
+      end
     end
 
-   context "for a datetime from an imported calendar" do
-   
-     before(:each) do
-       cals = RiCal.parse_string <<-END_OF_DATA
+    context "for a datetime from an imported calendar" do
+
+      before(:each) do
+        cals = RiCal.parse_string <<-END_OF_DATA
 BEGIN:VCALENDAR
 METHOD:PUBLISH
 X-WR-TIMEZONE:America/New_York
@@ -157,6 +200,50 @@ END:VCALENDAR
        
          it "should return a result with a tzid of UTC" do
            @it.tzid.should == "UTC"
+         end
+       end
+     end
+     
+     context ".in_timezone('US/Eastern')" do
+       context "for the DTSTART of the UTC Event" do
+          before(:each) do
+            @it = find_event("UTC Event").dtstart_property.in_time_zone("US/Eastern")
+          end
+
+         it "should return 8:00 p.m. Apr 30, 2009" do
+           @it.should == local_datetime("20090430T2000000", "US/Eastern")
+         end
+
+         it "should return a result with a tzid of US/Eastern" do
+           @it.tzid.should == "US/Eastern"
+         end
+       end
+
+       context "for the DTSTART of the Eastern Event" do
+         before(:each) do
+           @it = find_event("Eastern Event").dtstart_property.in_time_zone("US/Eastern")
+         end
+       
+         it "should return the same time" do
+           @it.should == local_datetime("20090430T140000", "US/Eastern")
+         end
+       
+         it "should return a result with a tzid of UTC" do
+           @it.tzid.should == "US/Eastern"
+         end
+       end
+
+       context "for the DTSTART of the Paris Event" do
+         before(:each) do
+           @it = find_event("Paris Event").dtstart_property.in_time_zone("US/Eastern")
+         end
+       
+         it "should return 8:00 a.m. on Apr 30, 2009" do
+           @it.should == local_datetime("20090430T080000", "US/Eastern")
+         end
+       
+         it "should return a result with a tzid of UTC" do
+           @it.tzid.should == "US/Eastern"
          end
        end
      end

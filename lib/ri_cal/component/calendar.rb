@@ -100,13 +100,18 @@ module RiCal
       end
       
       class TZInfoWrapper
-        attr_reader :tzinfo
-        def initialize(tzinfo)
+        attr_reader :tzinfo, :calendar
+        def initialize(tzinfo, calendar)
           @tzinfo = tzinfo
+          @calendar = calendar
+        end
+        
+        def identifier
+          tzinfo.identifier
         end
         
         def date_time(ruby_time, tzid)
-          RiCal::PropertyValue::DateTime.new(self, :value => ruby_time, :params => {'TZID' => tzid})
+          RiCal::PropertyValue::DateTime.new(calendar, :value => ruby_time, :params => {'TZID' => tzid})
         end
         
         def local_to_utc(utc)
@@ -120,7 +125,7 @@ module RiCal
 
       def find_timezone(identifier)
         if tz_info_source?
-          TZInfoWrapper.new(TZInfo::Timezone.get(identifier))
+          TZInfoWrapper.new(TZInfo::Timezone.get(identifier), self)
         else
           timezones.find {|tz| tz.tzid == identifier}
         end

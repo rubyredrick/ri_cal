@@ -39,9 +39,13 @@ module RiCal
           self
         end
       end
+      
+      def utc?
+        tzid == "UTC"
+      end
 
       # Returns the simultaneous time in the specified zone.
-      def in_time_zone(new_zone = :default)
+      def in_time_zone(new_zone)
         new_zone = timezone_finder.find_timezone(new_zone)
         return self if tzid == new_zone.identifier
         if has_local_timezone?
