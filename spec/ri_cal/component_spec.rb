@@ -24,6 +24,14 @@ describe RiCal::Component do
         @it.should match(%r{^VERSION:2\.0$})
       end
     end
+    
+    context "building a calendar with time zones" do
+      it 'should allow specifying the time zone identifier' do
+        RiCal.Event do
+          dtstart     [DateTime.parse("Feb 20, 1962 14:47:39"), 'US/Pacific']
+        end
+      end
+    end
 
     context "with a block with 1 parameter" do
       before(:each) do

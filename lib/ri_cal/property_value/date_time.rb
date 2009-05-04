@@ -104,7 +104,7 @@ module RiCal
       # idenfifier if it has one.
       #
       def self.time_and_tzid(object)
-        if Array === object
+        if ::Array === object
           object, identifier = object[0], object[1]
         else
           activesupport_time = object.acts_like_time? rescue nil
