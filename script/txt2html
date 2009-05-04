@@ -13,7 +13,7 @@ def rubyforge_project_id
   RubyForge.new.configure.autoconfig["group_ids"][$hoe.rubyforge_name]
 end
 
-class Fixnum
+class Fixnum #:nodoc:
   def ordinal
     # teens
     return 'th' if (10..19).include?(self % 100)

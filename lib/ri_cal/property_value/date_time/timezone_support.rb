@@ -10,12 +10,12 @@ module RiCal
         @tzid
       end
 
-      def tzid=(string)
+      def tzid=(string) #:nodoc:
         @tzid = string
         @timezone = nil
       end
 
-      def timezone
+      def timezone #:nodoc:
         @timezone ||= timezone_finder.find_timezone(@tzid)
       end
       
@@ -43,6 +43,7 @@ module RiCal
         end
       end
       
+      # Predicate indicating whether or not the instance represents a ZULU time
       def utc?
         tzid == "UTC"
       end

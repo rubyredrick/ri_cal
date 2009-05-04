@@ -55,18 +55,6 @@ module RiCal
         @date_time_value.day
       end
 
-      def year
-        @date_time_value.year
-      end
-
-      def month
-        @date_time_value.month
-      end
-
-      def day
-        @date_time_value.day
-      end
-
       # Returns the ruby representation a ::Date
       def ruby_value
         ::Date.parse(@date_time_value.strftime("%Y%m%d"))

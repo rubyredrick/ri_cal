@@ -44,14 +44,6 @@ module RiCal
         )
       end
 
-      def self.civil(year, month, day, hour, min, sec, offset, start, params) # :nodoc:
-        PropertyValue::DateTime.new(timezone_finder,
-                                   :value => ::DateTime.civil(year, month, day, hour, min, sec, offset, start),
-                                   :tzid => tzid,
-                                   :params =>(params ? params.dup : nil)
-        )
-      end
-
       def change_sec(new_sec) #:nodoc:
         PropertyValue::DateTime.civil(self.year, self.month, self.day, self.hour, self.min, sec, self.offset, self.start, params)
       end

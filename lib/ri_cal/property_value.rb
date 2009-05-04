@@ -18,16 +18,17 @@ module RiCal
       end
     end
 
-    def validate_value(options)
+    def validate_value(options) #:nodoc:
       val = options[:value]
       raise "Invalid property value #{val.inspect}" if val.kind_of?(String) && /^;/.match(val)
     end
     
+    # return a hash containing the parameters and values, if any
     def params
       @params ||= {}
     end
     
-    def to_options_hash
+    def to_options_hash #:nodoc:
       options_hash = {:value => value}
       options_hash[:params] = params unless params.empty?
     end
@@ -65,6 +66,7 @@ module RiCal
       end
     end
 
+    # Return the string value
     def value
       @value
     end
@@ -78,7 +80,7 @@ module RiCal
     end
 
     # Return a string representing the receiver in RFC 2445 format
-    def to_s(with_parms=true)
+    def to_s(with_parms=true) #:nodoc:
       # We only sort for testability reasons
       if with_parms
         if (vp = visible_params) && !vp.empty?

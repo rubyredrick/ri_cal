@@ -152,7 +152,7 @@ module RiCal
         end
       end
 
-      def for_parent(parent)
+      def for_parent(parent) #:nodoc:
         if timezone_finder.nil?
           @timezone_finder = parent
           self
@@ -173,7 +173,7 @@ module RiCal
         result
       end
 
-      def params=(value)
+      def params=(value) #:nodoc:
         @params = value.dup
         if params_timezone = params['TZID']
           @tzid = params_timezone
@@ -199,30 +199,16 @@ module RiCal
         @date_time_value.nth_wday_in_year(n, which_wday, self)
       end
       
-      def self.civil(year, month, day, hour, min, sec, offset, start, params)
+      def self.civil(year, month, day, hour, min, sec, offset, start, params) #:nodoc:
         PropertyValue::DateTime.new(
            :value => ::DateTime.civil(year, month, day, hour, min, sec, offset, start),
            :params =>(params ? params.dup : nil)
         )
       end
       
-      def change_sec(new_sec)
-        PropertyValue::DateTime.civil(self.year, self.month, self.day, self.hour, self.min, sec, self.offset, self.start, params)
-      end
-
       # Return the number of days in the month containing the receiver
       def days_in_month
         @date_time_value.days_in_month
-      end
-      
-      def in_week_starting?(date)
-        wkst_jd = date.jd
-        @date_time_value.jd.between?(wkst_jd, wkst_jd + 6)
-      end
-      
-      def at_start_of_week_with_wkst(wkst)
-        date = @date_time_value.start_of_week_with_wkst(wkst)
-        change(:year => date.year, :month => date.month, :day => date.day)
       end
       
       def in_same_month_as?(other)
@@ -245,18 +231,6 @@ module RiCal
         {:start => self, :end => (default_duration ? self + default_duration : nil)}
       end
       
-      def year
-        @date_time_value.year
-      end
-      
-      def month
-        @date_time_value.month
-      end
-      
-      def day
-        @date_time_value.day
-      end
-
       # Return the year (including the century)
       def year
         @date_time_value.year
