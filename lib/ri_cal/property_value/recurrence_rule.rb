@@ -128,7 +128,7 @@ module RiCal
         result = ["FREQ=#{freq}"]
         result << "INTERVAL=#{interval}" unless interval == 1
         result << "COUNT=#{count}" if count
-        result << "UNTIL=#{self.until.to_s(false)}" if self.until
+        result << "UNTIL=#{self.until.value}" if self.until
         %w{bysecond byminute byhour byday bymonthday byyearday byweekno bymonth bysetpos}.each do |by_part|
           val = by_list[by_part.to_sym]
           result << "#{by_part.upcase}=#{[val].flatten.join(',')}" if val

@@ -22,12 +22,12 @@ module RiCal
       val = options[:value]
       raise "Invalid property value #{val.inspect}" if val.kind_of?(String) && /^;/.match(val)
     end
-    
+
     # return a hash containing the parameters and values, if any
     def params
       @params ||= {}
     end
-    
+
     def to_options_hash #:nodoc:
       options_hash = {:value => value}
       options_hash[:params] = params unless params.empty?
@@ -70,7 +70,7 @@ module RiCal
     def value
       @value
     end
-    
+
     def equality_value #:nodoc:
       value
     end
@@ -79,25 +79,25 @@ module RiCal
       params
     end
 
-    # Return a string representing the receiver in RFC 2445 format
-    def to_s(with_parms=true) #:nodoc:
-      # We only sort for testability reasons
-      if with_parms
-        if (vp = visible_params) && !vp.empty?
-          "#{vp.keys.sort.map {|key| ";#{key}=#{vp[key]}"}.join}:#{value}"
-        else
-          ":#{value}"
-        end
+    def parms_string #:nodoc:
+      if (vp = visible_params) && !vp.empty?
+        # We only sort for testability reasons
+        vp.keys.sort.map {|key| ";#{key}=#{vp[key]}"}.join
       else
-        value
+        ""
       end
+    end
+
+    # Return a string representing the receiver in RFC 2445 format
+    def to_s #:nodoc:
+      "#{parms_string}:#{value}"
     end
 
     # return the ruby value
     def ruby_value
       self.value
     end
-    
+
     def to_ri_cal_property_value #:nodoc:
       self
     end

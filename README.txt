@@ -4,6 +4,9 @@ http://rical.rubyforge.org/
     by Rick DeNatale
 == DESCRIPTION:
 
+This is an UNOFFICIAL version.  The public official version will be released on RubyForge.  Github will be used
+for interim versions.  USE THIS VERSION AT YOUR OWN RISK.
+
 A new Ruby implementation of RFC2445 iCalendar.
 
 The existing Ruby iCalendar libraries (e.g. icalendar, vpim) provide for parsing and generating icalendar files,
