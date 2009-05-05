@@ -111,10 +111,8 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
   def export_utc_to(export_stream, utc_start, utc_end) #:nodoc:
     export_stream.puts "BEGIN:VTIMEZONE","TZID;X-RICAL-TZSOURCE=TZINFO:#{identifier}"
     periods = Periods.new
-    rputs "export_utc_to utc_start is #{utc_start.inspect} #{tzinfo_timezone.inspect}"
     period = tzinfo_timezone.period_for_utc(utc_start)
-    rputs = "  period is #{period.inspect}"
-    #start with the period before the one containing utc_start
+     #start with the period before the one containing utc_start
     period = tzinfo_timezone.period_for_utc(period.utc_start - 1)
     while period && period.utc_start < utc_end
       periods.add_period(period)

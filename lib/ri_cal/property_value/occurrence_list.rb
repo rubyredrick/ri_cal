@@ -42,8 +42,10 @@ module RiCal
         case params[:value]
         when 'DATE-TIME', nil
           @elements = @value.map {|val| PropertyValue::DateTime.convert(self, val)}.sort
+          @value = @elements.map {|element| element.value}
         when 'DATE'
           @elements = @value.map {|val| PropertyValue::Date.new(self, val)}.sort
+          @value = @elements.map {|element| element.value}
         when 'PERIOD'
         end
       end

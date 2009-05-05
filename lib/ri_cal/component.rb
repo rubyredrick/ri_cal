@@ -178,7 +178,7 @@ module RiCal
 
     def export_x_properties_to(export_stream) #:nodoc:
       x_properties.each do |name, prop|
-        export_stream.puts(prop_string(name, prop))
+        export_stream.puts("#{name}:#{prop}")
       end
     end
 

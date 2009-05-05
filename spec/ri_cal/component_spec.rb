@@ -24,21 +24,32 @@ describe RiCal::Component do
         @it.should match(%r{^VERSION:2\.0$})
       end
     end
-    
+
     context "building a calendar with time zones" do
       it 'should allow specifying the time zone identifier' do
-        RiCal.Event do
+        event = RiCal.Event do
           dtstart     [DateTime.parse("Feb 20, 1962 14:47:39"), 'US/Pacific']
         end
+        event.dtstart_property.should == dt_prop(DateTime.parse("Feb 20, 1962 14:47:39"), tzid = 'US/Pacific')
       end
-      
-      it "should allow adding an exception date" do
-        # lambda {
-           RiCal.Event do
-            add_exdate [DateTime.parse("Feb 20, 1962 14:47:39"), 'US/Pacific']
-          end
-        # }.should_not raise_error
+
+      context "adding an exception date" do
         
+        it "should test stuff"
+        # before(:each) do
+        #   @event = RiCal.Event do
+        #     add_exdate [DateTime.parse("Feb 20, 1962 14:47:39"), 'US/Pacific']
+        #   end
+        #   @prop = @event.exdate_property.first
+        # end
+        # 
+        # it "should produce an OccurrenceList for the property" do
+        #   @prop.should be_instance_of(RiCal::PropertyValue::OccurrenceList)
+        # end
+        # 
+        # it "should have the right exdate value" do
+        #   @event.exdate.should == ""
+        # end
       end
     end
 
