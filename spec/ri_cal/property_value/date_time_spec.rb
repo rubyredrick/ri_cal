@@ -32,6 +32,10 @@ describe RiCal::PropertyValue::DateTime do
           @it.utc.tzid.should == "UTC"
         end
       end
+      
+      it "should raise an invalid timezone exception if the timezone of the receiver is unknown" do
+        lambda {local_datetime("19970101T012300", 'America/Caspian').utc}.should raise_error(RiCal::InvalidTimezoneIdentifier)
+      end
 
       context "for a datetime with a tzid of America/New_York" do
         before(:each) do
@@ -46,7 +50,13 @@ describe RiCal::PropertyValue::DateTime do
           @it.tzid.should == "UTC"
         end
       end
+      
       context ".in_timezone('America/New_York')" do
+
+        it "should raise an invalid timezone exception if the timezone of the receiver is unknown" do
+          lambda {local_datetime("19970101T012300", 'America/Caspian').in_time_zone('America/New_York')}.should raise_error(RiCal::InvalidTimezoneIdentifier)
+        end
+
         context "for a datetime 19970101T012300 in zulu time" do
           before(:each) do
             @it = utc_datetime("19970101T012300").in_time_zone('America/New_York')
@@ -178,6 +188,11 @@ END:VCALENDAR
      end
      
      context ".utc" do
+       
+       it "should raise an invalid timezone exception if the timezone of the receiver is not in the calendar" do
+         lambda {local_datetime("19970101T012300", 'America/New_York').utc}.should raise_error(RiCal::InvalidTimezoneIdentifier)
+       end
+
        context "for the DTSTART of the UTC Event" do
          before(:each) do
            @it = find_event("UTC Event").dtstart_property.utc
@@ -208,6 +223,11 @@ END:VCALENDAR
      end
      
      context ".in_timezone('US/Eastern')" do
+       
+       it "should raise an invalid timezone exception if the timezone of the receiver is not in the calendar" do
+         lambda {local_datetime("19970101T012300", 'America/New_York').in_time_zone("US/Eastern")}.should raise_error(RiCal::InvalidTimezoneIdentifier)
+       end
+       
        context "for the DTSTART of the UTC Event" do
           before(:each) do
             @it = find_event("UTC Event").dtstart_property.in_time_zone("US/Eastern")

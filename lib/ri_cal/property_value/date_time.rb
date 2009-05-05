@@ -7,11 +7,11 @@ module RiCal
     # RiCal::PropertyValue::CalAddress represents an icalendar CalAddress property value
     # which is defined in RFC 2445 section 4.3.5 pp 35-37
     class DateTime < PropertyValue
-      
+
       Dir[File.dirname(__FILE__) + "/date_time/*.rb"].sort.each do |path|
         require path
       end
-      
+
       include Comparable
       include AdditiveMethods
       include TimezoneSupport
@@ -20,7 +20,7 @@ module RiCal
       # def initialize(timezone_finder, options={}) #:nodoc:
       #   super(timezone_finder ? timezone_finder : Calendar.new, options)
       # end
-      # 
+      #
       def self.or_date(parent, line) # :nodoc:
         if /T/.match(line[:value] || "")
           new(parent, line)
@@ -94,13 +94,13 @@ module RiCal
           @date_time_value = ::DateTime.parse(val.to_s)
         end
       end
-      
+
       # Extract the time and timezone identifier from an object used to set the value of a DATETIME property.
-      # 
+      #
       # If the object is an array it is expected to have a time or datetime as its first element, and a time zone
       # identifier string as the second element
       #
-      # Otherwise determine if the object acts like an activesupport enhanced time, and extract its timezone 
+      # Otherwise determine if the object acts like an activesupport enhanced time, and extract its timezone
       # idenfifier if it has one.
       #
       def self.time_and_tzid(object)
@@ -113,6 +113,23 @@ module RiCal
         end
         [object, identifier]
       end
+
+      # A hack to detect whether an array passed to convert is a
+      def self.single_time_or_date?(ruby_object)
+        if (::Array === ruby_object) 
+          if (ruby_object.length == 2) && (::String === ruby_object[1])
+            case ruby_object[0]
+            when ::Date, ::DateTime, ::Time, PropertyValue::Date, PropertyValue::DateTime
+              ruby_object
+            else
+              nil
+            end
+          end
+        else
+          ruby_object
+        end
+      end
+
 
       def self.convert(timezone_finder, ruby_object) # :nodoc:
         convert_with_tzid_or_nil(timezone_finder, ruby_object) || ruby_object.to_ri_cal_date_or_date_time_value.for_parent(timezone_finder)
@@ -127,7 +144,7 @@ module RiCal
       # * RiCal::PropertyValue::DateTime.default_tzid
       # * RiCal::PropertyValue::DateTime#object_time_zone
       def self.from_time(time_or_date_time)
-        convert_with_tzid_or_nil(nil, time_or_date_time) || 
+        convert_with_tzid_or_nil(nil, time_or_date_time) ||
         new(nil, :value => time_or_date_time.strftime("%Y%m%dT%H%M%S"), :params => default_tzid_hash)
       end
 
@@ -198,19 +215,19 @@ module RiCal
       def nth_wday_in_year(n, which_wday)
         @date_time_value.nth_wday_in_year(n, which_wday, self)
       end
-      
+
       def self.civil(year, month, day, hour, min, sec, offset, start, params) #:nodoc:
         PropertyValue::DateTime.new(
            :value => ::DateTime.civil(year, month, day, hour, min, sec, offset, start),
            :params =>(params ? params.dup : nil)
         )
       end
-      
+
       # Return the number of days in the month containing the receiver
       def days_in_month
         @date_time_value.days_in_month
       end
-      
+
       def in_same_month_as?(other)
         [other.year, other.month] == [year, month]
       end
@@ -230,7 +247,7 @@ module RiCal
       def occurrence_hash(default_duration) # :nodoc:
         {:start => self, :end => (default_duration ? self + default_duration : nil)}
       end
-      
+
       # Return the year (including the century)
       def year
         @date_time_value.year

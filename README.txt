@@ -108,12 +108,13 @@ When the value of a DATE-TIME property is set to a value, the following processi
 Note it is likely that in a future version of RiCal that the default timezone will be set on a Calendar by Calendar
 basis rather than on the DateTime property class.
 
-Also note that time zone identifiers are not standardized by RFC 2445. The results are unpredictable if you use
-a timezone identifer within a calendar which is not defined within the calendar.  For an RiCal originated calendar
+Also note that time zone identifiers are not standardized by RFC 2445. For an RiCal originated calendar
 time zone identifiers recognized by the TZInfo gem, or the TZInfo implementation provided by ActiveSupport as the case
-may be may be used.
+may be may be used.  The valid time zone identifiers for a non-RiCal generated calendar imported into RiCalendar
+are determined by the VTIMEZONE compoents within the imported calendar.
 
-A future version will add checks which will raise a defined exception when a unrecognized time zone identifer is encountered.
+If you use a timezone identifer within a calendar which is not defined within the calendar it will detected at the time
+you try to convert a timezone. In this case an InvalidTimezoneIdentifier error will be raised by the conversion method.
 
 To explicitly set a floating time you can use the method #with_floating_timezone on Time or DateTime instances as in
 

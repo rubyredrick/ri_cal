@@ -127,9 +127,15 @@ module RiCal
 
       def find_timezone(identifier)  #:nodoc:
         if tz_info_source?
-          TZInfoWrapper.new(TZInfo::Timezone.get(identifier), self)
+          begin
+            TZInfoWrapper.new(TZInfo::Timezone.get(identifier), self)
+          rescue ::TZInfo::InvalidTimezoneIdentifier => ex
+            raise RiCal::InvalidTimezoneIdentifier.invalid_tzinfo_identifier(identifier)
+          end
         else
-          timezones.find {|tz| tz.tzid == identifier}
+          result = timezones.find {|tz| tz.tzid == identifier}
+          raise RiCal::InvalidTimezoneIdentifier.not_found_in_calendar(identifier) unless result
+          result  
         end
       end
 

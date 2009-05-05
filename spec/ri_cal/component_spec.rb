@@ -31,6 +31,15 @@ describe RiCal::Component do
           dtstart     [DateTime.parse("Feb 20, 1962 14:47:39"), 'US/Pacific']
         end
       end
+      
+      it "should allow adding an exception date" do
+        # lambda {
+           RiCal.Event do
+            add_exdate [DateTime.parse("Feb 20, 1962 14:47:39"), 'US/Pacific']
+          end
+        # }.should_not raise_error
+        
+      end
     end
 
     context "with a block with 1 parameter" do

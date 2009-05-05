@@ -26,14 +26,24 @@ module RiCal
           end
         end
       end
+      
+      
+      def self.convert(timezone_finder, ruby_object) # :nodoc:
+        if PropertyValue::DateTime.single_time_or_date?(ruby_object)
+          values = [ruby_object]
+        else
+          values = ruby_object
+        end
+        super(timezone_finder, values)
+      end
 
       def value=(val) #:nodoc:
         super
         case params[:value]
         when 'DATE-TIME', nil
-          @elements = @value.map {|string| PropertyValue::DateTime.new(self, :value => string)}.sort
+          @elements = @value.map {|val| PropertyValue::DateTime.convert(self, val)}.sort
         when 'DATE'
-          @elements = @value.map {|string| PropertyValue::Date.new(self, :value => string)}.sort
+          @elements = @value.map {|val| PropertyValue::Date.new(self, val)}.sort
         when 'PERIOD'
         end
       end
