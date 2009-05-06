@@ -327,7 +327,7 @@ module RiCal
       # return the value of the ATTENDEE property
       # which will be an array of instances of CalAddress
       def attendee
-        attendee_property.map {|prop| prop ? prop.value : prop}
+        attendee_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def attendee_property_from_string(line) # :nodoc:
@@ -390,7 +390,7 @@ module RiCal
       # return the value of the COMMENT property
       # which will be an array of instances of String
       def comment
-        comment_property.map {|prop| prop ? prop.value : prop}
+        comment_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def comment_property_from_string(line) # :nodoc:
@@ -453,7 +453,7 @@ module RiCal
       # return the value of the FREEBUSY property
       # which will be an array of instances of Period
       def freebusy
-        freebusy_property.map {|prop| prop ? prop.value : prop}
+        freebusy_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def freebusy_property_from_string(line) # :nodoc:
@@ -513,7 +513,7 @@ module RiCal
       # return the value of the REQUEST-STATUS property
       # which will be an array of instances of String
       def request_status
-        request_status_property.map {|prop| prop ? prop.value : prop}
+        request_status_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def request_status_property_from_string(line) # :nodoc:

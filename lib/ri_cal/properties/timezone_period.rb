@@ -162,7 +162,7 @@ module RiCal
       # return the value of the COMMENT property
       # which will be an array of instances of String
       def comment
-        comment_property.map {|prop| prop ? prop.value : prop}
+        comment_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def comment_property_from_string(line) # :nodoc:
@@ -225,7 +225,7 @@ module RiCal
       # return the value of the RDATE property
       # which will be an array of instances of OccurrenceList
       def rdate
-        rdate_property.map {|prop| prop ? prop.value : prop}
+        rdate_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def rdate_property_from_string(line) # :nodoc:
@@ -288,7 +288,7 @@ module RiCal
       # return the value of the RRULE property
       # which will be an array of instances of RecurrenceRule
       def rrule
-        rrule_property.map {|prop| prop ? prop.value : prop}
+        rrule_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def rrule_property_from_string(line) # :nodoc:
@@ -351,7 +351,7 @@ module RiCal
       # return the value of the TZNAME property
       # which will be an array of instances of String
       def tzname
-        tzname_property.map {|prop| prop ? prop.value : prop}
+        tzname_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def tzname_property_from_string(line) # :nodoc:

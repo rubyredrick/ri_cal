@@ -692,7 +692,7 @@ module RiCal
       # return the value of the ATTACH property
       # which will be an array of instances of Uri
       def attach
-        attach_property.map {|prop| prop ? prop.value : prop}
+        attach_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def attach_property_from_string(line) # :nodoc:
@@ -755,7 +755,7 @@ module RiCal
       # return the value of the ATTENDEE property
       # which will be an array of instances of CalAddress
       def attendee
-        attendee_property.map {|prop| prop ? prop.value : prop}
+        attendee_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def attendee_property_from_string(line) # :nodoc:
@@ -818,7 +818,7 @@ module RiCal
       # return the value of the CATEGORIES property
       # which will be an array of instances of Array
       def categories
-        categories_property.map {|prop| prop ? prop.value : prop}
+        categories_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def categories_property_from_string(line) # :nodoc:
@@ -881,7 +881,7 @@ module RiCal
       # return the value of the COMMENT property
       # which will be an array of instances of String
       def comment
-        comment_property.map {|prop| prop ? prop.value : prop}
+        comment_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def comment_property_from_string(line) # :nodoc:
@@ -944,7 +944,7 @@ module RiCal
       # return the value of the CONTACT property
       # which will be an array of instances of String
       def contact
-        contact_property.map {|prop| prop ? prop.value : prop}
+        contact_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def contact_property_from_string(line) # :nodoc:
@@ -1007,7 +1007,7 @@ module RiCal
       # return the value of the EXDATE property
       # which will be an array of instances of OccurrenceList
       def exdate
-        exdate_property.map {|prop| prop ? prop.value : prop}
+        exdate_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def exdate_property_from_string(line) # :nodoc:
@@ -1133,7 +1133,7 @@ module RiCal
       # return the value of the EXRULE property
       # which will be an array of instances of RecurrenceRule
       def exrule
-        exrule_property.map {|prop| prop ? prop.value : prop}
+        exrule_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def exrule_property_from_string(line) # :nodoc:
@@ -1193,7 +1193,7 @@ module RiCal
       # return the value of the REQUEST-STATUS property
       # which will be an array of instances of String
       def request_status
-        request_status_property.map {|prop| prop ? prop.value : prop}
+        request_status_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def request_status_property_from_string(line) # :nodoc:
@@ -1256,7 +1256,7 @@ module RiCal
       # return the value of the RELATED-TO property
       # which will be an array of instances of String
       def related_to
-        related_to_property.map {|prop| prop ? prop.value : prop}
+        related_to_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def related_to_property_from_string(line) # :nodoc:
@@ -1319,7 +1319,7 @@ module RiCal
       # return the value of the RESOURCES property
       # which will be an array of instances of Array
       def resources
-        resources_property.map {|prop| prop ? prop.value : prop}
+        resources_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def resources_property_from_string(line) # :nodoc:
@@ -1382,7 +1382,7 @@ module RiCal
       # return the value of the RRULE property
       # which will be an array of instances of RecurrenceRule
       def rrule
-        rrule_property.map {|prop| prop ? prop.value : prop}
+        rrule_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def rrule_property_from_string(line) # :nodoc:

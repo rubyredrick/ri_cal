@@ -261,7 +261,7 @@ module RiCal
       # return the value of the ATTENDEE property
       # which will be an array of instances of CalAddress
       def attendee
-        attendee_property.map {|prop| prop ? prop.value : prop}
+        attendee_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def attendee_property_from_string(line) # :nodoc:
@@ -324,7 +324,7 @@ module RiCal
       # return the value of the ATTACH property
       # which will be an array of instances of Uri
       def attach
-        attach_property.map {|prop| prop ? prop.value : prop}
+        attach_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def attach_property_from_string(line) # :nodoc:
