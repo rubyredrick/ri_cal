@@ -35,6 +35,10 @@ module RiCal
           @date_time_value = ::DateTime.parse(val.strftime("%Y%m%d"))
         end
       end
+      
+      # Nop to allow occurrence list to try to set it
+      def tzid=(val)#:nodoc:
+      end
 
       def visible_params #:nodoc:
         {"VALUE" => "DATE"}.merge(params)

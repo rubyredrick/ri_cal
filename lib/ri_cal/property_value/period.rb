@@ -29,6 +29,11 @@ module RiCal
         end
       end
       
+      
+      # Nop to allow occurrence list to try to set it
+      def tzid=(val)#:nodoc:
+      end
+      
       def for_parent(parent)
         if timezone_finder.nil
           @timezone_finder = parent

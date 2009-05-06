@@ -1070,7 +1070,7 @@ module RiCal
       # return the value of the RDATE property
       # which will be an array of instances of OccurrenceList
       def rdate
-        rdate_property.map {|prop| prop ? prop.value : prop}
+        rdate_property.map {|prop| prop ? prop.ruby_value : prop}
       end
 
       def rdate_property_from_string(line) # :nodoc:

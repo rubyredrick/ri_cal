@@ -230,7 +230,7 @@ class VEntityUpdater
       comment("return the value of the #{name.upcase} property")
       comment("which will be an array of instances of #{describe_type(type)}")
       indent("def #{ruby_method}")
-      indent("  #{property}.map {|prop| prop ? prop.value : prop}")
+      indent("  #{property}.map {|prop| prop ? prop.ruby_value : prop}")
       indent("end")
       blank_line
     no_doc("def #{property}_from_string(line)")

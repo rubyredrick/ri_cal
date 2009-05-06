@@ -5,6 +5,8 @@ module RiCal
     #- All rights reserved. Refer to the file README.txt for the license
     #
     class OccurrenceList < Array
+      attr_accessor :tzid
+      
       class Enumerator # :nodoc:
 
         attr_accessor :default_duration, :occurrence_list
@@ -27,19 +29,47 @@ module RiCal
         end
       end
       
+      def initialize(timezone_finder, options={}) # :nodoc:
+        super
+        validate_elements
+        rputs "source_elements are #{@source_elements.inspect}"
+      end
       
       def self.convert(timezone_finder, ruby_object) # :nodoc:
-        if PropertyValue::DateTime.single_time_or_date?(ruby_object)
-          values = [ruby_object]
+        if ::Array === ruby_object
+          new(timezone_finder, :source_elements => ruby_object )
         else
-          values = ruby_object
+          new(timezone_finder, :source_elements => [ruby_object] )
         end
-        super(timezone_finder, values)
+      end
+      
+      def values_to_elements(values)
+        values.map {|val| PropertyValue.date_or_date_time_or_period(self, :value => val)}
+      end
+      
+      def validate_elements
+        if @source_elements
+          @elements = values_to_elements(@source_elements)
+          @value = @elements.map {|prop| prop.value}
+          rputs "from @source_elements #{@source_elements.inspect}"
+          rputs "@elements are #{@elements.inspect}"
+          rputs "@value is #{@value.inspect}"
+        else
+          @elements = values_to_elements(@value)
+          rputs "from @value #{@value.inspect}"
+          rputs "@elements are #{@elements.inspect}"
+        end
+      end
+
+      def ruby_value
+        rputs "in ruby_value #{@elements.inspect}"
+        @elements.map {|prop| prop.ruby_value}
       end
 
       def value=(val) #:nodoc:
         super
-        case params[:value]
+        @elements = @value.map {|val| PropertyValue.date_or_date_time_or_period(self, :value => val)}
+        case params['VALUE']
         when 'DATE-TIME', nil
           @elements = @value.map {|val| PropertyValue::DateTime.convert(self, val)}.sort
           @value = @elements.map {|element| element.value}
@@ -51,8 +81,8 @@ module RiCal
       end
     end
     
-    attr_writer :elements
-    private :elements=
+    attr_writer :elements, :source_elements
+    private :elements=, :source_elements=
     
     def for_parent(parent)
       if timezone_finder.nil?
