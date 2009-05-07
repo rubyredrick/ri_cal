@@ -28,6 +28,10 @@ module RiCal
           PropertyValue::Date.new(parent, line)
         end
       end
+      
+      def self.valid_string?(string)
+        ::DateTime.parse(string) rescue nil
+      end
 
       def self.default_tzid # :nodoc:
         @default_tzid ||= "UTC"

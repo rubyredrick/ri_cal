@@ -13,6 +13,15 @@ module RiCal
           @value = val
         end
       end
+      
+      def value
+        @value.join(",")
+      end
+      
+      def self.convert(timezone_finder, ruby_object) # :nodoc:
+        self.new(timezone_finder, :value => ruby_object)
+      end
+      
     end
   end
 

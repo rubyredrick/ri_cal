@@ -6,7 +6,7 @@ module RiCal
     #
     class OccurrenceList < Array
       attr_accessor :tzid
-      
+
       class Enumerator # :nodoc:
 
         attr_accessor :default_duration, :occurrence_list
@@ -28,62 +28,92 @@ module RiCal
           end
         end
       end
-      
+
       def initialize(timezone_finder, options={}) # :nodoc:
         super
         validate_elements
-        rputs "source_elements are #{@source_elements.inspect}"
       end
-      
+
       def self.convert(timezone_finder, ruby_object) # :nodoc:
-        if ::Array === ruby_object
-          new(timezone_finder, :source_elements => ruby_object )
+        source_elements = case ruby_object
+        when ::Array
+          ruby_object
+        when ::String
+          ruby_object.split(",")
         else
-          new(timezone_finder, :source_elements => [ruby_object] )
+          [ruby_object]
+        end
+        new(timezone_finder, :source_elements => source_elements )
+      end
+
+      def value_to_element(value)
+        if ::String === value
+          result = PropertyValue.date_or_date_time_or_period(self, :value => value)
+          result.tzid = tzid if tzid
+          result
+        else
+          value.to_ri_cal_property_value
         end
       end
-      
+
+
       def values_to_elements(values)
-        values.map {|val| PropertyValue.date_or_date_time_or_period(self, :value => val)}
+        values.map {|val| value_to_element(val)}
       end
       
+      def tzid_from_source_elements
+        if @source_elements && String === (first_source = @source_elements.first)
+          unless PropertyValue::DateTime.valid_string?(first_source) || 
+            PropertyValue::Date.valid_string?(first_source) || 
+            PropertyValue::Period.valid_string?(first_source)
+            return @source_elements.shift
+          end
+        end
+        nil
+      end
+
       def validate_elements
         if @source_elements
+          self.tzid = tzid_from_source_elements
           @elements = values_to_elements(@source_elements)
           @value = @elements.map {|prop| prop.value}
-          rputs "from @source_elements #{@source_elements.inspect}"
-          rputs "@elements are #{@elements.inspect}"
-          rputs "@value is #{@value.inspect}"
         else
           @elements = values_to_elements(@value)
-          rputs "from @value #{@value.inspect}"
-          rputs "@elements are #{@elements.inspect}"
         end
+        # if the tzid wasn't set by the parameters
+        self.tzid ||= @elements.map {|element| element.tzid}.find {|id| id}
+        # Todo figure out what to do if an element already has a different tzid
+        @elements.each do |element|
+          element.tzid = tzid
+        end
+      end
+
+      def has_local_timezone?
+        tzid && tzid != 'UTC'
+      end
+
+      def visible_params # :nodoc:
+        result = params.dup
+        if has_local_timezone?
+          result['TZID'] = tzid
+        else
+          result.delete('TZID')
+        end
+        result
+      end
+
+      def value
+        @elements.map {|element| element.value}.join(",")
       end
 
       def ruby_value
-        rputs "in ruby_value #{@elements.inspect}"
         @elements.map {|prop| prop.ruby_value}
       end
-
-      def value=(val) #:nodoc:
-        super
-        @elements = @value.map {|val| PropertyValue.date_or_date_time_or_period(self, :value => val)}
-        case params['VALUE']
-        when 'DATE-TIME', nil
-          @elements = @value.map {|val| PropertyValue::DateTime.convert(self, val)}.sort
-          @value = @elements.map {|element| element.value}
-        when 'DATE'
-          @elements = @value.map {|val| PropertyValue::Date.new(self, val)}.sort
-          @value = @elements.map {|element| element.value}
-        when 'PERIOD'
-        end
-      end
     end
-    
-    attr_writer :elements, :source_elements
-    private :elements=, :source_elements=
-    
+
+    attr_accessor :elements, :source_elements
+    private :elements, :elements=, :source_elements=, :source_elements
+
     def for_parent(parent)
       if timezone_finder.nil?
         @timezone_finder = parent
@@ -94,12 +124,12 @@ module RiCal
         OccurrenceList.new(parent, :value => value)
       end
     end
-    
+
     # Return an enumerator which can produce the elements of the occurrence list
     def enumerator(component)
       OccurrenceList::Enumerator.new(@elements, component)
     end
-    
+
     def add_date_times_to(required_timezones) #:nodoc:
       if @elements
         @elements.each do | occurrence |
@@ -107,6 +137,6 @@ module RiCal
         end
       end
     end
-    
+
   end
 end

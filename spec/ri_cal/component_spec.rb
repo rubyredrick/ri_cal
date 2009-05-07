@@ -35,21 +35,24 @@ describe RiCal::Component do
 
       context "adding an exception date" do
         
-        it "should test stuff"
-        # before(:each) do
-        #   @event = RiCal.Event do
-        #     add_exdate [DateTime.parse("Feb 20, 1962 14:47:39"), 'US/Pacific']
-        #   end
-        #   @prop = @event.exdate_property.first
-        # end
-        # 
-        # it "should produce an OccurrenceList for the property" do
-        #   @prop.should be_instance_of(RiCal::PropertyValue::OccurrenceList)
-        # end
-        # 
-        # it "should have the right exdate value" do
-        #   @event.exdate.should == ""
-        # end
+        before(:each) do
+          @event = RiCal.Event do
+            add_exdate ['US/Eastern', DateTime.parse("Feb 20, 1962 14:47:39")]
+          end
+          @prop = @event.exdate_property.first
+        end
+
+        it "should produce an OccurrenceList for the property" do
+          @prop.should be_instance_of(RiCal::PropertyValue::OccurrenceList)
+        end
+
+        it "should have a property with the right ical representation" do
+          @prop.to_s.should == ";TZID=US/Eastern:19620220T144739"
+        end
+
+        it "should have the right exdate value" do
+          @prop.ruby_value.should == [DateTime.parse("Feb 20, 1962 14:47:39")]
+        end
       end
     end
 

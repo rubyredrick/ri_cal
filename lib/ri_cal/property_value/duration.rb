@@ -60,6 +60,10 @@ module RiCal
           end
         end
       end
+      
+      def self.valid_string?(terminator)
+        string =~  /^[+-]?P((\d+)[DHMSW])+$/
+      end
 
       def days # :nodoc:
         @days * @sign
