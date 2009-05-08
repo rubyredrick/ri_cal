@@ -10,7 +10,7 @@ module RiCal
     class Date < PropertyValue
       
       def self.valid_string?(string)        
-        ::Date.parse(string) rescue nil
+        string =~ /^\d{8}$/
       end
       
       # Returns the value of the reciever as an RFC 2445 iCalendar string

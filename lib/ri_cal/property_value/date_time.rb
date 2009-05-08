@@ -30,7 +30,7 @@ module RiCal
       end
       
       def self.valid_string?(string)
-        ::DateTime.parse(string) rescue nil
+        string =~ /^\d{8}T\d{6}Z?$/
       end
 
       def self.default_tzid # :nodoc:

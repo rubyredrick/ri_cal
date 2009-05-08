@@ -71,6 +71,12 @@ module RiCal
         end
         nil
       end
+      
+      def self.occurence_list_property_from_string(timezone_finder, string)
+        PropertyValue::DateTime.if_valid_string(timezone_finder, string) ||
+        PropertyValue::Date.if_valid_string(timezone_finder, string) ||
+        PropertyValue::Period.if_valid_string(timezone_finder, string)
+      end
 
       def validate_elements
         if @source_elements

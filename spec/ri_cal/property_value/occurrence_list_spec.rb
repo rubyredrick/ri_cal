@@ -4,6 +4,28 @@
 require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::PropertyValue::OccurrenceList do
+  context "class methods" do
+    before(:each) do
+      @it = RiCal::PropertyValue::OccurrenceList
+      @dt_prop = RiCal::PropertyValue::DateTime
+      @d_prop = RiCal::PropertyValue::Date
+      @per_prop = RiCal::PropertyValue::Period
+    end
+
+    context "self.occurence_list_property_from_string" do
+      it "should produce a Date property from 20090101" do
+        @it.occurence_list_property_from_string(:tz_finder, "20090101").should == @d_prop.new(:tz_finder, :value => "20090101")
+      end
+
+      it "should produce a DateTime property from 20090507T192200" do
+        @it.occurence_list_property_from_string(:tz_finder, "20090507T192200").should == @dt_prop.new(:tz_finder, :value => "20090507T192200")
+      end
+
+      it "should produce a Period property from 20090507T180000/P2H" do
+        @it.occurence_list_property_from_string(:tz_finder, "20090507T180000/P2H").should == @per_prop.new(:tz_finder, :value => "20090507T180000/P2H")
+      end
+    end
+  end
   
   context ".convert method" do
     context "with a single datetime" do

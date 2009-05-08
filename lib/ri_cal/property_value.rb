@@ -17,6 +17,14 @@ module RiCal
         end
       end
     end
+    
+    def self.if_valid_string(timezone_finder, string)
+      if valid_string?(string)
+        new(timezone_finder, :value => string)
+      else
+        nil
+      end
+    end
 
     def validate_value(options) #:nodoc:
       val = options[:value]

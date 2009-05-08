@@ -61,7 +61,7 @@ module RiCal
         end
       end
       
-      def self.valid_string?(terminator)
+      def self.valid_string?(string)
         string =~  /^[+-]?P((\d+)[DHMSW])+$/
       end
 
