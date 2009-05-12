@@ -320,6 +320,28 @@ END:VCALENDAR
       @it.should == RiCal::PropertyValue::DateTime.new(nil, :value => "19980118T230000")
     end
   end
+  context "when setting the default timezone identifier" do
+
+    before(:each) do
+      RiCal::PropertyValue::DateTime.default_tzid = "America/Chicago"
+      @time = Time.mktime(2009,2,5,19,17,11)
+      @it = RiCal::PropertyValue::DateTime.convert(nil, @time)
+    end
+
+    after(:each) do
+      RiCal::PropertyValue::DateTime.default_tzid = "UTC"      
+    end
+    
+    it "should update the default timezone to America/Chicago" do
+      @it.params.should == {'TZID' => 'America/Chicago'}
+    end
+    
+    it "should not have a tzid when default_tzid is none" do
+      RiCal::PropertyValue::DateTime.default_tzid = 'none'
+      dt = RiCal::PropertyValue::DateTime.convert(nil, @time)
+      dt.params.should == {}
+    end
+  end
 
   context ".convert(rubyobject)" do
     describe "for a Time instance of  Feb 05 19:17:11"
@@ -425,6 +447,7 @@ END:VCALENDAR
           @it.value.should == "20090205T191711"
         end
       end
+
       context "when the default timezone has been set to 'America/Chicago" do
         before(:each) do
           RiCal::PropertyValue::DateTime.stub!(:default_tzid).and_return("America/Chicago")
