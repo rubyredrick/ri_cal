@@ -6,15 +6,20 @@ module RiCal
       #
       module Conversions
         # Parse the receiver as an RiCal::PropertyValue::DateTime
-        def to_ri_cal_date_time_value
-          RiCal::PropertyValue::DateTime.from_string(self)
+        def to_ri_cal_date_time_value(timezone_finder = nil)
+          params, value = *Parser.params_and_value(self)
+          RiCal::PropertyValue::DateTime.new(timezone_finder, :params => params, :value => value)
         end
 
-        alias_method :to_ri_cal_date_or_date_time_value, :to_ri_cal_date_time_value
+        def to_ri_cal_date_or_date_time_value(timezone_finder = nil)
+          params, value = *Parser.params_and_value(self)
+          RiCal::PropertyValue.date_or_date_time(timezone_finder, :params => params, :value => value)
+        end
 
         # Parse the receiver as an RiCal::PropertyValue::DurationValue
-        def to_ri_cal_duration_value
-          RiCal::PropertyValue::Duration.from_string(self)
+        def to_ri_cal_duration_value(timezone_finder = nil)
+          params, value = *Parser.params_and_value(self)
+          RiCal::PropertyValue::Duration.new(timezone_finder, :params => params, :value => value)
         end
 
         # code stolen from ActiveSupport Gem

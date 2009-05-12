@@ -81,7 +81,7 @@ module RiCal
       end
 
       # Return this date property
-      def to_ri_cal_date_value
+      def to_ri_cal_date_value(timezone_finder = nil)
         self
       end
 

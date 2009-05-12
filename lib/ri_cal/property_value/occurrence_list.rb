@@ -34,16 +34,8 @@ module RiCal
         validate_elements
       end
 
-      def self.convert(timezone_finder, ruby_object) # :nodoc:
-        source_elements = case ruby_object
-        when ::Array
-          ruby_object
-        when ::String
-          ruby_object.split(",")
-        else
-          [ruby_object]
-        end
-        new(timezone_finder, :source_elements => source_elements )
+      def self.convert(timezone_finder, *ruby_objects) # :nodoc:
+        new(timezone_finder, :source_elements => ruby_objects )
       end
 
       def value_to_element(value)

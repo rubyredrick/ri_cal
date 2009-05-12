@@ -65,9 +65,9 @@ module RiCal
       end
     end
 
-    def self.from_string(string) # :nodoc:
-      new(nil, :value => string)
-    end
+    # def self.from_string(string) # :nodoc:
+    #   new(nil, :value => string)
+    # end
 
     def self.convert(timezone_finder, value) #:nodoc:
       new(timezone_finder, :value => value)

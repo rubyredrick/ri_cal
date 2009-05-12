@@ -11,17 +11,25 @@ module RiCal
       end
 
       def tzid=(string) #:nodoc:
-        @tzid = string
+        @tzid = string || timezone_finder.default_tzid
         @timezone = nil
+      end
+      
+      def find_timezone #:nodoc:
+        if @timezone == :floating
+          FloatingTimezone
+        else
+          timezone_finder.find_timezone(@tzid)
+        end
       end
 
       def timezone #:nodoc:
-        @timezone ||= timezone_finder.find_timezone(@tzid)
+        @timezone ||= find_timezone
       end
       
       # Determine if the receiver has a local time zone, i.e. it is not a floating time or a UTC time
       def has_local_timezone?
-        tzid && tzid != "UTC"
+        tzid && ![:floating, "UTC"].include?(tzid)
       end
       
       # Return the receiver if it has a floating time zone already,

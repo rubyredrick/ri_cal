@@ -99,7 +99,7 @@ module RiCal
       #
       def until=(until_value)
         reset_errors
-        @until = until_value && until_value.to_ri_cal_date_or_date_time_value
+        @until = until_value && until_value.to_ri_cal_date_or_date_time_value(timezone_finder)
         @count = nil unless @count.nil? || @by_list_hash
       end
 

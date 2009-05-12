@@ -12,11 +12,7 @@ module Kernel
 end
 
 def date_time_with_zone(date_time, tzid = "US/Eastern")
-  result = date_time.dup
-  result.stub!(:acts_like_time?).and_return(true)
-  time_zone = mock("timezone", :identifier => tzid)
-  result.stub!(:time_zone).and_return(time_zone)
-  result
+  date_time.dup.set_tzid(tzid)
 end
 
 def dt_prop(date_time, tzid = "US/Eastern")

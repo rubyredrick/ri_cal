@@ -25,35 +25,4 @@ module RiCal
     end
   end
   
-  class TimeWithFloatingTimezone #:nodoc:
-    def initialize(time) #:nodoc:
-      @time = time
-    end
-
-    def acts_like_time? #:nodoc:
-      true
-    end
-
-    def time_zone
-      FloatingTimezone #:nodoc:
-    end
-
-    def strftime(format) #:nodoc:
-      @time.strftime(format)
-    end
-    
-    def with_floating_timezone #:nodoc:
-      self
-    end
-
-    def to_ri_cal_date_time_value #:nodoc:
-      ::RiCal::PropertyValue::DateTime.new(nil, :value => @time, :params => {'TZID' => nil})
-    end
-
-    alias_method :to_ri_cal_date_or_date_time_value, :to_ri_cal_date_time_value #:nodoc:
-    
-    def method_missing(selector, *args) #:nodoc:
-      @time.send(selector, *args)
-    end
-  end
 end

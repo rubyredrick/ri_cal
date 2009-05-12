@@ -112,11 +112,7 @@ describe RiCal::Component::Event do
     require 'tzinfo'
 
     def date_time_with_tzinfo_zone(date_time, timezone="America/New_York")
-      result = date_time.dup
-      result.stub!(:acts_like_time?).and_return(true)
-      time_zone = TZInfo::Timezone.get(timezone)
-      result.stub!(:time_zone).and_return(time_zone)
-      result
+      date_time.dup.set_tzid(timezone)
     end
     
     # Undo the effects of RFC2445 line folding
@@ -135,7 +131,7 @@ describe RiCal::Component::Event do
     end
 
     it "should properly format dtstart with a UTC date-time" do
-      @it.dtstart = DateTime.parse("April 22, 2009 1:23:45")
+      @it.dtstart = DateTime.parse("April 22, 2009 1:23:45").set_tzid("UTC")
       unfold(@it.export).should match(/^DTSTART;VALUE=DATE-TIME:20090422T012345Z$/)
     end
 

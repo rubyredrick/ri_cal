@@ -19,7 +19,7 @@ module RiCal
       end
     end
 
-    def parse_params(string) #:nodoc:
+    def self.parse_params(string) #:nodoc:
       if string
         string.split(";").inject({}) { |result, val|
           m = /^(.+)=(.+)$/.match(val)
@@ -32,11 +32,11 @@ module RiCal
       end
     end
 
-    def params_and_value(string) #:nodoc:
+    def self.params_and_value(string) #:nodoc:
       string = string.sub(/^:/,'')
-      return ["", string] unless string.match(/^;/)
+      return [{}, string] unless string.match(/^;/)
       segments = string.sub(';','').split(":")
-      return ["", string] if segments.length < 2
+      return [{}, string] if segments.length < 2
       quote_count = 0
       gathering_params = true
       params = []
@@ -50,16 +50,16 @@ module RiCal
           values << segment
         end
       end
-      [params.join(":"), values.join(":")]
+      [parse_params(params.join(":")), values.join(":")]
     end
-
+    
     def separate_line(string) #:nodoc:
       match = string.match(/^([^;:]*)(.*)$/)
       name = match[1]
-      params, value = *params_and_value(match[2])
+      params, value = *Parser.params_and_value(match[2])
       {
         :name => name,
-        :params => parse_params(params),
+        :params => params,
         :value => value
       }
     end

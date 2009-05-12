@@ -14,6 +14,8 @@ but do not support important things like enumerating occurrences of repeating ev
 
 This is a clean-slate implementation of RFC2445.
 
+A Google group for discussion of this library has been set up http://groups.google.com/group/rical_gem
+
 == FEATURES/PROBLEMS:
 
 * All examples of recurring events in RFC 2445 are handled. RSpec examples are provided for them. 

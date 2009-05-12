@@ -988,8 +988,8 @@ module RiCal
 
       # add one value to the EXDATE property
       # one instances of OccurrenceList may be passed to this method
-      def  add_exdate(ruby_value)
-       self.exdate_property << RiCal::PropertyValue::OccurrenceList.convert(self, ruby_value)
+      def  add_exdate(*ruby_values)
+       self.exdate_property << RiCal::PropertyValue::OccurrenceList.convert(self, *ruby_values)
       end
 
       # remove one or more values from the EXDATE property

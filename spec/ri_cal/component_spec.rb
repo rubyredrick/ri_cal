@@ -28,7 +28,7 @@ describe RiCal::Component do
     context "building a calendar with time zones" do
       it 'should allow specifying the time zone identifier' do
         event = RiCal.Event do
-          dtstart     [DateTime.parse("Feb 20, 1962 14:47:39"), 'US/Pacific']
+          dtstart     DateTime.parse("Feb 20, 1962 14:47:39").set_tzid('US/Pacific')
         end
         event.dtstart_property.should == dt_prop(DateTime.parse("Feb 20, 1962 14:47:39"), tzid = 'US/Pacific')
       end
@@ -37,7 +37,7 @@ describe RiCal::Component do
         
         before(:each) do
           @event = RiCal.Event do
-            add_exdate ['US/Eastern', DateTime.parse("Feb 20, 1962 14:47:39")]
+            add_exdate 'US/Eastern', DateTime.parse("Feb 20, 1962 14:47:39")
           end
           @prop = @event.exdate_property.first
         end

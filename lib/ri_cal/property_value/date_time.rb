@@ -38,7 +38,7 @@ module RiCal
       end
 
       def self.params_for_tzid(tzid) #:nodoc:
-        if tzid == FloatingTimezone
+        if tzid == :floating
           {}
         else
           {'TZID' => tzid}
@@ -98,45 +98,23 @@ module RiCal
           @date_time_value = ::DateTime.parse(val.to_s)
         end
       end
-
+      
       # Extract the time and timezone identifier from an object used to set the value of a DATETIME property.
       #
-      # If the object is an array it is expected to have a time or datetime as its first element, and a time zone
-      # identifier string as the second element
+      # If the object is a string it should be of the form [TZID=identifier:]
       #
       # Otherwise determine if the object acts like an activesupport enhanced time, and extract its timezone
       # idenfifier if it has one.
       #
-      def self.time_and_tzid(object)
-        if ::Array === object
-          object, identifier = object[0], object[1]
+      def self.time_and_parameters(object)
+        parameters = {}
+        if ::String === object
+          object, parameters = self.time_and_parameters_from_string(object)
         else
-          activesupport_time = object.acts_like_time? rescue nil
-          time_zone = activesupport_time && object.time_zone rescue nil
-          identifier = time_zone && (time_zone.respond_to?(:tzinfo) ? time_zone.tzinfo  : time_zone).identifier
+          identifier = object.tzid rescue nil
+          parameters["TZID"] = identifier if identifier
         end
-        [object, identifier]
-      end
-
-      # A hack to detect whether an array passed to convert is a
-      def self.single_time_or_date?(ruby_object)
-        if (::Array === ruby_object) 
-          if (ruby_object.length == 2) && (::String === ruby_object[1])
-            case ruby_object[0]
-            when ::Date, ::DateTime, ::Time, PropertyValue::Date, PropertyValue::DateTime
-              ruby_object
-            else
-              nil
-            end
-          end
-        else
-          ruby_object
-        end
-      end
-
-
-      def self.convert(timezone_finder, ruby_object) # :nodoc:
-        convert_with_tzid_or_nil(timezone_finder, ruby_object) || ruby_object.to_ri_cal_date_or_date_time_value.for_parent(timezone_finder)
+        [object, parameters]
       end
 
       # Create an instance of RiCal::PropertyValue::DateTime representing a Ruby Time or DateTime
@@ -148,21 +126,11 @@ module RiCal
       # * RiCal::PropertyValue::DateTime.default_tzid
       # * RiCal::PropertyValue::DateTime#object_time_zone
       def self.from_time(time_or_date_time)
-        convert_with_tzid_or_nil(nil, time_or_date_time) ||
-        new(nil, :value => time_or_date_time.strftime("%Y%m%dT%H%M%S"), :params => default_tzid_hash)
+        new(nil, :value => time_or_date_time.strftime("%Y%m%dT%H%M%S"), :params => {"TZID" => time_or_date_time.tzid})
       end
 
-      def self.convert_with_tzid_or_nil(timezone_finder, ruby_object) # :nodoc:
-        time, identifier = *self.time_and_tzid(ruby_object)
-        if identifier
-          new(
-          timezone_finder,
-          :params => params_for_tzid(identifier),
-          :value => time.strftime("%Y%m%d%H%M%S")
-          )
-        else
-          nil
-        end
+      def self.convert(timezone_finder, ruby_object) # :nodoc:
+          ruby_object.to_ri_cal_date_or_date_time_value(timezone_finder)
       end
 
       def self.from_string(string) # :nodoc:
@@ -304,8 +272,8 @@ module RiCal
       end
 
       # Return the "Natural' property value for the receover, in this case the receiver itself."
-      def to_ri_cal_date_or_date_time_value
-        self
+      def to_ri_cal_date_or_date_time_value(timezone_finder = nil)
+        self.for_parent(timezone_finder)
       end
 
       # Return the Ruby DateTime representation of the receiver

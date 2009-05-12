@@ -50,6 +50,14 @@ module RiCal
         @tz_source = prodid_property.params["X-RICAL-TZSOURCE"]
         result
       end
+      
+      def default_tzid
+        @default_tzid || PropertyValue::DateTime.default_tzid
+      end
+      
+      def default_tzid=(value)
+        @default_tzid=value
+      end
 
       # return an array of event components contained within this Calendar
       def events

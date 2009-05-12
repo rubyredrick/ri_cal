@@ -23,6 +23,7 @@ module RiCal
           sel = selector.to_s
           sel = "#{sel}=" unless /(^(add_)|(remove_))|(=$)/ =~ sel
           if @component.respond_to?(sel)
+            rputs "#{sel.inspect}(#{args.inspect})"
             @component.send(sel, *args)
           else
             super
@@ -43,6 +44,14 @@ module RiCal
         else
           ComponentBuilder.new(self).instance_eval(&init_block)
         end
+      end
+    end
+    
+    def default_tzid
+      if @parent
+        @parent.default_tzid
+      else
+        Property::DateTime.default_tzid
       end
     end
     
