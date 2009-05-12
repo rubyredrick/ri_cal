@@ -49,7 +49,7 @@ module RiCal
       # i.e. they are interpreted in the timezone of each client. Floating times are typically used
       # to represent events which are 'repeated' in the various time zones, like the first hour of the year.
       def self.default_tzid=(tzid)
-        @default_tzid = value
+        @default_tzid = tzid
       end
 
       def self.default_tzid_hash # :nodoc:
