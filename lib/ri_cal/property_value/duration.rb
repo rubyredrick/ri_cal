@@ -14,7 +14,7 @@ module RiCal
 
       def self.from_datetimes(parent, start, finish, sign='+') # :nodoc:
         if start > finish
-          from_datetimes(finish, start, '-')
+          from_datetimes(self, finish, start, '-')
         else
           diff = finish - start
           days_diff = diff.to_i

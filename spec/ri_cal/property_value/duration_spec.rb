@@ -77,4 +77,15 @@ describe RiCal::PropertyValue::Duration do
     end
   end
   
+  describe ".from_datetimes" do
+    it "should work when start > finish" do
+      lambda {
+        RiCal::PropertyValue::Duration.from_datetimes(nil, 
+                      DateTime.parse("Sep 2, 2008 1:01:02"),
+                      DateTime.parse("Sep 1, 2008 23:00")
+                  )
+      }.should_not raise_error(ArgumentError)
+    end
+  end
+  
 end
