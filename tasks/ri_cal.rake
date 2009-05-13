@@ -207,7 +207,7 @@ class VEntityUpdater
         comment("set the value of the #{name.upcase} property to a single value")
         comment("one instance of #{describe_type(type)} may be passed to this method")
         indent("def #{ruby_method}=(#{ruby_val_parm})")
-        indent("  @#{property} = [#{type_class(type)}.convert(self, ruby_value)]")
+        indent("  @#{property} = [#{type_class(type)}.convert(self, #{ruby_val_parm})]")
         indent("end")
         blank_line
         comment("add one or more values to the #{name.upcase} property")
@@ -219,7 +219,7 @@ class VEntityUpdater
         comment("add one value to the #{name.upcase} property")
         comment("one instances of #{describe_type(type)} may be passed to this method")
         indent("def  add_#{ruby_method}(#{ruby_val_parm})")
-        indent(" self.#{property} << #{type_class(type)}.convert(self, ruby_value)")
+        indent(" self.#{property} << #{type_class(type)}.convert(self, #{ruby_val_parm})")
         indent("end")
         blank_line
         comment("remove one or more values from the #{name.upcase} property")
@@ -231,7 +231,7 @@ class VEntityUpdater
         comment("remove one value from the #{name.upcase} property")
         comment("one instances of #{describe_type(type)} may be passed to this method")
         indent("def  remove_#{ruby_method}(#{ruby_val_parm})")
-        indent(" self.#{property}.delete(#{type_class(type)}.convert(self, ruby_value))")
+        indent(" self.#{property}.delete(#{type_class(type)}.convert(self, #{ruby_val_parm}))")
         indent("end")
       end
       blank_line
@@ -269,7 +269,7 @@ class VEntityUpdater
         blank_line
         comment("set the value of the #{name.upcase} property")
         indent("def #{ruby_method}=(#{ruby_val_parm})")
-        indent("  self.#{property}= #{type_class(type)}.convert(self, ruby_value)")
+        indent("  self.#{property}= #{type_class(type)}.convert(self, #{ruby_val_parm})")
         indent("end")
       end
       blank_line

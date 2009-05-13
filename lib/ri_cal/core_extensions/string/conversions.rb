@@ -8,20 +8,32 @@ module RiCal
         # Parse the receiver as an RiCal::PropertyValue::DateTime
         def to_ri_cal_date_time_value(timezone_finder = nil)
           params, value = *Parser.params_and_value(self)
-          RiCal::PropertyValue::DateTime.new(timezone_finder, :params => params, :value => value)
+          PropertyValue::DateTime.new(timezone_finder, :params => params, :value => value)
         end
 
         def to_ri_cal_date_or_date_time_value(timezone_finder = nil)
           params, value = *Parser.params_and_value(self)
-          RiCal::PropertyValue.date_or_date_time(timezone_finder, :params => params, :value => value)
+          PropertyValue.date_or_date_time(timezone_finder, :params => params, :value => value)
         end
 
         # Parse the receiver as an RiCal::PropertyValue::DurationValue
         def to_ri_cal_duration_value(timezone_finder = nil)
           params, value = *Parser.params_and_value(self)
-          RiCal::PropertyValue::Duration.new(timezone_finder, :params => params, :value => value)
+          PropertyValue::Duration.new(timezone_finder, :params => params, :value => value)
         end
-
+        
+        def to_ri_cal_occurrence_list_value(timezone_finder = nil)
+          if PropertyValue::DateTime.valid_string?(self)
+            PropertyValue::DateTime.new(timezone_finder, :value => self)
+          elsif PropertyValue::Date.valid_string?(self)
+            PropertyValue::Date.new(timezone_finder, :value => self)
+          elsif PropertyValue::Period.valid_string?(self)
+            PropertyValue::Period.new(timezone_finder, :value => self)
+          else
+            raise "Invalid value for occurrence list #{self.inspect}"
+          end
+        end
+ 
         # code stolen from ActiveSupport Gem
         unless  ::String.instance_methods.include?("camelize")
           # Convert the receiver to camelized form

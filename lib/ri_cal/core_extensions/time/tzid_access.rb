@@ -26,7 +26,6 @@ module RiCal
 end
 
 if defined? ActiveSupport::TimeWithZone
-  puts "**** #{defined? ActiveSupport::TimeWithZone}"
   twz = Object.const_get(:ActiveSupport).const_get(:TimeWithZone)
   twz.class_eval {include RiCal::TimeWithZoneExtension}
 end

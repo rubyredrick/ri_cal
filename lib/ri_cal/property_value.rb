@@ -12,7 +12,7 @@ module RiCal
       validate_value(options)
       ({:params => {}}).merge(options).each do |attribute, val|
         unless attribute == :name
-          setter = :"#{attribute.to_s}="
+          setter = :"#{attribute.to_s.downcase}="
           send(setter, val)
         end
       end
@@ -116,6 +116,14 @@ module RiCal
 
     def to_ri_cal_property_value #:nodoc:
       self
+    end
+    
+    def default_tzid
+      if timezone_finder
+        timezone_finder.default_tzid
+      else
+        PropertyValue::DateTime.default_tzid
+      end
     end
   end
 end

@@ -38,7 +38,7 @@ describe RiCal::PropertyValue do
         before(:each) do
           @prop = RiCal::PropertyValue.date_or_date_time(nil, :value => "19970714T123456")
         end
-
+        
         it "should return a PropertyValue::DateTime" do
           @prop.should be_kind_of(RiCal::PropertyValue::DateTime)
         end
@@ -52,7 +52,7 @@ describe RiCal::PropertyValue do
         end
         
         it "should have a nil tzid" do
-          @prop.tzid.should be_nil
+          @prop.tzid.should == nil
         end
       end
       

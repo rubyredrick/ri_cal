@@ -48,7 +48,7 @@ module RiCal
       # Set the default tzid to be used when instantiating an instance from a ruby object
       # see RiCal::PropertyValue::DateTime.from_time
       #
-      # The parameter tzid is a string value to be used for the default tzid, a value of 'none' will cause
+      # The parameter tzid is a string value to be used for the default tzid, a value of :floating will cause
       # values with NO timezone to be produced, which will be interpreted by iCalendar as floating times
       # i.e. they are interpreted in the timezone of each client. Floating times are typically used
       # to represent events which are 'repeated' in the various time zones, like the first hour of the year.
@@ -63,7 +63,7 @@ module RiCal
           {'TZID' => default_tzid}
         end
       end
-
+      
       def inspect # :nodoc:
         "#{@date_time_value}:#{tzid}"
       end
@@ -90,8 +90,12 @@ module RiCal
         when nil
           @date_time_value = nil
         when String
-          self.tzid = 'UTC' if val =~/Z/
           @date_time_value = ::DateTime.parse(val)
+          if val =~/Z/
+            self.tzid = 'UTC'
+          else
+            @tzid ||= :floating
+          end
         when ::DateTime
           @date_time_value = val
         when ::Date, ::Time
@@ -117,17 +121,6 @@ module RiCal
         [object, parameters]
       end
 
-      # Create an instance of RiCal::PropertyValue::DateTime representing a Ruby Time or DateTime
-      # If the ruby object has been extended by ActiveSupport to have a time_zone method, then
-      # the timezone will be used as the TZID parameter.
-      #
-      # Otherwise the class level default tzid will be used.
-      # == See
-      # * RiCal::PropertyValue::DateTime.default_tzid
-      # * RiCal::PropertyValue::DateTime#object_time_zone
-      def self.from_time(time_or_date_time)
-        new(nil, :value => time_or_date_time.strftime("%Y%m%dT%H%M%S"), :params => {"TZID" => time_or_date_time.tzid})
-      end
 
       def self.convert(timezone_finder, ruby_object) # :nodoc:
           ruby_object.to_ri_cal_date_or_date_time_value(timezone_finder)
@@ -164,9 +157,20 @@ module RiCal
 
       def params=(value) #:nodoc:
         @params = value.dup
-        if params_timezone = params['TZID']
-          @tzid = params_timezone
+        if params_timezone = @params['TZID']
+          self.tzid =  @params['TZID']
         end
+      end
+      
+      def params
+        result = @params.dup
+        case tzid
+        when :floating, nil, "UTC"
+          result.delete('TZID')
+        else
+          result['TZID'] = tzid
+        end
+        result
       end
 
       # Compare the receiver with another object which must respond to the to_datetime message

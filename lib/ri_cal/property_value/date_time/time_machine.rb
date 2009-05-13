@@ -31,7 +31,7 @@ module RiCal
       def advance(options) # :nodoc:
         PropertyValue::DateTime.new(timezone_finder,
                                     :value => compute_advance(@date_time_value, options),
-                                    :tzid => tzid,
+                                    :tzid => @tzid,
                                     :params =>(params ? params.dup : nil)
         )
       end
@@ -39,7 +39,7 @@ module RiCal
       def change(options) # :nodoc:
         PropertyValue::DateTime.new(timezone_finder,
                                     :value => compute_change(@date_time_value, options),
-                                    :tzid => tzid,
+                                    :tzid => @tzid,
                                     :params => (params ? params.dup : nil)
         )
       end

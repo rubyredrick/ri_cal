@@ -14,15 +14,15 @@ describe RiCal::PropertyValue::OccurrenceList do
 
     context "self.occurence_list_property_from_string" do
       it "should produce a Date property from 20090101" do
-        @it.occurence_list_property_from_string(:tz_finder, "20090101").should == @d_prop.new(:tz_finder, :value => "20090101")
+        @it.occurence_list_property_from_string(nil, "20090101").should == @d_prop.new(nil, :value => "20090101")
       end
 
       it "should produce a DateTime property from 20090507T192200" do
-        @it.occurence_list_property_from_string(:tz_finder, "20090507T192200").should == @dt_prop.new(:tz_finder, :value => "20090507T192200")
+        @it.occurence_list_property_from_string(nil, "20090507T192200").should == @dt_prop.new(nil, :value => "20090507T192200")
       end
 
       it "should produce a Period property from 20090507T180000/P2H" do
-        @it.occurence_list_property_from_string(:tz_finder, "20090507T180000/P2H").should == @per_prop.new(:tz_finder, :value => "20090507T180000/P2H")
+        @it.occurence_list_property_from_string(nil, "20090507T180000/P2H").should == @per_prop.new(nil, :value => "20090507T180000/P2H")
       end
     end
   end
@@ -48,7 +48,7 @@ describe RiCal::PropertyValue::OccurrenceList do
     
     context "with a tzid and a single datetime" do
       before(:each) do
-        @it = RiCal::PropertyValue::OccurrenceList.convert(nil, ['US/Eastern', DateTime.parse("Feb 20, 1962 14:47:39")])
+        @it = RiCal::PropertyValue::OccurrenceList.convert(nil, 'US/Eastern', DateTime.parse("Feb 20, 1962 14:47:39"))
       end
       
       it "should produce the right ical representation" do

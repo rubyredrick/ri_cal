@@ -35,22 +35,20 @@ module RiCal
       end
 
       def self.convert(timezone_finder, *ruby_objects) # :nodoc:
-        new(timezone_finder, :source_elements => ruby_objects )
+        # ruby_objects = [ruby_objects] unless Array === ruby_objects
+        source_elements = ruby_objects.inject([]) { |se, element|
+          if String === element
+            element.split(",").each {|str| se << str}
+          else
+            se << element
+          end
+          se
+          }        
+        new(timezone_finder, :source_elements => source_elements )
       end
-
-      def value_to_element(value)
-        if ::String === value
-          result = PropertyValue.date_or_date_time_or_period(self, :value => value)
-          result.tzid = tzid if tzid
-          result
-        else
-          value.to_ri_cal_property_value
-        end
-      end
-
 
       def values_to_elements(values)
-        values.map {|val| value_to_element(val)}
+        values.map {|val| val.to_ri_cal_occurrence_list_value(self)}
       end
       
       def tzid_from_source_elements

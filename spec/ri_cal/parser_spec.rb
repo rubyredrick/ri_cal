@@ -193,13 +193,13 @@ describe RiCal::Parser do
       describe_property("VEVENT", "UID", {"X-FOO" => "BAR"}, "19960401T080045Z-4000F192713-0052@host1.com")
             
       #RFC 2445 section 4.8.5.1 EXDATE p112
-      describe_multi_property("VEVENT", "EXDATE", {"X-FOO" => "BAR"}, "19960402T010000Z,19960403T010000Z,19960404T010000Z", RiCal::PropertyValue::OccurrenceList)
+      describe_multi_property("VEVENT", "EXDATE", {"X-FOO" => "BAR"}, "19960402T010000,19960403T010000,19960404T010000", RiCal::PropertyValue::OccurrenceList)
 
       #RFC 2445 section 4.8.5.2 EXRULE p114
       describe_multi_property("VEVENT", "EXRULE", {"X-FOO" => "BAR"}, "FREQ=DAILY;COUNT=10", RiCal::PropertyValue::RecurrenceRule)
 
       #RFC 2445 section 4.8.5.3 RDATE p115
-      describe_multi_property("VEVENT", "RDATE", {"X-FOO" => "BAR"}, "19960402T010000Z,19960403T010000Z,19960404T010000Z", RiCal::PropertyValue::OccurrenceList)
+      describe_multi_property("VEVENT", "RDATE", {"X-FOO" => "BAR"}, "19960402T010000,19960403T010000,19960404T010000", RiCal::PropertyValue::OccurrenceList)
 
       #RFC 2445 section 4.8.5.2 RRULE p117
       describe_multi_property("VEVENT", "RRULE", {"X-FOO" => "BAR"}, "FREQ=DAILY;COUNT=10", RiCal::PropertyValue::RecurrenceRule)
