@@ -25,7 +25,10 @@ module RiCal
   end
 end
 
-if defined? ActiveSupport::TimeWithZone
-  twz = Object.const_get(:ActiveSupport).const_get(:TimeWithZone)
-  twz.class_eval {include RiCal::TimeWithZoneExtension}
+if Object.const_defined?(:ActiveSupport)
+  as = Object.const_get(:ActiveSupport)
+  if as.const_defined?(:TimeWithZone)
+    twz = as.const_get(:TimeWithZone)
+    twz.class_eval {include RiCal::TimeWithZoneExtension}
+  end
 end

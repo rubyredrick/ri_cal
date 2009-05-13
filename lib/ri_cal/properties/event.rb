@@ -977,7 +977,7 @@ module RiCal
       # set the value of the EXDATE property to a single value
       # one instance of OccurrenceList may be passed to this method
       def exdate=(*ruby_value)
-        @exdate_property = [RiCal::PropertyValue::OccurrenceList.convert(self, ruby_value)]
+        @exdate_property = [RiCal::PropertyValue::OccurrenceList.convert(self, *ruby_value)]
       end
 
       # add one or more values to the EXDATE property
@@ -1001,7 +1001,7 @@ module RiCal
       # remove one value from the EXDATE property
       # one instances of OccurrenceList may be passed to this method
       def  remove_exdate(*ruby_value)
-       self.exdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(self, ruby_value))
+       self.exdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(self, *ruby_value))
       end
 
       # return the value of the EXDATE property
@@ -1040,7 +1040,7 @@ module RiCal
       # set the value of the RDATE property to a single value
       # one instance of OccurrenceList may be passed to this method
       def rdate=(*ruby_value)
-        @rdate_property = [RiCal::PropertyValue::OccurrenceList.convert(self, ruby_value)]
+        @rdate_property = [RiCal::PropertyValue::OccurrenceList.convert(self, *ruby_value)]
       end
 
       # add one or more values to the RDATE property
@@ -1052,7 +1052,7 @@ module RiCal
       # add one value to the RDATE property
       # one instances of OccurrenceList may be passed to this method
       def  add_rdate(*ruby_value)
-       self.rdate_property << RiCal::PropertyValue::OccurrenceList.convert(self, ruby_value)
+       self.rdate_property << RiCal::PropertyValue::OccurrenceList.convert(self, *ruby_value)
       end
 
       # remove one or more values from the RDATE property
@@ -1064,7 +1064,7 @@ module RiCal
       # remove one value from the RDATE property
       # one instances of OccurrenceList may be passed to this method
       def  remove_rdate(*ruby_value)
-       self.rdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(self, ruby_value))
+       self.rdate_property.delete(RiCal::PropertyValue::OccurrenceList.convert(self, *ruby_value))
       end
 
       # return the value of the RDATE property
