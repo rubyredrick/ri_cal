@@ -2,6 +2,7 @@
 #- All rights reserved
 
 require File.join(File.dirname(__FILE__), %w[.. spec_helper])
+require 'tzinfo'
 
 describe RiCal::Component do
 
@@ -36,9 +37,12 @@ describe RiCal::Component do
       context "adding an exception date" do
         
         before(:each) do
-          @event = RiCal.Event do
-            add_exdate 'US/Eastern', DateTime.parse("Feb 20, 1962 14:47:39")
+          @cal =  RiCal.Calendar do
+            event do
+              add_exdate 'US/Eastern', DateTime.parse("Feb 20, 1962 14:47:39")
+            end
           end
+          @event = @cal.events.first
           @prop = @event.exdate_property.first
         end
 
@@ -49,9 +53,15 @@ describe RiCal::Component do
         it "should have a property with the right ical representation" do
           @prop.to_s.should == ";TZID=US/Eastern:19620220T144739"
         end
-
-        it "should have the right exdate value" do
-          @prop.ruby_value.should == [DateTime.parse("Feb 20, 1962 14:47:39")]
+        
+        context "its ruby_value" do
+          it "should have the right value" do
+            @prop.ruby_value.should == [DateTime.civil(1962, 2, 20, 14, 47, 39, Rational(-5, 24))]
+          end
+          
+          it "should have the right tzid" do
+            @prop.ruby_value.first.tzid.should == "US/Eastern"
+          end
         end
       end
     end

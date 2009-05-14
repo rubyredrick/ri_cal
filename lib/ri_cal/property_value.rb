@@ -118,6 +118,14 @@ module RiCal
       self
     end
     
+    def find_timezone(timezone_identifier)
+      if timezone_finder
+        timezone_finder.find_timezone(timezone_identifier)
+      else
+        raise "Unable to find timezone with tzid #{timezone_identifier}"
+      end
+    end
+    
     def default_tzid
       if timezone_finder
         timezone_finder.default_tzid

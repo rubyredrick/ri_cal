@@ -287,10 +287,10 @@ module RiCal
 
       # Returns a ruby DateTime object representing the receiver.
        def ruby_value
-        to_datetime
+         ::DateTime.civil(year, month, day, hour, min, sec, rational_tz_offset).set_tzid(tzid)
       end
 
-      alias_method :to_ri_cal_ruby_value, :ruby_value
+      alias_method :to_ri_cal_ruby_value, :to_datetime
 
       def add_date_times_to(required_timezones) #:nodoc:
         required_timezones.add_datetime(self, tzid) if has_local_timezone?

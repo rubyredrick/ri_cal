@@ -48,15 +48,24 @@ describe RiCal::PropertyValue::OccurrenceList do
     
     context "with a tzid and a single datetime" do
       before(:each) do
-        @it = RiCal::PropertyValue::OccurrenceList.convert(nil, 'US/Eastern', DateTime.parse("Feb 20, 1962 14:47:39"))
+        timezone = mock("Timezone", :rational_utc_offset => Rational(-5, 24))
+        timezone_finder = mock("tz_finder", :find_timezone => timezone, :default_tzid => "UTC")        
+        @it = RiCal::PropertyValue::OccurrenceList.convert(timezone_finder, 'US/Eastern', DateTime.parse("Feb 20, 1962 14:47:39"))
       end
       
       it "should produce the right ical representation" do
         @it.to_s.should == ";TZID=US/Eastern:19620220T144739"
       end
       
-      it "should have the right ruby value" do
-        @it.ruby_value.should == [DateTime.parse("Feb 20, 1962 14:47:39")]
+      context "its ruby value" do
+
+        it "should be the right DateTime" do
+          @it.ruby_value.should == [DateTime.civil(1962, 2, 20, 14, 47, 39, Rational(-5, 24))]
+        end
+        
+        it "should have the right tzid" do
+          @it.ruby_value.first.tzid.should == "US/Eastern"
+        end
       end
       
       it "should have the right elements" do

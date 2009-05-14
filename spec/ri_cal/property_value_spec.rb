@@ -2,6 +2,7 @@
 #- All rights reserved
 
 require File.join(File.dirname(__FILE__), %w[.. spec_helper])
+require 'tzinfo'
 
 describe RiCal::PropertyValue do
   
@@ -81,7 +82,9 @@ describe RiCal::PropertyValue do
       
       describe "FORM #3 date with local time and time zone reference p 36" do
         before(:each) do
-          @prop = RiCal::PropertyValue.date_or_date_time(nil, :value => "19970714T123456", :params => {'TZID' => 'US-Eastern'})
+          timezone = mock("Timezone", :rational_utc_offset => Rational(-4, 24))
+          timezone_finder = mock("tz_finder", :find_timezone => timezone)
+          @prop = RiCal::PropertyValue.date_or_date_time(timezone_finder, :value => "19970714T123456", :params => {'TZID' => 'US-Eastern'})
         end
 
         it "should return a PropertyValue::DateTime" do
@@ -92,9 +95,18 @@ describe RiCal::PropertyValue do
           @prop.value.should == "19970714T123456"
         end
         
-        it "should have the right ruby value" do
-          #TODO - what do we do about timezone with and without activesupport
-          @prop.to_ri_cal_ruby_value.should == DateTime.parse("19970714T123456")
+        context "it's Ruby value" do
+          before(:each) do
+            @it = @prop.ruby_value
+          end
+          
+          it "should be the right DateTime" do
+            @it.should == DateTime.civil(1997,7, 14, 12, 34, 56, Rational(-4, 24))
+          end
+
+          it "should have the right tzid" do
+            @it.tzid.should == "US-Eastern"
+          end
         end
         
         it "should have the right tzid" do

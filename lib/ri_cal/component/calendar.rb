@@ -131,6 +131,12 @@ module RiCal
         def utc_to_local(local) #:nodoc:
           date_time(tzinfo.utc_to_local(local.to_ri_cal_ruby_value), tzinfo.identifier)
         end
+        
+        
+        def rational_utc_offset(local)
+          Rational(tzinfo.period_for_local(local, true).utc_offset, 3600) / 24
+        end
+
       end
 
       def find_timezone(identifier)  #:nodoc:

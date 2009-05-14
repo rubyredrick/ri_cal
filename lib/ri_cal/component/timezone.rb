@@ -23,6 +23,10 @@ module RiCal
           # Don't use alias, as identifier gets overridden.
           identifier
         end
+        
+        def rational_utc_offset(local)
+          Rational(period_for_local(local, true).utc_offset, 3600) / 24
+        end
 
         # Returns the TimezonePeriod for the given UTC time. utc can either be a DateTime,
         # Time or integer timestamp (Time.to_i). Any timezone information in utc is ignored (it is treated as a UTC time).

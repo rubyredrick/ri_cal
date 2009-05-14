@@ -39,7 +39,8 @@ describe RiCal::PropertyValue::DateTime do
 
       context "for a datetime with a tzid of America/New_York" do
         before(:each) do
-          @it = local_datetime("19970101T012300").utc
+          @it = local_datetime("19970101T012300")
+          @it = @it.utc
         end
 
         it "should return the equivalent utc time" do

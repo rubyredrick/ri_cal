@@ -17,7 +17,7 @@ module RiCal
       end
 
       def find_timezone #:nodoc:
-        if @timezone == :floating
+        if @tzid == :floating
           FloatingTimezone
         else
           timezone_finder.find_timezone(@tzid)
@@ -49,6 +49,14 @@ module RiCal
           timezone.local_to_utc(self)
         else  # Already local or a floating time
           self
+        end
+      end
+      
+      def rational_tz_offset
+        if has_local_timezone?
+          timezone.rational_utc_offset(@date_time_value)
+        else
+          Rational(0,24)
         end
       end
       
