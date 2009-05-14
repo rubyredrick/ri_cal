@@ -1,5 +1,3 @@
-.ackrc
-CHANGELOG
 History.txt
 Manifest.txt
 README.txt
