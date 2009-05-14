@@ -84,8 +84,10 @@ module RiCal
         exclusion && occurrence[:start] == occurrence[:start]
       end
       
+      # Also exclude occurrences before the :starting date_time
       def exclude?(occurrence)
-        exclusion_match?(occurrence, exclusion_for(occurrence))
+        exclusion_match?(occurrence, exclusion_for(occurrence)) ||
+          (@start && occurrence[:start].to_datetime < @start)
       end
       
       # yield each occurrence to a block
@@ -95,12 +97,12 @@ module RiCal
         yielded = 0
         @next_exclusion = @exrules.next_occurrence
         while (occurrence)
-          if (@cutoff && occurrence[:start] >= @cutoff) || (@count && yielded >= @count)
+          if (@cutoff && occurrence[:start].to_datetime >= @cutoff) || (@count && yielded >= @count)
             occurrence = nil
           else
             unless exclude?(occurrence)
               yielded += 1
-             yield @component.recurrence(occurrence)
+              yield @component.recurrence(occurrence)
             end
             occurrence = @rrules.next_occurrence
           end

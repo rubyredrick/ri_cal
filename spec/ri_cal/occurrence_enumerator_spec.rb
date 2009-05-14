@@ -54,6 +54,28 @@ TEXT
       
     end
   end
+  
+  describe ".occurrences" do
+    before(:each) do
+      @it = RiCal.parse_string(Fr13Unbounded_Zulu).first
+    end
+    
+    describe "with :starting specified" do
+      it "should exclude dates before :starting" do
+        result = @it.occurrences(:starting => Fr13UnboundedZuluExpectedFive[1].dtstart,
+                                 :before   => Fr13UnboundedZuluExpectedFive[-1].dtstart)
+        result.map{|o|o.dtstart}.should == Fr13UnboundedZuluExpectedFive[1..-2].map{|e| e.dtstart}
+      end
+    end
+    
+    describe "with :before specified" do
+      it "should exclude dates after :before" do
+        result = @it.occurrences(:before => Fr13UnboundedZuluExpectedFive[3].dtstart,
+                                 :count => 5)
+        result.map{|o|o.dtstart}.should == Fr13UnboundedZuluExpectedFive[0..2].map{|e| e.dtstart}
+      end
+    end
+  end
     
 
   describe ".each" do
