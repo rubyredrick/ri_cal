@@ -5,6 +5,61 @@ require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::Component::Event do
   
+  context "comment property methods" do
+    before(:each) do
+      @event = RiCal.Event
+      @event.comment = "Comment"
+    end
+    
+    context "#comment=" do
+      it "should result in a single comment for the event" do
+        @event.comment.should == ["Comment"]
+      end
+      
+      it "should replace existing comments" do
+        @event.comment = "Replacement"
+        @event.comment.should == ["Replacement"]
+      end
+    end
+
+    context "#comments=" do
+      it "should result in a multiple comments for the event replacing existing comments" do
+        @event.comments = "New1", "New2"
+        @event.comment.should == ["New1", "New2"]
+      end
+    end
+
+    context "#add_comment" do
+      it "should add a single comment" do
+        @event.add_comment "New1"
+        @event.comment.should == ["Comment", "New1"]
+      end
+    end
+
+    context "#add_comments" do
+      it "should add multiple comments" do
+        @event.add_comments "New1", "New2"
+        @event.comment.should == ["Comment", "New1", "New2"]
+      end
+    end
+
+    context "#remove_comment" do
+      it "should remove a single comment" do
+        @event.add_comment "New1"
+        @event.remove_comment "Comment"
+        @event.comment.should == ["New1"]
+      end
+    end
+
+    context "#remove_comments" do
+      it "should remove multiple comments" do
+        @event.add_comments "New1", "New2", "New3"
+        @event.remove_comments "New2", "Comment"
+        @event.comment.should == ["New1", "New3"]
+      end
+    end
+  end
+  
   context ".dtstart=" do
     before(:each) do
       @event = RiCal.Event

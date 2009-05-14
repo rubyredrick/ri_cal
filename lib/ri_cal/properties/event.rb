@@ -844,7 +844,7 @@ module RiCal
 
       # set the value of the COMMENT property to multiple values
       # one or more instances of String may be passed to this method
-      def comments=(*ruby_values)
+      def comments=(ruby_values)
         @comment_property = ruby_values.map {|val| RiCal::PropertyValue::Text.convert(self, val)}
       end
 
@@ -857,7 +857,7 @@ module RiCal
       # add one or more values to the COMMENT property
       # one or more instances of String may be passed to this method
       def  add_comments(*ruby_values)
-       ruby_values.do {|val|  self.comment_property << RiCal::PropertyValue::Text.convert(self, val)}
+       ruby_values.each {|val|  self.comment_property << RiCal::PropertyValue::Text.convert(self, val)}
       end
 
       # add one value to the COMMENT property
@@ -869,7 +869,7 @@ module RiCal
       # remove one or more values from the COMMENT property
       # one or more instances of String may be passed to this method
       def  remove_comments(*ruby_values)
-       ruby_values.do {|val|  self.comment_property.delete(RiCal::PropertyValue::Text.convert(self, val))}
+       ruby_values.each {|val|  self.comment_property.delete(RiCal::PropertyValue::Text.convert(self, val))}
       end
 
       # remove one value from the COMMENT property
