@@ -29,7 +29,7 @@ describe RiCal::Component::Todo do
     end
     
     it "should reset the duration property if the due property is set" do
-      @it.due_property = "19970101".to_ri_cal_date_time_value
+      @it.due_property = "19970101T012345".to_ri_cal_date_time_value
       @it.duration_property.should be_nil
     end
     

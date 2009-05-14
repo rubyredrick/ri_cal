@@ -1039,8 +1039,8 @@ module RiCal
 
       # set the value of the RDATE property to a single value
       # one instance of OccurrenceList may be passed to this method
-      def rdate=(*ruby_value)
-        @rdate_property = [RiCal::PropertyValue::OccurrenceList.convert(self, *ruby_value)]
+      def rdate=(ruby_value)
+        @rdate_property = [RiCal::PropertyValue::OccurrenceList.convert(self, ruby_value)]
       end
 
       # add one or more values to the RDATE property

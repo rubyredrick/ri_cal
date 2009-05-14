@@ -53,21 +53,14 @@ module RiCal
       
       def tzid_from_source_elements
         if @source_elements && String === (first_source = @source_elements.first)
-          unless PropertyValue::DateTime.valid_string?(first_source) || 
-            PropertyValue::Date.valid_string?(first_source) || 
-            PropertyValue::Period.valid_string?(first_source)
+          probe = first_source.to_ri_cal_occurrence_list_value rescue nil
+          unless probe
             return @source_elements.shift
           end
         end
         nil
       end
       
-      def self.occurence_list_property_from_string(timezone_finder, string)
-        PropertyValue::DateTime.if_valid_string(timezone_finder, string) ||
-        PropertyValue::Date.if_valid_string(timezone_finder, string) ||
-        PropertyValue::Period.if_valid_string(timezone_finder, string)
-      end
-
       def validate_elements
         if @source_elements
           self.tzid = tzid_from_source_elements

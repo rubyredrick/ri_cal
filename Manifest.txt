@@ -1,3 +1,5 @@
+.ackrc
+CHANGELOG
 History.txt
 Manifest.txt
 README.txt
@@ -36,7 +38,6 @@ lib/ri_cal/core_extensions/array/conversions.rb
 lib/ri_cal/core_extensions/date.rb
 lib/ri_cal/core_extensions/date/conversions.rb
 lib/ri_cal/core_extensions/date_time.rb
-lib/ri_cal/core_extensions/date_time/conversions.rb
 lib/ri_cal/core_extensions/object.rb
 lib/ri_cal/core_extensions/object/conversions.rb
 lib/ri_cal/core_extensions/string.rb
@@ -44,7 +45,10 @@ lib/ri_cal/core_extensions/string/conversions.rb
 lib/ri_cal/core_extensions/time.rb
 lib/ri_cal/core_extensions/time/calculations.rb
 lib/ri_cal/core_extensions/time/conversions.rb
+lib/ri_cal/core_extensions/time/tzid_access.rb
 lib/ri_cal/core_extensions/time/week_day_predicates.rb
+lib/ri_cal/floating_timezone.rb
+lib/ri_cal/invalid_property_value.rb
 lib/ri_cal/invalid_timezone_identifer.rb
 lib/ri_cal/occurrence_enumerator.rb
 lib/ri_cal/parser.rb
@@ -85,7 +89,6 @@ lib/ri_cal/property_value/text.rb
 lib/ri_cal/property_value/uri.rb
 lib/ri_cal/property_value/utc_offset.rb
 lib/ri_cal/required_timezones.rb
-lib/ri_cal/time_with_floating_timezone.rb
 ri_cal.gemspec
 sample_ical_files/from_ical_dot_app/test1.ics
 script/console
@@ -101,6 +104,7 @@ spec/ri_cal/component/t_z_info_timezone_spec.rb
 spec/ri_cal/component/timezone_spec.rb
 spec/ri_cal/component/todo_spec.rb
 spec/ri_cal/component_spec.rb
+spec/ri_cal/core_extensions/string/conversions_spec.rb
 spec/ri_cal/core_extensions/time/calculations_spec.rb
 spec/ri_cal/core_extensions/time/week_day_predicates_spec.rb
 spec/ri_cal/occurrence_enumerator_spec.rb
@@ -108,6 +112,7 @@ spec/ri_cal/parser_spec.rb
 spec/ri_cal/property_value/date_spec.rb
 spec/ri_cal/property_value/date_time_spec.rb
 spec/ri_cal/property_value/duration_spec.rb
+spec/ri_cal/property_value/occurrence_list_spec.rb
 spec/ri_cal/property_value/period_spec.rb
 spec/ri_cal/property_value/recurrence_rule/recurring_year_day_spec.rb
 spec/ri_cal/property_value/recurrence_rule_spec.rb

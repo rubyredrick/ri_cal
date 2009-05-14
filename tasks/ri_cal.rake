@@ -268,8 +268,8 @@ class VEntityUpdater
         indent("end")
         blank_line
         comment("set the value of the #{name.upcase} property")
-        indent("def #{ruby_method}=(#{ruby_val_parm})")
-        indent("  self.#{property}= #{type_class(type)}.convert(self, #{ruby_val_parm})")
+        indent("def #{ruby_method}=(ruby_value)")
+        indent("  self.#{property}= #{type_class(type)}.convert(self, ruby_value)")
         indent("end")
       end
       blank_line

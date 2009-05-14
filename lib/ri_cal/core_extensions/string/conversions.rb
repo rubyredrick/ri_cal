@@ -7,8 +7,12 @@ module RiCal
       module Conversions
         # Parse the receiver as an RiCal::PropertyValue::DateTime
         def to_ri_cal_date_time_value(timezone_finder = nil)
-          params, value = *Parser.params_and_value(self)
-          PropertyValue::DateTime.new(timezone_finder, :params => params, :value => value)
+          params, value = *Parser.params_and_value(self, :no_leading_semicolon)
+          if PropertyValue::DateTime.valid_string?(value)
+             PropertyValue::DateTime.new(timezone_finder, :params => params, :value => value)
+           else
+             raise InvalidPropertyValue.new("#{self.inspect} is not a valid rfc 2445 date-time")
+           end
         end
         
 
@@ -24,12 +28,13 @@ module RiCal
         end
         
         def to_ri_cal_occurrence_list_value(timezone_finder = nil)
-          if PropertyValue::DateTime.valid_string?(self)
-            PropertyValue::DateTime.new(timezone_finder, :value => self)
-          elsif PropertyValue::Date.valid_string?(self)
-            PropertyValue::Date.new(timezone_finder, :value => self)
-          elsif PropertyValue::Period.valid_string?(self)
-            PropertyValue::Period.new(timezone_finder, :value => self)
+          params, value = *Parser.params_and_value(self, :no_leading_semicolon)
+          if PropertyValue::DateTime.valid_string?(value)
+            PropertyValue::DateTime.new(timezone_finder, :params => params, :value => value)
+          elsif PropertyValue::Date.valid_string?(value)
+            PropertyValue::Date.new(timezone_finder, :params => params, :value => value)
+          elsif PropertyValue::Period.valid_string?(value)
+            PropertyValue::Period.new(timezone_finder, :params => params, :value => value)
           else
             raise "Invalid value for occurrence list #{self.inspect}"
           end

@@ -4,18 +4,61 @@
 require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::Component::Event do
-  
+
+  context "rdate property methods" do
+    before(:each) do
+      @event = RiCal.Event do
+        rdate "20090101"
+      end
+    end
+
+    context "#rdate=" do
+
+      it "should accept a single Date and replace the existing rdate" do
+        @event.rdate = Date.parse("20090102")
+        @event.rdate.should == [[Date.parse("20090102")]]
+      end
+
+      it "should accept a single rfc2445 date format string and replace the existing rdate" do
+        @event.rdate = "20090102"
+        @event.rdate.should == [[Date.parse("20090102")]]
+      end
+
+      it "should accept a single DateTime and replace the existing rdate" do
+        @event.rdate = DateTime.parse("20090102T012345")
+        @event.rdate.should == [[DateTime.parse("20090102T012345")]]
+      end
+
+      it "should accept a single Time and replace the existing rdate" do
+        @event.rdate = Time.local(2009, 1, 2, 1, 23, 45)
+        @event.rdate.should == [[DateTime.parse("20090102T012345")]]
+      end
+
+      it "should accept a single rfc2445 date-time format string  and replace the existing rdate" do
+        @event.rdate = "20090102T012345"
+        @event.rdate.should == [[DateTime.parse("20090102T012345")]]
+      end
+
+      it "should accept a tzid prefixed rfc2445 date-time format string  and replace the existing rdate" do
+        @event.rdate = "TZID=America/New_York:20090102T012345"
+        @event.rdate.should == [[DateTime.civil(2009, 1, 2, 1, 23, 45, Rational(-5, 24))]]
+      end
+
+    end
+
+  end
+
   context "comment property methods" do
     before(:each) do
       @event = RiCal.Event
       @event.comment = "Comment"
     end
-    
+
     context "#comment=" do
       it "should result in a single comment for the event" do
         @event.comment.should == ["Comment"]
       end
-      
+
       it "should replace existing comments" do
         @event.comment = "Replacement"
         @event.comment.should == ["Replacement"]
@@ -59,63 +102,63 @@ describe RiCal::Component::Event do
       end
     end
   end
-  
+
   context ".dtstart=" do
     before(:each) do
       @event = RiCal.Event
     end
-    
+
     context "with a datetime only string" do
       before(:each) do
         @event.dtstart = "20090514T202400"
         @it = @event.dtstart
       end
-      
+
       it "should interpret it as the correct date-time" do
         @it.should == DateTime.civil(2009, 5, 14, 20, 24, 00, Rational(0,24))
       end
-      
+
       it "should interpret it as a floating date" do
         @it.tzid.should == :floating
       end
     end
-    
+
     context "with a TZID and datetime string" do
       before(:each) do
         @event.dtstart = "TZID=America/New_York:20090514T202400"
         @it = @event.dtstart
       end
-      
+
       it "should interpret it as the correct date-time" do
         @it.should == DateTime.civil(2009, 5, 14, 20, 24, 00, Rational(-5,24))
       end
-      
+
       it "should set the tzid to America/New_York" do
         @it.tzid.should == "America/New_York"
       end
     end
-    
+
     context "with a zulu datetime only string" do
       before(:each) do
         @event.dtstart = "20090514T202400Z"
         @it = @event.dtstart
       end
-      
+
       it "should interpret it as the correct date-time" do
         @it.should == DateTime.civil(2009, 5, 14, 20, 24, 00, Rational(0,24))
       end
-      
+
       it "should set the tzid to UTC" do
         @it.tzid.should == "UTC"
       end
     end
-    
+
     context "with a date string" do
       before(:each) do
         @event.dtstart = "20090514"
         @it = @event.dtstart
       end
-      
+
       it "should interpret it as the correct date-time" do
         @it.should == Date.parse("14 May 2009")
       end
@@ -180,7 +223,7 @@ describe RiCal::Component::Event do
     end
 
     it "should reset the duration property if the dtend property is set" do
-      @it.dtend_property = "19970101".to_ri_cal_date_time_value
+      @it.dtend_property = "19970101T123456".to_ri_cal_date_time_value
       @it.duration_property.should be_nil
     end
 
@@ -231,7 +274,7 @@ describe RiCal::Component::Event do
     def date_time_with_tzinfo_zone(date_time, timezone="America/New_York")
       date_time.dup.set_tzid(timezone)
     end
-    
+
     # Undo the effects of RFC2445 line folding
     def unfold(string)
       string.gsub("\n ", "")
