@@ -1,7 +1,7 @@
 module RiCal
   #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
   #
-  class Component    
+  class Component #:nodoc:
     class ComponentBuilder #:nodoc:
       def initialize(component)
         @component = component

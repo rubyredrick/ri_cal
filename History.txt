@@ -1,3 +1,20 @@
-== 0.0.1 / 2009-4/26
+=== 0.0.3
+ * Added tzid method to Ruby Time and DateTime instances, and to ActiveRecord::TimeWithZone if it is defined this method is used to determine the desired
+timezone when an instance of one of these classes is given as the value of a datetime property.  If the tzid is nil then the default tzid is used,
+if it is set to :floating then the property will be a floating time.
+ * Removed the ability to pass an array with a tzid string and a date-time since the above made it unnecessary
+ * The ruby datetime property returned from the ruby_value method on the DateTime property will return an instance of ::DateTime with:
+   ** The proper utc offset
+   ** The tzid set to the right tzid
+ * Made exdate/rdate building possible
+ * Added a default_tzid attribute to the Calendar component, if this attribute is not set for a particular calendar it will delegate to the default set 
+for the DateTime property class.
+ * Added fix patches from
+   ** http://github.com/kjwierenga/ri_cal
+   ** http://github.com/wesmaldonado/ri_cal
 
-* Initial public release
+=== 0.0.2
+ * Fixed gemspec
+== 0.0.1
+
+ * Initial public release

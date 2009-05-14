@@ -265,7 +265,7 @@ module RiCal
         @date_time_value.iso_year_and_week_one_start(wkst)
       end
 
-      def iso_weeks_in_year(wkst)
+      def iso_weeks_in_year(wkst) #:nodoc:
         @date_time_value.iso_weeks_in_year(wkst) #:nodoc:
       end
 
