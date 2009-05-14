@@ -6,18 +6,18 @@ module RiCal
       #
       module Conversions
         # Return an RiCal::PropertyValue::DateTime representing the receiver
-        def to_ri_cal_date_time_value(timezone_finder = nil)
+        def to_ri_cal_date_time_value(timezone_finder = nil) #:nodoc:
           RiCal::PropertyValue::DateTime.new(
                timezone_finder, 
                :value => strftime("%Y%m%dT%H%M%S"), 
                :params => {"TZID" => self.tzid || :default})
         end
 
-        alias_method :to_ri_cal_date_or_date_time_value, :to_ri_cal_date_time_value
-        alias_method :to_ri_cal_occurrence_list_value, :to_ri_cal_date_time_value
+        alias_method :to_ri_cal_date_or_date_time_value, :to_ri_cal_date_time_value #:nodoc:
+        alias_method :to_ri_cal_occurrence_list_value, :to_ri_cal_date_time_value #:nodoc:
 
         # Return the natural ri_cal_property for this object
-        def to_ri_cal_property_value(timezone_finder = nil)
+        def to_ri_cal_property_value(timezone_finder = nil) #:nodoc:
           to_ri_cal_date_time_value(timezone_finder)
         end
         

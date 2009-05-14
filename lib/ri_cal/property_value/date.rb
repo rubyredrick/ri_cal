@@ -7,11 +7,11 @@ module RiCal
     # which is defined in
     # RFC 2445 section 4.3.4 p 34
     class Date < PropertyValue
-      
-      def self.valid_string?(string)        
+
+      def self.valid_string?(string) #:nodoc:
         string =~ /^\d{8}$/
       end
-      
+
       # Returns the value of the reciever as an RFC 2445 iCalendar string
       def value
         if @date_time_value
@@ -39,11 +39,11 @@ module RiCal
           @date_time_value = ::DateTime.parse(val.strftime("%Y%m%d"))
         end
       end
-      
+
       # Nop to allow occurrence list to try to set it
       def tzid=(val)#:nodoc:
       end
-      
+
       def tzid #:nodoc:
         nil
       end

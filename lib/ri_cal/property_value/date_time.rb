@@ -28,7 +28,7 @@ module RiCal
         end
       end
       
-      def self.valid_string?(string)
+      def self.valid_string?(string) #:nodoc:
         string =~ /^\d{8}T\d{6}Z?$/
       end
 
@@ -161,6 +161,7 @@ module RiCal
         end
       end
       
+      # Return a Hash representing this properties parameters
       def params
         result = @params.dup
         case tzid
@@ -183,11 +184,11 @@ module RiCal
         [other.year, other.month] == [year, month]
       end
 
-      def nth_wday_in_month(n, which_wday)
+      def nth_wday_in_month(n, which_wday) #:nodoc:
         @date_time_value.nth_wday_in_month(n, which_wday, self)
       end
 
-      def nth_wday_in_year(n, which_wday)
+      def nth_wday_in_year(n, which_wday) #:nodoc:
         @date_time_value.nth_wday_in_year(n, which_wday, self)
       end
 
@@ -202,12 +203,6 @@ module RiCal
       def days_in_month
         @date_time_value.days_in_month
       end
-
-      def in_same_month_as?(other)
-        [other.year, other.month] == [year, month]
-      end
-
-
 
       # Determine if the receiver and another object are equivalent RiCal::PropertyValue::DateTime instances
       def ==(other)
@@ -271,16 +266,16 @@ module RiCal
       end
 
       def iso_weeks_in_year(wkst)
-        @date_time_value.iso_weeks_in_year(wkst)
+        @date_time_value.iso_weeks_in_year(wkst) #:nodoc:
       end
 
       # Return the "Natural' property value for the receover, in this case the receiver itself."
-      def to_ri_cal_date_or_date_time_value(timezone_finder = nil)
+      def to_ri_cal_date_or_date_time_value(timezone_finder = nil) #:nodoc:
         self.for_parent(timezone_finder)
       end
 
       # Return the Ruby DateTime representation of the receiver
-      def to_datetime
+      def to_datetime #:nodoc:
         @date_time_value
       end
 

@@ -23,7 +23,7 @@ module RiCal
           identifier
         end
         
-        def rational_utc_offset(local)
+        def rational_utc_offset(local) #:nodoc:
           Rational(period_for_local(local, true).utc_offset, 3600) / 24
         end
 
