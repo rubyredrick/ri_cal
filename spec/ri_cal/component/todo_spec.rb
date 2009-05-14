@@ -48,12 +48,12 @@ describe RiCal::Component::Todo do
     end
     
     it "should reset the due property if the duration property is set" do
-      @it.duration_property = "H1".to_ri_cal_duration_value
+      @it.duration_property = "P1H".to_ri_cal_duration_value
       @it.due_property.should be_nil
     end
     
     it "should reset the duration property if the dtend ruby value is set" do
-      @it.duration = "19970101"
+      @it.duration = "P1H"
       @it.due_property.should == nil
     end
   end

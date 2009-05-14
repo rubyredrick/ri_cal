@@ -242,12 +242,12 @@ describe RiCal::Component::Event do
     end
 
     it "should reset the dtend property if the duration property is set" do
-      @it.duration_property = "H1".to_ri_cal_duration_value
+      @it.duration_property = "P1H".to_ri_cal_duration_value
       @it.dtend_property.should be_nil
     end
 
     it "should reset the dtend property if the duration ruby value is set" do
-      @it.duration = "H1".to_ri_cal_duration_value
+      @it.duration = "P1H".to_ri_cal_duration_value
       @it.dtend_property.should be_nil
     end
   end
