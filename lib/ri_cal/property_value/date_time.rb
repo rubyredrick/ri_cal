@@ -287,7 +287,7 @@ module RiCal
 
       # Returns a ruby DateTime object representing the receiver.
        def ruby_value
-         ::DateTime.civil(year, month, day, hour, min, sec, rational_tz_offset).set_tzid(tzid)
+         ::DateTime.civil(year, month, day, hour, min, sec, rational_tz_offset).set_tzid(@tzid)
       end
 
       alias_method :to_ri_cal_ruby_value, :to_datetime

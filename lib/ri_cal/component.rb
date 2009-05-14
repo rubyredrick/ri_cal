@@ -55,9 +55,17 @@ module RiCal
     end
     
     def find_timezone(identifier) #:nodoc:
-      @parent.find_timezone(identifier)
+      if @parent
+        @parent.find_timezone(identifier)
+      else
+        begin
+          Calendar::TZInfoWrapper.new(TZInfo::Timezone.get(identifier), self)
+        rescue ::TZInfo::InvalidTimezoneIdentifier => ex
+          raise RiCal::InvalidTimezoneIdentifier.invalid_tzinfo_identifier(identifier)
+        end
+      end
     end
-    
+
     def time_zone_for(ruby_object)
       @parent.time_zone_for(ruby_object) #:nodoc:
     end

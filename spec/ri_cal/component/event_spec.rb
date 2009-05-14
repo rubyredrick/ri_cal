@@ -4,8 +4,70 @@
 require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::Component::Event do
+  
+  context ".dtstart=" do
+    before(:each) do
+      @event = RiCal.Event
+    end
+    
+    context "with a datetime only string" do
+      before(:each) do
+        @event.dtstart = "20090514T202400"
+        @it = @event.dtstart
+      end
+      
+      it "should interpret it as the correct date-time" do
+        @it.should == DateTime.civil(2009, 5, 14, 20, 24, 00, Rational(0,24))
+      end
+      
+      it "should interpret it as a floating date" do
+        @it.tzid.should == :floating
+      end
+    end
+    
+    context "with a TZID and datetime string" do
+      before(:each) do
+        @event.dtstart = "TZID=America/New_York:20090514T202400"
+        @it = @event.dtstart
+      end
+      
+      it "should interpret it as the correct date-time" do
+        @it.should == DateTime.civil(2009, 5, 14, 20, 24, 00, Rational(-5,24))
+      end
+      
+      it "should set the tzid to America/New_York" do
+        @it.tzid.should == "America/New_York"
+      end
+    end
+    
+    context "with a zulu datetime only string" do
+      before(:each) do
+        @event.dtstart = "20090514T202400Z"
+        @it = @event.dtstart
+      end
+      
+      it "should interpret it as the correct date-time" do
+        @it.should == DateTime.civil(2009, 5, 14, 20, 24, 00, Rational(0,24))
+      end
+      
+      it "should set the tzid to UTC" do
+        @it.tzid.should == "UTC"
+      end
+    end
+    
+    context "with a date string" do
+      before(:each) do
+        @event.dtstart = "20090514"
+        @it = @event.dtstart
+      end
+      
+      it "should interpret it as the correct date-time" do
+        @it.should == Date.parse("14 May 2009")
+      end
+    end
+  end
 
-  describe ".entity_name" do
+  context ".entity_name" do
     it "should be VEVENT" do
       RiCal::Component::Event.entity_name.should == "VEVENT"
     end

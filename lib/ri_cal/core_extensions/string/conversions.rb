@@ -10,9 +10,10 @@ module RiCal
           params, value = *Parser.params_and_value(self)
           PropertyValue::DateTime.new(timezone_finder, :params => params, :value => value)
         end
+        
 
         def to_ri_cal_date_or_date_time_value(timezone_finder = nil)
-          params, value = *Parser.params_and_value(self)
+          params, value = *Parser.params_and_value(self, :no_leading_semicolon)
           PropertyValue.date_or_date_time(timezone_finder, :params => params, :value => value)
         end
 

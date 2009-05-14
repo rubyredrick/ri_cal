@@ -32,9 +32,9 @@ module RiCal
       end
     end
 
-    def self.params_and_value(string) #:nodoc:
+    def self.params_and_value(string, optional_initial_semi = false) #:nodoc:
       string = string.sub(/^:/,'')
-      return [{}, string] unless string.match(/^;/)
+      return [{}, string] unless optional_initial_semi || string.match(/^;/)
       segments = string.sub(';','').split(":")
       return [{}, string] if segments.length < 2
       quote_count = 0
