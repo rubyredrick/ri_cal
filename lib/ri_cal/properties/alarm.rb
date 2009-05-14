@@ -224,7 +224,7 @@ module RiCal
 
       # set the value of the ATTENDEE property to multiple values
       # one or more instances of CalAddress may be passed to this method
-      def attendees=(*ruby_values)
+      def attendees=(ruby_values)
         @attendee_property = ruby_values.map {|val| RiCal::PropertyValue::CalAddress.convert(self, val)}
       end
 
@@ -237,7 +237,7 @@ module RiCal
       # add one or more values to the ATTENDEE property
       # one or more instances of CalAddress may be passed to this method
       def  add_attendees(*ruby_values)
-       ruby_values.do {|val|  self.attendee_property << RiCal::PropertyValue::CalAddress.convert(self, val)}
+       ruby_values.each {|val|  self.attendee_property << RiCal::PropertyValue::CalAddress.convert(self, val)}
       end
 
       # add one value to the ATTENDEE property
@@ -249,7 +249,7 @@ module RiCal
       # remove one or more values from the ATTENDEE property
       # one or more instances of CalAddress may be passed to this method
       def  remove_attendees(*ruby_values)
-       ruby_values.do {|val|  self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(self, val))}
+       ruby_values.each {|val|  self.attendee_property.delete(RiCal::PropertyValue::CalAddress.convert(self, val))}
       end
 
       # remove one value from the ATTENDEE property
@@ -287,7 +287,7 @@ module RiCal
 
       # set the value of the ATTACH property to multiple values
       # one or more instances of Uri may be passed to this method
-      def attachments=(*ruby_values)
+      def attachments=(ruby_values)
         @attach_property = ruby_values.map {|val| RiCal::PropertyValue::Uri.convert(self, val)}
       end
 
@@ -300,7 +300,7 @@ module RiCal
       # add one or more values to the ATTACH property
       # one or more instances of Uri may be passed to this method
       def  add_attachments(*ruby_values)
-       ruby_values.do {|val|  self.attach_property << RiCal::PropertyValue::Uri.convert(self, val)}
+       ruby_values.each {|val|  self.attach_property << RiCal::PropertyValue::Uri.convert(self, val)}
       end
 
       # add one value to the ATTACH property
@@ -312,7 +312,7 @@ module RiCal
       # remove one or more values from the ATTACH property
       # one or more instances of Uri may be passed to this method
       def  remove_attachments(*ruby_values)
-       ruby_values.do {|val|  self.attach_property.delete(RiCal::PropertyValue::Uri.convert(self, val))}
+       ruby_values.each {|val|  self.attach_property.delete(RiCal::PropertyValue::Uri.convert(self, val))}
       end
 
       # remove one value from the ATTACH property
