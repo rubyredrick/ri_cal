@@ -17,7 +17,7 @@ module RiCal
       end
     end
     
-    def self.if_valid_string(timezone_finder, string)
+    def self.if_valid_string(timezone_finder, string) #:nodoc:
       if valid_string?(string)
         new(timezone_finder, :value => string)
       else
@@ -117,7 +117,7 @@ module RiCal
       self
     end
     
-    def find_timezone(timezone_identifier)
+    def find_timezone(timezone_identifier) #:nodoc:
       if timezone_finder
         timezone_finder.find_timezone(timezone_identifier)
       else
@@ -125,7 +125,7 @@ module RiCal
       end
     end
     
-    def default_tzid
+    def default_tzid #:nodoc:
       if timezone_finder
         timezone_finder.default_tzid
       else

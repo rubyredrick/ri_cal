@@ -118,7 +118,7 @@ module RiCal
         @interval = interval_value
       end
       
-      def value
+      def value #:nodoc:
         @value || to_ical
       end      
 

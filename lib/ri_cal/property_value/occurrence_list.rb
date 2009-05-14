@@ -46,11 +46,11 @@ module RiCal
         new(timezone_finder, :source_elements => source_elements )
       end
 
-      def values_to_elements(values)
+      def values_to_elements(values) # :nodoc:
         values.map {|val| val.to_ri_cal_occurrence_list_value(self)}
       end
       
-      def tzid_from_source_elements
+      def tzid_from_source_elements # :nodoc:
         if @source_elements && String === (first_source = @source_elements.first)
           probe = first_source.to_ri_cal_occurrence_list_value rescue nil
           unless probe
@@ -60,7 +60,11 @@ module RiCal
         nil
       end
       
-      def validate_elements
+      def tzid_conflict(element_tzid) # :nodoc:
+        element_tzid && tzid != element_tzid
+      end
+      
+      def validate_elements # :nodoc:
         if @source_elements
           self.tzid = tzid_from_source_elements
           @elements = values_to_elements(@source_elements)
@@ -70,13 +74,13 @@ module RiCal
         end
         # if the tzid wasn't set by the parameters
         self.tzid ||= @elements.map {|element| element.tzid}.find {|id| id}
-        # Todo figure out what to do if an element already has a different tzid
         @elements.each do |element|
+          raise InvalidPropertyValue.new("Mixed timezones are not allowed in an occurrence list") if tzid_conflict(element.tzid)
           element.tzid = tzid
         end
       end
 
-      def has_local_timezone?
+      def has_local_timezone? # :nodoc:
         tzid && tzid != 'UTC'
       end
 
@@ -90,19 +94,20 @@ module RiCal
         result
       end
 
-      def value
+      def value # :nodoc:
         @elements.map {|element| element.value}.join(",")
       end
 
+      # Return an array of the occurrences within the list
       def ruby_value
         @elements.map {|prop| prop.ruby_value}
       end
     end
 
-    attr_accessor :elements, :source_elements
+    attr_accessor :elements, :source_elements #:nodoc:
     private :elements, :elements=, :source_elements=, :source_elements
 
-    def for_parent(parent)
+    def for_parent(parent) #:nodoc:
       if timezone_finder.nil?
         @timezone_finder = parent
         self
@@ -114,7 +119,7 @@ module RiCal
     end
 
     # Return an enumerator which can produce the elements of the occurrence list
-    def enumerator(component)
+    def enumerator(component) # :nodoc:
       OccurrenceList::Enumerator.new(@elements, component)
     end
 

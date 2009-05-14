@@ -6,7 +6,10 @@ module RiCal
       #
       # Provides a tzid attribute for ::Time and ::DateTime
       module TzidAccess
-        # The tzid attribute is used by RiCal, it should be a valid timezone identifier within a calendar
+        # The tzid attribute is used by RiCal, it should be a valid timezone identifier within a calendar,
+        # :floating to indicate a floating time, or nil to use the default timezone in effect
+        #
+        # See PropertyValue::DateTime#default_tzid= and Component::Calendar#tzid=
         attr_accessor :tzid
 
         # Convenience method, sets the tzid and returns the receiver
@@ -18,7 +21,7 @@ module RiCal
     end
   end
 
-  module TimeWithZoneExtension
+  module TimeWithZoneExtension #:nodoc:
     def tzid
       time_zone.tzid.identifier
     end

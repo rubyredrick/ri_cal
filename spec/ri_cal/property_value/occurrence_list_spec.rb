@@ -23,11 +23,25 @@ describe RiCal::PropertyValue::OccurrenceList do
       end
     end
     
+    context "with conflicting timezones" do
+      before(:each) do
+        @event = RiCal.Event
+      end
+      
+      it "should raise an InvalidPropertyValue if an argument does not match an explicit time zone" do
+        lambda {RiCal::PropertyValue::OccurrenceList.convert(@event, "America/New_York", Time.now.set_tzid("America/Chicago"))}.should raise_error(RiCal::InvalidPropertyValue)
+      end
+      
+      it "should raise an InvalidPropertyValue if the arguments have mixed time zones" do
+        lambda {RiCal::PropertyValue::OccurrenceList.convert(@event, Time.now.set_tzid("America/New_York"), Time.now.set_tzid("America/Chicago"))}.should raise_error(RiCal::InvalidPropertyValue)
+      end
+    end
+    
     context "with a tzid and a single datetime" do
       before(:each) do
         timezone = mock("Timezone", :rational_utc_offset => Rational(-5, 24))
         timezone_finder = mock("tz_finder", :find_timezone => timezone, :default_tzid => "UTC")        
-        @it = RiCal::PropertyValue::OccurrenceList.convert(timezone_finder, 'US/Eastern', DateTime.parse("Feb 20, 1962 14:47:39"))
+        @it = RiCal::PropertyValue::OccurrenceList.convert(timezone_finder, 'US/Eastern', "19620220T144739")
       end
       
       it "should produce the right ical representation" do

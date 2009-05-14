@@ -38,7 +38,7 @@ describe RiCal::Component do
         before(:each) do
           @cal =  RiCal.Calendar do
             event do
-              add_exdate 'US/Eastern', DateTime.parse("Feb 20, 1962 14:47:39")
+              add_exdate 'US/Eastern', "19620220T144739"
             end
           end
           @event = @cal.events.first

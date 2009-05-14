@@ -60,7 +60,7 @@ module RiCal
         end
       end
       
-      def self.valid_string?(string)
+      def self.valid_string?(string) #:nodoc:
         string =~  /^[+-]?P((\d+)[DHMSW])+$/
       end
 

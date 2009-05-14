@@ -14,16 +14,16 @@ module RiCal
       nil
     end
 
-  def self.rational_utc_offset(local)
+  def self.rational_utc_offset(local) #:nodoc:
     Rational(0, 24)
   end
 
-    # Return the time unchanged #:nodoc:
+    # Return the time unchanged
     def self.utc_to_local(time)
       time.with_floating_timezone.to_ri_cal_date_time_value
     end
 
-    # Return the time unchanged #:nodoc:
+    # Return the time unchanged
     def self.local_to_utc(time)
       time.with_floating_timezone.to_ri_cal_date_time_value
     end

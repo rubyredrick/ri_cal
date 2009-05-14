@@ -49,11 +49,14 @@ module RiCal
         @tz_source = prodid_property.params["X-RICAL-TZSOURCE"]
         result
       end
-      
+
+      # Return the default time zone identifier for this calendar
       def default_tzid
         @default_tzid || PropertyValue::DateTime.default_tzid
       end
-      
+
+      # Set the default time zone identifier for this calendar
+      # To set the default to floating times use a value of :floating
       def default_tzid=(value)
         @default_tzid=value
       end
@@ -84,7 +87,7 @@ module RiCal
         subcomponents["VFREEBUSY"]
       end
 
-      class TimezoneID
+      class TimezoneID #:nodoc:
         attr_reader :identifier, :calendar
         def initialize(identifier, calendar)
           self.identifier, self.calendar = identifier, calendar
@@ -107,31 +110,31 @@ module RiCal
       def timezones
         subcomponents["VTIMEZONE"]
       end
-      
+
       class TZInfoWrapper #:nodoc:
         attr_reader :tzinfo, :calendar #:nodoc:
         def initialize(tzinfo, calendar) #:nodoc:
           @tzinfo = tzinfo
           @calendar = calendar
         end
-        
+
         def identifier #:nodoc:
           tzinfo.identifier
         end
-        
+
         def date_time(ruby_time, tzid) #:nodoc:
           RiCal::PropertyValue::DateTime.new(calendar, :value => ruby_time, :params => {'TZID' => tzid})
         end
-        
+
         def local_to_utc(utc) #:nodoc:
           date_time(tzinfo.local_to_utc(utc.to_ri_cal_ruby_value), 'UTC')
         end
-        
+
         def utc_to_local(local) #:nodoc:
           date_time(tzinfo.utc_to_local(local.to_ri_cal_ruby_value), tzinfo.identifier)
         end
-        
-        
+
+
         def rational_utc_offset(local)
           Rational(tzinfo.period_for_local(local, true).utc_offset, 3600) / 24
         end
@@ -148,7 +151,7 @@ module RiCal
         else
           result = timezones.find {|tz| tz.tzid == identifier}
           raise RiCal::InvalidTimezoneIdentifier.not_found_in_calendar(identifier) unless result
-          result  
+          result
         end
       end
 

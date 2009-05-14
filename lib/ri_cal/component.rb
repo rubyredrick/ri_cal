@@ -45,7 +45,7 @@ module RiCal
       end
     end
     
-    def default_tzid
+    def default_tzid #:nodoc:
       if @parent
         @parent.default_tzid
       else
@@ -65,7 +65,7 @@ module RiCal
       end
     end
 
-    def time_zone_for(ruby_object)
+    def time_zone_for(ruby_object) #:nodoc:
       @parent.time_zone_for(ruby_object) #:nodoc:
     end
     
@@ -142,7 +142,7 @@ module RiCal
       x_properties[name] = prop
     end
     
-    def method_missing(selector, *args, &b)
+    def method_missing(selector, *args, &b) #:nodoc:
       xprop_candidate = selector.to_s
       if (match = /^x_(.+)(=?)$/.match(xprop_candidate))
         if match[2] == "="

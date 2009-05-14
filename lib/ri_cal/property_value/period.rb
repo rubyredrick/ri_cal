@@ -29,7 +29,7 @@ module RiCal
       end
       
       
-      def self.valid_string?(string)
+      def self.valid_string?(string) # :nodoc:
         return false unless string.include?("/")
         starter, terminator = *string.split("/")
         return false unless PropertyValue::DateTime.valid_string?(starter)
@@ -49,7 +49,7 @@ module RiCal
         nil
       end
       
-      def for_parent(parent)
+      def for_parent(parent) #:nodoc:
         if timezone_finder.nil
           @timezone_finder = parent
           self
