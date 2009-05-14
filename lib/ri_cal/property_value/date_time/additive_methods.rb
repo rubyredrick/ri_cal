@@ -1,7 +1,6 @@
 module RiCal
   class PropertyValue
-    #- ©2009 Rick DeNatale
-    #- All rights reserved. Refer to the file README.txt for the license
+    #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
     #
     # Methods for DateTime which support adding or subtracting another DateTime or Duration
     module AdditiveMethods

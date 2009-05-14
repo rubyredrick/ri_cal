@@ -1,5 +1,4 @@
-#- ©2009 Rick DeNatale
-#- All rights reserved. Refer to the file README.txt for the license
+#- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
 #
 # The RiCal module provides the outermost namespace, along with several convenience methods for parsing
 # and building calendars and calendar components.

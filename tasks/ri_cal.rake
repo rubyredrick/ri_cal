@@ -1,7 +1,6 @@
 #require 'active_support'
 require 'yaml'
-#- ©2009 Rick DeNatale
-#- All rights reserved. Refer to the file README.txt for the license
+#- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
 #
 # code stolen from ActiveSupport Gem
 unless  String.instance_methods.include?("camelize")

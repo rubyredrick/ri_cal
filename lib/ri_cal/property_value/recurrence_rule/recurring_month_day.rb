@@ -1,8 +1,7 @@
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
-      #- ©2009 Rick DeNatale
-      #- All rights reserved. Refer to the file README.txt for the license
+      #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
       #
       # Instances of RecurringMonthDay represent BYMONTHDAY parts in recurrence rules
       class RecurringMonthDay < NumberedSpan # :nodoc:

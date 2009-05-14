@@ -82,7 +82,20 @@ the object being built will cause that setter to be sent to the component with t
 A method corresponding to the name of one of the components sub component will create the sub component and 
 evaluate the block in the context of the new subcomponent.
 
-=== Times, Time zones, and Floating Times
+==== Multiply occurring properties
+
+Certain RFC Components have properties which may be specified multiple times, for example, an Event may have zero or more comment properties,
+A component will have a family of methods for building/manipulating such a property, e.g.
+
+ * Event#comment will return an array of comment strings.
+ * Event#comment= takes a single comment string and gives the event a single comment property, replacing any existing comment property collection.
+ * Event#comments= takes multiple comment string arguments and gives the event a comment property for each, replacing any existing comment property collection.
+ * Event#add_comment takes a single comment string argument and adds a comment property
+ * Event#add_comments takes multiple comment string arguments and adds a comment property for each.
+ * Event#remove_comment takes a single comment string argument and removes an existing comment property with that value.
+ * Event#remove_comments takes multiple comment string argument and removes an existing comment property with that value.
+
+==== Times, Time zones, and Floating Times
 
 RFC2445 describes three different kinds of DATE-TIME values with respect to time zones:
 
@@ -93,8 +106,7 @@ RFC2445 describes three different kinds of DATE-TIME values with respect to time
   3. date-times with a specified time zone.
 
 RiCal can be given ruby Time, DateTime, or Date objects for the value of properties requiring an 
-iCalendar DATE-TIME value. It can also be given a two element array where the first element is a Time or DateTime,
-and the second is a string representation of the time zone identifier.
+iCalendar DATE-TIME value.  It can also be given a string
 
 Note that a date only DATE-TIME value has no time zone by definition, effectively such values float and describe
 a date as viewed by the user in his/her local time zone.
@@ -104,14 +116,27 @@ which of the three types it represents.  RiCal is designed to make use of the Ti
 part of the ActiveSupport component of Ruby on Rails since Rails 2.2. However it's been carefully designed not
 to require Rails or ActiveSupport, but to dynamically detect the presence of the TimeWithZone support.
 
+RiCal adds accessor methods for a  tzid attribute to the Ruby Time, and DateTime classes as well as a set_tzid method which sets the tzid attribute and returns the receiver for convenience in building calendars.
+If ActiveSupport::TimeWithZone is defined, a tzid instance method is defined which returns the identifier of the time zone.
+
 When the value of a DATE-TIME property is set to a value, the following processing occurs:
 
-* If the object responds to both the :acts_as_time, and :timezone methods then the result of the timezone method (assumed to be an instance of TZInfoTimezone) is used as a specific local time zone.
+* If the value is a string, then it must be a valid rfc 2445 date or datetime string optionally preceded by a parameter specification e.g
+** "20010911"  will be interpreted as a date
+** "20090530T123000Z"  will be interpreted as the time May 30, 2009 at 12:30:00 UTC
+** "20090530T123000"  will be interpreted as the time May 30, 2009 with a floating time zone
+** "TZID=America/New_York:20090530T123000"  will be interpreted as the time May 30, 2009 in the time zone identified by "America/New_York"
 
-* If not then the default time zone id is used.  The normal default timezone id is "UTC". You can set the default by calling ::RiCal::PropertyValue::DateTime.default_tzid = timezone_identifier, where timezone_identifier isa string, or nil.  If you set the default tzid to 'none' or :none, then Times or DateTimes without timezones will be treated as floating times.
+* If the value is a Date it will be interpreted as that date
+* If the value is a Time, DateTime, or TimeWithZone then the tzid attribute will determine the time zone.  If tzid returns nil then the default tzid will be used.
 
-Note it is likely that in a future version of RiCal that the default timezone will be set on a Calendar by Calendar
-basis rather than on the DateTime property class.
+==== Default TZID
+
+The PropertyValue::DateTime class has a default_tzid attribute which is initialized to "UTC".
+
+The Component::Calendar class also has a default_tzid attribute, which may be set, but if it is not set the default_tzid of the PropertyValue::DateTime class will be used.
+
+To set the interpreting of Times and DateTimes which have no tzid as floating times, set the default_tzid for Component::Calendar and/or PropertyValue::DateTime to :floating.
 
 Also note that time zone identifiers are not standardized by RFC 2445. For an RiCal originated calendar
 time zone identifiers recognized by the TZInfo gem, or the TZInfo implementation provided by ActiveSupport as the case
@@ -124,6 +149,18 @@ you try to convert a timezone. In this case an InvalidTimezoneIdentifier error w
 To explicitly set a floating time you can use the method #with_floating_timezone on Time or DateTime instances as in
 
    event.dtstart = Time.parse("1/1/2010 00:00:00").with_floating_timezone
+   
+or the equivalent
+
+event.dtstart = Time.parse("1/1/2010 00:00:00").set_tzid(:floating)
+
+==== RDATE, and EXDATE properties (Occurrence Lists)
+
+A calendar component which supports recurrence properties (e.g. Event) may have zero or more RDATE and or EXDATE properties.  Each RDATE/EXDATE property
+in turn specifies one or more occurrences to be either added to or removed from the component's recurrence list.  Each element of the list may be either
+a DATE, a DATETIME, or a PERIOD.
+
+A
 
 === Parsing
 

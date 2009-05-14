@@ -1,6 +1,5 @@
 module RiCal
-  #- ©2009 Rick DeNatale
-  #- All rights reserved. Refer to the file README.txt for the license
+  #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
   #
   # PropertyValue provides common implementation of various RFC 2445 property value types
   class PropertyValue

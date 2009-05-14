@@ -3,8 +3,7 @@ require File.join(File.dirname(__FILE__), %w[.. properties journal.rb])
 
 module RiCal
   class Component
-    #- ©2009 Rick DeNatale
-    #- All rights reserved. Refer to the file README.txt for the license
+    #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
     #
     #  A Journal (VJOURNAL) calendar component groups properties describing a journal entry.
     #  Journals may have multiple occurrences
