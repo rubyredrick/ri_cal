@@ -1,3 +1,5 @@
+=== 0.0.4
+ * Fixed a bug in imported timezones reported by paulsm on github
 === 0.0.3
  * Added tzid method to Ruby Time and DateTime instances, and to ActiveRecord::TimeWithZone if it is defined this method is used to determine the desired
 timezone when an instance of one of these classes is given as the value of a datetime property.  If the tzid is nil then the default tzid is used,
