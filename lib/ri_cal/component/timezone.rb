@@ -24,7 +24,7 @@ module RiCal
         end
         
         def rational_utc_offset(local) #:nodoc:
-          Rational(period_for_local(local, true).utc_offset, 3600) / 24
+          Rational(period_for_local(local, true).utc_total_offset, 3600) / 24
         end
 
         # Returns the TimezonePeriod for the given UTC time. utc can either be a DateTime,

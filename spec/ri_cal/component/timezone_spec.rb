@@ -149,6 +149,70 @@ TZEND
         end
       end
     end
-
+  end
+  
+  context "Bug report from paulsm" do
+      before(:each) do
+        cals = RiCal.parse_string <<ENDCAL
+BEGIN:VCALENDAR
+X-WR-TIMEZONE:America/New_York
+PRODID:-//Apple Inc.//iCal 3.0//EN
+CALSCALE:GREGORIAN
+X-WR-CALNAME:test
+VERSION:2.0
+X-WR-RELCALID:1884C7F8-BC8E-457F-94AC-297871967D5E
+X-APPLE-CALENDAR-COLOR:#2CA10B
+BEGIN:VTIMEZONE
+TZID:US/Eastern
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+DTSTART:20070311T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+TZNAME:EDT
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+DTSTART:20071104T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+TZNAME:EST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+SEQUENCE:5
+TRANSP:OPAQUE
+UID:00481E53-9258-4EA7-9F8D-947D3041A3F2
+DTSTART;TZID=US/Eastern:20090224T090000
+DTSTAMP:20090225T000908Z
+SUMMARY:Test Event
+CREATED:20090225T000839Z
+DTEND;TZID=US/Eastern:20090224T100000
+RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20090228T045959Z
+END:VEVENT
+END:VCALENDAR
+ENDCAL
+      @event = cals.first.events.first
+    end
+    
+    context "the events dtstart" do
+      it "should be the right DateTime" do
+        @event.dtstart.should == DateTime.civil(2009, 2, 24, 9, 0, 0, Rational(-4, 24))
+      end
+      
+      it "should have the right tzid" do
+        @event.dtstart.tzid.should == "US/Eastern"
+      end
+    end
+    
+    context "the events dtend" do
+      it "should be the right DateTime" do
+        @event.dtend.should == DateTime.civil(2009, 2, 24, 10, 0, 0, Rational(-4, 24))
+      end
+      
+      it "should have the right tzid" do
+        @event.dtend.tzid.should == "US/Eastern"
+      end
+    end
   end
 end
