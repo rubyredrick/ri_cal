@@ -28,4 +28,4 @@ require 'newgem/tasks' # load /tasks/*.rake
 Dir['tasks/**/*.rake'].each { |t| load t }
 
 # TODO - want other tests/tasks run by default? Add them to the list
-task :default => [:spec]
+task :default => [:"spec:with_tzinfo_gem", :"spec:with_active_support"]

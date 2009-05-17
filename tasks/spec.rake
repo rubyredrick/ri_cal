@@ -20,7 +20,21 @@ Spec::Rake::SpecTask.new do |t|
   t.spec_files = FileList['spec/**/*_spec.rb']
 end
 
+namespace :spec do
+  desc "Run all specs in the presence of ActiveSupport"
+  Spec::Rake::SpecTask.new(:with_active_support) do |t|
+    t.spec_opts = ['--options', "spec/spec.opts"]
+    t.spec_files = FileList['spec/**/*_spec.rb']
+    t.ruby_opts << "-r #{File.join(File.dirname(__FILE__), *%w[gem_loader load_active_support])}"
+  end
 
+  desc "Run all specs in the presence of the tzinfo gem"
+  Spec::Rake::SpecTask.new(:with_tzinfo_gem) do |t|
+    t.spec_opts = ['--options', "spec/spec.opts"]
+    t.spec_files = FileList['spec/**/*_spec.rb']
+    t.ruby_opts << "-r #{File.join(File.dirname(__FILE__), *%w[gem_loader load_tzinfo_gem])}"
+  end
+end
 
 if RUBY_VERSION.match(/^1\.8\./)
   desc 'Run all specs with RCov'
