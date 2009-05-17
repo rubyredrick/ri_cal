@@ -1,3 +1,5 @@
+=== 0.0.5
+ * Fixed a bug in occurrence enumeration reported by paulsm on github
 === 0.0.4
  * Fixed a bug in imported timezones reported by paulsm on github
 === 0.0.3

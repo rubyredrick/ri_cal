@@ -8,8 +8,8 @@ module RiCal
     
     include Enumerable
 
-    def default_duration # :nodoc:    
-      dtend && dtstart.to_ri_cal_date_time_value.duration_until(dtend)
+    def default_duration # :nodoc:
+      dtend && dtstart.to_ri_cal_date_time_value.duration_until(dtend.to_ri_cal_date_time_value)
     end
 
     def default_start_time # :nodoc:
