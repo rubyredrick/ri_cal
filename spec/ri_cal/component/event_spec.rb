@@ -417,7 +417,7 @@ ENDCAL
       end
 
       it "should have a floating dtstart" do
-        @event.dtstart.should be_floating
+        @event.dtstart.should have_floating_timezone
       end
     end
 end

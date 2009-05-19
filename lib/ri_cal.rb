@@ -11,7 +11,7 @@ module RiCal
   autoload :OccurrenceEnumerator, "#{my_dir}/ri_cal/occurrence_enumerator.rb"
   
   # :stopdoc:
-  VERSION = '0.0.6'
+  VERSION = '0.0.7'
   LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
   PATH = ::File.dirname(LIBPATH) + ::File::SEPARATOR
 
@@ -127,6 +127,8 @@ module RiCal
     end
   end
   
+  # TimeWithZone will be set to ActiveSupport::TimeWithZone if the activesupport gem is loaded
+  # otherwise it will be nil
   TimeWithZone = time_with_zone
 
   # return a new Todo calendar component.  If a block is provided it will will be executed in

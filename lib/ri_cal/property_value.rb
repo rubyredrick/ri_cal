@@ -133,7 +133,7 @@ module RiCal
       end
     end
     
-    def tz_info_source?
+    def tz_info_source? #:nodoc:
       if timezone_finder
         timezone_finder.tz_info_source?
       else

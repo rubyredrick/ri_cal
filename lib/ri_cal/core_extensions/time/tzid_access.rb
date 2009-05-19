@@ -19,7 +19,7 @@ module RiCal
         end
         
         # Predicate indicating whether or not the instance represents a floating time
-        def floating?
+        def has_floating_timezone?
           tzid == :floating
         end
         
@@ -33,7 +33,7 @@ module RiCal
     end
 
     # Predicate indicating whether or not the instance represents a floating time
-    def floating?
+    def has_floating_timezone?
       false
     end
     

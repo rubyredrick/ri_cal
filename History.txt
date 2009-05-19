@@ -1,8 +1,12 @@
+=== 0.0.7
+ * Fixed a bug relating to properly recognizing ActiveRecord::TimeWithZone
+ * DATETIME propertyvalues will now return an instance of TimeWithZone instead of DateTime when
+   activesupport is present, and it is appropriate. See the README for details
 === 0.0.6
  * Added rake tasks to run specs with either the tzinfo gem or activesupport (<=2.2)
  * Default rake task now runs both of these
- === 0.0.5
-  * Fixed a bug in occurrence enumeration reported by paulsm on github
+=== 0.0.5
+ * Fixed a bug in occurrence enumeration reported by paulsm on github
 === 0.0.4
  * Fixed a bug in imported timezones reported by paulsm on github
 === 0.0.3

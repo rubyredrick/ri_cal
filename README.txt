@@ -181,6 +181,43 @@ or the equivalent
 
 event.dtstart = Time.parse("1/1/2010 00:00:00").set_tzid(:floating)
 
+=== RiCal produced Calendars and Tzinfo
+
+Calendars created by the RiCal Builder DSL use TZInfo as a source of time zone definition
+information. RFC 2445 does not specify standard names for time zones, so each time zone identifier
+(tzid) within an icalendar data stream must correspond to a VTIMEZONE component in that data
+stream.
+
+When an RiCal calendar is exported to an icalendar data stream, the needed VTIMEZONE components
+will be generated. In addition a parameter is added to the PRODID property of the calendar which
+identifies that the source of tzids is tzinfo. For purposes of this documentation such a calendar
+is called a tzinfo calendar.
+
+When RiCal imports an icalendar data stream produced by another library or application, such as
+Apple's ical.app, or Google mail, it will be recognized as not being a non-tzinfo calendar, and any
+tzids will be resolved using the included VTIMEZONEs. Note that these calendars may well use tzids
+which are not recognizable by the tzinfo gem or by the similar code provided by ActiveSupport,
+so care is needed in using them.
+
+=== Ruby values of DATETIME properties
+
+The result of accessing the value of a DATETIME property (e.g. event.dtstart) depends on several
+factors:
+
+ * If the property has a DATE value, then the result will be a Ruby Date object.
+
+ * Otherwise, if the property has a DATETIME value with a floating timezone, then the result will
+   be a Ruby DateTime object, the tzid attribute will be set to :floating, and will respond
+   truthily to has_floating_timezone?
+
+ * Otherwise if the value is attached to a property contained in a non-tzinfo calendar, or if the
+   ActiveSupport gem is not loaded, then the result will be a Ruby DateTime object, with the proper
+   offset from UTC, and with the tzid property set.
+
+ * Finally, if the value is attached to a property contained in a tzinfo calendar and the
+   ActiveSupport gem is loaded, then the result will be an ActiveSupport::TimeWithZone with the 
+   proper tzid.
+   
 ==== RDATE, and EXDATE properties (Occurrence Lists)
 
 A calendar component which supports recurrence properties (e.g. Event) may have zero or more RDATE

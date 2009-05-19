@@ -70,7 +70,7 @@ module RiCal
           tzid == :floating
         end
         
-        def has_valid_tzinfo_tzid?
+        def has_valid_tzinfo_tzid? #:nodoc:
           if tzid && tzid != :floating
             TZInfo::Timezone.get(tzid) rescue false
           else
