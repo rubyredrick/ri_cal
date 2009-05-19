@@ -2,6 +2,10 @@
 
 require File.join(File.dirname(__FILE__), %w[.. spec_helper.rb])
 
+def mock_enumerator(name, next_occurrence)
+  mock(name, :next_occurrence => next_occurrence, :bounded? => true, :empty? => false)
+end
+
 # Note that this is more of a functional spec
 describe RiCal::OccurrenceEnumerator do
   
@@ -130,8 +134,8 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
     describe "with multiple rrules" do
       before(:each) do
         @component = mock("component", :dtstart => :dtstart_value)
-        @enum1 = mock("rrule_enumerator1", :next_occurrence => :occ1, :bounded? => true)
-        @enum2 = mock("rrule_enumerator2", :next_occurrence => :occ2, :bounded? => true)
+        @enum1 = mock_enumerator("rrule_enumerator1", :occ1)
+        @enum2 = mock_enumerator("rrule_enumerator2", :occ2)
         @rrule1 = mock("rrule", :enumerator => @enum1)
         @rrule2 = mock("rrule", :enumerator => @enum2)
       end
@@ -158,8 +162,8 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
 
     describe "with unique nexts" do
       before(:each) do
-        @enum1 = mock("rrule_enumerator1", :next_occurrence => 3, :bounded? => true)
-        @enum2 = mock("rrule_enumerator2", :next_occurrence => 2, :bounded? => true)
+        @enum1 = mock_enumerator("rrule_enumerator1",3)
+        @enum2 = mock_enumerator("rrule_enumerator2", 2)
         @rrule1 = mock("rrule", :enumerator => @enum1)
         @rrule2 = mock("rrule", :enumerator => @enum2)
         @it = @merger.new(0, [@rrule1, @rrule2])
@@ -188,8 +192,8 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
     
     describe "with duplicated nexts" do
       before(:each) do
-        @enum1 = mock("rrule_enumerator1", :next_occurrence => 2, :bounded? => true)
-        @enum2 = mock("rrule_enumerator2", :next_occurrence => 2, :bounded? => true)
+        @enum1 = mock_enumerator("rrule_enumerator1", 2)
+        @enum2 = mock_enumerator("rrule_enumerator2", 2)
         @rrule1 = mock("rrule", :enumerator => @enum1)
         @rrule2 = mock("rrule", :enumerator => @enum2)
         @it = @merger.new(0, [@rrule1, @rrule2])
@@ -216,8 +220,8 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
     
     describe "with all enumerators at end" do
       before(:each) do
-        @enum1 = mock("rrule_enumerator1", :next_occurrence => nil, :bounded? => true)
-        @enum2 = mock("rrule_enumerator2", :next_occurrence => nil, :bounded? => true)
+        @enum1 = mock_enumerator("rrule_enumerator1", nil)
+        @enum2 = mock_enumerator("rrule_enumerator2", nil)
         @rrule1 = mock("rrule", :enumerator => @enum1)
         @rrule2 = mock("rrule", :enumerator => @enum2)
         @it = @merger.new(0, [@rrule1, @rrule2])
@@ -284,7 +288,49 @@ ENDCAL
         lambda {@event.occurrences}.should_not raise_error
       end
     end
-  
+
+    context "Lighthouse bug #3" do
+      before(:each) do
+        cals = RiCal.parse_string <<ENDCAL
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN
+BEGIN:VTIMEZONE
+TZID:/mozilla.org/20070129_1/Europe/Paris
+X-LIC-LOCATION:Europe/Paris
+BEGIN:DAYLIGHT
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=3
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=10
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+CREATED:20070606T141629Z
+LAST-MODIFIED:20070606T154611Z
+DTSTAMP:20070607T120859Z
+UID:5d1ae55f-3910-4de9-8b65-d652768fb2f2
+SUMMARY:Lundi de Pâques
+DTSTART;VALUE=DATE;TZID=/mozilla.org/20070129_1/Europe/Paris:20070409
+DTEND;VALUE=DATE;TZID=/mozilla.org/20070129_1/Europe/Paris:20070410
+CATEGORIES:Jours fériés
+END:VEVENT
+END:VCALENDAR
+ENDCAL
+      @event = cals.first.events.first
+    end
+    
+    it "should be able to enumerate occurrences" do
+      @event.occurrences.should == [@event]
+    end
+  end
+
 end
-  
-  

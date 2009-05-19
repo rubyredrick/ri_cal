@@ -1,4 +1,5 @@
 #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+
 require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::Component::Event do
@@ -312,6 +313,32 @@ describe RiCal::Component::Event do
 
   if RiCal::TimeWithZone
     context "with ActiveSupport loaded" do
+      
+      context "an event with an timezoned exdate" do
+        before(:each) do
+          @old_timezone = Time.zone
+          Time.zone = "America/New_York"
+          @exception_date_time = Time.zone.local(2009, 5, 19, 11, 13)
+           cal = RiCal.Calendar do |cal|
+            cal.event do |event|
+              event.add_exdate @exception_date_time
+            end
+          end
+          @event = cal.events.first
+        end
+        
+        after(:each) do
+          Time.zone = @old_timezone
+        end
+        
+        it "should pickup the timezone in the exdate property" do
+          @event.exdate.first.first.tzid.should == "America/New_York"
+        end
+        
+        it "should have the timezone in the ical representation of the exdate property" do
+          @event.exdate_property.to_s.should match(%r{;TZID=America/New_York[:;]})
+        end
+      end
 
       context "An event in a non-tzinfo source calendar" do
               before(:each) do

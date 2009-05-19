@@ -1,3 +1,10 @@
+=== 0.0.8
+  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/1-occurrence-lists-not-picking-up-timewithzone-identifier#ticket-1-2
+  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/2-date-property-subtraction-bug
+  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/3-fwd-ri_cal-question
+       Components with no recurrence rules or rdate properties failed on enumeration, they now
+       will enumerate a single occurrence
+  
 === 0.0.7
  * Fixed a bug relating to properly recognizing ActiveRecord::TimeWithZone
  * DATETIME propertyvalues will now return an instance of TimeWithZone instead of DateTime when

@@ -17,12 +17,12 @@ module RiCal
           self.tzid = time_zone_identifier
           self
         end
-        
+
         # Predicate indicating whether or not the instance represents a floating time
         def has_floating_timezone?
           tzid == :floating
         end
-        
+
       end
     end
   end
@@ -36,10 +36,12 @@ module RiCal
     def has_floating_timezone?
       false
     end
-    
-    def to_ri_cal_date_or_date_time_value(timezone_finder=nil)
+
+    def to_ri_cal_date_time_value(timezone_finder=nil)
       ::RiCal::PropertyValue::DateTime.new(timezone_finder, :params => {"TZID" => tzid}, :value => strftime("%Y%m%dT%H%M%S"))
     end
+    alias_method :to_ri_cal_date_or_date_time_value, :to_ri_cal_date_time_value
+    alias_method :to_ri_cal_occurrence_list_value, :to_ri_cal_date_time_value
   end
 end
 

@@ -28,7 +28,8 @@ module RiCal
           hour_part = value_part('H', hour_diff)
           min_part = value_part('M', min_diff)
           sec_part = value_part('S', sec_diff)
-          new(parent, :value => "#{sign}P#{day_part}T#{day_part}#{hour_part}#{min_part}#{sec_part}")        
+          t_part = (hour_diff.abs + min_diff.abs + sec_diff.abs) == 0 ? "" : "T"
+          new(parent, :value => "#{sign}P#{day_part}#{t_part}#{hour_part}#{min_part}#{sec_part}")        
         end
       end
 

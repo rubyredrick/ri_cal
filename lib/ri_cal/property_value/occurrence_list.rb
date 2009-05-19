@@ -16,6 +16,10 @@ module RiCal
           self.default_duration = component.default_duration
           @index = 0
         end
+        
+        def empty?
+          occurrence_list.empty?
+        end
 
         def next_occurrence
           if @index < occurrence_list.length

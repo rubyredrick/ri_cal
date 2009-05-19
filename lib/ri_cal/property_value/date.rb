@@ -76,7 +76,7 @@ module RiCal
 
       # Return an instance of RiCal::PropertyValue::DateTime representing the start of this date
       def to_ri_cal_date_time_value
-        PropertyValue::DateTime.new(:value => @date_time_value)
+        PropertyValue::DateTime.new(timezone_finder, :value => @date_time_value)
       end
 
       # Return this date property
@@ -113,6 +113,27 @@ module RiCal
         # Do nothing since dates don't have a timezone
       end
 
+      # Return the difference between the receiver and other
+      #
+      # The parameter other should be either a RiCal::PropertyValue::Duration or a RiCal::PropertyValue::DateTime
+      #
+      # If other is a Duration, the result will be a DateTime, if it is a DateTime the result will be a Duration
+      def -(other)
+        other.subtract_from_date_time_value(to_ri_cal_date_time_value)
+      end
+      
+      def subtract_from_date_time_value(date_time)
+        to_ri_cal_date_time_value.subtract_from_date_time_value(date_time)
+      end
+
+      # Return the sum of the receiver and duration
+      #
+      # The parameter other duration should be  a RiCal::PropertyValue::Duration
+      #
+      # The result will be an RiCal::PropertyValue::DateTime
+      def +(duration)
+        duration.add_to_date_time_value(to_ri_cal_date_time_value)
+      end
 
       # Delegate unknown messages to the wrappered Date instance.
       # TODO: Is this really necessary?

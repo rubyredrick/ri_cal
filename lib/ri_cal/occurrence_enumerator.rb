@@ -20,6 +20,14 @@ module RiCal
       def self.next_occurrence
         nil
       end
+      
+      def self.bounded?
+        true
+      end
+      
+      def self.empty?
+        true
+      end
     end
     
     # OccurrenceMerger takes multiple recurrence rules and enumerates the combination in sequence. 
@@ -39,7 +47,12 @@ module RiCal
       def initialize(component, rules)
         self.enumerators = rules.map {|rrule| rrule.enumerator(component)}
         @bounded = enumerators.all? {|enumerator| enumerator.bounded?}
+        @empty = enumerators.all? {|enumerator| enumerator.empty?}
         self.nexts = @enumerators.map {|enumerator| enumerator.next_occurrence}
+      end
+      
+      def empty?
+        @empty
       end
       
       # return the earliest of each of the enumerators next occurrences
@@ -93,18 +106,22 @@ module RiCal
       # yield each occurrence to a block
       # some components may be open-ended, e.g. have no COUNT or DTEND 
       def each
-        occurrence = @rrules.next_occurrence
-        yielded = 0
-        @next_exclusion = @exrules.next_occurrence
-        while (occurrence)
-          if (@cutoff && occurrence[:start].to_datetime >= @cutoff) || (@count && yielded >= @count)
-            occurrence = nil
-          else
-            unless exclude?(occurrence)
-              yielded += 1
-              yield @component.recurrence(occurrence)
+        if @rrules.empty?
+          yield @component
+        else
+          occurrence = @rrules.next_occurrence
+          yielded = 0
+          @next_exclusion = @exrules.next_occurrence
+          while (occurrence)
+            if (@cutoff && occurrence[:start].to_datetime >= @cutoff) || (@count && yielded >= @count)
+              occurrence = nil
+            else
+              unless exclude?(occurrence)
+                yielded += 1
+                yield @component.recurrence(occurrence)
+              end
+              occurrence = @rrules.next_occurrence
             end
-            occurrence = @rrules.next_occurrence
           end
         end
       end

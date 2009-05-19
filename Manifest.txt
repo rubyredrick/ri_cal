@@ -121,7 +121,7 @@ spec/ri_cal/required_timezones_spec.rb
 spec/ri_cal_spec.rb
 spec/spec.opts
 spec/spec_helper.rb
-tasks/ri_cal.rake
-tasks/spec.rake
 tasks/gem_loader/load_active_support.rb
 tasks/gem_loader/load_tzinfo_gem.rb
+tasks/ri_cal.rake
+tasks/spec.rake
