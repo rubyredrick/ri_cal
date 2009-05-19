@@ -120,6 +120,15 @@ module RiCal
     Component::TimezonePeriod.new(&init_block)
   end
 
+  if Object.const_defined?(:ActiveSupport)
+    as = Object.const_get(:ActiveSupport)
+    if as.const_defined?(:TimeWithZone)
+      time_with_zone = as.const_get(:TimeWithZone)
+    end
+  end
+  
+  TimeWithZone = time_with_zone
+
   # return a new Todo calendar component.  If a block is provided it will will be executed in
   # the context of a builder object which can be used to initialize the properties and alarms of the 
   # new Todo.  

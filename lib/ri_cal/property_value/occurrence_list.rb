@@ -67,7 +67,7 @@ module RiCal
       def validate_elements # :nodoc:
         if @source_elements
           self.tzid = tzid_from_source_elements
-          @elements = values_to_elements(@source_elements)
+           @elements = values_to_elements(@source_elements)
           @value = @elements.map {|prop| prop.value}
         else
           @elements = values_to_elements(@value)

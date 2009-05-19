@@ -16,10 +16,6 @@ module RiCal
       include TimezoneSupport
       include TimeMachine
 
-      # def initialize(timezone_finder, options={}) #:nodoc:
-      #   super(timezone_finder ? timezone_finder : Calendar.new, options)
-      # end
-      #
       def self.or_date(parent, line) # :nodoc:
         if /T/.match(line[:value] || "")
           new(parent, line)
@@ -280,8 +276,12 @@ module RiCal
       end
 
       # Returns a ruby DateTime object representing the receiver.
-       def ruby_value
-         ::DateTime.civil(year, month, day, hour, min, sec, rational_tz_offset).set_tzid(@tzid)
+      def ruby_value
+        if has_valid_tzinfo_tzid? && RiCal::TimeWithZone && tz_info_source?
+          RiCal::TimeWithZone.new(utc.to_datetime, ::Time.__send__(:get_zone, @tzid))
+        else
+          ::DateTime.civil(year, month, day, hour, min, sec, rational_tz_offset).set_tzid(@tzid)
+        end
       end
 
       alias_method :to_ri_cal_ruby_value, :to_datetime

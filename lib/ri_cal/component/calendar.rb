@@ -10,8 +10,8 @@ module RiCal
       attr_reader :tz_source #:nodoc:
 
       def initialize(parent=nil, &init_block) #:nodoc:
-        super
         @tz_source = 'TZINFO' # Until otherwise told
+        super
       end
 
       def self.entity_name #:nodoc:
@@ -122,21 +122,25 @@ module RiCal
           tzinfo.identifier
         end
 
-        def date_time(ruby_time, tzid) #:nodoc:
-          RiCal::PropertyValue::DateTime.new(calendar, :value => ruby_time, :params => {'TZID' => tzid})
+        def local_date_time(ruby_time, tzid) #:nodoc:
+          RiCal::PropertyValue::DateTime.new(calendar, :value => ruby_time.strftime("%Y%m%dT%H%M%S"), :params => {'TZID' => tzid})
+        end
+
+        def utc_date_time(ruby_time) #:nodoc
+            RiCal::PropertyValue::DateTime.new(calendar, :value => ruby_time.strftime("%Y%m%dT%H%M%SZ"))
         end
 
         def local_to_utc(utc) #:nodoc:
-          date_time(tzinfo.local_to_utc(utc.to_ri_cal_ruby_value), 'UTC')
+          utc_date_time(tzinfo.local_to_utc(utc.to_ri_cal_ruby_value))
         end
 
         def utc_to_local(local) #:nodoc:
-          date_time(tzinfo.utc_to_local(local.to_ri_cal_ruby_value), tzinfo.identifier)
+          local_date_time(tzinfo.utc_to_local(local.to_ri_cal_ruby_value), tzinfo.identifier)
         end
 
 
         def rational_utc_offset(local)
-          Rational(tzinfo.period_for_local(local, true).utc_offset, 3600) / 24
+          Rational(tzinfo.period_for_local(local, true).utc_total_offset, 3600) / 24
         end
 
       end

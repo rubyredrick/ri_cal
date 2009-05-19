@@ -132,6 +132,14 @@ module RiCal
         PropertyValue::DateTime.default_tzid
       end
     end
+    
+    def tz_info_source?
+      if timezone_finder
+        timezone_finder.tz_info_source?
+      else
+        true
+      end
+    end
   end
 end
 

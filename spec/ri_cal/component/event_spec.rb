@@ -1,5 +1,4 @@
 #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
-
 require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::Component::Event do
@@ -29,8 +28,9 @@ describe RiCal::Component::Event do
       end
 
       it "should accept a single Time and replace the existing rdate" do
+        ::RiCal::PropertyValue::DateTime.default_tzid = 'UTC'
         @event.rdate = Time.local(2009, 1, 2, 1, 23, 45)
-        @event.rdate.should == [[DateTime.parse("20090102T012345")]]
+        @event.rdate.should == [[result_time_in_zone(2009, 1, 2, 1, 23, 45, "UTC")]]
       end
 
       it "should accept a single rfc2445 date-time format string  and replace the existing rdate" do
@@ -40,7 +40,7 @@ describe RiCal::Component::Event do
 
       it "should accept a tzid prefixed rfc2445 date-time format string  and replace the existing rdate" do
         @event.rdate = "TZID=America/New_York:20090102T012345"
-        @event.rdate.should == [[DateTime.civil(2009, 1, 2, 1, 23, 45, Rational(-5, 24))]]
+        @event.rdate.should == [[result_time_in_zone(2009, 1, 2, 1, 23, 45, "America/New_York")]]
       end
 
     end
@@ -129,7 +129,7 @@ describe RiCal::Component::Event do
       end
 
       it "should interpret it as the correct date-time" do
-        @it.should == DateTime.civil(2009, 5, 14, 20, 24, 00, Rational(-5,24))
+        @it.should == result_time_in_zone(2009, 5, 14, 20, 24, 00, "America/New_York")
       end
 
       it "should set the tzid to America/New_York" do
@@ -309,4 +309,115 @@ describe RiCal::Component::Event do
       unfold(@it.export).should match(/^DTSTART;VALUE=DATE:20090422$/)
     end
   end
+
+  if RiCal::TimeWithZone
+    context "with ActiveSupport loaded" do
+
+      context "An event in a non-tzinfo source calendar" do
+              before(:each) do
+                cals = RiCal.parse_string <<ENDCAL
+BEGIN:VCALENDAR
+X-WR-TIMEZONE:America/New_York
+PRODID:-//Apple Inc.//iCal 3.0//EN
+CALSCALE:GREGORIAN
+BEGIN:VTIMEZONE
+TZID:US/Eastern
+BEGIN:DAYLIGHT
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+DTSTART:20070311T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=2SU
+TZNAME:EDT
+END:DAYLIGHT
+BEGIN:STANDARD
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+DTSTART:20071104T020000
+RRULE:FREQ=YEARLY;BYMONTH=11;BYDAY=1SU
+TZNAME:EST
+END:STANDARD
+END:VTIMEZONE
+BEGIN:VEVENT
+SEQUENCE:5
+TRANSP:OPAQUE
+UID:00481E53-9258-4EA7-9F8D-947D3041A3F2
+DTSTART;TZID=US/Eastern:20090224T090000
+DTSTAMP:20090225T000908Z
+SUMMARY:Test Event
+CREATED:20090225T000839Z
+DTEND;TZID=US/Eastern:20090224T100000
+RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20090228T045959Z
+END:VEVENT
+END:VCALENDAR
+ENDCAL
+          @event = cals.first.events.first
+        end
+
+        it "should produce a DateTime for dtstart" do
+          @event.dtstart.should be_instance_of(DateTime)
+        end
+      end
+
+      context "An event starting in Paris and ending in New York" do
+
+        before(:each) do
+          @start = Time.now.utc.in_time_zone("Europe/Paris")
+          @finish = Time.now.utc.in_time_zone("America/New_York")
+          cal = RiCal.Calendar do |ical|
+            ical.event do |ievent|
+              ievent.dtstart @start
+              ievent.dtend   @finish
+            end
+          end
+          @event = cal.events.first
+        end
+
+        it "should have the right time zone for dtstart" do
+          @event.dtstart.tzid.should == "Europe/Paris"
+        end
+
+        it "should produce a TimeWithZone for dtstart" do
+          @event.dtstart.should be_instance_of(RiCal::TimeWithZone)
+        end
+
+        # ActiveRecord::TimeWithZone doesn't implement == as expected
+        it "should produce a dtstart which looks like the provided value" do
+          @event.dtstart.to_s.should == @start.to_s
+        end
+
+        it "should have the right time zone for dtend" do
+          @event.dtend.tzid.should == "America/New_York"
+        end
+
+        it "should produce a TimeWithZone for dtend" do
+          @event.dtend.should be_instance_of(RiCal::TimeWithZone)
+        end
+
+        # ActiveRecord::TimeWithZone doesn't implement == as expected
+        it "should produce a dtend which looks like the provided value" do
+          @event.dtend.to_s.should == @finish.to_s
+        end
+      end
+    end
+  end
+
+    context "An event with a floating start" do
+
+      before(:each) do
+        cal = RiCal.Calendar do |ical|
+          ical.event do |ievent|
+            ievent.dtstart "20090530T120000"
+          end
+        end
+        @event = cal.events.first
+      end
+
+      it "should produce a DateTime for dtstart" do
+        @event.dtstart.should be_instance_of(DateTime)
+      end
+
+      it "should have a floating dtstart" do
+        @event.dtstart.should be_floating
+      end
+    end
 end

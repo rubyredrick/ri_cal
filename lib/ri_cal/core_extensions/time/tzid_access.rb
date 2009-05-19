@@ -17,21 +17,32 @@ module RiCal
           self.tzid = time_zone_identifier
           self
         end
+        
+        # Predicate indicating whether or not the instance represents a floating time
+        def floating?
+          tzid == :floating
+        end
+        
       end
     end
   end
 
   module TimeWithZoneExtension #:nodoc:
     def tzid
-      time_zone.tzid.identifier
+      utc? ? "UTC" : time_zone.tzinfo.identifier
+    end
+
+    # Predicate indicating whether or not the instance represents a floating time
+    def floating?
+      false
+    end
+    
+    def to_ri_cal_date_or_date_time_value(timezone_finder=nil)
+      ::RiCal::PropertyValue::DateTime.new(timezone_finder, :params => {"TZID" => tzid}, :value => strftime("%Y%m%dT%H%M%S"))
     end
   end
 end
 
-if Object.const_defined?(:ActiveSupport)
-  as = Object.const_get(:ActiveSupport)
-  if as.const_defined?(:TimeWithZone)
-    twz = as.const_get(:TimeWithZone)
-    twz.class_eval {include RiCal::TimeWithZoneExtension}
-  end
+if RiCal::TimeWithZone
+  RiCal::TimeWithZone.class_eval {include RiCal::TimeWithZoneExtension}
 end

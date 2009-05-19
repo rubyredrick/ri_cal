@@ -31,7 +31,7 @@ module RiCal
     end
 
     autoload :Timezone, "#{File.dirname(__FILE__)}/component/timezone.rb"
-    
+
     attr_accessor :imported #:nodoc:
 
     def initialize(parent=nil, &init_block) #:nodoc:
@@ -44,7 +44,7 @@ module RiCal
         end
       end
     end
-    
+
     def default_tzid #:nodoc:
       if @parent
         @parent.default_tzid
@@ -52,7 +52,7 @@ module RiCal
         PropertyValue::DateTime.default_tzid
       end
     end
-    
+
     def find_timezone(identifier) #:nodoc:
       if @parent
         @parent.find_timezone(identifier)
@@ -65,10 +65,18 @@ module RiCal
       end
     end
 
+    def tz_info_source?
+      if @parent
+        @parent.tz_info_source?
+      else
+        true
+      end
+    end
+
     def time_zone_for(ruby_object) #:nodoc:
       @parent.time_zone_for(ruby_object) #:nodoc:
     end
-    
+
     def subcomponent_class #:nodoc:
       {}
     end
@@ -87,7 +95,7 @@ module RiCal
     def self.parse(io) #:nodoc:
       Parser.new(io).parse
     end
-    
+
     def imported? #:nodoc:
       imported
     end
@@ -95,7 +103,7 @@ module RiCal
     def self.parse_string(string) #:nodoc:
       parse(StringIO.new(string))
     end
-    
+
     def subcomponents #:nodoc:
       @subcomponents ||= Hash.new {|h, k| h[k] = []}
     end
@@ -137,11 +145,11 @@ module RiCal
       @x_properties ||= {}
     end
 
-    # Add a n extended property 
+    # Add a n extended property
     def add_x_property(name, prop)
       x_properties[name] = prop
     end
-    
+
     def method_missing(selector, *args, &b) #:nodoc:
       xprop_candidate = selector.to_s
       if (match = /^x_(.+)(=?)$/.match(xprop_candidate))
@@ -202,7 +210,7 @@ module RiCal
         component.export_to(export_stream)
       end
     end
-    
+
     # return a string containing the rfc2445 format of the component
     def to_s
       io = StringIO.new

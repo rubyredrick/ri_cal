@@ -4,7 +4,7 @@ module RiCal
       #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
       #
       # Time zone related methods for DateTime
-      module TimezoneSupport      
+      module TimezoneSupport
         # Return the timezone id of the receiver, or nil if it is a floating time
         def tzid
           @tzid  == :floating ? nil : @tzid
@@ -63,6 +63,19 @@ module RiCal
         # Predicate indicating whether or not the instance represents a ZULU time
         def utc?
           tzid == "UTC"
+        end
+
+        # Predicate indicating whether or not the instance represents a floating time
+        def floating?
+          tzid == :floating
+        end
+        
+        def has_valid_tzinfo_tzid?
+          if tzid && tzid != :floating
+            TZInfo::Timezone.get(tzid) rescue false
+          else
+            false
+          end
         end
 
         # Returns the simultaneous time in the specified zone.

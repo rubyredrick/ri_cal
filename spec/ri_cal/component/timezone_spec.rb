@@ -197,7 +197,7 @@ ENDCAL
     
     context "the events dtstart" do
       it "should be the right DateTime" do
-        @event.dtstart.should == DateTime.civil(2009, 2, 24, 9, 0, 0, Rational(-4, 24))
+        @event.dtstart.should == DateTime.civil(2009, 2, 24, 9, 0, 0, Rational(-5, 24))
       end
       
       it "should have the right tzid" do
@@ -207,7 +207,7 @@ ENDCAL
     
     context "the events dtend" do
       it "should be the right DateTime" do
-        @event.dtend.should == DateTime.civil(2009, 2, 24, 10, 0, 0, Rational(-4, 24))
+        @event.dtend.should == DateTime.civil(2009, 2, 24, 10, 0, 0, Rational(-5, 24))
       end
       
       it "should have the right tzid" do

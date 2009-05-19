@@ -27,7 +27,7 @@ module RiCal
         end
         
         def utc_total_offset #:nodoc:
-          tzoffsetfrom_property.to_seconds
+          tzoffsetto_property.to_seconds
         end
 
         def exrule_property #:nodoc:
