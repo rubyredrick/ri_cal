@@ -315,7 +315,7 @@ describe RiCal::Component::Event do
       export_string = @it.export
       export_string.should match(%r(^DESCRIPTION:Weather report looks nice\\, 80 degrees and partly cloudy\\, so$))
       export_string.should match(%r(^  following Michael's suggestion\\, let's meet at the food court at Crossr$))
-      export_string.should match(%r(^ oads:\\n\\nhttp://www.shopcrossroadsplaza\.c\.\.\.\\n))
+      export_string.should match(%r(^ oads:\\n\\nhttp://www.shopcrossroadsplaza\.c\.\.\.\\n$))
     end
   end
 
