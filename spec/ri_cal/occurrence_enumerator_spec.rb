@@ -8,7 +8,7 @@ end
 
 # Note that this is more of a functional spec
 describe RiCal::OccurrenceEnumerator do
-  
+
   Fr13Unbounded_Zulu = <<-TEXT
 BEGIN:VEVENT
 DTSTART:19970902T090000Z
@@ -45,24 +45,24 @@ TEXT
       before(:each) do
         @it = RiCal.parse_string(Fr13Unbounded_Zulu).first
       end
-      
+
       it "should raise an ArgumentError with no options to limit result" do
         lambda {@it.occurrences}.should raise_error(ArgumentError)
       end
-      
+
       it "should have the right five occurrences when :count => 5 option is used" do
         result = @it.occurrences(:count => 5)
         result.should == Fr13UnboundedZuluExpectedFive
       end
-      
+
     end
   end
-  
+
   describe ".occurrences" do
     before(:each) do
       @it = RiCal.parse_string(Fr13Unbounded_Zulu).first
     end
-    
+
     describe "with :starting specified" do
       it "should exclude dates before :starting" do
         result = @it.occurrences(:starting => Fr13UnboundedZuluExpectedFive[1].dtstart,
@@ -70,7 +70,7 @@ TEXT
         result.map{|o|o.dtstart}.should == Fr13UnboundedZuluExpectedFive[1..-2].map{|e| e.dtstart}
       end
     end
-    
+
     describe "with :before specified" do
       it "should exclude dates after :before" do
         result = @it.occurrences(:before => Fr13UnboundedZuluExpectedFive[3].dtstart,
@@ -79,7 +79,7 @@ TEXT
       end
     end
   end
-    
+
 
   describe ".each" do
     describe " for Every Friday the 13th, forever" do
@@ -105,7 +105,7 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
   before(:each) do
     @merger = RiCal::OccurrenceEnumerator::OccurrenceMerger
   end
-  
+
   describe ".for" do
     it "should return an EmptyEnumerator if the rules parameter is nil" do
       @merger.for(nil, nil).should == RiCal::OccurrenceEnumerator::EmptyRulesEnumerator
@@ -114,23 +114,23 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
     it "should return an EmptyEnumerator if the rules parameter is empty" do
       @merger.for(nil, []).should == RiCal::OccurrenceEnumerator::EmptyRulesEnumerator
     end
-    
+
     describe "with a single rrule" do
       before(:each) do
         @component = mock("component", :dtstart => :dtstart_value)
         @rrule = mock("rrule", :enumerator => :rrule_enumerator)
       end
-      
+
       it "should return the enumerator the rrule" do
         @merger.for(@component, [@rrule]).should == :rrule_enumerator
       end
-      
+
       it "should pass the component to the enumerator instantiation" do
         @rrule.should_receive(:enumerator).with(@component)
         @merger.for(@component, [@rrule])
       end
     end
-    
+
     describe "with multiple rrules" do
       before(:each) do
         @component = mock("component", :dtstart => :dtstart_value)
@@ -139,25 +139,25 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
         @rrule1 = mock("rrule", :enumerator => @enum1)
         @rrule2 = mock("rrule", :enumerator => @enum2)
       end
-      
+
       it "should return an instance of RiCal::OccurrenceEnumerator::OccurrenceMerger" do
         @merger.for(@component, [@rrule1, @rrule2]).should be_kind_of(RiCal::OccurrenceEnumerator::OccurrenceMerger)
       end
-      
+
       it "should pass the component to the enumerator instantiation" do
         @rrule1.should_receive(:enumerator).with(@component).and_return(@enum1)
         @rrule2.should_receive(:enumerator).with(@component).and_return(@enum2)
         @merger.for(@component, [@rrule1, @rrule2])
       end
-      
+
       it "should preload the next occurrences" do
         @enum1.should_receive(:next_occurrence).and_return(:occ1)
         @enum2.should_receive(:next_occurrence).and_return(:occ2)
-        @merger.for(@component, [@rrule1, @rrule2])        
+        @merger.for(@component, [@rrule1, @rrule2])
       end
     end
   end
-  
+
   describe "#next_occurence" do
 
     describe "with unique nexts" do
@@ -168,28 +168,28 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
         @rrule2 = mock("rrule", :enumerator => @enum2)
         @it = @merger.new(0, [@rrule1, @rrule2])
       end
-      
+
       it "should return the earliest occurrence" do
         @it.next_occurrence.should == 2
       end
-      
+
       it "should advance the enumerator which returned the result" do
         @enum2.should_receive(:next_occurrence).and_return(4)
         @it.next_occurrence
       end
-      
+
       it "should not advance the other enumerator" do
         @enum1.should_not_receive(:next_occurrence)
         @it.next_occurrence
       end
-      
+
       it "should properly update the next array" do
         @enum2.stub!(:next_occurrence).and_return(4)
         @it.next_occurrence
         @it.nexts.should == [3, 4]
       end
     end
-    
+
     describe "with duplicated nexts" do
       before(:each) do
         @enum1 = mock_enumerator("rrule_enumerator1", 2)
@@ -198,26 +198,26 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
         @rrule2 = mock("rrule", :enumerator => @enum2)
         @it = @merger.new(0, [@rrule1, @rrule2])
       end
-      
+
       it "should return the earliest occurrence" do
         @it.next_occurrence.should == 2
       end
-      
+
       it "should advance both enumerators" do
         @enum1.should_receive(:next_occurrence).and_return(5)
         @enum2.should_receive(:next_occurrence).and_return(4)
         @it.next_occurrence
       end
-      
+
       it "should properly update the next array" do
         @enum1.stub!(:next_occurrence).and_return(5)
         @enum2.stub!(:next_occurrence).and_return(4)
         @it.next_occurrence
         @it.nexts.should == [5, 4]
       end
-      
+
     end
-    
+
     describe "with all enumerators at end" do
       before(:each) do
         @enum1 = mock_enumerator("rrule_enumerator1", nil)
@@ -226,11 +226,11 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
         @rrule2 = mock("rrule", :enumerator => @enum2)
         @it = @merger.new(0, [@rrule1, @rrule2])
       end
-      
+
       it "should return nil" do
         @it.next_occurrence.should == nil
       end
-      
+
       it "should not advance the enumerators which returned the result" do
         @enum1.should_not_receive(:next_occurrence)
         @enum2.should_not_receive(:next_occurrence)
@@ -238,10 +238,42 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
       end
     end
   end
+
+  context "Ticket #4 from paulsm" do
+    it "should produce 4 occurrences" do
+      cal = RiCal.parse_string <<ENDCAL
+BEGIN:VCALENDAR
+METHOD:PUBLISH
+PRODID:-//Apple Inc.//iCal 3.0//EN
+CALSCALE:GREGORIAN
+X-WR-CALNAME:Australian32Holidays
+X-WR-CALDESC:Australian Public Holidays. Compiled from http://www.indust
+ rialrelations.nsw.gov.au/holidays/default.html and the links for the oth
+ er states at the bottom of that page
+X-WR-RELCALID:AC1E4CE8-6690-49F6-A144-2F8891DFFD8D
+VERSION:2.0
+X-WR-TIMEZONE:Australia/Sydney
+BEGIN:VEVENT
+SEQUENCE:8
+TRANSP:OPAQUE
+UID:5B5579F3-2137-11D7-B491-00039301B0C2
+DTSTART;VALUE=DATE:20020520
+DTSTAMP:20060602T045619Z
+SUMMARY:Adelaide Cup Carnival and Volunteers Day (SA)
+EXDATE;VALUE=DATE:20060515
+CREATED:20080916T000924Z
+DTEND;VALUE=DATE:20020521
+RRULE:FREQ=YEARLY;INTERVAL=1;UNTIL=20070520;BYMONTH=5;BYDAY=3MO
+END:VEVENT
+END:VCALENDAR
+ENDCAL
+      cal.first.events.first.occurrences.length.should == 4
+    end
+  end
   
-    context "Bug report from paulsm" do
-        before(:each) do
-          cals = RiCal.parse_string <<ENDCAL
+  context "Ticket #2 from paulsm" do
+    before(:each) do
+      cals = RiCal.parse_string <<ENDCAL
 BEGIN:VCALENDAR
 X-WR-TIMEZONE:America/New_York
 PRODID:-//Apple Inc.//iCal 3.0//EN
@@ -327,10 +359,67 @@ END:VCALENDAR
 ENDCAL
       @event = cals.first.events.first
     end
-    
+
     it "should be able to enumerate occurrences" do
       @event.occurrences.should == [@event]
     end
   end
+  
+  context "An event with a DATE dtstart, Ticket #6" do
+    before(:each) do
+      cal = RiCal.parse_string <<ENDCAL
+BEGIN:VCALENDAR
+PRODID:-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN
+VERSION:2.0
+BEGIN:VEVENT
+CREATED:20090520T092032Z
+LAST-MODIFIED:20090520T092052Z
+DTSTAMP:20090520T092032Z
+UID:d41c124a-65c3-400e-bd04-1d2ee7b98352
+SUMMARY:event2
+RRULE:FREQ=MONTHLY;INTERVAL=1
+DTSTART;VALUE=DATE:20090603
+DTEND;VALUE=DATE:20090604
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
+ENDCAL
+      @occurrences = cal.first.events.first.occurrences(
+      :after => Date.parse('01/01/1990'), 
+      :before => Date.parse("01/01/2010")
+      )
+    end
 
+    it "should produce the right dtstart values" do
+      @occurrences.map {|o| o.dtstart}.should == [
+        Date.parse("2009-06-03"),
+        Date.parse("2009-07-03"),
+        Date.parse("2009-08-03"),
+        Date.parse("2009-09-03"),
+        Date.parse("2009-10-03"),
+        Date.parse("2009-11-03"),
+        Date.parse("2009-12-03")
+      ]
+    end
+
+    it "should produce events whose dtstarts are all dates" do
+      @occurrences.all? {|o| o.dtstart.class == ::Date}.should be_true      
+    end
+
+    it "should produce the right dtend values" do
+      @occurrences.map {|o| o.dtend}.should == [
+        Date.parse("2009-06-04"),
+        Date.parse("2009-07-04"),
+        Date.parse("2009-08-04"),
+        Date.parse("2009-09-04"),
+        Date.parse("2009-10-04"),
+        Date.parse("2009-11-04"),
+        Date.parse("2009-12-04")
+      ]
+    end
+
+    it "should produce events whose dtstends are all dates" do
+      @occurrences.all? {|o| o.dtend.class == ::Date}.should be_true      
+    end
+  end
 end

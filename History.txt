@@ -1,7 +1,14 @@
+=== 0.0.9
+  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/4
+    Missing comparison methods in PropertyValue::Date
+  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/6
+    Type of dtstart and dtend (DATE or DATETIME) now preserved on enumeration
 === 0.0.8
-  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/1-occurrence-lists-not-picking-up-timewithzone-identifier#ticket-1-2
-  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/2-date-property-subtraction-bug
-  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/3-fwd-ri_cal-question
+  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/1
+    EXDATE and RDATE now pick up the timezone from DateTime, Time, and TimeWithZone values
+  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/2
+    Missing arithmetic methods in PropertyValue::Date
+  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/3
        Components with no recurrence rules or rdate properties failed on enumeration, they now
        will enumerate a single occurrence
   

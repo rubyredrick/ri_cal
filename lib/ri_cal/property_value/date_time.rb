@@ -253,8 +253,8 @@ module RiCal
 
 
       # Return an RiCal::PropertyValue::DateTime representing the receiver.
-      def to_ri_cal_date_time_value
-        self
+      def to_ri_cal_date_time_value(timezone=nil)
+        for_parent(timezone)
       end
 
       def iso_year_and_week_one_start(wkst) #:nodoc:
@@ -268,6 +268,11 @@ module RiCal
       # Return the "Natural' property value for the receover, in this case the receiver itself."
       def to_ri_cal_date_or_date_time_value(timezone_finder = nil) #:nodoc:
         self.for_parent(timezone_finder)
+      end
+      
+      # Return a Date property for this DateTime
+      def to_ri_cal_date_value(timezone_finder=nil)
+        PropertyValue::Date.new(timezone_finder, :value => @date_time_value.strftime("%Y%m%d"))
       end
 
       # Return the Ruby DateTime representation of the receiver
@@ -288,6 +293,14 @@ module RiCal
 
       def add_date_times_to(required_timezones) #:nodoc:
         required_timezones.add_datetime(self, tzid) if has_local_timezone?
+      end
+      
+      def start_of_day?
+        [hour, min, sec] == [0,0,0]
+      end
+      
+      def for_occurrence(occurrence)
+        occurrence.to_ri_cal_date_time_value(timezone_finder)
       end
     end
   end

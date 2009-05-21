@@ -94,7 +94,7 @@ module RiCal
       # TODO: Need to research this, I beleive that this should also take the end time into account,
       #       but I need to research
       def exclusion_match?(occurrence, exclusion)
-        exclusion && occurrence[:start] == occurrence[:start]
+        exclusion && occurrence[:start] == exclusion[:start]
       end
       
       # Also exclude occurrences before the :starting date_time
@@ -172,15 +172,11 @@ module RiCal
       @rdate_property = nil
       @exdate_property = nil
       @recurrence_id_property = occurrence_start
-      @dtstart_property = occurrence_start
-      if occurrence_end
-        @dtend_property = occurrence_end
-      else
-        if dtend
-          my_duration = @dtend_property - @dtstart_property
-          @dtend_property = occurrence_start + my_duration
-        end
+      if @dtend_property && !occurrence_end
+        occurrence_end = occurrence_start + (@dtend_property - @dtstart_property)
       end
+      @dtstart_property = dtstart_property.for_occurrence(occurrence_start)
+      @dtend_property = dtend_property.for_occurrence(occurrence_end) if @dtend_property
       self      
     end
     

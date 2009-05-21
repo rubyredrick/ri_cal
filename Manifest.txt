@@ -36,6 +36,7 @@ lib/ri_cal/core_extensions/array/conversions.rb
 lib/ri_cal/core_extensions/date.rb
 lib/ri_cal/core_extensions/date/conversions.rb
 lib/ri_cal/core_extensions/date_time.rb
+lib/ri_cal/core_extensions/date_time/conversions.rb
 lib/ri_cal/core_extensions/object.rb
 lib/ri_cal/core_extensions/object/conversions.rb
 lib/ri_cal/core_extensions/string.rb

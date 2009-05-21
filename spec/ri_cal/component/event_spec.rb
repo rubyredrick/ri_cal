@@ -309,6 +309,14 @@ describe RiCal::Component::Event do
       @it.dtstart = Date.parse("April 22, 2009")
       unfold(@it.export).should match(/^DTSTART;VALUE=DATE:20090422$/)
     end
+    
+    it "should properly fold on export" do
+      @it.description = "Weather report looks nice, 80 degrees and partly cloudy, so following Michael's suggestion, let's meet at the food court at Crossroads:\n\nhttp://www.shopcrossroadsplaza.c...\n"
+      export_string = @it.export
+      export_string.should match(%r(^DESCRIPTION:Weather report looks nice\\, 80 degrees and partly cloudy\\, so$))
+      export_string.should match(%r(^  following Michael's suggestion\\, let's meet at the food court at Crossr$))
+      export_string.should match(%r(^ oads:\\n\\nhttp://www.shopcrossroadsplaza\.c\.\.\.\\n))
+    end
   end
 
   if RiCal::TimeWithZone
