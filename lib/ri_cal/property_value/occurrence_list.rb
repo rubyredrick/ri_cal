@@ -17,6 +17,10 @@ module RiCal
           @index = 0
         end
         
+        def bounded?
+          true
+        end
+        
         def empty?
           occurrence_list.empty?
         end

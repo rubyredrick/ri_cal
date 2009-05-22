@@ -422,4 +422,34 @@ ENDCAL
       @occurrences.all? {|o| o.dtend.class == ::Date}.should be_true      
     end
   end
+  context "bounded? bug" do
+    before(:each) do
+      events = RiCal.parse_string rectify_ical <<-ENDCAL
+      BEGIN:VEVENT
+      EXDATE:20090114T163000
+      EXDATE:20090128T163000
+      EXDATE:20090121T163000
+      EXDATE:20090211T163000
+      EXDATE:20090204T163000
+      EXDATE:20090218T163000
+      TRANSP:OPAQUE
+      DTSTAMP;VALUE=DATE-TIME:20090107T024340Z
+      CREATED;VALUE=DATE-TIME:20090107T024012Z
+      DTEND;TZID=US/Mountain;VALUE=DATE-TIME:20090114T180000
+      DTSTART;TZID=US/Mountain;VALUE=DATE-TIME:20090114T163000
+      UID:15208112-E0FA-4A7C-954C-CFDF19D1B0E7
+      RRULE:FREQ=WEEKLY;INTERVAL=1;UNTIL=20090219T065959Z
+      SUMMARY:Wild Rose XC/Skate Training Series
+      SEQUENCE:11
+      LOCATION:Mountain Dell Golf Course
+      END:VEVENT
+      ENDCAL
+      @event = events.first
+    end
+
+    it "should be able to enumerate occurrences" do
+      @event.should be_bounded
+    end
+  end
+
 end

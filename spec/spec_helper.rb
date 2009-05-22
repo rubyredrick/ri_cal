@@ -28,6 +28,10 @@ def offset_for_tzid(year, month, day, hour, min, sec, tzid, alternate)
   end
 end
 
+def rectify_ical(string)
+  string.gsub(/^\s+/, "")
+end
+
 if RiCal::TimeWithZone
   def result_time_in_zone(year, month, day, hour, min, sec, tzid, alternate_offset = nil)
     DateTime.civil(year, month, day, hour, min, sec, 
