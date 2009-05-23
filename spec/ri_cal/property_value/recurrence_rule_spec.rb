@@ -432,7 +432,7 @@ describe RiCal::PropertyValue::RecurrenceRule do
           (0..(iterations-1)).each do |i|
             occurrence = @enum.next_occurrence
             break if occurrence.nil?
-            actuals << occurrence[:start]
+            actuals << occurrence.dtstart
             # This is a little strange, we do this to avoid O(n*2)
             unless actuals.last == @expectations[i]
               actuals.should == @expectations[0,actuals.length]

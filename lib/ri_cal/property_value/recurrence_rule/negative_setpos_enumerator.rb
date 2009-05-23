@@ -16,7 +16,7 @@ module RiCal
             result = advance
             if result >= start_time
               @count += 1
-              return recurrence_rule.exhausted?(@count, result) ? nil : result_hash(result)
+              return recurrence_rule.exhausted?(@count, result) ? nil : result_occurrence_period(result)
             end
           end
         end

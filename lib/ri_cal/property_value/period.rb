@@ -69,9 +69,8 @@ module RiCal
         self
       end
 
-      # TODO: consider if this should be a period rather than a hash
-      def occurrence_hash(default_duration) #:nodoc:
-        {:start => self, :end => (default_duration ? self + default_duration : nil)}
+      def occurrence_period(default_duration) #:nodoc:
+        RiCal::OccurrencePeriod.new(self, (default_duration ? self + default_duration : nil))
       end
 
       def add_date_times_to(required_timezones) #:nodoc:

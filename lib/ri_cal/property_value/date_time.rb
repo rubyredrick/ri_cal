@@ -210,8 +210,8 @@ module RiCal
       end
 
       # TODO: consider if this should be a period rather than a hash
-      def occurrence_hash(default_duration) # :nodoc:
-        {:start => self, :end => (default_duration ? self + default_duration : nil)}
+      def occurrence_period(default_duration) # :nodoc:
+        RiCal::OccurrencePeriod.new(self, (default_duration ? self + default_duration : nil))
       end
 
       # Return the year (including the century)

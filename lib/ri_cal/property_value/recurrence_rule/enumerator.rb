@@ -36,8 +36,8 @@ module RiCal
           @bounded
         end
 
-        def result_hash(date_time_value)
-          {:start => date_time_value, :end => nil}
+        def result_occurrence_period(date_time_value)
+          RiCal::OccurrencePeriod.new(date_time_value, nil)
         end
 
         def result_passes_setpos_filter?(result)
@@ -69,7 +69,7 @@ module RiCal
             self.next_time = @incrementer.next_time(result)
             if result_passes_filters?(result)
               @count += 1
-              return recurrence_rule.exhausted?(@count, result) ? nil : result_hash(result)
+              return recurrence_rule.exhausted?(@count, result) ? nil : result_occurrence_period(result)
             end
           end
         end

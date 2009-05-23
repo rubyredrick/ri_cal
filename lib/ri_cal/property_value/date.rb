@@ -121,7 +121,7 @@ module RiCal
       def -(other)
         other.subtract_from_date_time_value(to_ri_cal_date_time_value)
       end
-      
+
       def subtract_from_date_time_value(date_time)
         to_ri_cal_date_time_value.subtract_from_date_time_value(date_time)
       end
@@ -142,11 +142,9 @@ module RiCal
       end
 
       # TODO: consider if this should be a period rather than a hash
-      def occurrence_hash(default_duration) #:nodoc:
+      def occurrence_period(default_duration) #:nodoc:
         date_time = self.to_ri_cal_date_time_value
-        {:start => date_time,
-          :end => date_time.advance(:hours => 24, :seconds => -1)}
-        end
+        RiCal::OccurrencePeriod.new(date_time, date_time.advance(:hours => 24, :seconds => -1))
       end
       
       def start_of_day?
@@ -162,3 +160,4 @@ module RiCal
       end
     end
   end
+end
