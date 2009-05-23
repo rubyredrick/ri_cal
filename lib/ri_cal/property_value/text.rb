@@ -26,9 +26,9 @@ module RiCal
       end
       
       def self.convert(parent, string) #:nodoc:
-        ical_str = string.gsub(/\n|,|;/) {|match|
-          if match == "\n"
-            '\n'
+        ical_str = string.gsub(/\n\r?|\r\n?|,|;|\\/) {|match|
+          if ["\n", "\r", "\n\r", "\r\n"].include?(match)
+            '\\n'
           else
             "\\#{match}"
           end
