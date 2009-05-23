@@ -50,6 +50,7 @@ lib/ri_cal/floating_timezone.rb
 lib/ri_cal/invalid_property_value.rb
 lib/ri_cal/invalid_timezone_identifer.rb
 lib/ri_cal/occurrence_enumerator.rb
+lib/ri_cal/occurrence_period.rb
 lib/ri_cal/parser.rb
 lib/ri_cal/properties/alarm.rb
 lib/ri_cal/properties/calendar.rb
