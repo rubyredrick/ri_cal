@@ -21,6 +21,23 @@ module RiCal
       def subcomponent_class #:nodoc:
         {:alarm => Alarm }
       end
+      
+      # Return a date_time representing the time at which the todo should start
+      def start_time
+        dtstart.to_datetime
+      end
+      
+      # Return a date_time representing the time at which the todo is due
+      def finish_time
+        if due
+          due_property.to_finish_time
+        elsif duration_property
+          (dtstart_property + duration_property).to_finish_time
+        else
+          nil
+        end
+      end
+      
     end
   end
 end

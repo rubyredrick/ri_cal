@@ -163,7 +163,28 @@ module RiCal
     def bounded?
       EnumerationInstance.new(self).bounded?
     end
+    
+    # Return a array whose first element is a UTC DateTime representing the start of the first
+    # occurrence, and whose second element is a UTC DateTime representing the end of the last
+    # occurrence.
+    # If the receiver is not bounded then the second element will be nil.
     #
+    # The purpose of this method is to provide values which may be used as database attributes so
+    # that a query can find all occurence enumerating components which may have occurrences within
+    # a range of times.
+    def zulu_occurrence_range
+      if bounded?
+        all = occurrences
+        first, last = all.first, all.last
+      else
+        first = occurrences(:count => 1).first
+        last = nil
+      end
+        first_start = all.first.dtstart.utc.ruby_object
+        last_end = all.last.dtend.utc.ruby_object
+        [first.zulu_occurrence_range_start, last ? last.zulu_occurrence_range_end : nil]
+    end
+    
     def set_occurrence_properties!(occurrence) # :nodoc:
       occurrence_end = occurrence.dtend
       occurrence_start = occurrence.dtstart

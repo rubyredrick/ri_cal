@@ -151,6 +151,10 @@ module RiCal
         true
       end
       
+      def to_finish_time
+        to_ri_cal_date_time_value.end_of_day.to_datetime
+      end
+      
       def for_occurrence(occurrence)
         if occurrence.start_of_day?
           occurrence.to_ri_cal_date_value(timezone_finder)

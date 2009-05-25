@@ -157,6 +157,9 @@ describe RiCal::OccurrenceEnumerator::OccurrenceMerger do
       end
     end
   end
+  
+  describe "#zulu_occurrence_range" do
+  end
 
   describe "#next_occurence" do
 
@@ -507,5 +510,24 @@ ENDCAL
       @event.occurrences.length.should == 0
     end
   end
+  
+  
+  describe "#zulu_occurrence_range" do
+    context "For an event with no recurrence rules" do
+      context "with a non-floating dtstart and dtend" do
+        before(:each) do
+          @event = RiCal.Event do |e| 
+            e.dtstart = "TZID=America/New_York:20090525T143500"
+            e.dtend = "TZID=America/New_York:20090525T153500"
+          end
+        end
+        
+        it "should return an array with dtstart and dtend converted to zulu time" do
+          @event.zulu_occurrence_range.should == [DateTime.civil(2009,5,25,18,35,00, 0), DateTime.civil(2009,5,25,19,35,00, 0)]
+        end
+      end
+    end
+  end
+  
 
 end

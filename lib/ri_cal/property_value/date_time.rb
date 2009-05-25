@@ -290,6 +290,7 @@ module RiCal
       end
 
       alias_method :to_ri_cal_ruby_value, :to_datetime
+      alias_method :to_finish_time, :to_datetime
 
       def add_date_times_to(required_timezones) #:nodoc:
         required_timezones.add_datetime(self, tzid) if has_local_timezone?

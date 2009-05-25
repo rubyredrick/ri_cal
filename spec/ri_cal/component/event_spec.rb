@@ -180,6 +180,77 @@ describe RiCal::Component::Event do
       @it.rrule.should be_kind_of(Array)
     end
   end
+  
+  context ".start_time" do
+    
+    it "should be nil if there is no dtstart property" do
+      RiCal.Event.start_time.should be_nil
+    end
+
+    it "should be the same as dtstart for a date time" do
+      event = RiCal.Event {|e| e.dtstart = "20090525T151900"}
+      event.start_time.should == DateTime.civil(2009,05,25,15,19,0,0)
+    end
+    
+    it "should be the start of the day of dtstart for a date" do
+      event = RiCal.Event {|e| e.dtstart = "20090525"}
+      event.start_time.should == DateTime.civil(2009,05,25,0,0,0,0)
+    end
+  end
+  
+  context ".finish_time" do
+    before(:each) do
+      @event = RiCal.Event {|e| e.dtstart = "20090525T151900"}
+    end
+    
+    context "with a given dtend" do
+      it "should be the same as dtend for a date time" do
+        @event.dtend = "20090525T161900"
+        @event.finish_time.should == DateTime.civil(2009,05,25,16,19,0,0)
+      end
+    end
+    
+    context "with no dtend" do
+      context "and a duration" do
+        it "should be the dtstart plus the duration" do
+          @event.duration = "+P1H"
+          @event.finish_time.should == DateTime.civil(2009,5,25,16,19,0,0)
+        end
+      end
+      
+      context "and no duration" do
+        context "when the dtstart is not set" do
+          before(:each) do
+            @event.dtstart_property = nil
+          end
+          
+          it "should be nil" do
+            @event.finish_time.should be_nil
+          end
+        end
+        context "when the dstart is a datetime" do
+          # For cases where a "VEVENT" calendar component
+          # specifies a "DTSTART" property with a DATE-TIME data type but no
+          # "DTEND" property, the event ends on the same calendar date and time
+          # of day specified by the "DTSTART" property. RFC 2445 p 53
+          it "should be the same as start_time" do
+            @event.finish_time.should == @event.start_time         
+          end
+        end
+        context "when the dtstart is a date" do
+          # For cases where a "VEVENT" calendar component specifies a "DTSTART" property with a DATE data type
+          # but no "DTEND" property, the events non-inclusive end is the end of the calendar date specified by
+          # the "DTSTART" property. RFC 2445 p 53
+
+          it "should be the end of the same day as start_time" do
+            @event.dtstart = "20090525"
+            @event.finish_time.should == DateTime.civil(2009,5,25,23,59,59,0)
+          end
+        end
+      end
+    end
+
+  end
 
   context "description property" do
     before(:each) do

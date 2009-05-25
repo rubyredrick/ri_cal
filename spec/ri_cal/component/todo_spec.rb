@@ -3,6 +3,46 @@
 require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::Component::Todo do
+  
+  context ".start_time" do
+    it "should be the same as dtstart for a date time" do
+      todo = RiCal.Todo {|e| e.dtstart = "20090525T151900"}
+      todo.start_time.should == DateTime.civil(2009,05,25,15,19,0,0)
+    end
+    
+    it "should be the start of the day of dtstart for a date" do
+      todo = RiCal.Todo {|e| e.dtstart = "20090525"}
+      todo.start_time.should == DateTime.civil(2009,05,25,0,0,0,0)
+    end
+  end
+  
+  context ".finish_time" do
+    before(:each) do
+      @todo = RiCal.Todo {|t| t.dtstart = "20090525T151900"}
+    end
+
+    context "with a given due" do
+      it "should be the same as due for a date time" do
+        @todo.due = "20090525T161900"
+        @todo.finish_time.should == DateTime.civil(2009,05,25,16,19,0,0)
+      end
+    end
+
+    context "with no due" do
+      context "and a duration" do
+        it "should be the dtstart plus the duration" do
+          @todo.duration = "+P1H"
+          @todo.finish_time.should == DateTime.civil(2009,5,25,16,19,0,0)
+        end
+      end
+
+      context "and no duration" do
+        it "should be nil" do
+          @todo.finish_time.should be_nil
+        end
+      end
+    end
+  end
 
   describe "with both due and duration specified" do
     before(:each) do

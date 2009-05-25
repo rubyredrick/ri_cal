@@ -23,7 +23,30 @@ module RiCal
       def self.entity_name #:nodoc:
         "VEVENT"
       end
-
+      
+      # Return a date_time representing the time at which the event starts
+      def start_time
+        dtstart_property ? dtstart.to_datetime : nil
+      end
+      
+      def zulu_occurrence_range_start
+        if dtstart_property
+          start_time
+        else
+          nil
+        end
+      end
+      
+      # Return a date_time representing the time at which the event starts
+      def finish_time
+        if dtend_property
+          dtend_property.to_finish_time
+        elsif duration_property
+          (dtstart_property + duration_property).to_finish_time
+        else
+          dtstart_property.to_finish_time
+        end
+      end
     end
   end
 end

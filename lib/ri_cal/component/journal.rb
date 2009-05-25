@@ -16,6 +16,15 @@ module RiCal
       def self.entity_name #:nodoc:
         "VJOURNAL"
       end
+      
+      # Return a date_time representing the time at which the event starts
+      def start_time
+        dtstart.to_datetime
+      end
+      
+      # Journals take up no calendar time, so the finish time is always the same as the start_time
+      alias_method :finish_time, :start_time
+      
     end
   end
 end

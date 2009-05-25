@@ -159,7 +159,7 @@ class VEntityUpdater
     end
     @all_props[property] = name.upcase
     @property_map[name.upcase] = :"#{property}_from_string"
-    parent_set = needs_tz_access ? ".for_parent(self)" : ""
+    parent_set = needs_tz_access ? " ? property_value.for_parent(self) : nil" : ""
     if type == 'date_time_or_date'
       line_evaluator = "RiCal::PropertyValue::DateTime.or_date(self, line)"
     else
