@@ -24,14 +24,14 @@ module RiCal
       
       # Return a date_time representing the time at which the todo should start
       def start_time
-        dtstart.to_datetime
+        dtstart_property ? dtstart.to_datetime : nil
       end
       
       # Return a date_time representing the time at which the todo is due
       def finish_time
         if due
           due_property.to_finish_time
-        elsif duration_property
+        elsif duration_property && dtstart_property
           (dtstart_property + duration_property).to_finish_time
         else
           nil

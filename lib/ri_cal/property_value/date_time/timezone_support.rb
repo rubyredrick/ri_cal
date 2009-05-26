@@ -67,7 +67,7 @@ module RiCal
 
         # Predicate indicating whether or not the instance represents a floating time
         def floating?
-          tzid == :floating
+          tzid.nil?
         end
         
         def has_valid_tzinfo_tzid? #:nodoc:

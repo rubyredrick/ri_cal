@@ -46,52 +46,49 @@ the object being built will cause that setter to be sent to the component with t
 A method corresponding to the name of one of the components sub component will create the sub component and 
 evaluate the block in the context of the new subcomponent.
 
+h2. WIKI
+
+"http://wiki.github.com/rubyredrick/ri_cal":http://wiki.github.com/rubyredrick/ri_cal
+
 h2. Forum
 
 "http://groups.google.com/group/rical_gem":http://groups.google.com/group/rical_gem
 
+h2. Bug Reports
+
+"http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/overview":http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/overview
+
 h2. How to submit patches
 
-Read the "8 steps for fixing other people's code":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/ and for section "8b: Submit patch to Google Groups":http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups, use the Google Group above.
+The current development version of RiCal is always maintained on github.  The official release here on RubyForge will be updated periodically as warranted.
 
-You can fetch the source from either:
+I would prefer patches which include a spec which fails before the patch is applied and passes after.  The best way to submit a patch is via the "lighthouse bug tracking system":http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/overview
 
-<% if rubyforge_project_id %>
-
-* rubyforge: "http://rubyforge.org/scm/?group_id=<%= rubyforge_project_id %>":http://rubyforge.org/scm/?group_id=<%= rubyforge_project_id %>
+Get the latest version from github
 
 <pre>git clone git://rubyforge.org/ri_cal.git</pre>
 
-<% else %>
+Alternatively fork the rical project and create your own github version.
 
-* rubyforge: MISSING IN ACTION
-
-TODO - You can not created a RubyForge project, OR have not run <code>rubyforge config</code>
-yet to refresh your local rubyforge data with this projects' id information.
-
-When you do this, this message will magically disappear!
-
-Or you can hack website/index.txt and make it all go away!!
-
-<% end %>
-
-* github: "http://github.com/rubyredrick/ri_cal/tree/master":http://github.com/rubyredrick/ri_cal/tree/master
-
-<pre>git clone git://github.com/rubyredrick/ri_cal.git</pre>
-
-
-TODO - add "rubyredrick: username" to ~/.rubyforge/user-config.yml and newgem will reuse it for future projects.
-
-
-* gitorious: "git://gitorious.org/ri_cal/mainline.git":git://gitorious.org/ri_cal/mainline.git
-
-<pre>git clone git://gitorious.org/ri_cal/mainline.git</pre>
+I would prefer that you submit patches as attachments to lighthouse tickets created using "git format-patch":http://www.us.kernel.org/pub/software/scm/git/docs/git-format-patch.html
 
 h3. Build and test instructions
 
-<pre>cd ri_cal
-rake spec
-rake install_gem</pre>
+RiCal requires either the tzinfo gem, or a version (=< 2.2) of the activesupport gem (part of Rails).  To allow users of RiCal to control their own dependencies RiCal itself does not declare these as gem dependencies.
+
+You will need to install either the tzinfo gem, or the activesupport gem or both.
+
+There are two rake tasks for running the specs
+
+<pre>rake spec:with_tzinfo_gem</pre>
+
+runs the specs after requiring the tzinfo gem.  Similarly
+
+<pre>rake spec:with_active_support</pre>
+
+runs the specs after requiring activesupport.
+
+The default rake task runs both of these.
 
 
 h2. License

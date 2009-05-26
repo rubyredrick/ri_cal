@@ -54,7 +54,7 @@ module RiCal
       # set the LAST-MODIFIED property
       # property value should be an instance of RiCal::PropertyValueDateTime
       def last_modified_property=(property_value)
-        @last_modified_property = property_value.for_parent(self)
+        @last_modified_property = property_value ? property_value.for_parent(self) : nil
       end
 
       # set the value of the LAST-MODIFIED property

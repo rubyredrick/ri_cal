@@ -14,6 +14,10 @@ describe RiCal::Component::Todo do
       todo = RiCal.Todo {|e| e.dtstart = "20090525"}
       todo.start_time.should == DateTime.civil(2009,05,25,0,0,0,0)
     end
+    
+    it "should be nil if the dtstart property is not set" do
+      RiCal.Todo.start_time.should be_nil
+    end
   end
   
   context ".finish_time" do
@@ -30,9 +34,17 @@ describe RiCal::Component::Todo do
 
     context "with no due" do
       context "and a duration" do
-        it "should be the dtstart plus the duration" do
+        before(:each) do
           @todo.duration = "+P1H"
+        end
+        
+        it "should be the dtstart plus the duration" do
           @todo.finish_time.should == DateTime.civil(2009,5,25,16,19,0,0)
+        end
+        
+        it "should be nil if the dtstart property is not set" do
+          @todo.dtstart_property = nil
+          @todo.finish_time.should be_nil
         end
       end
 

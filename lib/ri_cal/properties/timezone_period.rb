@@ -21,7 +21,7 @@ module RiCal
       # set the DTSTART property
       # property value should be an instance of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
       def dtstart_property=(property_value)
-        @dtstart_property = property_value.for_parent(self)
+        @dtstart_property = property_value ? property_value.for_parent(self) : nil
       end
 
       # set the value of the DTSTART property

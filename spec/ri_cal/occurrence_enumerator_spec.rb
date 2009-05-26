@@ -513,6 +513,34 @@ ENDCAL
   
   
   describe "#zulu_occurrence_range" do
+    context "For an unbounded recurring event" do
+      before(:each) do
+        @event = RiCal.Event do |e| 
+          e.dtstart = "TZID=America/New_York:20090525T143500"
+          e.dtend = "TZID=America/New_York:20090525T153500"
+          e.add_rrule("FREQ=DAILY")
+        end
+        
+        it "should return an array with the first dtstart and nil" do
+          @event.zulu_occurrence_range.should == [DateTime.civil(2009,5,25,18,35,00, 0), nil]          
+        end
+      end
+    end
+    
+    context "For a bounded recurring event" do
+      before(:each) do
+        @event = RiCal.Event do |e| 
+          e.dtstart = "TZID=America/New_York:20090525T143500"
+          e.dtend = "TZID=America/New_York:20090525T153500"
+          e.add_rrule("FREQ=DAILY;COUNT=3")
+        end
+        
+        it "should return an array with the first dtstart last dtend converted to utc" do
+          @event.zulu_occurrence_range.should == [DateTime.civil(2009,5,25,18,35,00, 0), DateTime.civil(2009,5,27,19,35,00, 0)]          
+        end
+      end
+    end
+    
     context "For an event with no recurrence rules" do
       context "with a non-floating dtstart and dtend" do
         before(:each) do
@@ -524,6 +552,18 @@ ENDCAL
         
         it "should return an array with dtstart and dtend converted to zulu time" do
           @event.zulu_occurrence_range.should == [DateTime.civil(2009,5,25,18,35,00, 0), DateTime.civil(2009,5,25,19,35,00, 0)]
+        end
+      end
+      context "with a floating dtstart and dtend" do
+        before(:each) do
+          @event = RiCal.Event do |e| 
+            e.dtstart = "20090525T143500"
+            e.dtend = "20090525T153500"
+          end
+        end
+        
+        it "should return an array with dtstart in the first timezone and dtend in the last time zone converted to zulu time" do
+          @event.zulu_occurrence_range.should == [DateTime.civil(2009,5,25,2,35,00, 0), DateTime.civil(2009,5,26,3,35,00, 0)]
         end
       end
     end

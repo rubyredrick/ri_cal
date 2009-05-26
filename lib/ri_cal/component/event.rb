@@ -29,24 +29,32 @@ module RiCal
         dtstart_property ? dtstart.to_datetime : nil
       end
       
-      def zulu_occurrence_range_start
-        if dtstart_property
-          start_time
+      # Return a date_time representing the time at which the event starts
+      def finish_property
+        if dtend_property
+          dtend_property
+        elsif duration_property
+          (dtstart_property + duration_property)
         else
-          nil
+          dtstart_property
         end
       end
-      
+
       # Return a date_time representing the time at which the event starts
       def finish_time
-        if dtend_property
-          dtend_property.to_finish_time
-        elsif duration_property
-          (dtstart_property + duration_property).to_finish_time
-        else
-          dtstart_property.to_finish_time
-        end
+        prop = finish_property
+        prop ? prop.to_finish_time : nil
       end
+      
+      def zulu_occurrence_range_start_time
+        dtstart_property ? dtstart_property.to_zulu_occurrence_range_start_time : nil
+       end
+      
+      def zulu_occurrence_range_finish_time
+        prop = finish_property
+        prop ? prop.to_zulu_occurrence_range_finish_time : nil
+      end
+      
     end
   end
 end

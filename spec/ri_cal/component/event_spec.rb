@@ -180,9 +180,9 @@ describe RiCal::Component::Event do
       @it.rrule.should be_kind_of(Array)
     end
   end
-  
+
   context ".start_time" do
-    
+
     it "should be nil if there is no dtstart property" do
       RiCal.Event.start_time.should be_nil
     end
@@ -191,25 +191,27 @@ describe RiCal::Component::Event do
       event = RiCal.Event {|e| e.dtstart = "20090525T151900"}
       event.start_time.should == DateTime.civil(2009,05,25,15,19,0,0)
     end
-    
+
     it "should be the start of the day of dtstart for a date" do
       event = RiCal.Event {|e| e.dtstart = "20090525"}
       event.start_time.should == DateTime.civil(2009,05,25,0,0,0,0)
     end
   end
-  
+
   context ".finish_time" do
     before(:each) do
       @event = RiCal.Event {|e| e.dtstart = "20090525T151900"}
     end
-    
+
     context "with a given dtend" do
       it "should be the same as dtend for a date time" do
         @event.dtend = "20090525T161900"
         @event.finish_time.should == DateTime.civil(2009,05,25,16,19,0,0)
       end
+
+
     end
-    
+
     context "with no dtend" do
       context "and a duration" do
         it "should be the dtstart plus the duration" do
@@ -217,13 +219,13 @@ describe RiCal::Component::Event do
           @event.finish_time.should == DateTime.civil(2009,5,25,16,19,0,0)
         end
       end
-      
+
       context "and no duration" do
         context "when the dtstart is not set" do
           before(:each) do
             @event.dtstart_property = nil
           end
-          
+
           it "should be nil" do
             @event.finish_time.should be_nil
           end
@@ -234,7 +236,7 @@ describe RiCal::Component::Event do
           # "DTEND" property, the event ends on the same calendar date and time
           # of day specified by the "DTSTART" property. RFC 2445 p 53
           it "should be the same as start_time" do
-            @event.finish_time.should == @event.start_time         
+            @event.finish_time.should == @event.start_time
           end
         end
         context "when the dtstart is a date" do
@@ -250,6 +252,76 @@ describe RiCal::Component::Event do
       end
     end
 
+  end
+
+  context ".zulu_occurrence_range_start_time" do
+
+    it "should be nil if there is no dtstart property" do
+      RiCal.Event.zulu_occurrence_range_start_time.should be_nil
+    end
+
+    it "should be the utc equivalent of dtstart for a date time" do
+      event = RiCal.Event {|e| e.dtstart = "TZID=America/New_York:20090525T151900"}
+      event.zulu_occurrence_range_start_time.should == DateTime.civil(2009,05,25,19,19,0,0)
+    end
+
+    it "should be the utc time of the start of the day of dtstart in the earliest timezone for a date" do
+      event = RiCal.Event {|e| e.dtstart = "20090525"}
+      event.zulu_occurrence_range_start_time.should == DateTime.civil(2009,05,24,12,0,0,0)
+    end
+
+    it "should be the utc time of the dtstart in the earliest timezone if dtstart is a floating datetime" do
+      event = RiCal.Event {|e| e.dtstart = "20090525T151900"}
+      event.zulu_occurrence_range_start_time.should == DateTime.civil(2009,05,25,3,19,0,0)
+    end
+  end
+
+  context ".zulu_occurrence_range_finish_time" do
+    before(:each) do
+      @event = RiCal.Event {|e| e.dtstart = "TZID=America/New_York:20090525T151900"}
+    end
+
+    context "with a given dtend" do
+      it "should be the utc equivalent of dtend if dtend is a date time" do
+        @event.dtend = "TZID=America/New_York:20090525T161900"
+        @event.zulu_occurrence_range_finish_time.should == DateTime.civil(2009,05,25, 20,19,0,0)
+      end
+    end
+
+    context "with no dtend" do
+      context "and a duration" do
+        it "should be the dtstart plus the duration" do
+          @event.duration = "+P1H"
+          @event.zulu_occurrence_range_finish_time.should == DateTime.civil(2009,5,25,20 ,19,0,0)
+        end
+      end
+
+      context "and no duration" do
+        context "when the dtstart is not set" do
+          before(:each) do
+            @event.dtstart_property = nil
+          end
+
+          it "should be nil" do
+            @event.zulu_occurrence_range_finish_time.should be_nil
+          end
+        end
+
+        context "when the dstart is a datetime" do
+
+          it "should be the same as start_time" do
+            @event.zulu_occurrence_range_finish_time.should == @event.zulu_occurrence_range_start_time
+          end
+        end
+        
+        context "when the dtstart is a date" do
+          it "should be the utc of end of the same day as start_time in the westermost time zone" do
+            @event.dtstart = "20090525"
+            @event.zulu_occurrence_range_finish_time.should == DateTime.civil(2009,5,26,11,59,59,0)
+          end
+        end
+      end
+    end
   end
 
   context "description property" do
@@ -380,7 +452,7 @@ describe RiCal::Component::Event do
       @it.dtstart = Date.parse("April 22, 2009")
       unfold(@it.export).should match(/^DTSTART;VALUE=DATE:20090422$/)
     end
-    
+
     it "should properly fold on export when the description contains a carriage return" do
       @it.description = "Weather report looks nice, 80 degrees and partly cloudy, so following Michael's suggestion, let's meet at the food court at Crossroads:\n\rhttp://www.shopcrossroadsplaza.c...\n"
       export_string = @it.export
@@ -392,7 +464,7 @@ describe RiCal::Component::Event do
 
   if RiCal::TimeWithZone
     context "with ActiveSupport loaded" do
-      
+
       context "an event with an timezoned exdate" do
         before(:each) do
           @old_timezone = Time.zone
@@ -405,15 +477,15 @@ describe RiCal::Component::Event do
           end
           @event = cal.events.first
         end
-        
+
         after(:each) do
           Time.zone = @old_timezone
         end
-        
+
         it "should pickup the timezone in the exdate property" do
           @event.exdate.first.first.tzid.should == "America/New_York"
         end
-        
+
         it "should have the timezone in the ical representation of the exdate property" do
           @event.exdate_property.to_s.should match(%r{;TZID=America/New_York[:;]})
         end

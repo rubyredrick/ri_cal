@@ -180,9 +180,7 @@ module RiCal
         first = occurrences(:count => 1).first
         last = nil
       end
-        first_start = all.first.dtstart.utc.ruby_object
-        last_end = all.last.dtend.utc.ruby_object
-        [first.zulu_occurrence_range_start, last ? last.zulu_occurrence_range_end : nil]
+      [first.zulu_occurrence_range_start_time, last ? last.zulu_occurrence_range_finish_time : nil]
     end
     
     def set_occurrence_properties!(occurrence) # :nodoc:

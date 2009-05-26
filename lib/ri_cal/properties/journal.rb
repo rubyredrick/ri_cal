@@ -54,7 +54,7 @@ module RiCal
       # set the CREATED property
       # property value should be an instance of RiCal::PropertyValueDateTime
       def created_property=(property_value)
-        @created_property = property_value.for_parent(self)
+        @created_property = property_value ? property_value.for_parent(self) : nil
       end
 
       # set the value of the CREATED property
@@ -120,7 +120,7 @@ module RiCal
       # set the DTSTART property
       # property value should be an instance of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
       def dtstart_property=(property_value)
-        @dtstart_property = property_value.for_parent(self)
+        @dtstart_property = property_value ? property_value.for_parent(self) : nil
       end
 
       # set the value of the DTSTART property
@@ -153,7 +153,7 @@ module RiCal
       # set the DTSTAMP property
       # property value should be an instance of RiCal::PropertyValueDateTime
       def dtstamp_property=(property_value)
-        @dtstamp_property = property_value.for_parent(self)
+        @dtstamp_property = property_value ? property_value.for_parent(self) : nil
       end
 
       # set the value of the DTSTAMP property
@@ -186,7 +186,7 @@ module RiCal
       # set the LAST-MODIFIED property
       # property value should be an instance of RiCal::PropertyValueDateTime
       def last_modified_property=(property_value)
-        @last_modified_property = property_value.for_parent(self)
+        @last_modified_property = property_value ? property_value.for_parent(self) : nil
       end
 
       # set the value of the LAST-MODIFIED property
@@ -252,7 +252,7 @@ module RiCal
       # set the RECURRENCE-ID property
       # property value should be an instance of either RiCal::PropertyValue::DateTime or RiCal::PropertyValue::Date
       def recurrence_id_property=(property_value)
-        @recurrence_id_property = property_value.for_parent(self)
+        @recurrence_id_property = property_value ? property_value.for_parent(self) : nil
       end
 
       # set the value of the RECURRENCE-ID property

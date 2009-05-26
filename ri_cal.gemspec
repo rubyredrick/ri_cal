@@ -2,11 +2,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ri_cal}
-  s.version = "0.0.11"
+  s.version = "0.5.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["author=Rick DeNatale"]
-  s.date = %q{2009-05-23}
+  s.date = %q{2009-05-26}
   s.default_executable = %q{ri_cal}
   s.description = %q{This is an UNOFFICIAL version.  The public official version will be released on RubyForge.  Github will be used
 for interim versions.  USE THIS VERSION AT YOUR OWN RISK.

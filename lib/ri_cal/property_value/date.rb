@@ -151,6 +151,14 @@ module RiCal
         true
       end
       
+      def to_zulu_occurrence_range_start_time
+        to_ri_cal_date_time_value.to_zulu_occurrence_range_start_time
+      end
+      
+      def to_zulu_occurrence_range_finish_time
+        to_ri_cal_date_time_value.end_of_day.to_zulu_occurrence_range_finish_time
+      end
+      
       def to_finish_time
         to_ri_cal_date_time_value.end_of_day.to_datetime
       end

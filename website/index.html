@@ -34,11 +34,14 @@
     <div class="sidebar">
       <div id="version" class="clickable" onclick='document.location = "http://rubyforge.org/projects/rical"; return false'>
         <p>Get Version</p>
-        <a href="http://rubyforge.org/projects/rical" class="numbers">0.0.1</a>
+        <a href="http://rubyforge.org/projects/rical" class="numbers">0.5.0</a>
       </div>
     </div>
     <h2>What</h2>
 <p>RiCal is a new Ruby Library for parsing, generating, and using iCalendar (<span class="caps">RFC</span> 2445) format data.</p>
+<h2>Installing</h2>
+<p><pre class='syntax'><span class="ident">sudo</span> <span class="ident">gem</span> <span class="ident">install</span> <span class="ident">ri_cal</span></pre></p>
+<h2>The basics</h2>
 <p>RiCal distinguishes itself from existing Ruby libraries in providing support for</p>
 <ul>
 	<li>Timezone components in Calendars.  This means that RiCal parses <span class="caps">VTIMEZONE</span> data and instantiates timezone objects<br />
@@ -51,42 +54,54 @@ other programs to process the result.</li>
 	<li>Enumeration of recurring occurrences. For example, if an Event has one or more recurrence rules, then the occurrences <br />
 of the event can be enumerated as a series of Event occurrences.</li>
 </ul>
-<h2>Installing</h2>
-<p><pre class='syntax'><span class="ident">sudo</span> <span class="ident">gem</span> <span class="ident">install</span> <span class="ident">ri_cal</span></pre></p>
-<h2>The basics</h2>
 <h2>Demonstration of usage</h2>
+<p>RiCal provides a builder <span class="caps">DSL</span> for creating calendars and calendar components. An example</p>
+RiCal.Calendar do
+event do
+description &#8220;MA-6 First US Manned Spaceflight&#8221;
+dtstart     DateTime.parse(&#8220;2/20/1962 14:47:39&#8221;)
+dtend       DateTime.parse(&#8220;2/20/1962 19:43:02&#8221;)
+location    &#8220;Cape Canaveral&#8221;
+add_attendee &#8220;john.glenn@nasa.gov&#8221;
+alarm do
+description &#8220;Segment 51&#8221;
+end
+end
+end
+
+<p>The blocks are evaluated in the context of an object which builds the calendar or calendar component. method names<br />
+starting with add_ or remove_ are sent to the component, method names which correspond to a property value setter of<br />
+the object being built will cause that setter to be sent to the component with the provided value.</p>
+<p>A method corresponding to the name of one of the components sub component will create the sub component and <br />
+evaluate the block in the context of the new subcomponent.</p>
+<h2><span class="caps">WIKI</span></h2>
+<p><a href="http://wiki.github.com/rubyredrick/ri_cal">http://wiki.github.com/rubyredrick/ri_cal</a></p>
 <h2>Forum</h2>
-<p><a href="http://groups.google.com/group/ri_cal_newgem">http://groups.google.com/group/ri_cal_newgem</a></p>
-<p><span class="caps">TODO</span> &#8211; create Google Group &#8211; ri_cal_newgem</p>
+<p><a href="http://groups.google.com/group/rical_gem">http://groups.google.com/group/rical_gem</a></p>
+<h2>Bug Reports</h2>
+<p><a href="http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/overview">http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/overview</a></p>
 <h2>How to submit patches</h2>
-<p>Read the <a href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/">8 steps for fixing other people&#8217;s code</a> and for section <a href="http://drnicwilliams.com/2007/06/01/8-steps-for-fixing-other-peoples-code/#8b-google-groups">8b: Submit patch to Google Groups</a>, use the Google Group above.</p>
-<p><span class="caps">TODO</span> &#8211; pick <span class="caps">SVN</span> or Git instructions</p>
-<p>The trunk repository is <code>svn://rubyforge.org/var/svn/ri_cal_newgem/trunk</code> for anonymous access.</p>
-<p><span class="caps">OOOORRRR</span></p>
-<p>You can fetch the source from either:</p>
-<ul>
-	<li>rubyforge: <a href="http://rubyforge.org/scm/?group_id=8234">http://rubyforge.org/scm/?group_id=8234</a></li>
-</ul>
-<pre>git clone git://rubyforge.org/ri_cal_newgem.git</pre>
-<ul>
-	<li>github: <a href="http://github.com/GITHUB_USERNAME/ri_cal_newgem/tree/master">http://github.com/GITHUB_USERNAME/ri_cal_newgem/tree/master</a></li>
-</ul>
-<pre>git clone git://github.com/GITHUB_USERNAME/ri_cal_newgem.git</pre>
-<p><span class="caps">TODO</span> &#8211; add &#8220;github_username: username&#8221; to ~/.rubyforge/user-config.yml and newgem will reuse it for future projects.</p>
-<ul>
-	<li>gitorious: <a href="git://gitorious.org/ri_cal_newgem/mainline.git">git://gitorious.org/ri_cal_newgem/mainline.git</a></li>
-</ul>
-<pre>git clone git://gitorious.org/ri_cal_newgem/mainline.git</pre>
+<p>The current development version of RiCal is always maintained on github.  The official release here on RubyForge will be updated periodically as warranted.</p>
+<p>I would prefer patches which include a spec which fails before the patch is applied and passes after.  The best way to submit a patch is via the <a href="http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/overview">lighthouse bug tracking system</a></p>
+<p>Get the latest version from github</p>
+<pre>git clone git://rubyforge.org/ri_cal.git</pre>
+<p>Alternatively fork the rical project and create your own github version.</p>
+<p>I would prefer that you submit patches as attachments to lighthouse tickets created using <a href="http://www.us.kernel.org/pub/software/scm/git/docs/git-format-patch.html">git format-patch</a></p>
 <h3>Build and test instructions</h3>
-<pre>cd ri_cal_newgem
-rake spec
-rake install_gem</pre>
+<p>RiCal requires either the tzinfo gem, or a version (=&lt; 2.2) of the activesupport gem (part of Rails).  To allow users of RiCal to control their own dependencies RiCal itself does not declare these as gem dependencies.</p>
+<p>You will need to install either the tzinfo gem, or the activesupport gem or both.</p>
+<p>There are two rake tasks for running the specs</p>
+<pre>rake spec:with_tzinfo_gem</pre>
+<p>runs the specs after requiring the tzinfo gem.  Similarly</p>
+<pre>rake spec:with_active_support</pre>
+<p>runs the specs after requiring activesupport.</p>
+<p>The default rake task runs both of these.</p>
 <h2>License</h2>
 <p>This code is free to use under the terms of the <span class="caps">MIT</span> license.</p>
 <h2>Contact</h2>
 <p>Comments are welcome. Send an email to <a href="mailto:rick.denatale@gmail.com">Rick DeNatale</a></p>
     <p class="coda">
-      <a href="rick.denatale@gmail.com">Rick DeNatale</a>, 27th April 2009<br>
+      <a href="rick.denatale@gmail.com">Rick DeNatale</a>, 26th May 2009<br>
       Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
     </p>
 </div>

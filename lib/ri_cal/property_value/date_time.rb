@@ -291,7 +291,34 @@ module RiCal
 
       alias_method :to_ri_cal_ruby_value, :to_datetime
       alias_method :to_finish_time, :to_datetime
-
+      
+      def to_zulu_time
+        utc.to_datetime
+      end
+      
+      # If a time is floating, then the utc of it's start time may actually be as early 
+      # as 12 hours earlier if the occurrence is being viewed in a time zone just west
+      # of the International Date Line
+      def to_zulu_occurrence_range_start_time
+        if floating?
+          utc.advance(:hours => -12).to_datetime
+        else
+          to_zulu_time
+        end
+      end
+      
+      
+      # If a time is floating, then the utc of it's start time may actually be as early 
+      # as 12 hours later if the occurrence is being viewed in a time zone just east
+      # of the International Date Line
+      def to_zulu_occurrence_range_finish_time
+        if floating?
+          utc.advance(:hours => 12).to_datetime
+        else
+          to_zulu_time
+        end
+      end
+      
       def add_date_times_to(required_timezones) #:nodoc:
         required_timezones.add_datetime(self, tzid) if has_local_timezone?
       end
