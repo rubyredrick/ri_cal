@@ -1,11 +1,8 @@
 == RI_CAL -- a new implementation of RFC2445 in Ruby
-http://rical.rubyforge.org/
+http://ri-cal.rubyforge.org/
 
     by Rick DeNatale
 == DESCRIPTION:
-
-This is an UNOFFICIAL version.  The public official version will be released on RubyForge.  Github will be used
-for interim versions.  USE THIS VERSION AT YOUR OWN RISK.
 
 A new Ruby implementation of RFC2445 iCalendar.
 

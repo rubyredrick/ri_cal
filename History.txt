@@ -1,3 +1,12 @@
+=== 0.5.1
+ * Fixed README to acknowledge release on RubyForge
+=== 0.5.0 rubyforge release candidate Tue May 26 10:26:43 2009 -0400
+ * Added OccurrenceEnumerator#zulu_occurrence_range
+=== 0.0.11 Sat May 23 18:24:57 2009 -0400
+ * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/5
+ * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/9
+=== 0.0.10
+ * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/8
 === 0.0.9
   * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/4
     Missing comparison methods in PropertyValue::Date
@@ -10,8 +19,7 @@
     Missing arithmetic methods in PropertyValue::Date
   * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/3
        Components with no recurrence rules or rdate properties failed on enumeration, they now
-       will enumerate a single occurrence
-  
+       will enumerate a single occurrence  
 === 0.0.7
  * Fixed a bug relating to properly recognizing ActiveRecord::TimeWithZone
  * DATETIME propertyvalues will now return an instance of TimeWithZone instead of DateTime when
