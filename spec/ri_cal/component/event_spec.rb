@@ -460,6 +460,13 @@ describe RiCal::Component::Event do
       export_string.should match(%r(^  following Michael's suggestion\\, let's meet at the food court at Crossr$))
       export_string.should match(%r(^ oads:\\nhttp://www\.shopcrossroadsplaza.c\.\.\.\\n$))
     end
+
+    it "should properly fold on export when the description contains multi-byte UTF-8 Characters" do
+      @it.description = "Juin 2009 <<Alliance Francaise Reunion>> lieu Café périferôl"
+      export_string = @it.export
+      export_string.should match(%r(^DESCRIPTION:Juin 2009 <<Alliance Francaise Reunion>> lieu Café périfer$))
+      export_string.should match(%r(^ ôl$))
+    end
   end
 
   if RiCal::TimeWithZone

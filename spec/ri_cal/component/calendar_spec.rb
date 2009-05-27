@@ -51,4 +51,37 @@ describe RiCal::Component::Calendar do
       @it.export.should_not match(%r{X-RICAL-TZSOURCE=TZINFO:})
     end
   end
+  
+  describe RiCal::Component::Calendar::FoldingStream do
+    before(:each) do
+      @it = RiCal::Component::Calendar::FoldingStream.new(nil)
+    end
+    
+    describe "#utf_safe_split" do
+      it "should properly split an ascii string" do
+        @it.utf8_safe_split("abcdef", 3).should == ["abc", "def"]
+      end
+      
+      it "should return a nil remainder if the string has less than n characters" do
+        @it.utf8_safe_split("a",2).should == ["a", nil]
+      end
+      
+      it "should return a nil remainder if the string has exactly n characters" do
+        @it.utf8_safe_split("ab",2).should == ["ab", nil]
+      end
+      
+      it "should not split a 2-byte utf character" do
+        @it.utf8_safe_split("Café", 3).should == ["Caf", "é"]
+        @it.utf8_safe_split("Café", 4).should == ["Caf", "é"]
+        @it.utf8_safe_split("Café", 5).should == ["Café", nil]
+      end
+      
+      it "should not split a 3-byte utf character" do
+        @it.utf8_safe_split("Prix €200", 5).should == ["Prix ", "€200"]
+        @it.utf8_safe_split("Prix €200", 6).should == ["Prix ", "€200"]
+        @it.utf8_safe_split("Prix €200", 7).should == ["Prix ", "€200"]
+        @it.utf8_safe_split("Prix €200", 8).should == ["Prix €", "200"]
+      end
+    end
+  end
 end

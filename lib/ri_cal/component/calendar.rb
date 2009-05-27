@@ -172,13 +172,32 @@ module RiCal
         def string #:nodoc:
           stream.string
         end
+        
+        def valid_utf8?(string)
+          string.unpack("U") rescue nil
+        end
+
+        def utf8_safe_split(string, n)
+          if string.length <= n
+            [string, nil]
+          else
+            before = string[0, n]
+            after = string[n..-1]
+            until valid_utf8?(after)
+              n = n - 1
+              before = string[0, n]
+              after = string[n..-1]
+            end      
+            [before, after.empty? ? nil : after]
+          end
+        end
 
         def fold(string) #:nodoc:
-          stream.puts(string[0,73])
-          string = string[73..-1]
-          while string
-            stream.puts " #{string[0, 72]}"
-            string = string[72..-1]
+          line, remainder = *utf8_safe_split(string, 73)
+          stream.puts(line)
+          while remainder
+            line, remainder = *utf8_safe_split(remainder, 72)
+            stream.puts(" #{line}")
           end
         end
 
