@@ -1,3 +1,6 @@
+=== 0.5.2
+ * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/11
+   Export folding is not UTF-8 Safe
 === 0.5.1
  * Fixed README to acknowledge release on RubyForge
 === 0.5.0 rubyforge release candidate Tue May 26 10:26:43 2009 -0400
