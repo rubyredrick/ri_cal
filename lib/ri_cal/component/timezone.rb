@@ -24,7 +24,8 @@ module RiCal
         end
         
         def rational_utc_offset(local) #:nodoc:
-          Rational(period_for_local(local, true).utc_total_offset, 3600) / 24
+          # 86400 is the number of seconds in a day
+          RiCal.RationalOffset[period_for_local(local, true).utc_total_offset]
         end
 
         # Returns the TimezonePeriod for the given UTC time. utc can either be a DateTime,

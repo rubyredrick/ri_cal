@@ -60,7 +60,7 @@ module RiCal
           if has_local_timezone?
             @rational_tz_offset ||= timezone.rational_utc_offset(@date_time_value)
           else
-            Rational(0,24)
+            @rational_tz_offset ||= RiCal.RationalOffset[0]
           end
         end
 

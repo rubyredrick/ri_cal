@@ -5,6 +5,7 @@
 module RiCal
   
   require 'stringio'
+  require 'rational'
   
   my_dir =  File.dirname(__FILE__)
   
@@ -139,8 +140,36 @@ module RiCal
   def self.Todo(&init_block)
     Component::Todo.new(&init_block)
   end
+  
+  def self.ro_calls=(value)
+    @ro_calls = value
+  end
+  
+  def self.ro_calls
+    @ro_calls ||= 0
+  end
+  
+  def self.ro_misses=(value)
+    @ro_misses = value
+  end
+  
+  def self.ro_misses
+    @ro_misses ||= 0
+  end
+  
+  def self.RationalOffset
+    self.ro_calls += 1
+    @rational_offset ||= Hash.new {|h, seconds|
+      self.ro_misses += 1
+      h[seconds] = Rational(seconds, 86400)}
+  end
+
 end  # module RiCal
 
-RiCal.require_all_libs_relative_to(__FILE__)
+(-12..12).each do |hour_offset|
+  RiCal.RationalOffset[hour_offset * 86400]
+end
 
+
+RiCal.require_all_libs_relative_to(__FILE__)
 # EOF

@@ -15,7 +15,7 @@ module RiCal
     end
 
   def self.rational_utc_offset(local) #:nodoc:
-    Rational(0, 24)
+    @offset = RiCal.RationalOffset[0]
   end
 
     # Return the time unchanged

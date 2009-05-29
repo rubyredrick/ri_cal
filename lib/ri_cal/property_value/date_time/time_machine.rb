@@ -19,13 +19,13 @@ module RiCal
         end
 
         def compute_advance(d, options) # :nodoc:
-          d = d >> options[:years] * 12 if options[:years]
-          d = d >> options[:months]     if options[:months]
-          d = d +  options[:weeks] * 7  if options[:weeks]
-          d = d +  options[:days]       if options[:days]
+          months_advance = (options[:years] || 0) * 12 + (options[:months] || 0)
+          d = d >> months_advance unless months_advance == 0
+          days_advance = (options[:weeks] || 0) * 7 + (options[:days] || 0)
+          d = d +  days_advance unless days_advance == 0
           datetime_advanced_by_date = compute_change(@date_time_value, :year => d.year, :month => d.month, :day => d.day)
           seconds_to_advance = (options[:seconds] || 0) + (options[:minutes] || 0) * 60 + (options[:hours] || 0) * 3600
-          seconds_to_advance == 0 ? datetime_advanced_by_date : datetime_advanced_by_date + Rational(seconds_to_advance.round, 86400)
+          seconds_to_advance == 0 ? datetime_advanced_by_date : datetime_advanced_by_date + RiCal.RationalOffset[seconds_to_advance.round]
         end
 
         def advance(options) # :nodoc:
