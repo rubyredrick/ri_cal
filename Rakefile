@@ -6,11 +6,11 @@ require File.dirname(__FILE__) + '/lib/ri_cal'
 
 # Generate all the Rake tasks
 # Run 'rake -T' to see list of generated tasks (from gem root directory)
-$hoe = Hoe.new('ri_cal', RiCal::VERSION) do |p|
+$hoe = Hoe.new('ri-cal', RiCal::VERSION) do |p|
   p.developer('author=Rick DeNatale', 'rick.denatale@gmail.com')
   p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
   # p.post_install_message = 'PostInstall.txt' # TODO remove if post-install message not required
-  p.rubyforge_name       = 'rical'
+  p.rubyforge_name       = 'ri-cal'
   # p.extra_deps         = [
   #   ['tzinfo','>= 2.0.2'],
   # ]
