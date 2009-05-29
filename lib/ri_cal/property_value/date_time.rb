@@ -96,6 +96,7 @@ module RiCal
         when ::Date, ::Time
           @date_time_value = ::DateTime.parse(val.to_s)
         end
+        reset_cached_values
       end
       
       # Extract the time and timezone identifier from an object used to set the value of a DATETIME property.

@@ -265,7 +265,7 @@ END:VCALENDAR
            @it.should == local_datetime("20090430T080000", "US/Eastern")
          end
 
-         it "should return a result with a tzid of UTC" do
+         it "should return a result with a tzid of US/Eastern" do
            @it.tzid.should == "US/Eastern"
          end
        end

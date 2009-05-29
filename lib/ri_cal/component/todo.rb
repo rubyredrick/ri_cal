@@ -13,6 +13,7 @@ module RiCal
     # to see the methods for enumerating occurrences of recurring to-dos see the RiCal::OccurrenceEnumerator module
     class Todo < Component
       include Properties::Todo
+      include OccurrenceEnumerator
 
       def self.entity_name #:nodoc:
         "VTODO"

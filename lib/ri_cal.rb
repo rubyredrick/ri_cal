@@ -4,6 +4,8 @@
 # and building calendars and calendar components.
 module RiCal
   
+  require 'stringio'
+  
   my_dir =  File.dirname(__FILE__)
   
   autoload :Component, "#{my_dir}/ri_cal/component.rb"
