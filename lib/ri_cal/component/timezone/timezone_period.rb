@@ -14,6 +14,10 @@ module RiCal
 
         include OccurrenceEnumerator
 
+        def occurrence_cache #:nodoc:
+          @occurrence_cache ||= []
+        end
+
         def zone_identifier #:nodoc:
           tzname.first
         end
@@ -25,7 +29,7 @@ module RiCal
         def exdate_property #:nodoc:
           nil
         end
-        
+
         def utc_total_offset #:nodoc:
           tzoffsetto_property.to_seconds
         end
@@ -38,13 +42,30 @@ module RiCal
           last_before_local(utc_time + tzoffsetfrom_property)
         end
 
+        def fill_cache(local_time)
+          if occurrence_cache.empty? || occurrence_cache.last.dtstart_property <= local_time
+            while true
+              occurrence = enumeration_instance.next_occurrence
+              break unless occurrence
+              occurrence = recurrence(occurrence)
+              occurrence_cache << occurrence
+              break if occurrence.dtstart_property > local_time
+            end
+          end
+        end
+
         def last_before_local(local_time) #:nodoc:
+          fill_cache(local_time)
           cand_occurrence = nil
-          each do |occurrence|
+          occurrence_cache.each do |occurrence|
             return cand_occurrence if occurrence.dtstart_property > local_time
             cand_occurrence = occurrence
           end
           return cand_occurrence
+        end
+
+         def enumeration_instance
+          @enumeration_instance ||= super
         end
       end
     end
