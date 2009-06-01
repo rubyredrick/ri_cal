@@ -1,6 +1,7 @@
 coverage/
 tmp/
 pkg/
+profiles/
 doc/
 \.DS_Store
 .ackrc

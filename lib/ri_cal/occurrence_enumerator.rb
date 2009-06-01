@@ -232,6 +232,10 @@ module RiCal
     def recurrence(occurrence) # :nodoc:
       result = self.dup.set_occurrence_properties!(occurrence)
     end
+    
+    def recurs?
+      @rrule_property && @rrule_property.length > 0 || @rdate_property && @rdate_property.length > 0
+    end
 
   end
 end

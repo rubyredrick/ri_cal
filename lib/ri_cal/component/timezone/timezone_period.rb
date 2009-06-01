@@ -55,13 +55,17 @@ module RiCal
         end
 
         def last_before_local(local_time) #:nodoc:
-          fill_cache(local_time)
-          cand_occurrence = nil
-          occurrence_cache.each do |occurrence|
-            return cand_occurrence if occurrence.dtstart_property > local_time
-            cand_occurrence = occurrence
+          if recurs?
+            fill_cache(local_time)
+            cand_occurrence = nil
+            occurrence_cache.each do |occurrence|
+              return cand_occurrence if occurrence.dtstart_property > local_time
+              cand_occurrence = occurrence
+            end
+            return cand_occurrence
+          else
+            return self
           end
-          return cand_occurrence
         end
 
          def enumeration_instance

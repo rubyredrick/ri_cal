@@ -89,6 +89,10 @@ lib/ri_cal/property_value/text.rb
 lib/ri_cal/property_value/uri.rb
 lib/ri_cal/property_value/utc_offset.rb
 lib/ri_cal/required_timezones.rb
+profiling/ical_files/profile3.ics
+profiling/profile1.rb
+profiling/profile2.rb
+profiling/profile3.rb
 ri_cal.gemspec
 sample_ical_files/from_ical_dot_app/test1.ics
 script/console

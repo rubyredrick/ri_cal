@@ -1,3 +1,6 @@
+=== 0.5.3 - 1 June, 2009
+ * Improved performance of time zone enumeration, TimeZonePeriod now caches occurrences
+ * Added a profiling directory which contains ruby programs which benchmark and/or profile performance
 === 0.5.2
  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/11
    Export folding is not UTF-8 Safe
