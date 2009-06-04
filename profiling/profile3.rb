@@ -27,5 +27,5 @@ result = RubyProf.profile do
   code_to_profile(calendar, cutoff)
 end
 
-printer = RubyProf::FlatPrinter.new(result)
-printer.print(STDOUT, 0)
+printer = RubyProf::CallTreePrinter.new(result)
+printer.print(File.open("callgrind.out", 'w'))
