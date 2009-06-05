@@ -140,7 +140,6 @@ module RiCal
 
 
         def rational_utc_offset(local)
-          # 86400 is the number of seconds in a day
           RiCal.RationalOffset[tzinfo.period_for_local(local, true).utc_total_offset]
         end
 

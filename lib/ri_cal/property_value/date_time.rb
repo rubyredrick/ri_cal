@@ -66,7 +66,7 @@ module RiCal
       # Returns the value of the receiver as an RFC 2445 iCalendar string
       def value
         if @date_time_value
-          @date_time_value.strftime("%Y%m%dT%H%M%S#{tzid == "UTC" ? "Z" : ""}")
+          "#{@date_time_value.ical_str}#{tzid == "UTC" ? "Z" : ""}"
         else
           nil
         end
@@ -85,16 +85,18 @@ module RiCal
         when nil
           @date_time_value = nil
         when String
-          @date_time_value = ::DateTime.parse(val)
+          @date_time_value = FastDateTime.from_date_time(::DateTime.parse(val))
           if val =~/Z/
             self.tzid = 'UTC'
           else
             @tzid ||= :floating
           end
-        when ::DateTime
+        when FastDateTime
           @date_time_value = val
+        when ::DateTime
+          @date_time_value = FastDateTime.from_date_time(val)
         when ::Date, ::Time
-          @date_time_value = ::DateTime.parse(val.to_s)
+          @date_time_value = FastDateTime.from_date_time(::DateTime.parse(val.to_s))
         end
         reset_cached_values
       end
@@ -173,7 +175,11 @@ module RiCal
       # Compare the receiver with another object which must respond to the to_datetime message
       # The comparison is done using the Ruby DateTime representations of the two objects
       def <=>(other)
-       @date_time_value <=> other.to_datetime
+       other.cmp_fast_date_time_value(@date_time_value)
+      end
+      
+      def cmp_fast_date_time_value(other)
+        other <=> @date_time_value
       end
 
       # Determine if the receiver and other are in the same month
@@ -181,12 +187,21 @@ module RiCal
         [other.year, other.month] == [year, month]
       end
 
+      def with_date_time_value(date_time_value)
+        PropertyValue::DateTime.new(
+          timezone_finder,
+          :value => date_time_value,
+          :params => (params),
+          :tzid => tzid
+        )
+      end
+      
       def nth_wday_in_month(n, which_wday) #:nodoc:
-        @date_time_value.nth_wday_in_month(n, which_wday, self)
+        with_date_time_value(@date_time_value.nth_wday_in_month(n, which_wday))
       end
 
       def nth_wday_in_year(n, which_wday) #:nodoc:
-        @date_time_value.nth_wday_in_year(n, which_wday, self)
+        with_date_time_value(@date_time_value.nth_wday_in_year(n, which_wday))
       end
 
       def self.civil(year, month, day, hour, min, sec, offset, start, params) #:nodoc:
@@ -273,12 +288,12 @@ module RiCal
       
       # Return a Date property for this DateTime
       def to_ri_cal_date_value(timezone_finder=nil)
-        PropertyValue::Date.new(timezone_finder, :value => @date_time_value.strftime("%Y%m%d"))
+        PropertyValue::Date.new(timezone_finder, :value => @date_time_value.ical_date_str)
       end
 
       # Return the Ruby DateTime representation of the receiver
       def to_datetime #:nodoc:
-        @date_time_value
+        @date_time_value.to_datetime
       end
 
       # Returns a ruby DateTime object representing the receiver.
@@ -302,7 +317,7 @@ module RiCal
       # of the International Date Line
       def to_zulu_occurrence_range_start_time
         if floating?
-          utc.advance(:hours => -12).to_datetime
+          @date_time_value.advance(:hours => -12, :offset => 0).to_datetime
         else
           to_zulu_time
         end

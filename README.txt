@@ -348,12 +348,9 @@ or by a recent(>= 2.2) version of the ActiveSupport gem which is part of Ruby on
     
 === From github
 
-    #TODO: publish to github
-
 ==== As a Gem
 
-    #TODO: add the gem source info for github
-    sudo gem install ????? --source http://github.com/????
+    sudo gem install rubyredrick-ri_cal --source http://gems.github.com/
    
 ==== From source
 

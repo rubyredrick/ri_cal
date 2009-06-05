@@ -222,10 +222,10 @@ module RiCal
       @exdate_property = nil
       @recurrence_id_property = occurrence_start
       if @dtend_property && !occurrence_end
-        occurrence_end = occurrence_start + (@dtend_property - @dtstart_property)
+         occurrence_end = occurrence_start + (@dtend_property - @dtstart_property)
       end
-      @dtstart_property = dtstart_property.for_occurrence(occurrence_start)
-      @dtend_property = dtend_property.for_occurrence(occurrence_end) if @dtend_property
+      @dtstart_property = @dtstart_property.for_occurrence(occurrence_start)
+      @dtend_property = (@dtend_property || @dtstart_property).for_occurrence(occurrence_end) if occurrence_end
       self
     end
 

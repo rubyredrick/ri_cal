@@ -267,7 +267,8 @@ describe RiCal::Component::Event do
 
     it "should be the utc time of the start of the day of dtstart in the earliest timezone for a date" do
       event = RiCal.Event {|e| e.dtstart = "20090525"}
-      event.zulu_occurrence_range_start_time.should == DateTime.civil(2009,05,24,12,0,0,0)
+      result = event.zulu_occurrence_range_start_time
+      result.should == DateTime.civil(2009,05,24,12,0,0,0)
     end
 
     it "should be the utc time of the dtstart in the earliest timezone if dtstart is a floating datetime" do

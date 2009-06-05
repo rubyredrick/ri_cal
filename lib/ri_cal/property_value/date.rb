@@ -15,7 +15,7 @@ module RiCal
       # Returns the value of the reciever as an RFC 2445 iCalendar string
       def value
         if @date_time_value
-          @date_time_value.strftime("%Y%m%d")
+          @date_time_value.ical_date_str
         else
           nil
         end
@@ -34,9 +34,11 @@ module RiCal
         when nil
           @date_time_value = nil
         when String
-          @date_time_value = ::DateTime.parse(::DateTime.parse(val).strftime("%Y%m%d"))
+          @date_time_value = FastDateTime.from_date_time(::DateTime.parse(::DateTime.parse(val).strftime("%Y%m%d")))
         when ::Time, ::Date, ::DateTime
-          @date_time_value = ::DateTime.parse(val.strftime("%Y%m%d"))
+          @date_time_value = FastDateTime.from_date_time(::DateTime.parse(val.strftime("%Y%m%d")))
+        when FastDateTime
+          @date_time_value = val
         end
       end
 
@@ -69,7 +71,7 @@ module RiCal
 
       # Returns the ruby representation a ::Date
       def ruby_value
-        ::Date.parse(@date_time_value.strftime("%Y%m%d"))
+        @date_time_value.date
       end
 
       alias_method :to_ri_cal_ruby_value, :ruby_value
@@ -89,24 +91,12 @@ module RiCal
         self
       end
 
-      def compute_change(d, options) #:nodoc:
-        ::Date.civil((options[:year] || d.year), (options[:month] || d.month), (options[:day] || d.day))
-      end
-
-      def compute_advance(d, options) #:nodoc:
-        d = d >> options[:years] * 12 if options[:years]
-        d = d >> options[:months]     if options[:months]
-        d = d +  options[:weeks] * 7  if options[:weeks]
-        d = d +  options[:days]       if options[:days]
-        compute_change(@date_time_value, :year => d.year, :month => d.month, :day => d.day)
-      end
-
       def advance(options) #:nodoc:
-        PropertyValue::Date.new(timezone_finder, :value => compute_advance(@date_time_value, options), :params =>(params ? params.dup : nil) )
+        PropertyValue::Date.new(timezone_finder, :value => @date_time_value.advance(options), :params =>(params ? params.dup : nil) )
       end
 
       def change(options) #:nodoc:
-        PropertyValue::Date.new(timezone_finder,:value => compute_change(@date_time_value, options), :params => (params ? params.dup : nil) )
+        PropertyValue::Date.new(timezone_finder,:value => @date_time_value.change(options), :params => (params ? params.dup : nil) )
       end
 
       def add_date_times_to(required_timezones) #:nodoc:
@@ -146,26 +136,30 @@ module RiCal
         date_time = self.to_ri_cal_date_time_value
         RiCal::OccurrencePeriod.new(date_time, date_time.advance(:hours => 24, :seconds => -1))
       end
-      
+
       def start_of_day?
         true
       end
-      
-      def to_zulu_occurrence_range_start_time
-        to_ri_cal_date_time_value.to_zulu_occurrence_range_start_time
+
+      def to_floating_date_time_property
+        PropertyValue::DateTime.new(timezone_finder, :value => @date_time_value.ical_str)
       end
-      
+
+      def to_zulu_occurrence_range_start_time
+        to_floating_date_time_property.to_zulu_occurrence_range_start_time
+      end
+
       def to_zulu_occurrence_range_finish_time
         to_ri_cal_date_time_value.end_of_day.to_zulu_occurrence_range_finish_time
       end
-      
+
       def to_finish_time
         to_ri_cal_date_time_value.end_of_day.to_datetime
       end
-      
+
       def for_occurrence(occurrence)
         if occurrence.start_of_day?
-          occurrence.to_ri_cal_date_value(timezone_finder)
+           occurrence.to_ri_cal_date_value(timezone_finder)
         else
           occurrence.for_parent(timezone_finder)
         end

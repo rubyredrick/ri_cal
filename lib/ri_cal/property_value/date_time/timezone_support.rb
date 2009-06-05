@@ -58,7 +58,7 @@ module RiCal
 
         def rational_tz_offset #:nodoc:
           if has_local_timezone?
-            @rational_tz_offset ||= timezone.rational_utc_offset(@date_time_value)
+            @rational_tz_offset ||= timezone.rational_utc_offset(@date_time_value.to_datetime)
           else
             @rational_tz_offset ||= RiCal.RationalOffset[0]
           end

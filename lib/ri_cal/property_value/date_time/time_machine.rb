@@ -5,32 +5,10 @@ module RiCal
       #
       # Methods for DateTime which support getting values at different point in time.
       module TimeMachine
-        def compute_change(d, options) # :nodoc:
-          ::DateTime.civil(
-          options[:year]  || d.year,
-          options[:month] || d.month,
-          options[:day]   || d.day,
-          options[:hour]  || d.hour,
-          options[:min]   || (options[:hour] ? 0 : d.min),
-          options[:sec]   || ((options[:hour] || options[:min]) ? 0 : d.sec),
-          options[:offset]  || d.offset,
-          options[:start]  || d.start
-          )
-        end
-
-        def compute_advance(d, options) # :nodoc:
-          months_advance = (options[:years] || 0) * 12 + (options[:months] || 0)
-          d = d >> months_advance unless months_advance == 0
-          days_advance = (options[:weeks] || 0) * 7 + (options[:days] || 0)
-          d = d +  days_advance unless days_advance == 0
-          datetime_advanced_by_date = compute_change(@date_time_value, :year => d.year, :month => d.month, :day => d.day)
-          seconds_to_advance = (options[:seconds] || 0) + (options[:minutes] || 0) * 60 + (options[:hours] || 0) * 3600
-          seconds_to_advance == 0 ? datetime_advanced_by_date : datetime_advanced_by_date + RiCal.RationalOffset[seconds_to_advance.round]
-        end
 
         def advance(options) # :nodoc:
           PropertyValue::DateTime.new(timezone_finder,
-          :value => compute_advance(@date_time_value, options),
+          :value => @date_time_value.advance(options),
           :tzid => @tzid,
           :params =>(params ? params.dup : nil)
           )
@@ -38,34 +16,34 @@ module RiCal
 
         def change(options) # :nodoc:
           PropertyValue::DateTime.new(timezone_finder,
-          :value => compute_change(@date_time_value, options),
+          :value => @date_time_value.change(options),
           :tzid => @tzid,
           :params => (params ? params.dup : nil)
           )
         end
 
         def change_sec(new_sec) #:nodoc:
-          PropertyValue::DateTime.civil(self.year, self.month, self.day, self.hour, self.min, sec, self.offset, self.start, params)
+          change(:sec => new_sec)
         end
 
         def change_min(new_min) #:nodoc:
-          PropertyValue::DateTime.civil(self.year, self.month, self.day, self.hour, new_min, self.sec, self.offset, self.start, params)
+          change(:min => new_min)
         end
 
         def change_hour(new_hour) #:nodoc:
-          PropertyValue::DateTime.civil(self.year, self.month, self.day, new_hour, self.min, self.sec, self.offset, self.start, params)
+          change(:hour => new_hour)
         end
 
         def change_day(new_day) #:nodoc:
-          PropertyValue::DateTime.civil(self.year, self.month, new_day, self.hour, self.min, self.sec, self.offset, self.start, params)
+          change(:day => new_day)
         end
 
         def change_month(new_month) #:nodoc:
-          PropertyValue::DateTime.civil(self.year, new_month, self.day, self.hour, self.min, self.sec, self.offset, self.start, params)
+          change(:month => new_month)
         end
 
         def change_year(new_year) #:nodoc:
-          PropertyValue::DateTime.civil(new_year, self.month, self.day, self.hour, self.min, self.sec, self.offset, self.start, params)
+          change(:year => new_year)
         end
 
         # Return a DATE-TIME property representing the receiver on a different day (if necessary) so that

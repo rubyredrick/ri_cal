@@ -1,3 +1,14 @@
+=== 0.6.0 - 5 June 2009
+ Time for a minor version bump.
+ * Improved overall enumeration performance bypassing most of the effects of the poor performance of Ruby's DateTime class.
+ * Added a framework for performance monitoring during development.
+   - New performance directory with subdirs for code to be monitored for performance (subjects)
+   - New script files: 
+        script/benchmark_subject runs a ruby benchmark on one performance subject
+        script/profile_subject runs ruby-prof for a subject and puts a kcachegrind compatible calltree in the performance_data directory.
+   - New rake tasks: 
+        performance:benchmark runs benchmarks against all subjects in the performance directory and produces a consolidated output file in performance_data/benchmarks.out
+        performance:profile runs script/profile_subject against all subjects in the performance directory.
 === 0.5.3 - 1 June, 2009
  * Improved performance of time zone enumeration, TimeZonePeriod now caches occurrences
  * Added a profiling directory which contains ruby programs which benchmark and/or profile performance
