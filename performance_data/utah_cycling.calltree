@@ -1,0 +1,2637 @@
+events: process_time
+
+fl=/Users/rick/ri_cal/lib/ri_cal/component/timezone.rb
+fn=RiCal::Component::standard
+156 17
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=1 157
+157 4
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=1 157
+157 4
+
+fl=/Users/rick/ri_cal/ruby_runtime
+fn=String::gsub!
+0 85
+
+fl=/opt/local/lib/ruby/1.8/date.rb
+fn=Date::__16121__
+1029 1510
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=1 1029
+1029 1703
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=1 1029
+1029 3
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=1 1029
+1029 3
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=2 1029
+1029 3176
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=2 1029
+1029 5
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=2 1029
+1029 6
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=2 1029
+1029 3194
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=2 1029
+1029 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=2 1029
+1029 6
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=2 1029
+1029 3181
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=2 1029
+1029 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=2 1029
+1029 10
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=2 1029
+1029 3218
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=2 1029
+1029 5
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=2 1029
+1029 5
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=2 1029
+1029 3196
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=2 1029
+1029 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=2 1029
+1029 5
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=2 1029
+1029 3313
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=2 1029
+1029 8
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=2 1029
+1029 6
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=6 1029
+1029 9296
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=6 1029
+1029 14
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1029
+1029 20
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=2 1029
+1029 3127
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=2 1029
+1029 5
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=2 1029
+1029 6
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=6 1029
+1029 9307
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=6 1029
+1029 14
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1029
+1029 14
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=6 1029
+1029 9288
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=6 1029
+1029 16
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1029
+1029 21
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=6 1029
+1029 9399
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=6 1029
+1029 14
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1029
+1029 14
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=6 1029
+1029 9375
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=6 1029
+1029 15
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1029
+1029 14
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=6 1029
+1029 9349
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=6 1029
+1029 13
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1029
+1029 14
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=6 1029
+1029 9311
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=6 1029
+1029 15
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1029
+1029 14
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=16 1029
+1029 24898
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=16 1029
+1029 44
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=16 1029
+1029 36
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=6 1029
+1029 9244
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=6 1029
+1029 13
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1029
+1029 14
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=1 1029
+1029 1637
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=1 1029
+1029 3
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=1 1029
+1029 3
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=1 1029
+1029 1612
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=1 1029
+1029 3
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=1 1029
+1029 3
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=1 1029
+1029 1748
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=1 1029
+1029 3
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=1 1029
+1029 4
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=1 1029
+1029 1611
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=1 1029
+1029 3
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=1 1029
+1029 3
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=2 1029
+1029 3230
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=2 1029
+1029 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=2 1029
+1029 6
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=12 1029
+1029 19142
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=12 1029
+1029 34
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=12 1029
+1029 30
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=6 1029
+1029 9574
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=6 1029
+1029 17
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1029
+1029 14
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=1 1029
+1029 1679
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=1 1029
+1029 3
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=1 1029
+1029 3
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=1 1029
+1029 1666
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=1 1029
+1029 3
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=1 1029
+1029 3
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=7 1029
+1029 11086
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=7 1029
+1029 16
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=7 1029
+1029 16
+cfl=/opt/local/lib/ruby/1.8/date.rb
+cfn=<Class::Date>::ajd_to_jd
+calls=7 1029
+1029 11146
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=7 1029
+1029 16
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=7 1029
+1029 17
+
+fl=/Users/rick/ri_cal/lib/ri_cal/occurrence_enumerator.rb
+fn=RiCal::OccurrenceEnumerator::EnumerationInstance::next_occurrence
+102 422
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/recurrence_rule/enumerator.rb
+cfn=RiCal::PropertyValue::RecurrenceRule::Enumerator::next_occurrence
+calls=6 108
+108 1135057
+cfl=/Users/rick/ri_cal/lib/ri_cal/occurrence_enumerator.rb
+cfn=<Class::RiCal::OccurrenceEnumerator::EmptyRulesEnumerator>::next_occurrence
+calls=6 104
+104 30
+cfl=/Users/rick/ri_cal/lib/ri_cal/occurrence_enumerator.rb
+cfn=RiCal::OccurrenceEnumerator::EnumerationInstance::exclusion_match?
+calls=6 109
+109 29
+cfl=/Users/rick/ri_cal/lib/ri_cal/occurrence_enumerator.rb
+cfn=RiCal::OccurrenceEnumerator::EnumerationInstance::exclusion_for
+calls=6 109
+109 59
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/recurrence_rule/enumerator.rb
+cfn=RiCal::PropertyValue::RecurrenceRule::Enumerator::next_occurrence
+calls=7 108
+108 341749
+cfl=/Users/rick/ri_cal/lib/ri_cal/occurrence_enumerator.rb
+cfn=RiCal::OccurrenceEnumerator::EnumerationInstance::exclusion_match?
+calls=6 109
+109 39308
+cfl=/Users/rick/ri_cal/lib/ri_cal/occurrence_enumerator.rb
+cfn=RiCal::OccurrenceEnumerator::EnumerationInstance::exclusion_for
+calls=6 109
+109 3597
+cfl=/Users/rick/ri_cal/lib/ri_cal/occurrence_enumerator.rb
+cfn=RiCal::OccurrenceEnumerator::OccurrenceMerger::next_occurrence
+calls=1 104
+104 1154
+
+fl=/Users/rick/ri_cal/ruby_runtime
+fn=<Class::Hash>::allocate
+0 2633
+
+fl=/opt/local/lib/ruby/1.8/date/format.rb
+fn=Date::Format::Bag::method_missing
+103 4942
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=1 108
+108 4
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=1 108
+108 3
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=3 105
+105 9
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=3 104
+104 8
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 110
+110 10
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=3 106
+106 9
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=7 108
+108 18
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=7 108
+108 17
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=7 105
+105 18
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=7 104
+104 20
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=7 106
+106 19
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=2 108
+108 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=2 108
+108 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=6 105
+105 16
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=6 104
+104 21
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=4 110
+110 20
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=6 106
+106 18
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=14 108
+108 35
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=14 108
+108 32
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=14 105
+105 35
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=14 104
+104 41
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=14 106
+106 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=1 108
+108 4
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=1 108
+108 3
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=3 105
+105 9
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=3 104
+104 9
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 110
+110 11
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=3 106
+106 9
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=7 108
+108 17
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=7 108
+108 18
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=7 105
+105 16
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=7 104
+104 20
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=7 106
+106 21
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=1 108
+108 4
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=1 108
+108 3
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=3 105
+105 10
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=3 104
+104 11
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 110
+110 11
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=3 106
+106 10
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=7 108
+108 19
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=7 108
+108 17
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=7 105
+105 18
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=7 104
+104 24
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=7 106
+106 19
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=2 108
+108 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=2 108
+108 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=6 105
+105 19
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=6 104
+104 19
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=4 110
+110 21
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=6 106
+106 19
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=14 108
+108 43
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=14 108
+108 39
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=14 105
+105 36
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=14 104
+104 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=14 106
+106 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=12 108
+108 32
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=12 108
+108 29
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=36 105
+105 100
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=36 104
+104 113
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=24 110
+110 111
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=36 106
+106 99
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]=
+calls=84 108
+108 220
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::[]
+calls=84 108
+108 188
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::chomp!
+calls=84 105
+105 200
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::to_s
+calls=84 104
+104 272
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=String::intern
+calls=84 106
+106 229
+
+fl=/opt/local/lib/ruby/1.8/date.rb
+fn=Date::+
+1200 1192
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Rational::+
+calls=2 1202
+1202 696
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new!
+calls=2 1202
+1202 33
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=2 1202
+1202 5
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Module::===
+calls=2 1202
+1202 6
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Rational::+
+calls=5 1202
+1202 1732
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new!
+calls=5 1202
+1202 77
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=5 1202
+1202 11
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Module::===
+calls=5 1202
+1202 13
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Rational::+
+calls=2 1202
+1202 706
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new!
+calls=2 1202
+1202 33
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=2 1202
+1202 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Module::===
+calls=2 1202
+1202 6
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Rational::+
+calls=6 1202
+1202 2094
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new!
+calls=6 1202
+1202 101
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1202
+1202 16
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Module::===
+calls=6 1202
+1202 19
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Rational::+
+calls=6 1202
+1202 2173
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new!
+calls=6 1202
+1202 93
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1202
+1202 14
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Module::===
+calls=6 1202
+1202 16
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Rational::+
+calls=11 1202
+1202 3881
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new!
+calls=11 1202
+1202 172
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=11 1202
+1202 26
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Module::===
+calls=11 1202
+1202 29
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Rational::+
+calls=6 1202
+1202 2159
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new!
+calls=6 1202
+1202 103
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1202
+1202 14
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Module::===
+calls=6 1202
+1202 15
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Rational::+
+calls=6 1202
+1202 1368
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new!
+calls=6 1202
+1202 93
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=6 1202
+1202 14
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Module::===
+calls=6 1202
+1202 14
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Rational::+
+calls=1 1202
+1202 347
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new!
+calls=1 1202
+1202 18
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=1 1202
+1202 3
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Module::===
+calls=1 1202
+1202 3
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Rational::+
+calls=7 1202
+1202 2218
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new!
+calls=7 1202
+1202 121
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=7 1202
+1202 18
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Module::===
+calls=7 1202
+1202 19
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Rational::+
+calls=7 1202
+1202 2173
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new!
+calls=7 1202
+1202 113
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::class
+calls=7 1202
+1202 18
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Module::===
+calls=7 1202
+1202 17
+
+fl=/Users/rick/ri_cal/lib/ri_cal/component.rb
+fn=RiCal::Component::find_timezone
+56 28
+cfl=/Users/rick/ri_cal/lib/ri_cal/component/calendar.rb
+cfn=RiCal::Component::Calendar::find_timezone
+calls=1 58
+58 154
+cfl=/Users/rick/ri_cal/lib/ri_cal/component/calendar.rb
+cfn=RiCal::Component::Calendar::find_timezone
+calls=1 58
+58 146
+
+fl=/Users/rick/ri_cal/ruby_runtime
+fn=String::initialize_copy
+0 61
+
+fl=/opt/local/lib/ruby/1.8/date/format.rb
+fn=Date::emit_sn
+162 432
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Fixnum::<
+calls=1 163
+163 3
+cfl=/opt/local/lib/ruby/1.8/date/format.rb
+cfn=Date::emit_n
+calls=1 167
+167 227
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Fixnum::<
+calls=2 163
+163 5
+cfl=/opt/local/lib/ruby/1.8/date/format.rb
+cfn=Date::emit_n
+calls=2 167
+167 433
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Fixnum::<
+calls=1 163
+163 3
+cfl=/opt/local/lib/ruby/1.8/date/format.rb
+cfn=Date::emit_n
+calls=1 167
+167 232
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Fixnum::<
+calls=1 163
+163 3
+cfl=/opt/local/lib/ruby/1.8/date/format.rb
+cfn=Date::emit_n
+calls=1 167
+167 240
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Fixnum::<
+calls=2 163
+163 6
+cfl=/opt/local/lib/ruby/1.8/date/format.rb
+cfn=Date::emit_n
+calls=2 167
+167 431
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Fixnum::<
+calls=12 163
+163 29
+cfl=/opt/local/lib/ruby/1.8/date/format.rb
+cfn=Date::emit_n
+calls=12 167
+167 2564
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Fixnum::<
+calls=12 163
+163 29
+cfl=/opt/local/lib/ruby/1.8/date/format.rb
+cfn=Date::emit_n
+calls=12 167
+167 2398
+
+fl=/Users/rick/ri_cal/lib/ri_cal/component/timezone/timezone_period.rb
+fn=RiCal::Component::Timezone::TimezonePeriod::utc_total_offset
+33 27
+cfl=/Users/rick/ri_cal/lib/ri_cal/properties/timezone_period.rb
+cfn=RiCal::Properties::TimezonePeriod::tzoffsetto_property
+calls=1 34
+34 7
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/utc_offset.rb
+cfn=RiCal::PropertyValue::UtcOffset::to_seconds
+calls=1 34
+34 41
+cfl=/Users/rick/ri_cal/lib/ri_cal/properties/timezone_period.rb
+cfn=RiCal::Properties::TimezonePeriod::tzoffsetto_property
+calls=1 34
+34 5
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/utc_offset.rb
+cfn=RiCal::PropertyValue::UtcOffset::to_seconds
+calls=1 34
+34 39
+
+fl=/Users/rick/ri_cal/lib/ri_cal/component/timezone.rb
+fn=RiCal::Component::last_before_local
+184 59
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::map
+calls=2 185
+185 1203301
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Enumerable::max
+calls=2 188
+188 19
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Array::map
+calls=2 185
+185 1123
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Enumerable::max
+calls=2 188
+188 17
+
+fl=/opt/local/lib/ruby/1.8/rational.rb
+fn=Integer::to_r
+424 11514
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 168
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 167
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 467
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 489
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 151
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 162
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 311
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 312
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 959
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=12 425
+425 1792
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=4 425
+425 623
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 351
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 333
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 947
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 944
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 286
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 311
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 318
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 1016
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 311
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 321
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 985
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 908
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 334
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 318
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 896
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 313
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 326
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 334
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 924
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 908
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 343
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 318
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 1012
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 325
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 329
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 924
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 936
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 328
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 323
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 321
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 932
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 902
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 317
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 318
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 956
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 941
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2782
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2736
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 942
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 318
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 331
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 919
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 311
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 335
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 326
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 943
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 905
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 320
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 316
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 1033
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 342
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 947
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2697
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 929
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 1081
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 931
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2908
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2725
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 916
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 966
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 971
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2838
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2678
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 946
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 933
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 3082
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 985
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 984
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2806
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2677
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 922
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 923
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2673
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 945
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 948
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 928
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2741
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2705
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 919
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 929
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 3027
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 921
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 945
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2834
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2768
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 926
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 936
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 929
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2778
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2654
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 938
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 964
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=13 425
+425 1994
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=16 425
+425 2534
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=48 425
+425 7426
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=48 425
+425 7262
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=16 425
+425 2492
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 923
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 929
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2762
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 946
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 923
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 923
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2788
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2736
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 917
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 939
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 3098
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 928
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 165
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 167
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 468
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=9 425
+425 1354
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 461
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 175
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 190
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 160
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 906
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 318
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 169
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 478
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=9 425
+425 1364
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 481
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 167
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 158
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 214
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 990
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 313
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 166
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 167
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 469
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 497
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 150
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 164
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 165
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 162
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 476
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 469
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 147
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 162
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 164
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=9 425
+425 1377
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 474
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 165
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 163
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 179
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 895
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 315
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=9 425
+425 1364
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 465
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 163
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 161
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 163
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 901
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 316
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 487
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 163
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 317
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 317
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 922
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 948
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 306
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=2 425
+425 320
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=36 425
+425 5374
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=12 425
+425 1838
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2951
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 922
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=12 425
+425 1880
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=12 425
+425 1867
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=36 425
+425 5581
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=36 425
+425 5654
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=12 425
+425 1685
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=12 425
+425 1926
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 918
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 918
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2860
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=18 425
+425 2876
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=6 425
+425 954
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 173
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 161
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 462
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 160
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 479
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 472
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 160
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 165
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 161
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 463
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 476
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 158
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 162
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=3 425
+425 507
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=1 425
+425 159
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=7 425
+425 1072
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=21 425
+425 3317
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=7 425
+425 1084
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=7 425
+425 1113
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=7 425
+425 1074
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=21 425
+425 3179
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=7 425
+425 1078
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=21 425
+425 3178
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=21 425
+425 3348
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=7 425
+425 1065
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=7 425
+425 1097
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=7 425
+425 1076
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=21 425
+425 3205
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=21 425
+425 3298
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=7 425
+425 1078
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=7 425
+425 1068
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=21 425
+425 3556
+cfl=/opt/local/lib/ruby/1.8/rational.rb
+cfn=Object::Rational
+calls=7 425
+425 1069
+
+fl=/Users/rick/ri_cal/ruby_runtime
+fn=String::upcase
+0 240
+
+fl=/Users/rick/ri_cal/lib/ri_cal/properties/timezone_period.rb
+fn=RiCal::Properties::TimezonePeriod::tzoffsetto_property
+50 12
+
+fl=/Users/rick/ri_cal/ruby_runtime
+fn=<Class::Object>::allocate
+0 26948
+
+fl=/Users/rick/ri_cal/lib/ri_cal.rb
+fn=<Module::RiCal>::ro_misses=
+152 13
+
+fl=/Users/rick/ri_cal/lib/ri_cal/property_value/recurrence_rule/recurring_day.rb
+fn=RiCal::PropertyValue::RecurrenceRule::RecurringDay::matches_for
+57 156
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::===
+calls=4 61
+61 10
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/recurrence_rule/recurring_day.rb
+cfn=RiCal::PropertyValue::RecurrenceRule::RecurringDay::monthly_matches_for
+calls=2 62
+62 98104
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Symbol::===
+calls=12 61
+61 28
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/recurrence_rule/recurring_day.rb
+cfn=RiCal::PropertyValue::RecurrenceRule::RecurringDay::monthly_matches_for
+calls=6 62
+62 262129
+
+fl=/Users/rick/ri_cal/ruby_runtime
+fn=String::to_i
+0 382
+
+fl=/Users/rick/ri_cal/lib/ri_cal/property_value/recurrence_rule/occurence_incrementer.rb
+fn=RiCal::PropertyValue::RecurrenceRule::ListIncrementer::next_in_list
+228 57
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Enumerable::find
+calls=4 229
+229 472
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Enumerable::find
+calls=4 229
+229 468
+
+fl=/Users/rick/ri_cal/ruby_runtime
+fn=Array::size
+0 1050
+
+fl=/Users/rick/ri_cal/lib/ri_cal/property_value/recurrence_rule/enumeration_support_methods.rb
+fn=RiCal::PropertyValue::RecurrenceRule::EnumerationSupportMethods::exhausted?
+55 174
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Comparable::>
+calls=7 56
+56 726
+
+fl=/Users/rick/ri_cal/ruby_runtime
+fn=Enumerable::to_a
+0 10
+cfl=/Users/rick/ri_cal/lib/ri_cal/occurrence_enumerator.rb
+cfn=RiCal::OccurrenceEnumerator::EnumerationInstance::each
+calls=1 160
+160 386029
+
+fl=/Users/rick/ri_cal/lib/ri_cal/occurrence_enumerator.rb
+fn=RiCal::OccurrenceEnumerator::set_occurrence_properties!
+216 232
+cfl=/Users/rick/ri_cal/lib/ri_cal/properties/timezone_period.rb
+cfn=RiCal::Properties::TimezonePeriod::dtstart_property
+calls=6 227
+227 31
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time.rb
+cfn=RiCal::PropertyValue::DateTime::for_occurrence
+calls=6 227
+227 200
+
+fl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time.rb
+fn=RiCal::PropertyValue::DateTime::params=
+154 3116
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=1 157
+157 49
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 157
+157 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=1 155
+155 14
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=2 157
+157 48
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=4 157
+157 20
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 29
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 156
+156 17
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 25
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 156
+156 22
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 27
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 156
+156 29
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 26
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 156
+156 15
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 26
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 156
+156 15
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 33
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 156
+156 16
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 25
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 156
+156 15
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 27
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 43
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 73
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 156
+156 14
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 26
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 156
+156 15
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 26
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 156
+156 16
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 27
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 75
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 45
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 74
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 43
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 76
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 45
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 74
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 43
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 83
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 52
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 78
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 44
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 75
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 43
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 84
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 44
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 89
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 54
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 85
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=16 156
+156 122
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=16 155
+155 199
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 43
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 75
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 44
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 77
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=6 156
+156 45
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 84
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=1 157
+157 27
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 157
+157 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=1 155
+155 16
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=1 157
+157 49
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 157
+157 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=1 155
+155 15
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=2 157
+157 52
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=4 157
+157 12
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=2 155
+155 33
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=12 157
+157 314
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=24 157
+157 65
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=12 155
+155 185
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=6 157
+157 142
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=12 157
+157 30
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=6 155
+155 88
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=1 157
+157 25
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 157
+157 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=1 155
+155 14
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=1 157
+157 24
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 157
+157 5
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=1 155
+155 14
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=1 157
+157 25
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=2 157
+157 6
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=1 155
+155 14
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=7 157
+157 166
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=14 157
+157 30
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=7 155
+155 95
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=7 157
+157 162
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=14 157
+157 40
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=7 155
+155 92
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=7 157
+157 169
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=14 157
+157 50
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=7 155
+155 92
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/date_time/timezone_support.rb
+cfn=RiCal::PropertyValue::DateTime::TimezoneSupport::tzid=
+calls=7 157
+157 179
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Hash::[]
+calls=14 157
+157 41
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Kernel::dup
+calls=7 155
+155 101
+
+fl=/Users/rick/ri_cal/lib/ri_cal/component.rb
+fn=RiCal::Component::initialize_copy
+171 16
+
+fl=/Users/rick/ri_cal/lib/ri_cal/property_value/recurrence_rule/occurence_incrementer.rb
+fn=<Class::RiCal::PropertyValue::RecurrenceRule::ByMonthdayIncrementer>::for_rrule
+477 10
+cfl=/Users/rick/ri_cal/lib/ri_cal/property_value/recurrence_rule/occurence_incrementer.rb
+cfn=<Class::RiCal::PropertyValue::RecurrenceRule::ListIncrementer>::conditional_incrementer
+calls=1 478
+478 336
+
+fl=/opt/local/lib/ruby/1.8/rational.rb
+fn=<Class::Rational>::new!
+93 67749
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 83
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 50
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 43
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 41
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 41
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 41
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 81
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 48
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 72
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 41
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 43
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 43
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=3 94
+94 117
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=3 94
+94 126
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=3 94
+94 119
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=3 94
+94 128
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=3 94
+94 139
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=3 94
+94 133
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=3 94
+94 120
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=3 94
+94 120
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=3 94
+94 119
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=3 94
+94 120
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 81
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 41
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 43
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 41
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 43
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 80
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 41
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=1 94
+94 42
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=4 94
+94 176
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 80
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 88
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 81
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 78
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 81
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 82
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 97
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=4 94
+94 158
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 81
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 80
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 89
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 80
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 87
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 80
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 81
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=6 94
+94 264
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=6 94
+94 235
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=6 94
+94 265
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=6 94
+94 239
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=6 94
+94 238
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=6 94
+94 239
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=6 94
+94 235
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=12 94
+94 479
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=12 94
+94 464
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=12 94
+94 521
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=8 94
+94 317
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=4 94
+94 159
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=4 94
+94 158
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=8 94
+94 333
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=4 94
+94 157
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=4 94
+94 159
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=4 94
+94 160
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=4 94
+94 160
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 84
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 79
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 123
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 80
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 80
+cfl=/Users/rick/ri_cal/ruby_runtime
+cfn=Class::new
+calls=2 94
+94 88
