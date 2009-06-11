@@ -223,7 +223,7 @@ module RiCal
       export_stream.puts("BEGIN:#{entity_name}")
       export_properties_to(export_stream)
       export_x_properties_to(export_stream)
-      subcomponents.values do |sub|
+      subcomponents.values.each do |sub|
         export_subcomponent_to(export_subcomponent_to, sub)
       end
       export_stream.puts("END:#{entity_name}")

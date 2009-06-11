@@ -216,8 +216,6 @@ module RiCal
       def export(to=nil)
         export_stream = FoldingStream.new(to)
         export_stream.puts("BEGIN:VCALENDAR")
-        #TODO: right now I'm assuming that all timezones are internal what happens when we export
-        #      an imported calendar.
         export_properties_to(export_stream)
         export_x_properties_to(export_stream)
         export_required_timezones(export_stream)
@@ -232,6 +230,8 @@ module RiCal
           export_stream.string
         end
       end
+      
+      alias_method :export_to, :export
 
     end
   end

@@ -3,6 +3,23 @@
 require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::Component::Event do
+  
+  context "bug report from Noboyuki Tomizawa" do
+    before(:each) do
+
+      @it = RiCal.Calendar do |cal|
+        cal.event do |event|
+          event.description = "test"
+          event.dtstart = "TZID=Asia/Tokyo:20090530T123000"
+          event.dtend =   "TZID=Asia/Tokyo:20090530T123001"
+        end
+      end
+    end
+    
+    it "should not fail" do
+      lambda {@it.export}.should_not raise_error
+    end
+  end
 
   context "rdate property methods" do
     before(:each) do
