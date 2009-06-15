@@ -28,5 +28,20 @@ end
 require 'newgem/tasks' # load /tasks/*.rake
 Dir['tasks/**/*.rake'].each { |t| load t }
 
-# TODO - want other tests/tasks run by default? Add them to the list
+Rake::TaskManager.class_eval do
+  def remove_task(task_name)
+    @tasks.delete(task_name.to_s)
+  end
+end
+ 
+def remove_task(task_name)
+  Rake.application.remove_task(task_name)
+end
+ 
+# Override existing test task to prevent integrations
+# from being run unless specifically asked for
+remove_task :test
+task :test do
+end
+
 task :default => [:"spec:with_tzinfo_gem", :"spec:with_active_support"]

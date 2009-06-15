@@ -13,7 +13,7 @@ describe RiCal::Component::Timezone do
 
   context "for a Timezone with no DST periods" do
     before(:each) do
-      @it = RiCal.parse_string rectify_ical <<-'ENDCAL'
+      @it = RiCal.parse_string rectify_ical(<<-'ENDCAL')
       BEGIN:VTIMEZONE
       TZID:Australia/Brisbane
       X-LIC-LOCATION:Australia/Brisbane
@@ -37,7 +37,7 @@ describe RiCal::Component::Timezone do
 
   context "from an iCal.app calendar for America/New_York starting March 11 2007" do
     before(:each) do
-      @it = RiCal.parse_string rectify_ical <<-'ENDCAL'
+      @it = RiCal.parse_string rectify_ical(<<-'ENDCAL')
       BEGIN:VTIMEZONE
       TZID:US/Eastern
       BEGIN:DAYLIGHT
@@ -171,7 +171,7 @@ describe RiCal::Component::Timezone do
 
   context "Bug report from paulsm" do
     before(:each) do
-      cals = RiCal.parse_string rectify_ical <<-'ENDCAL'
+      cals = RiCal.parse_string rectify_ical(<<-'ENDCAL')
       BEGIN:VCALENDAR
       X-WR-TIMEZONE:America/New_York
       PRODID:-//Apple Inc.//iCal 3.0//EN

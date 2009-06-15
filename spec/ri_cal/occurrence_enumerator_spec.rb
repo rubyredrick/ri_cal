@@ -156,7 +156,7 @@ TEXT
 
   context "Ticket #4 from paulsm" do
     it "should produce 4 occurrences" do
-      cal = RiCal.parse_string rectify_ical <<-ENDCAL
+      cal = RiCal.parse_string rectify_ical(<<-ENDCAL)
       BEGIN:VCALENDAR
       METHOD:PUBLISH
       PRODID:-//Apple Inc.//iCal 3.0//EN
@@ -188,7 +188,7 @@ TEXT
 
   context "Ticket #2 from paulsm" do
     before(:each) do
-      cals = RiCal.parse_string rectify_ical <<-ENDCAL
+      cals = RiCal.parse_string rectify_ical(<<-ENDCAL)
       BEGIN:VCALENDAR
       X-WR-TIMEZONE:America/New_York
       PRODID:-//Apple Inc.//iCal 3.0//EN
@@ -238,7 +238,7 @@ TEXT
 
   context "Lighthouse bug #3" do
     before(:each) do
-      cals = RiCal.parse_string rectify_ical <<-ENDCAL
+      cals = RiCal.parse_string rectify_ical(<<-ENDCAL)
       BEGIN:VCALENDAR
       VERSION:2.0
       PRODID:-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN
@@ -282,7 +282,7 @@ TEXT
 
     context "An event with a DATE dtstart, Ticket #6" do
       before(:each) do
-        cal = RiCal.parse_string rectify_ical <<-ENDCAL
+        cal = RiCal.parse_string rectify_ical(<<-ENDCAL)
         BEGIN:VCALENDAR
         PRODID:-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN
         VERSION:2.0
@@ -339,7 +339,7 @@ TEXT
     end
     context "bounded? bug" do
       before(:each) do
-        events = RiCal.parse_string rectify_ical <<-ENDCAL
+        events = RiCal.parse_string rectify_ical(<<-ENDCAL)
         BEGIN:VEVENT
         EXDATE:20090114T163000
         EXDATE:20090128T163000
@@ -369,7 +369,7 @@ TEXT
 
     context "EXDATES with timezones bug" do
       before(:each) do
-        cals = RiCal.parse_string rectify_ical <<-ENDCAL
+        cals = RiCal.parse_string rectify_ical(<<-ENDCAL)
         BEGIN:VCALENDAR
         METHOD:PUBLISH
         PRODID:-//Apple Inc.//iCal 3.0//EN
