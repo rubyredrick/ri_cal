@@ -72,7 +72,25 @@ TEXT
       end
     end
   end
-
+  
+  describe "for a non-recurring event" do
+    before(:each) do
+      @event_start = Time.now.utc
+      @event = RiCal.Event do |event|
+        event.dtstart = @event_start
+        event.dtend   = @event_start + 3600
+        # event.rrule  (no recurrence, single event)
+      end
+    end
+    
+    it "should enumerate no occurrences if dtstart is before :starting" do
+      @event.occurrences(:starting => @event_start + 1).should be_empty
+    end
+    
+    it "should enumerate no occurrences if dtstart is after :before" do
+      @event.occurrences(:before => @event_start - 1).should be_empty
+    end
+  end
 
   describe ".each" do
     describe " for Every Friday the 13th, forever" do

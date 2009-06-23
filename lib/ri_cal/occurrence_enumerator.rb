@@ -127,7 +127,9 @@ module RiCal
       def each(options = nil)
         process_options(options) if options
         if @rrules.empty?
-          yield @component
+          unless before_start?(@component)
+            yield @component unless options_stop(@component)
+          end
         else
           occurrence = next_occurrence
           while (occurrence)
@@ -149,8 +151,8 @@ module RiCal
       end
 
       def process_options(options)
-        @start = options[:starting]
-        @cutoff = options[:before]
+        @start = options[:starting] && options[:starting].to_datetime
+        @cutoff = options[:before] && options[:before].to_datetime
         @count = options[:count]
       end
 
