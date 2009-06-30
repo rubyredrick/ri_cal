@@ -29,7 +29,7 @@ module RiCal
         dtstart_property ? dtstart.to_datetime : nil
       end
       
-      # Return a date_time representing the time at which the event starts
+      # Return a date_time_property representing the time at which the event ends
       def finish_property
         if dtend_property
           dtend_property

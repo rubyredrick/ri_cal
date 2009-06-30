@@ -20,6 +20,18 @@ module RiCal
     def self.from_date_time(date_time)
       new(date_time.year, date_time.month, date_time.day, date_time.hour, date_time.min, date_time.sec, (date_time.offset * SECONDS_IN_A_DAY).to_i)
     end
+    
+    def self.from_time(time)
+      new(time.year, time.month, time.day, time.hour, time.min, time.sec, (time.utc_offset.offset * SECONDS_IN_A_DAY))
+    end
+    
+    def self.from_date(date)
+      new(date.year, date.month, date.day, 0, 0, 0, 0)
+    end
+    
+    def self.from_date_at_end_of_day(date)
+      new(date.year, date.month, date.day, 23, 59, 59, 0)
+    end
 
     alias_method :utc_offset_seconds, :offset
 

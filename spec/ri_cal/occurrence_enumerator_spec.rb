@@ -1,3 +1,4 @@
+# encoding: utf-8
 #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
 
 require File.join(File.dirname(__FILE__), %w[.. spec_helper.rb])
@@ -12,6 +13,7 @@ describe RiCal::OccurrenceEnumerator do
   Fr13Unbounded_Zulu = <<-TEXT
 BEGIN:VEVENT
 DTSTART:19970902T090000Z
+DTEND: 19970902T100000Z
 EXDATE:19970902T090000Z
 RRULE:FREQ=MONTHLY;BYDAY=FR;BYMONTHDAY=13
 END:VEVENT
@@ -20,6 +22,7 @@ TEXT
  Fr13Unbounded_Eastern = <<-TEXT
 BEGIN:VEVENT
 DTSTART;TZID=US-Eastern:19970902T090000
+DTEND;TZID=US-Eastern:19970902T100000
 EXDATE;TZID=US-Eastern:19970902T090000
 RRULE:FREQ=MONTHLY;BYDAY=FR;BYMONTHDAY=13
 END:VEVENT
@@ -30,10 +33,11 @@ TEXT
    "19980313T090000Z",
    "19981113T090000Z",
    "19990813T090000Z",
-   "20001013T090000Z"
+   "20001013T090000Z" 
    ].map {|start| src = <<-TEXT
 BEGIN:VEVENT
 DTSTART:#{start}
+DTEND:#{start.gsub("T09","T10")}
 RECURRENCE-ID:#{start}
 END:VEVENT
 TEXT
@@ -70,25 +74,34 @@ TEXT
           result.map{|o|o.dtstart}.should == Fr13UnboundedZuluExpectedFive[0..2].map{|e| e.dtstart}
         end
       end
-    end
-  end
-  
-  describe "for a non-recurring event" do
-    before(:each) do
-      @event_start = Time.now.utc
-      @event = RiCal.Event do |event|
-        event.dtstart = @event_start
-        event.dtend   = @event_start + 3600
-        # event.rrule  (no recurrence, single event)
+      
+      describe "with :overlapping specified" do
+        it "should include occurrences which overlap" do
+          result = @it.occurrences(:overlapping => 
+          [DateTime.parse("19981113T093000Z"), # occurrence[2].dtstart + 1/2 hour
+           DateTime.parse("20001013T083000Z")]) # occurrence[4].dtstart - 1/2 hour
+          result.map{|o|o.dtstart}.should == Fr13UnboundedZuluExpectedFive[2..3].map{|e| e.dtstart}
+        end
       end
     end
-    
-    it "should enumerate no occurrences if dtstart is before :starting" do
-      @event.occurrences(:starting => @event_start + 1).should be_empty
-    end
-    
-    it "should enumerate no occurrences if dtstart is after :before" do
-      @event.occurrences(:before => @event_start - 1).should be_empty
+
+    describe "for a non-recurring event" do
+      before(:each) do
+        @event_start = Time.now.utc
+        @event = RiCal.Event do |event|
+          event.dtstart = @event_start
+          event.dtend   = @event_start + 3600
+          # event.rrule  (no recurrence, single event)
+        end
+      end
+
+      it "should enumerate no occurrences if dtstart is before :starting" do
+        @event.occurrences(:starting => @event_start + 1).should be_empty
+      end
+
+      it "should enumerate no occurrences if dtstart is after :before" do
+        @event.occurrences(:before => @event_start - 1).should be_empty
+      end
     end
   end
 

@@ -96,7 +96,8 @@ module RiCal
 
       # Also exclude occurrences before the :starting date_time
       def before_start?(occurrence)
-        (@start && occurrence.dtstart.to_datetime < @start)
+        (@start && occurrence.dtstart.to_datetime < @start) ||
+        @overlap_range && occurrence.before_range?(@overlap_range)
       end
 
       def next_occurrence
@@ -118,7 +119,9 @@ module RiCal
 
       def options_stop(occurrence)
         occurrence != :excluded &&
-        (@cutoff && occurrence.dtstart.to_datetime >= @cutoff) || (@count && @yielded >= @count)
+        (@cutoff && occurrence.dtstart.to_datetime >= @cutoff) || 
+        (@count && @yielded >= @count) ||
+        (@overlap_range && occurrence.after_range?(@overlap_range))
       end
 
 
@@ -133,26 +136,34 @@ module RiCal
         else
           occurrence = next_occurrence
           while (occurrence)
-            if options_stop(occurrence)
+            candidate = @component.recurrence(occurrence)
+            if options_stop(candidate)
               occurrence = nil
             else
-              unless before_start?(occurrence)
+              unless before_start?(candidate)
                 @yielded += 1
-                yield @component.recurrence(occurrence)
+                yield candidate
               end
               occurrence = next_occurrence
             end
           end
         end
       end
-
+      
       def bounded?
-        @rrules.bounded? || @count || @cutoff
+        @rrules.bounded? || @count || @cutoff || @overlap_range
+      end
+      
+      def process_overlap_range(overlap_range)
+        if overlap_range
+          @overlap_range = [overlap_range.first.to_overlap_range_start, overlap_range.last.to_overlap_range_end]
+        end
       end
 
       def process_options(options)
         @start = options[:starting] && options[:starting].to_datetime
         @cutoff = options[:before] && options[:before].to_datetime
+        @overlap_range = process_overlap_range(options[:overlapping])
         @count = options[:count]
       end
 
@@ -177,6 +188,7 @@ module RiCal
     # * :starting:: a Date, Time, or DateTime, no occurrences starting before this argument will be returned
     # * :before:: a Date, Time, or DateTime, no occurrences starting on or after this argument will be returned.
     # * :count:: an integer which limits the number of occurrences returned.
+    # * :overlapping:: a two element array of Dates, Times, or DateTimes, assumed to be in chronological order. Only occurrences which are either totally or partially within the range will be returned.
     def occurrences(options={})
       enumeration_instance.to_a(options)
     end
@@ -185,7 +197,17 @@ module RiCal
     def enumeration_instance #:nodoc:
       EnumerationInstance.new(self)
     end
+    
+    def before_range?(overlap_range)
+      finish = finish_time
+      !finish_time || finish_time < overlap_range.first
+    end
 
+    def after_range?(overlap_range)
+      start = start_time
+      !start || start > overlap_range.last
+    end
+    
     # execute the block for each occurrence
     def each(&block) # :yields: Component
       enumeration_instance.each(&block)

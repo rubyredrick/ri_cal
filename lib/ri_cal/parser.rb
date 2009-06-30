@@ -23,7 +23,7 @@ module RiCal
       if string
         string.split(";").inject({}) { |result, val|
           m = /^(.+)=(.+)$/.match(val)
-          invalid unless m
+          raise "Invalid parameter value #{val.inspect}" unless m
           result[m[1]] = m[2]
           result 
         }

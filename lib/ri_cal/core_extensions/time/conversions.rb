@@ -21,6 +21,12 @@ module RiCal
           to_ri_cal_date_time_value(timezone_finder)
         end
         
+        def to_overlap_range_start
+          to_datetime
+        end
+        
+        alias_method :to_overlap_range_end, :to_overlap_range_start
+        
         # Return a copy of this object which will be interpreted as a floating time.
         def with_floating_timezone
           dup.set_tzid(:floating)

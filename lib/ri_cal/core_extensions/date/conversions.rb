@@ -23,6 +23,14 @@ module RiCal
           to_ri_cal_date_value(timezone_finder)
         end
         
+        def to_overlap_range_start
+          to_datetime
+        end
+        
+        def to_overlap_range_end
+          to_ri_cal_date_time_value.end_of_day.to_datetime
+        end
+        
         unless defined? ActiveSupport
           # A method to keep Time, Date and DateTime instances interchangeable on conversions.
           # In this case, it simply returns +self+.

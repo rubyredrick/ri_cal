@@ -1,3 +1,9 @@
+=== 0.7.0 - 29 June 2009
+  * fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/14
+      component without recurrence properties should enumerate just itself only if it is within the period between starting and before
+  * added the :overlapping option to OccurrenceEnumerator#occurrences - Allows the enumeration of occurrences which are either partiall or completely within a timespan given by a pair of Dates/Times/DateTimes
+  * Fixed some Ruby 1.9 incompatibilities
+  * Added some new rake tasks to run specs under multi-ruby
 === 0.6.3 - 14 June 2009
  * Fixed http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/13
       tzinfotimezones-with-no-transitions-fail-on-export

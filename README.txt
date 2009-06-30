@@ -326,6 +326,8 @@ In the case of unbounded components, you must either use the :count, or :before 
 or
 
   event.occurrences(:before => Date.today >> 1)
+  
+Another option on the occurrences method is the :overlapping option, which takes an array of two Dates, Times or DateTimes which are expected to be in chronological order.  Only events which occur either partially or fully within the range given by the :overlapping option will be enumerated.
 
 Alternately, you can use the RiCal::OccurrenceEnumerator#each method,
 or another Enumerable method (RiCal::OccurrenceEnumerator includes Enumerable), and terminate when you wish by breaking out of the block.
