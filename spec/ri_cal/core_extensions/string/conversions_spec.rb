@@ -21,7 +21,7 @@ describe RiCal::CoreExtensions::String::Conversions do
   context "#to_ri_cal_duration_value" do
     
     it "should produce a Duration property for a valid RFC 2445 duration string" do
-      "P1H".to_ri_cal_duration_value.should == RiCal::PropertyValue::Duration.new(nil, :value => "P1H")
+      "PT1H".to_ri_cal_duration_value.should == RiCal::PropertyValue::Duration.new(nil, :value => "PT1H")
     end
     
     it "should raise an InvalidPropertyValue error if the string is not a valid RFC 2445 datetime string" do
@@ -68,7 +68,7 @@ describe RiCal::CoreExtensions::String::Conversions do
     end
 
     it "should produce a Period property for a valid RFC 2445 period string (time and duration format)" do
-      "20090304T012345/P1H".to_ri_cal_occurrence_list_value.should == RiCal::PropertyValue::Period.new(nil, :value => "20090304T012345/P1H")
+      "20090304T012345/PT1H".to_ri_cal_occurrence_list_value.should == RiCal::PropertyValue::Period.new(nil, :value => "20090304T012345/P1H")
     end
 
     it "should raise an InvalidPropertyValue error if the string is not a valid RFC 2445 date or datetime string" do

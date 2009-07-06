@@ -306,7 +306,7 @@ module RiCal
       end
 
       alias_method :to_ri_cal_ruby_value, :to_datetime
-      alias_method :to_finish_time, :to_datetime
+      alias_method :to_finish_time, :ruby_value
       
       def to_zulu_time
         utc.to_datetime

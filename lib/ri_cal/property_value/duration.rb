@@ -62,7 +62,7 @@ module RiCal
       end
       
       def self.valid_string?(string) #:nodoc:
-        string =~  /^[+-]?P((\d+)[DHMSW])+$/
+        string =~  /^[+-]?P((\d+D)(T((\d+)[HMS])+)?)|(T((\d+)[HMS])+)|(\d+W)$/
       end
 
       def days # :nodoc:

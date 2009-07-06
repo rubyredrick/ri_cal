@@ -35,7 +35,7 @@ describe RiCal::Component::Todo do
     context "with no due" do
       context "and a duration" do
         before(:each) do
-          @todo.duration = "+P1H"
+          @todo.duration = "+PT1H"
         end
         
         it "should be the dtstart plus the duration" do
@@ -100,12 +100,12 @@ describe RiCal::Component::Todo do
     end
     
     it "should reset the due property if the duration property is set" do
-      @it.duration_property = "P1H".to_ri_cal_duration_value
+      @it.duration_property = "PT1H".to_ri_cal_duration_value
       @it.due_property.should be_nil
     end
     
     it "should reset the duration property if the dtend ruby value is set" do
-      @it.duration = "P1H"
+      @it.duration = "PT1H"
       @it.due_property.should == nil
     end
   end

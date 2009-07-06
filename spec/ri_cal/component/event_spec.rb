@@ -39,11 +39,18 @@ describe RiCal::Component::Event do
     it "should be the end time for an event with a datetime dtstart and a duration" do
       @it = RiCal.Event do |evt|
         evt.dtstart = "20090704T120000Z"
-        evt.duration = "P1H30M"
+        evt.duration = "PT1H30M"
       end
       @it.finish_time.should == DateTime.parse("20090704T133000Z")
     end
     
+    it "should uset the  timezone of dtstart when event has a duration" do
+      @it = RiCal.Event do |evt|
+        evt.dtstart = "TZID=Australia/Sydney:20090712T200000"
+        evt.duration = "PT1H"
+      end
+      @it.finish_time.should == DateTime.parse("2009-07-12T21:00:00+10:00")
+    end
   end
   
   context ".before_range?" do
@@ -317,7 +324,7 @@ describe RiCal::Component::Event do
     context "with no dtend" do
       context "and a duration" do
         it "should be the dtstart plus the duration" do
-          @event.duration = "+P1H"
+          @event.duration = "+PT1H"
           @event.finish_time.should == DateTime.civil(2009,5,25,16,19,0,0)
         end
       end
@@ -394,7 +401,7 @@ describe RiCal::Component::Event do
     context "with no dtend" do
       context "and a duration" do
         it "should be the dtstart plus the duration" do
-          @event.duration = "+P1H"
+          @event.duration = "+PT1H"
           @event.zulu_occurrence_range_finish_time.should == DateTime.civil(2009,5,25,20 ,19,0,0)
         end
       end
@@ -489,12 +496,12 @@ describe RiCal::Component::Event do
     end
 
     it "should reset the dtend property if the duration property is set" do
-      @it.duration_property = "P1H".to_ri_cal_duration_value
+      @it.duration_property = "PT1H".to_ri_cal_duration_value
       @it.dtend_property.should be_nil
     end
 
     it "should reset the dtend property if the duration ruby value is set" do
-      @it.duration = "P1H".to_ri_cal_duration_value
+      @it.duration = "PT1H".to_ri_cal_duration_value
       @it.dtend_property.should be_nil
     end
   end

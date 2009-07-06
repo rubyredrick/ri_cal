@@ -157,7 +157,7 @@ describe RiCal::Parser do
       describe_property("VEVENT", "DTSTART", {"X-FOO" => "BAR"}, "19970714T235959Z", RiCal::PropertyValue::DateTime)
 
       #RFC 2445 section 4.8.2.5 DURATION p94
-      describe_property("VEVENT", "DURATION", {"X-FOO" => "BAR"}, "P1H", RiCal::PropertyValue::Duration)
+      describe_property("VEVENT", "DURATION", {"X-FOO" => "BAR"}, "PT1H", RiCal::PropertyValue::Duration)
 
       #RFC 2445 section 4.8.2.6 FREEBUSY does not apply to Events
       

@@ -1,3 +1,8 @@
+=== 0.7.1 - 6 July 2007
+  * fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/15
+      duration validation issues
+  * fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/16
+      event finish_time loses timezone info when event has a dtstart and duration
 === 0.7.0 - 29 June 2009
   * fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/14
       component without recurrence properties should enumerate just itself only if it is within the period between starting and before
