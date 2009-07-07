@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ri_cal}
-  s.version = "0.7.1"
+  s.version = "0.7.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["author=Rick DeNatale"]
@@ -33,17 +33,17 @@ A Google group for discussion of this library has been set up http://groups.goog
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<newgem>, [">= 1.3.0"])
+      s.add_development_dependency(%q<newgem>, [">= 1.5.1"])
       s.add_development_dependency(%q<ruby-prof>, [">= 0"])
-      s.add_development_dependency(%q<hoe>, [">= 1.8.0"])
+      s.add_development_dependency(%q<hoe>, [">= 2.3.2"])
     else
-      s.add_dependency(%q<newgem>, [">= 1.3.0"])
+      s.add_dependency(%q<newgem>, [">= 1.5.1"])
       s.add_dependency(%q<ruby-prof>, [">= 0"])
-      s.add_dependency(%q<hoe>, [">= 1.8.0"])
+      s.add_dependency(%q<hoe>, [">= 2.3.2"])
     end
   else
-    s.add_dependency(%q<newgem>, [">= 1.3.0"])
+    s.add_dependency(%q<newgem>, [">= 1.5.1"])
     s.add_dependency(%q<ruby-prof>, [">= 0"])
-    s.add_dependency(%q<hoe>, [">= 1.8.0"])
+    s.add_dependency(%q<hoe>, [">= 2.3.2"])
   end
 end
