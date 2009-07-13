@@ -46,6 +46,10 @@ the object being built will cause that setter to be sent to the component with t
 A method corresponding to the name of one of the components sub component will create the sub component and 
 evaluate the block in the context of the new subcomponent.
 
+ht. Full RDOC
+  
+  "http://ri-cal.rubyforge.org/rdoc/"
+
 h2. WIKI
 
 "http://wiki.github.com/rubyredrick/ri_cal":http://wiki.github.com/rubyredrick/ri_cal

@@ -19,6 +19,8 @@ A Google group for discussion of this library has been set up http://groups.goog
 
 == SYNOPSIS:
 
+For the full RDOC see http://ri-cal.rubyforge.org/rdoc/
+
 === Components and properties
 
 An iCalendar calendar comprises subcomponents like Events, Timezones and Todos. Each component may

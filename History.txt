@@ -1,3 +1,5 @@
+=== 0.7.3 - 13 July 2007
+  Added pointers to rdoc in README
 === 0.7.2 - 6 July 2007
   updated to use newest versions of newgem and hoe, in order to make run-code-run work again
 === 0.7.1 - 6 July 2007
