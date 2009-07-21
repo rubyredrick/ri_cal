@@ -8,6 +8,8 @@ module RiCal
       begin
         result = buffer_or_line
         @buffer = nil
+        rputs "result is #{result.inspect}"
+        rputs "buffer_or_line is #{buffer_or_line.inspect}"
         while /^\s/ =~ buffer_or_line
           result = "#{result}#{@buffer[1..-1]}"
           @buffer = nil

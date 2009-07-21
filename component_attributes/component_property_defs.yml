@@ -156,7 +156,7 @@ repeat:
     rfc_ref: '4.8.6.2 p 126-127'
 trigger:
     purpose: This property specifies when an alarm will trigger.
-    type: duration_or_utc_date_time
+    type: Duration
     rfc_ref: '4.8.6.3 p 127-129'
 created:
     purpose: This property specifies the date and time that the calendar information was created by teh calendar user agent in the calendar store.
