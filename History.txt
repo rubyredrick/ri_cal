@@ -1,8 +1,13 @@
-=== 0.7.3 - 13 July 2007
+=== 0.7.4 - 21 July 2009
+* fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/17
+    Problem with Alarm trigger property value
+* fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/18
+    Problem with exporting components with sub-components
+=== 0.7.3 - 13 July 2009
   Added pointers to rdoc in README
-=== 0.7.2 - 6 July 2007
+=== 0.7.2 - 6 July 2009
   updated to use newest versions of newgem and hoe, in order to make run-code-run work again
-=== 0.7.1 - 6 July 2007
+=== 0.7.1 - 6 July 2009
   * fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/15
       duration validation issues
   * fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/16

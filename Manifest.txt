@@ -103,6 +103,7 @@ script/destroy
 script/generate
 script/profile_subject
 script/txt2html
+spec/ri_cal/bugreports_spec.rb
 spec/ri_cal/component/alarm_spec.rb
 spec/ri_cal/component/calendar_spec.rb
 spec/ri_cal/component/event_spec.rb

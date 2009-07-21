@@ -74,7 +74,7 @@ module RiCal
 
 
       # return the the TRIGGER property
-      # which will be an instances of RiCal::PropertyValueduration_or_utc_date_time
+      # which will be an instances of RiCal::PropertyValueDuration
       # 
       # [purpose (from RFC 2445)]
       # This property specifies when an alarm will trigger.
@@ -85,24 +85,24 @@ module RiCal
       end
 
       # set the TRIGGER property
-      # property value should be an instance of RiCal::PropertyValueduration_or_utc_date_time
+      # property value should be an instance of RiCal::PropertyValueDuration
       def trigger_property=(property_value)
         @trigger_property = property_value
       end
 
       # set the value of the TRIGGER property
       def trigger=(ruby_value)
-        self.trigger_property= RiCal::PropertyValue::duration_or_utc_date_time.convert(self, ruby_value)
+        self.trigger_property= RiCal::PropertyValue::Duration.convert(self, ruby_value)
       end
 
       # return the value of the TRIGGER property
-      # which will be an instance of duration_or_utc_date_time
+      # which will be an instance of Duration
       def trigger
         trigger_property ? trigger_property.ruby_value : nil
       end
 
       def trigger_property_from_string(line) # :nodoc:
-        @trigger_property = RiCal::PropertyValue::duration_or_utc_date_time.new(self, line)
+        @trigger_property = RiCal::PropertyValue::Duration.new(self, line)
       end
 
 
