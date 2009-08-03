@@ -94,3 +94,44 @@ describe "http://rick_denatale.lighthouseapp.com/projects/30941/tickets/18" do
     lambda {event.export}.should_not raise_error
   end
 end
+
+describe "http://rick_denatale.lighthouseapp.com/projects/30941/tickets/19" do
+  before(:each) do
+    cals = RiCal.parse_string(<<-ENDCAL)
+BEGIN:VCALENDAR
+METHOD:REQUEST
+PRODID:Microsoft CDO for Microsoft Exchange
+VERSION:2.0
+BEGIN:VTIMEZONE
+TZID:(GMT-05.00) Eastern Time (US & Canada)
+X-MICROSOFT-CDO-TZID:10
+BEGIN:STANDARD
+DTSTART:16010101T020000
+TZOFFSETFROM:-0400
+TZOFFSETTO:-0500
+RRULE:FREQ=YEARLY;WKST=MO;INTERVAL=1;BYMONTH=11;BYDAY=1SU
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:16010101T020000
+TZOFFSETFROM:-0500
+TZOFFSETTO:-0400
+RRULE:FREQ=YEARLY;WKST=MO;INTERVAL=1;BYMONTH=3;BYDAY=2SU
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+DTSTAMP:20090724T143205Z
+DTSTART;TZID="(GMT-05.00) Eastern Time (US & Canada)":20090804T120000
+SUMMARY:FW: ALL HANDS MEETING
+DTEND;TZID="(GMT-05.00) Eastern Time (US & Canada)":20090804T133000
+DESCRIPTION:Some event
+END:VEVENT
+END:VCALENDAR
+ENDCAL
+    
+    @event = cals.first.events.first
+  end
+  
+  it "not raise an error accessing DTSTART" do
+    lambda {@event.dtstart}.should_not raise_error
+  end
+end
