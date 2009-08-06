@@ -205,6 +205,11 @@ class VEntityUpdater
         indent("  @#{property} = ruby_values.map {|val| #{type_class(type)}.convert(self, #{val_parm})}")
         indent("end")
         blank_line
+        comment("get the values of the #{name.upcase} property")
+        indent("def #{plural_ruby_method}")
+        indent("  @#{property}_property.map {|prop| prop.ruby_value}")
+        indent("end")
+        blank_line
         comment("set the value of the #{name.upcase} property to a single value")
         comment("one instance of #{describe_type(type)} may be passed to this method")
         indent("def #{ruby_method}=(#{ruby_val_parm})")

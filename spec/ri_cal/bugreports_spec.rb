@@ -135,3 +135,30 @@ ENDCAL
     lambda {@event.dtstart}.should_not raise_error
   end
 end
+
+describe "freebusy problem" do
+  before(:each) do
+    cal = RiCal.parse_string(<<ENDCAL)
+BEGIN:VCALENDAR
+METHOD:PUBLISH
+VERSION:2.0
+PRODID:Zimbra-Calendar-Provider
+BEGIN:VFREEBUSY
+ORGANIZER:mailto:bj-wagoner@wiu.edu
+DTSTAMP:20090805T200417Z
+DTSTART:20090705T200417Z
+DTEND:20091006T200417Z
+URL:https://zimbra9.wiu.edu/service/home/bjw101/calendar.ifb?null
+FREEBUSY;FBTYPE=BUSY:20090705T200417Z/20090707T050000Z
+FREEBUSY;FBTYPE=BUSY-TENTATIVE:20090711T050000Z/20090712T050000Z
+END:VFREEBUSY
+END:VCALENDAR
+ENDCAL
+  @free_busy = cal.first.freebusys.first    
+  end
+  
+  it "should have two periods" do
+    @free_busy.freebusys.should == nil
+  end
+  
+end

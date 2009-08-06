@@ -28,6 +28,9 @@ module RiCal
         end
       end
       
+      def ruby_value
+        self
+      end
       
       def self.valid_string?(string) # :nodoc:
         return false unless string.include?("/")
