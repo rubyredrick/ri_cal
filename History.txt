@@ -1,3 +1,6 @@
+=== 0.7.7 - 6 August 2009
+   - No changes other than a version number bump.  github seems to have failed to notice the commit of v0.7.6
+     and didn't build the gem.  Hopefully it will notice this one.
 === 0.7.6 - 6 August 2009
    - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/20
      RiCal::PropertyValue::Period was returning a nil ruby value.
