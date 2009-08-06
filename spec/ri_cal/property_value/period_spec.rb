@@ -13,7 +13,8 @@ describe RiCal::PropertyValue::Period do
   
   describe "with an explicit period" do
     before(:each) do
-      @it = RiCal::PropertyValue::Period.new(nil, :value => "#{@start_dt.value}/#{@end_dt.value}")
+      @value_string = "#{@start_dt.value}/#{@end_dt.value}"
+      @it = RiCal::PropertyValue::Period.new(nil, :value => @value_string)
     end
     
     it "should have the correct dtstart value" do
@@ -26,12 +27,21 @@ describe RiCal::PropertyValue::Period do
     
     it "should have the correct duration value" do
       @it.duration.should == @duration
+    end
+    
+    it "should have the correct string value" do
+      @it.to_s.should == ":#{@value_string}"
+    end
+    
+    it "should be its own ruby_value" do
+      @it.ruby_value.should == @it      
     end
   end
   
   describe "with a start time and period" do
     before(:each) do
-      @it = RiCal::PropertyValue::Period.new(nil, :value => "#{@start_dt.value}/#{@duration.value}")
+      @value_string = "#{@start_dt.value}/#{@duration.value}"
+      @it = RiCal::PropertyValue::Period.new(nil, :value => @value_string)
     end
     
     it "should have the correct dtstart value" do
@@ -44,6 +54,10 @@ describe RiCal::PropertyValue::Period do
     
     it "should have the correct duration value" do
       @it.duration.should == @duration
+    end
+    
+    it "should have the correct string value" do
+      @it.to_s.should == ":#{@value_string}"
     end
   end
 end

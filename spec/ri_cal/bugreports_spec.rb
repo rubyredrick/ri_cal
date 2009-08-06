@@ -158,7 +158,9 @@ ENDCAL
   end
   
   it "should have two periods" do
-    @free_busy.freebusys.should == nil
-  end
-  
+    @free_busy.freebusy.map {|fb| fb.to_s}.should == [
+      ";FBTYPE=BUSY:20090705T200417Z/20090707T050000Z",
+      ";FBTYPE=BUSY-TENTATIVE:20090711T050000Z/20090712T050000Z"
+      ]
+  end  
 end

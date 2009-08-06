@@ -1,38 +1,41 @@
+=== 0.7.6 - 6 August 2009
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/20
+     RiCal::PropertyValue::Period was returning a nil ruby value.
 === 0.7.5 - 3 August 2009
-   - fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/19
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/19
       Microsoft ical exports double quote tzid values in parameters, which caused a failure to find VTIMEZONES
       This exposed an issue with parameter parsing.  Did the simplest thing which could work which was to
       strip the quotes.  Need to BOLO for other pathological cases showing up in future, which may require
       smarter parameter parsing.
 
 === 0.7.4 - 21 July 2009
-   - fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/17
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/17
     Problem with Alarm trigger property value
-   - fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/18
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/18
     Problem with exporting components with sub-components
 === 0.7.3 - 13 July 2009
   Added pointers to rdoc in README
 === 0.7.2 - 6 July 2009
   updated to use newest versions of newgem and hoe, in order to make run-code-run work again
 === 0.7.1 - 6 July 2009
-   - fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/15
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/15
       duration validation issues
-   - fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/16
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/16
       event finish_time loses timezone info when event has a dtstart and duration
 === 0.7.0 - 29 June 2009
-   - fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/14
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/14
       component without recurrence properties should enumerate just itself only if it is within the period between starting and before
    - added the :overlapping option to OccurrenceEnumerator#occurrences - Allows the enumeration of occurrences which are either partiall or completely within a timespan given by a pair of Dates/Times/DateTimes
-   - Fixed some Ruby 1.9 incompatibilities
+   - Fixes some Ruby 1.9 incompatibilities
    - Added some new rake tasks to run specs under multi-ruby
 === 0.6.3 - 14 June 2009
-   - Fixed http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/13
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/13
       tzinfotimezones-with-no-transitions-fail-on-export
 === 0.6.2 - 11 June 2009
-   - Fixed http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/12
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/12
       export-failure-for-unbounded-tzinfo-timezone
 === 0.6.1 - 6 June 2009
-   - Fixed problem with file which loads activesupport for the rake spec:with_activesupport task, it now
+   - Fixes problem with file which loads activesupport for the rake spec:with_activesupport task, it now
    requires >=2.2 instead of <=2.2 - Thanks to Paul Scott-Murphy for finding this.
 === 0.6.0 - 5 June 2009
  Time for a minor version bump.
@@ -49,41 +52,41 @@
    - Improved performance of time zone enumeration, TimeZonePeriod now caches occurrences
    - Added a profiling directory which contains ruby programs which benchmark and/or profile performance
 === 0.5.2
-   - Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/11
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/11
    Export folding is not UTF-8 Safe
 === 0.5.1
-   - Fixed README to acknowledge release on RubyForge
+   - Fixes README to acknowledge release on RubyForge
 === 0.5.0 rubyforge release candidate Tue May 26 10:26:43 2009 -0400
    - Added OccurrenceEnumerator#zulu_occurrence_range
 === 0.0.11 Sat May 23 18:24:57 2009 -0400
-   - Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/5
-   - Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/9
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/5
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/9
 === 0.0.10
-   - Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/8
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/8
 === 0.0.9
-   - Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/4
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/4
     Missing comparison methods in PropertyValue::Date
-   - Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/6
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/6
     Type of dtstart and dtend (DATE or DATETIME) now preserved on enumeration
 === 0.0.8
-   - Fixed http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/1
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/1
     EXDATE and RDATE now pick up the timezone from DateTime, Time, and TimeWithZone values
-   - Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/2
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/2
     Missing arithmetic methods in PropertyValue::Date
-   - Fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/3
+   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/3
        Components with no recurrence rules or rdate properties failed on enumeration, they now
        will enumerate a single occurrence  
 === 0.0.7
-   - Fixed a bug relating to properly recognizing ActiveRecord::TimeWithZone
+   - Fixes a bug relating to properly recognizing ActiveRecord::TimeWithZone
    - DATETIME propertyvalues will now return an instance of TimeWithZone instead of DateTime when
    activesupport is present, and it is appropriate. See the README for details
 === 0.0.6
    - Added rake tasks to run specs with either the tzinfo gem or activesupport (<=2.2)
    - Default rake task now runs both of these
 === 0.0.5
-   - Fixed a bug in occurrence enumeration reported by paulsm on github
+   - Fixes a bug in occurrence enumeration reported by paulsm on github
 === 0.0.4
-   - Fixed a bug in imported timezones reported by paulsm on github
+   - Fixes a bug in imported timezones reported by paulsm on github
 === 0.0.3
    - Added tzid method to Ruby Time and DateTime instances, and to ActiveRecord::TimeWithZone if it is defined this method is used to determine the desired
 timezone when an instance of one of these classes is given as the value of a datetime property.  If the tzid is nil then the default tzid is used,
@@ -100,6 +103,6 @@ for the DateTime property class.
      -- http://github.com/wesmaldonado/ri_cal
 
 === 0.0.2
-   - Fixed gemspec
+   - Fixes gemspec
 == 0.0.1
    - Initial public release

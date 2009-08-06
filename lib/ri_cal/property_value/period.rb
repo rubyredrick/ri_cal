@@ -26,6 +26,7 @@ module RiCal
           self.dtend   = PropertyValue::DateTime.new(self, :value => terminator)
           self.duration = PropertyValue::Duration.from_datetimes(self, dtstart.to_datetime, dtend.to_datetime)        
         end
+        @value = string
       end
       
       def ruby_value
