@@ -24,6 +24,7 @@ lib/ri_cal/component/calendar.rb
 lib/ri_cal/component/event.rb
 lib/ri_cal/component/freebusy.rb
 lib/ri_cal/component/journal.rb
+lib/ri_cal/component/non_standard.rb
 lib/ri_cal/component/t_z_info_timezone.rb
 lib/ri_cal/component/timezone.rb
 lib/ri_cal/component/timezone/daylight_period.rb

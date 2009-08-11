@@ -339,6 +339,24 @@ or another Enumerable method (RiCal::OccurrenceEnumerator includes Enumerable), 
 	   #....
 	end
 
+=== Unknown Components
+
+Starting with version 0.8.0 RiCal will parse calendars and components which contain nonstandard components.
+
+For example, there was a short-lived proposal to extend RFC2445 with a new VVENUE component which would hold structured information about the location of an event.  This proposal was never accepted and was withdrawn, but there is icalendar data in the wild which contains VVENUE components.
+
+Prior to version 0.8.0, RiCal would raise an exception if unknown component types were encountered.  Starting with version 0.8.0 RiCal will 'parse' such components and create instances of NonStandard component to represent them.  Since the actual format of unknown components is not known by RiCal, the NonStandard component will simply save the data lines between the BEGIN:xxx and END:xxx lines, (where xxx is the non-standard component name, e.g. VVENUE).  If the calendar is re-exported the original lines will be replayed.
+
+=== Change to treatment of X-properties
+
+RFC2445 allows 'non-standard' or experimental properties which property-names beginning with X.  RiCal always supported parsing these.
+
+The standard properties are specified as to how many times they can occur within a particular component.  For singly occurring properties RiCal returns a single property object, while for properties which can occur multiple times RiCal returns an array of property objects.
+
+While implementing NonStandard properties, I realized that X-properties were being assumed to be singly occurring. But this isn't necessarily true.  So starting with 0.8.0 the X-properties are represented by an array of property objects.
+
+THIS MAY BREAK SOME APPLICATIONS, but the adaptation should be easy.
+
 == REQUIREMENTS:
 
 * RiCal requires that an implementation of TZInfo::Timezone. This requirement may be satisfied by either the TzInfo gem,

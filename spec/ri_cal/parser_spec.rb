@@ -126,7 +126,7 @@ describe RiCal::Parser do
     describe "parsing an event" do
       it "should parse an event" do
         parser = RiCal::Parser.new(StringIO.new("BEGIN:VEVENT"))
-        RiCal::Component::Event.should_receive(:from_parser).with(parser, nil)
+        RiCal::Component::Event.should_receive(:from_parser).with(parser, nil, "VEVENT")
         parser.parse
       end
 
@@ -249,7 +249,7 @@ describe RiCal::Parser do
 
       it "should parse a calendar" do
         parser = RiCal::Parser.new(StringIO.new("BEGIN:VCALENDAR"))
-        RiCal::Component::Calendar.should_receive(:from_parser).with(parser, nil)
+        RiCal::Component::Calendar.should_receive(:from_parser).with(parser, nil, "VCALENDAR")
         parser.parse
       end
 
@@ -280,49 +280,54 @@ describe RiCal::Parser do
         before(:each) do
           @x_props = RiCal::Parser.parse(StringIO.new("BEGIN:VCALENDAR\nX-PROP;X-FOO=Y:BAR\nEND:VCALENDAR")).first.x_properties
           @x_prop = @x_props["X-PROP"]
-        end 
+        end
+        
+        it "should be an array of length 1" do
+          @x_prop.should be_kind_of(Array)
+          @x_prop.length.should == 1
+        end
 
-        it "should be a PropertyValue::Text" do
-          @x_prop.should be_kind_of(RiCal::PropertyValue::Text)
+        it "should have a PropertyValue::Text element" do
+          @x_prop.first.should be_kind_of(RiCal::PropertyValue::Text)
         end
 
         it "should have the right value" do
-          @x_prop.value.should == "BAR"
+          @x_prop.first.value.should == "BAR"
         end
 
         it "should have the right parameters" do
-          @x_prop.params.should == {"X-FOO" => "Y"}
+          @x_prop.first.params.should == {"X-FOO" => "Y"}
         end
       end 
     end
 
     it "should parse a to-do" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VTODO"))
-      RiCal::Component::Todo.should_receive(:from_parser).with(parser, nil)
+      RiCal::Component::Todo.should_receive(:from_parser).with(parser, nil, "VTODO")
       parser.parse
     end
 
     it "should parse a journal entry" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VJOURNAL"))
-      RiCal::Component::Journal.should_receive(:from_parser).with(parser, nil)
+      RiCal::Component::Journal.should_receive(:from_parser).with(parser, nil, "VJOURNAL")
       parser.parse
     end
 
     it "should parse a free/busy component" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VFREEBUSY"))
-      RiCal::Component::Freebusy.should_receive(:from_parser).with(parser, nil)
+      RiCal::Component::Freebusy.should_receive(:from_parser).with(parser, nil, "VFREEBUSY")
       parser.parse
     end
 
     it "should parse a timezone component" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VTIMEZONE"))
-      RiCal::Component::Timezone.should_receive(:from_parser).with(parser, nil)
+      RiCal::Component::Timezone.should_receive(:from_parser).with(parser, nil, "VTIMEZONE")
       parser.parse
     end
 
     it "should parse an alarm component" do
       parser = RiCal::Parser.new(StringIO.new("BEGIN:VALARM"))
-      RiCal::Component::Alarm.should_receive(:from_parser).with(parser, nil)
+      RiCal::Component::Alarm.should_receive(:from_parser).with(parser, nil, "VALARM")
       parser.parse
     end
   end

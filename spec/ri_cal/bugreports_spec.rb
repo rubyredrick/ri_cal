@@ -16,7 +16,7 @@ X-WR-CALDESC:TO ADD EVENTS INVITE THIS ADDRESS\;\npf44opfb12hherild7h2pl11b
  4@group.calendar.google.com\n\nThis is a public calendar to know what's com
  ing up all around the country in the technology industry.\n\nIncludes digit
  al\, internet\, web\, enterprise\, software\, hardware\, and it's various f
- lavours. \n\nFeel free to add real events. Keep it real. 
+ lavours. \n\nFeel free to add real events. Keep it real.
 BEGIN:VTIMEZONE
 TZID:Australia/Perth
 X-LIC-LOCATION:Australia/Perth
@@ -90,7 +90,7 @@ describe "http://rick_denatale.lighthouseapp.com/projects/30941/tickets/18" do
         alarm.action = 'AUDIO'
       end
     end
-    
+
     lambda {event.export}.should_not raise_error
   end
 end
@@ -127,10 +127,10 @@ DESCRIPTION:Some event
 END:VEVENT
 END:VCALENDAR
 ENDCAL
-    
+
     @event = cals.first.events.first
   end
-  
+
   it "not raise an error accessing DTSTART" do
     lambda {@event.dtstart}.should_not raise_error
   end
@@ -154,13 +154,77 @@ FREEBUSY;FBTYPE=BUSY-TENTATIVE:20090711T050000Z/20090712T050000Z
 END:VFREEBUSY
 END:VCALENDAR
 ENDCAL
-  @free_busy = cal.first.freebusys.first    
+  @free_busy = cal.first.freebusys.first
   end
-  
+
   it "should have two periods" do
     @free_busy.freebusy.map {|fb| fb.to_s}.should == [
       ";FBTYPE=BUSY:20090705T200417Z/20090707T050000Z",
       ";FBTYPE=BUSY-TENTATIVE:20090711T050000Z/20090712T050000Z"
       ]
-  end  
+  end
+end
+
+describe "a calendar including vvenue" do
+  before(:each) do
+    @cal_string = <<ENDCAL
+BEGIN:VCALENDAR
+VERSION:2.0
+X-WR-CALNAME:Upcoming Event: Film in the Park
+PRODID:-//Upcoming.org/Upcoming ICS//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:20090807T201500
+DTEND:20090807T220000
+RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20090822T000000
+GEO:-104.997;39.546
+TRANSP:TRANSPARENT
+SUMMARY:Film in the Park
+DESCRIPTION: [Full details at http://upcoming.yahoo.com/event/3082410/ ] Plan to join the HRCA family summer tradition! Bring a blanket and enjoy great FREE family movies! Mark the dates now!
+URL;VALUE=URI:http://upcoming.yahoo.com/event/3082410/
+UID:http://upcoming.yahoo.com/event/3082410/
+DTSTAMP:20090716T103006
+LAST-UPDATED:20090716T103006
+CATEGORIES:Family
+ORGANIZER;CN=mepling95:X-ADDR:http://upcoming.yahoo.com/user/637615/
+LOCATION;VENUE-UID="http://upcoming.yahoo.com/venue/130821/":Civic Green Park @ 9370 Ridgeline Boulevard\, Highlands Ranch\, Colorado 80126 US
+END:VEVENT
+BEGIN:VVENUE
+X-VVENUE-INFO:http://evdb.com/docs/ical-venue/drft-norris-ical-venue.html
+NAME:Civic Green Park
+ADDRESS:9370 Ridgeline Boulevard
+CITY:Highlands Ranch
+REGION;X-ABBREV=co:Colorado
+COUNTRY;X-ABBREV=us:United States
+POSTALCODE:80126
+GEO:39.546;-104.997
+URL;X-LABEL=Venue Info:http://www.hrmafestival.org
+END:VVENUE
+END:VCALENDAR
+ENDCAL
+
+  @venue_str = <<ENDVENUE
+BEGIN:VVENUE
+X-VVENUE-INFO:http://evdb.com/docs/ical-venue/drft-norris-ical-venue.html
+NAME:Civic Green Park
+ADDRESS:9370 Ridgeline Boulevard
+CITY:Highlands Ranch
+REGION;X-ABBREV=co:Colorado
+COUNTRY;X-ABBREV=us:United States
+POSTALCODE:80126
+GEO:39.546;-104.997
+URL;X-LABEL=Venue Info:http://www.hrmafestival.org
+END:VVENUE
+ENDVENUE
+  end
+
+  it "should parse without error" do
+    lambda {RiCal.parse_string(@cal_string)}.should_not raise_error
+  end
+  
+  it "should export correctly" do
+    export = RiCal.parse_string(@cal_string).first.export
+    export.should include(@venue_str)
+  end
 end

@@ -9,7 +9,7 @@ module RiCal
       include RiCal::Properties::Calendar
       attr_reader :tz_source #:nodoc:
 
-      def initialize(parent=nil, &init_block) #:nodoc:
+      def initialize(parent=nil,entity_name = nil, &init_block) #:nodoc:
         @tz_source = 'TZINFO' # Until otherwise told
         super
       end
@@ -239,6 +239,11 @@ module RiCal
         export_subcomponent_to(export_stream, todos)
         export_subcomponent_to(export_stream, journals)
         export_subcomponent_to(export_stream, freebusys)
+        subcomponents.each do |key, value|
+          unless %{VEVENT VTODO VJOURNAL VFREEBUSYS}.include?(key)
+            export_subcomponent_to(export_stream, value)
+          end
+        end
         export_stream.puts("END:VCALENDAR")
         if to
           nil

@@ -34,7 +34,7 @@ module RiCal
 
     attr_accessor :imported #:nodoc:
 
-    def initialize(parent=nil, &init_block) #:nodoc:
+    def initialize(parent=nil, entity_name = nil, &init_block) #:nodoc:
       @parent = parent
       if block_given?
         if init_block.arity == 1
@@ -81,8 +81,8 @@ module RiCal
       {}
     end
 
-    def self.from_parser(parser, parent) #:nodoc:
-      entity = self.new(parent)
+    def self.from_parser(parser, parent, entity_name) #:nodoc:
+      entity = self.new(parent, entity_name)
       entity.imported = true
       line = parser.next_separated_line
       while parser.still_in(entity_name, line)
@@ -142,12 +142,12 @@ module RiCal
     # return a hash of any extended properties, (i.e. those with a property name starting with "X-"
     # representing an extension to the RFC 2445 specification)
     def x_properties
-      @x_properties ||= {}
+      @x_properties ||= Hash.new {|h,k| h[k] = []}
     end
 
     # Add a n extended property
     def add_x_property(name, prop)
-      x_properties[name] = prop
+      x_properties[name] << prop
     end
 
     def method_missing(selector, *args, &b) #:nodoc:
@@ -200,8 +200,10 @@ module RiCal
     end
 
     def export_x_properties_to(export_stream) #:nodoc:
-      x_properties.each do |name, prop|
-        export_stream.puts("#{name}:#{prop}")
+      x_properties.each do |name, props|
+        props.each do | prop |
+          export_stream.puts("#{name}:#{prop}")
+        end
       end
     end
 
