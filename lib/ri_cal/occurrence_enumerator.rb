@@ -77,6 +77,7 @@ module RiCal
         @component = component
         @rrules = OccurrenceMerger.for(@component, [@component.rrule_property, @component.rdate_property].flatten.compact)
         @exrules = OccurrenceMerger.for(@component, [@component.exrule_property, @component.exdate_property].flatten.compact)
+        @yielded = 0
       end
 
       # return the next exclusion which starts at the same time or after the start time of the occurrence
@@ -101,7 +102,6 @@ module RiCal
       end
 
       def next_occurrence
-        @yielded ||= 0
         @next_exclusion ||= @exrules.next_occurrence
         occurrence = nil
 

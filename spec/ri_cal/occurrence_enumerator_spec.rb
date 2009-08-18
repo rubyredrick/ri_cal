@@ -102,8 +102,15 @@ TEXT
       it "should enumerate no occurrences if dtstart is after :before" do
         @event.occurrences(:before => @event_start - 1).should be_empty
       end
+      
+      #Bug reported by K.J. Wierenga
+      it "should not raise a NoMethodError when specifying just the :count option" do
+        lambda {
+          @event.occurrences(:count => 1)
+          }.should_not raise_error
+        end
+      end
     end
-  end
 
   describe ".each" do
     describe " for Every Friday the 13th, forever" do
