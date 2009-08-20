@@ -155,6 +155,9 @@ describe RiCal::Parser do
       
       #RFC 2445 section 4.8.1.7 pp 84
       describe_property("VEVENT", "LOCATION", {"ALTREP" => "\"http://xyzcorp.com/conf-rooms/f123.vcf\""}, "Conference Room - F123, Bldg. 002")
+
+      #Blank value with properties
+      describe_property("VEVENT", "LOCATION", {"LANGUAGE" => "en-US"}, "")
       
       #RFC 2445 section 4.8.1.8 PERCENT-COMPLETE does not apply to Events
       

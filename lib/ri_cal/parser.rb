@@ -39,7 +39,7 @@ module RiCal
     def self.params_and_value(string, optional_initial_semi = false) #:nodoc:
       string = string.sub(/^:/,'')
       return [{}, string] unless optional_initial_semi || string.match(/^;/)
-      segments = string.sub(';','').split(":")
+      segments = string.sub(';','').split(":", -1)
       return [{}, string] if segments.length < 2
       quote_count = 0
       gathering_params = true
