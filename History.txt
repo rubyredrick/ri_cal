@@ -1,3 +1,8 @@
+=== 0.8.2 - 4 September 2009
+  Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/23
+        initialization_methodsrb-syntax
+  Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/24
+        need-to-handle-empty-property-values
 === 0.8.1 - 18 August 2009
   Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/21
         exception-when-count-option-used-to-enumerate-non-recurring-event

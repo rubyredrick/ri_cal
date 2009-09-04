@@ -91,6 +91,7 @@ lib/ri_cal/property_value/text.rb
 lib/ri_cal/property_value/uri.rb
 lib/ri_cal/property_value/utc_offset.rb
 lib/ri_cal/required_timezones.rb
+performance/empty_propval/subject.rb
 performance/paris_eastern/subject.rb
 performance/penultimate_weekday/subject.rb
 performance/psm_big_enum/ical.ics
