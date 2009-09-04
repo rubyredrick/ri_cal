@@ -20,7 +20,9 @@ result = RubyProf.profile do
 end
 
 out_file = File.expand_path(File.join(File.dirname(__FILE__), %w[.. performance_data], "#{subject_name}.calltree"))
+puts "out_file is #{out_file}"
 printer = RubyProf::CallTreePrinter.new(result)
+puts "got printer"
 
 File.open(out_file, 'w') do |f|
   printer.print(f)

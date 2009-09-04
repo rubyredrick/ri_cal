@@ -5,7 +5,7 @@
 #require File.dirname(__FILE__) + '/lib/ri_cal'
 
 require 'rubygems'
-gem 'hoe', '>= 2.1.0'
+gem 'hoe', '>=2.1.0'
 require 'hoe'
 require 'fileutils'
 require './lib/ri_cal'
@@ -23,7 +23,7 @@ $hoe = Hoe.spec('ri_cal') do |p|
   p.readme_file = "README.txt"
   p.extra_dev_deps = [
     ['newgem', ">= #{::Newgem::VERSION}"],
-    'ruby-prof'
+    ['ruby-prof', ">= 0"]
   ]
 
   p.clean_globs |= %w[**/.DS_Store tmp *.log]
