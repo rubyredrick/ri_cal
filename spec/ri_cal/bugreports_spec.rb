@@ -106,13 +106,13 @@ BEGIN:VTIMEZONE
 TZID:(GMT-05.00) Eastern Time (US & Canada)
 X-MICROSOFT-CDO-TZID:10
 BEGIN:STANDARD
-DTSTART:16010101T020000
+DTSTART:20010101T020000
 TZOFFSETFROM:-0400
 TZOFFSETTO:-0500
 RRULE:FREQ=YEARLY;WKST=MO;INTERVAL=1;BYMONTH=11;BYDAY=1SU
 END:STANDARD
 BEGIN:DAYLIGHT
-DTSTART:16010101T020000
+DTSTART:20010101T020000
 TZOFFSETFROM:-0500
 TZOFFSETTO:-0400
 RRULE:FREQ=YEARLY;WKST=MO;INTERVAL=1;BYMONTH=3;BYDAY=2SU
@@ -226,5 +226,14 @@ ENDVENUE
   it "should export correctly" do
     export = RiCal.parse_string(@cal_string).first.export
     export.should include(@venue_str)
+  end
+end
+
+context "ticket #23" do
+  describe "RecurrenceRule" do
+    it "should convert the rrule string to a hash" do
+      rrule = RiCal::PropertyValue::RecurrenceRule.convert(nil, 'INTERVAL=2;FREQ=WEEKLY;BYDAY=TH,TU')
+      rrule.to_options_hash.should == {:freq => 'WEEKLY', :byday => %w{TH TU}, :interval => 2}
+    end
   end
 end

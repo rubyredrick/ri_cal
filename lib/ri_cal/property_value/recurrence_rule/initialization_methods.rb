@@ -14,7 +14,7 @@ module RiCal
         
         def add_byrule_strings_to_options_hash(options_hash, key)
           if (rules = by_list[key])
-            if rules.length = 1
+            if rules.length == 1
               options_hash[key] = rules.first.source
             else
               options_hash[key] = rules.map {|rule| rule.source}
