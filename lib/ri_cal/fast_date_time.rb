@@ -130,7 +130,7 @@ module RiCal
         [day_delta, new_secs_since_bod]
       elsif new_secs_since_bod > 0
         [day_delta + (new_secs_since_bod / SECONDS_IN_A_DAY), new_secs_since_bod % SECONDS_IN_A_DAY]
-      else new_secs_since_bod
+      else
         [day_delta - (1 + new_secs_since_bod.abs / SECONDS_IN_A_DAY), 
          SECONDS_IN_A_DAY - (new_secs_since_bod.abs % SECONDS_IN_A_DAY)]
       end
