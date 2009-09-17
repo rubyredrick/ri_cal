@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), %w[.. properties alarm.rb])
-
 module RiCal
 
   class Component
