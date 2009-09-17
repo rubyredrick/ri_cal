@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), %w[.. properties timezone.rb])
-
 module RiCal
   class Component
     #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
@@ -10,6 +8,11 @@ module RiCal
     #
     # to see the property accessing methods for this class see the RiCal::Properties::Timezone module
     class Timezone < Component
+      
+      autoload :TimezonePeriod, "ri_cal/component/timezone/timezone_period.rb"
+      autoload :StandardPeriod, "ri_cal/component/timezone/standard_period.rb"
+      autoload :DaylightPeriod, "ri_cal/component/timezone/daylight_period.rb"
+      
       include RiCal::Properties::Timezone
 
         # The identifier of the timezone, e.g. "Europe/Paris".
@@ -192,6 +195,3 @@ module RiCal
 end
 
 
-%w[timezone_period.rb daylight_period.rb standard_period.rb].each do |filename|
-  require "#{File.dirname(__FILE__)}/timezone/#{filename}"
-end

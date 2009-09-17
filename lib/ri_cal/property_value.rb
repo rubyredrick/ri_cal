@@ -3,6 +3,20 @@ module RiCal
   #
   # PropertyValue provides common implementation of various RFC 2445 property value types
   class PropertyValue
+    
+    autoload :Array, "ri_cal/property_value/array.rb"
+    autoload :CalAddress, "ri_cal/property_value/cal_address.rb"
+    autoload :Date, "ri_cal/property_value/date.rb"
+    autoload :DateTime, "ri_cal/property_value/date_time.rb"
+    autoload :Duration, "ri_cal/property_value/duration.rb"
+    autoload :Geo, "ri_cal/property_value/geo.rb"
+    autoload :Integer, "ri_cal/property_value/integer.rb"
+    autoload :OccurrenceList, "ri_cal/property_value/occurrence_list.rb"
+    autoload :Period, "ri_cal/property_value/period.rb"
+    autoload :RecurrenceRule, "ri_cal/property_value/recurrence_rule.rb"
+    autoload :Text, "ri_cal/property_value/text.rb"
+    autoload :Uri, "ri_cal/property_value/uri.rb"
+    autoload :UtcOffset, "ri_cal/property_value/utc_offset.rb"
 
     attr_writer :params, :value #:nodoc:
     attr_reader :timezone_finder #:nodoc:
@@ -141,9 +155,4 @@ module RiCal
       end
     end
   end
-end
-
-Dir[File.dirname(__FILE__) + "/property_value/*.rb"].sort.each do |path|
-  filename = File.basename(path)
-  require path
 end

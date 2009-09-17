@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/array/conversions.rb"
+require "ri_cal/core_extensions/array/conversions.rb"
 class Array #:nodoc:
   #- ©2009 Rick DeNatale
   #- All rights reserved. Refer to the file README.txt for the license

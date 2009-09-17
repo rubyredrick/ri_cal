@@ -1,7 +1,7 @@
-require "#{File.dirname(__FILE__)}/date_time/conversions.rb"
-require "#{File.dirname(__FILE__)}/time/tzid_access.rb"
-require "#{File.dirname(__FILE__)}/time/week_day_predicates.rb"
-require "#{File.dirname(__FILE__)}/time/calculations.rb"
+require "ri_cal/core_extensions/date_time/conversions.rb"
+require "ri_cal/core_extensions/time/tzid_access.rb"
+require "ri_cal/core_extensions/time/week_day_predicates.rb"
+require "ri_cal/core_extensions/time/calculations.rb"
 require 'date'
 
 class DateTime #:nodoc:

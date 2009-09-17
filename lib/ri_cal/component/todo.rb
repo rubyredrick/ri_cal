@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), %w[.. properties todo.rb])
-
 module RiCal
   class Component
     #- ©2009 Rick DeNatale

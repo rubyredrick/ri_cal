@@ -2,6 +2,17 @@ module RiCal
   #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
   #
   class Component #:nodoc:
+
+    autoload :Alarm, "ri_cal/component/alarm.rb"
+    autoload :Calendar, "ri_cal/component/calendar.rb"
+    autoload :Event, "ri_cal/component/event.rb"
+    autoload :Freebusy, "ri_cal/component/freebusy.rb"
+    autoload :Journal, "ri_cal/component/journal.rb"
+    autoload :NonStandard, "ri_cal/component/non_standard.rb"
+    autoload :TZInfoTimezone, "ri_cal/component/t_z_info_timezone.rb"
+    autoload :Timezone, "ri_cal/component/timezone.rb"
+    autoload :Todo, "ri_cal/component/todo.rb"
+
     class ComponentBuilder #:nodoc:
       def initialize(component)
         @component = component
@@ -29,8 +40,6 @@ module RiCal
         end
       end
     end
-
-    autoload :Timezone, "#{File.dirname(__FILE__)}/component/timezone.rb"
 
     attr_accessor :imported #:nodoc:
 
@@ -241,9 +250,4 @@ module RiCal
       wrapper_calendar.export(stream)
     end
   end
-end
-
-Dir[File.dirname(__FILE__) + "/component/*.rb"].sort.each do |path|
-  filename = File.basename(path)
-  require path
 end

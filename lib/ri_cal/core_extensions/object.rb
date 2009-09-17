@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/object/conversions.rb"
+require "ri_cal/core_extensions/object/conversions.rb"
 
 class Object #:nodoc:
   #- ©2009 Rick DeNatale

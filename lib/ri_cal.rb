@@ -9,18 +9,21 @@ module RiCal
   
   my_dir =  File.dirname(__FILE__)
   
-  autoload :Component, "#{my_dir}/ri_cal/component.rb"
-  autoload :CoreExtensions, "#{my_dir}/ri_cal/core_extensions.rb" 
-  autoload :FastDateTime, "#{my_dir}/ri_cal/fast_date_time.rb" 
-  autoload :FloatingTimezone, "#{my_dir}/ri_cal/floating_timezone.rb" 
-  autoload :InvalidPropertyValue, "#{my_dir}/ri_cal/invalid_property_value.rb" 
-  autoload :InvalidTimezoneIdentifier, "#{my_dir}/ri_cal/invalid_timezone_identifier.rb" 
-  autoload :OccurrenceEnumerator, "#{my_dir}/ri_cal/occurrence_enumerator.rb"
-  autoload :OccurrencePeriod, "#{my_dir}/ri_cal/occurrence_period.rb"
-  autoload :TimezonePeriod, "#{my_dir}/ri_cal/properties/timezone_period.rb"
-  autoload :Parser, "#{my_dir}/ri_cal/parser.rb" 
-  autoload :PropertyValue, "#{my_dir}/ri_cal/property_value.rb" 
-  autoload :RequiredTimezones, "#{my_dir}/ri_cal/required_timezones.rb" 
+  $LOAD_PATH << my_dir unless $LOAD_PATH.include?(my_dir)
+  
+  autoload :Component, "ri_cal/component.rb"
+  autoload :CoreExtensions, "ri_cal/core_extensions.rb" 
+  autoload :FastDateTime, "ri_cal/fast_date_time.rb" 
+  autoload :FloatingTimezone, "ri_cal/floating_timezone.rb" 
+  autoload :InvalidPropertyValue, "ri_cal/invalid_property_value.rb" 
+  autoload :InvalidTimezoneIdentifier, "ri_cal/invalid_timezone_identifier.rb" 
+  autoload :OccurrenceEnumerator, "ri_cal/occurrence_enumerator.rb"
+  autoload :OccurrencePeriod, "ri_cal/occurrence_period.rb"
+  autoload :TimezonePeriod, "ri_cal/properties/timezone_period.rb"
+  autoload :Parser, "ri_cal/parser.rb"
+  autoload :Properties, "ri_cal/properties.rb"
+  autoload :PropertyValue, "ri_cal/property_value.rb" 
+  autoload :RequiredTimezones, "ri_cal/required_timezones.rb" 
   # :stopdoc:
   VERSION = '0.8.2'
   LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR

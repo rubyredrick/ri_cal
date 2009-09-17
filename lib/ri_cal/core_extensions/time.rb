@@ -1,10 +1,11 @@
-require "#{File.dirname(__FILE__)}/time/conversions.rb"
-require "#{File.dirname(__FILE__)}/time/tzid_access.rb"
-require "#{File.dirname(__FILE__)}/time/week_day_predicates.rb"
-require "#{File.dirname(__FILE__)}/time/calculations.rb"
 #- ©2009 Rick DeNatale
 #- All rights reserved. Refer to the file README.txt for the license
 #
+require "ri_cal/core_extensions/time/conversions.rb"
+require "ri_cal/core_extensions/time/tzid_access.rb"
+require "ri_cal/core_extensions/time/week_day_predicates.rb"
+require "ri_cal/core_extensions/time/calculations.rb"
+
 class Time #:nodoc:
   include RiCal::CoreExtensions::Time::WeekDayPredicates
   include RiCal::CoreExtensions::Time::Calculations  

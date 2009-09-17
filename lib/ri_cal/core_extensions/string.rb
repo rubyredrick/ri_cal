@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/string/conversions.rb"
+require "ri_cal/core_extensions/string/conversions.rb"
 
 class String #:nodoc:
   #- ©2009 Rick DeNatale

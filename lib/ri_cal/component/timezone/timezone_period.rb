@@ -1,5 +1,3 @@
-require File.join(File.dirname(__FILE__), %w[.. .. properties timezone_period.rb])
-
 module RiCal
   class Component
     class Timezone
