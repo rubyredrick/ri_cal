@@ -10,6 +10,17 @@ module RiCal
   my_dir =  File.dirname(__FILE__)
   
   $LOAD_PATH << my_dir unless $LOAD_PATH.include?(my_dir)
+
+  if Object.const_defined?(:ActiveSupport)
+    as = Object.const_get(:ActiveSupport)
+    if as.const_defined?(:TimeWithZone)
+      time_with_zone = as.const_get(:TimeWithZone)
+    end
+  end
+  
+  # TimeWithZone will be set to ActiveSupport::TimeWithZone if the activesupport gem is loaded
+  # otherwise it will be nil
+  TimeWithZone = time_with_zone  
   
   autoload :Component, "ri_cal/component.rb"
   autoload :CoreExtensions, "ri_cal/core_extensions.rb" 
@@ -24,6 +35,7 @@ module RiCal
   autoload :Properties, "ri_cal/properties.rb"
   autoload :PropertyValue, "ri_cal/property_value.rb" 
   autoload :RequiredTimezones, "ri_cal/required_timezones.rb" 
+  require "ri_cal/core_extensions.rb"
   # :stopdoc:
   VERSION = '0.8.2'
   LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
@@ -133,17 +145,6 @@ module RiCal
   def self.TimezonePeriod(&init_block)
     Component::TimezonePeriod.new(&init_block)
   end
-
-  if Object.const_defined?(:ActiveSupport)
-    as = Object.const_get(:ActiveSupport)
-    if as.const_defined?(:TimeWithZone)
-      time_with_zone = as.const_get(:TimeWithZone)
-    end
-  end
-  
-  # TimeWithZone will be set to ActiveSupport::TimeWithZone if the activesupport gem is loaded
-  # otherwise it will be nil
-  TimeWithZone = time_with_zone
 
   # return a new Todo calendar component.  If a block is provided it will will be executed in
   # the context of a builder object which can be used to initialize the properties and alarms of the 

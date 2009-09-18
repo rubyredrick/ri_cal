@@ -17,7 +17,7 @@ module RiCal
           @setpos_list = setpos_list
           @setpos = 1
           @next_occurrence_count = 0
-          @incrementer = YearlyIncrementer.from_rrule(recurrence_rule, start_time)
+          @incrementer = recurrence_rule.incrementer_from_start_time(start_time)
         end
 
         def self.for(recurrence_rule, component, setpos_list) # :nodoc:

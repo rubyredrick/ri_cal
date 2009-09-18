@@ -8,15 +8,16 @@ module RiCal
     class RecurrenceRule < PropertyValue
       
       autoload :EnumerationSupportMethods, "ri_cal/property_value/recurrence_rule/enumeration_support_methods.rb"
+      autoload :OccurrenceIncrementer,     "ri_cal/property_value/recurrence_rule/occurrence_incrementer.rb"
       autoload :Enumerator, "ri_cal/property_value/recurrence_rule/enumerator.rb"
       autoload :InitializationMethods, "ri_cal/property_value/recurrence_rule/initialization_methods.rb"
       autoload :NegativeSetposEnumerator, "ri_cal/property_value/recurrence_rule/negative_setpos_enumerator.rb"
       autoload :NumberedSpan, "ri_cal/property_value/recurrence_rule/numbered_span.rb"
-      autoload :OccurrenceIncrementer, "ri_cal/property_value/recurrence_rule/occurrence_incrementer.rb"
       autoload :RecurringDay, "ri_cal/property_value/recurrence_rule/recurring_day.rb"
-      autoload :RecurringDay, "ri_cal/property_value/recurrence_rule/recurring_month_day.rb"
+      autoload :RecurringMonthDay, "ri_cal/property_value/recurrence_rule/recurring_month_day.rb"
       autoload :RecurringNumberedWeek, "ri_cal/property_value/recurrence_rule/recurring_numbered_week.rb"
       autoload :RecurringYearDay, "ri_cal/property_value/recurrence_rule/recurring_year_day.rb"
+      autoload :TimeManipulation, "ri_cal/property_value/recurrence_rule/time_manipulation.rb"
       autoload :Validations, "ri_cal/property_value/recurrence_rule/validations.rb"
       
       def initialize(parent, value_hash) # :nodoc:

@@ -34,7 +34,7 @@ module RiCal
       end
 
       def self.convert(parent, ruby_object) # :nodoc:
-        ruby_object.to_ri_cal_duration_value.for_parent(parent)
+        ruby_object.to_ri_cal_duration_value
       end
 
       def value=(string) # :nodoc:
