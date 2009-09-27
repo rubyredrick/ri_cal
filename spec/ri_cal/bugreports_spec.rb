@@ -237,3 +237,13 @@ context "ticket #23" do
     end
   end
 end
+
+context "ticket #26" do
+  context "Date property" do
+    it "should handle for_parent" do
+      lambda {
+      RiCal::PropertyValue::Date.convert(:foo, Date.parse("20090927")).for_parent(:bar)}.should_not raise_error
+    end
+  end
+end
+

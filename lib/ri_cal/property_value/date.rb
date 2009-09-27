@@ -91,6 +91,17 @@ module RiCal
         self
       end
 
+      def for_parent(parent) #:nodoc:
+        if timezone_finder.nil?
+          @timezone_finder = parent
+          self
+        elsif parent == timezone_finder
+          self
+        else
+          Date.new(parent, :value => @date_time_value)
+        end
+      end
+
       def advance(options) #:nodoc:
         PropertyValue::Date.new(timezone_finder, :value => @date_time_value.advance(options), :params =>(params ? params.dup : nil) )
       end

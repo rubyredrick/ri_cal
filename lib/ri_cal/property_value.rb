@@ -53,7 +53,7 @@ module RiCal
       options_hash = {:value => value}
       options_hash[:params] = params unless params.empty?
     end
-
+    
     def self.date_or_date_time(timezone_finder, separated_line) # :nodoc:
       match = separated_line[:value].match(/(\d\d\d\d)(\d\d)(\d\d)((T?)((\d\d)(\d\d)(\d\d))(Z?))?/)
       raise Exception.new("Invalid date") unless match

@@ -4,10 +4,14 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib ri_cal]))
 require 'cgi'
 require 'tzinfo'
 
+
 module Kernel
-  def rputs(*args)
-    puts *["<pre>", args.collect {|a| CGI.escapeHTML(a.to_s)}, "</pre>"] #if RiCal.debug
-    # puts *args
+  if ENV.keys.find {|env_var| env_var.match(/^TM_/)}
+    def rputs(*args)
+      puts( *["<pre>", args.collect {|a| CGI.escapeHTML(a.to_s)}, "</pre>"])
+    end
+  else
+    alias_method :rputs, :puts
   end
 end
 

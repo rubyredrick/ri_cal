@@ -1,4 +1,4 @@
-=== 0.8.3 - 18 September 2009
+=== 0.8.4 - 18 September 2009
   Refactored load structure, should now be conforming to    
         http://weblog.rubyonrails.org/2009/9/1/gem-packaging-best-practices
     I did finesse the load path issue a bit as a workaround to RSpec not putting lib on $LOADPATH
@@ -8,6 +8,8 @@
      please clean your code up to be quiet
      
    Thanks to Ryan for such a courteous problem report.
+=== 0.8.3 - 18 September 2009
+   Released with bad gemspec
 === 0.8.2 - 4 September 2009
   Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/23
         initialization_methodsrb-syntax
