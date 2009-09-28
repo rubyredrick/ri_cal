@@ -1,3 +1,6 @@
+=== 0.8.5
+  Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/26
+    events with date parameters failing
 === 0.8.4 - 18 September 2009
   Refactored load structure, should now be conforming to    
         http://weblog.rubyonrails.org/2009/9/1/gem-packaging-best-practices

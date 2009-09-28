@@ -37,7 +37,7 @@ module RiCal
   autoload :RequiredTimezones, "ri_cal/required_timezones.rb" 
   require "ri_cal/core_extensions.rb"
   # :stopdoc:
-  VERSION = '0.8.4'
+  VERSION = '0.8.5'
   LIBPATH = ::File.expand_path(::File.dirname(__FILE__)) + ::File::SEPARATOR
   PATH = ::File.dirname(LIBPATH) + ::File::SEPARATOR
 
