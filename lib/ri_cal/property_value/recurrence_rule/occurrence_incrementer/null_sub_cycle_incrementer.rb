@@ -11,6 +11,10 @@ module RiCal
 
           def self.add_outer_incrementer(incrementer)
           end
+          
+          def self.unneeded?(candidate)
+            true
+          end
 
           def self.first_within_outer_cycle(previous_occurrence, outer_cycle_range)
             outer_cycle_range.first

@@ -42,9 +42,13 @@ module RiCal
         def target_date_time_for(date_time)
           matches_for(date_time)[0]
         end
+        
+        def fixed_day?
+          @source > 0
+        end
 
         def target_for(date_or_time)
-          if @source > 0
+          if fixed_day?
             @source
           else
             date_or_time.days_in_month + @source + 1

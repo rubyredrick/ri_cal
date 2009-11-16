@@ -9,6 +9,10 @@ module RiCal
           def daily_incrementer?
             true
           end
+          
+          def unneeded?(candidate)
+            list.length == 1 && list.first.fixed_day?
+          end
 
           def occurrences_for(date_time)
             if occurrences && @scoping_value == scope_of(date_time)
@@ -24,7 +28,7 @@ module RiCal
             date_time.end_of_day
           end
 
-          def candidate_acceptible?(candidate)
+          def candidate_acceptable?(candidate)
             list.any? {|by_part| by_part.include?(candidate)}
           end
         end

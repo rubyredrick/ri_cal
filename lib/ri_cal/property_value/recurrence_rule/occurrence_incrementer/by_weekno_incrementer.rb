@@ -20,6 +20,10 @@ module RiCal
           def weeknum_incrementer?
             true
           end
+          
+          def unneeded?(candidate)
+            false
+          end
 
           def first_within_outer_cycle(previous_occurrence, outer_range)
             new_range_start = outer_range.first
@@ -47,7 +51,7 @@ module RiCal
             weeks.map {|wk_num| week_one_occurrence.advance(:days => (wk_num - 1) * 7)}
           end
 
-          def candidate_acceptible?(candidate)
+          def candidate_acceptable?(candidate)
             list.include?(candidate.iso_week_num(wkst))
           end
 

@@ -8,7 +8,7 @@ module RiCal
           def self.for_rrule(rrule)
             conditional_incrementer(rrule, :bymonthday, DailyIncrementer)
           end
-
+          
           def scope_of(date_time)
             date_time.month
           end

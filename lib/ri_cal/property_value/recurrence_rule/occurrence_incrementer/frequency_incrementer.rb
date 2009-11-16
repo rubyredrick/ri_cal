@@ -33,6 +33,14 @@ module RiCal
           def step(occurrence)
             occurrence.advance(advance_what => (interval * multiplier))
           end
+          
+          def sub_cycle_incrementer
+            if @sub_cycle_incrementer.unneeded?(current_occurrence || @previous_occurrence)
+              NullSubCycleIncrementer
+            else
+              super
+            end
+          end
 
           def first_within_outer_cycle(previous_occurrence, outer_cycle_range)
             if outer_range
@@ -46,6 +54,7 @@ module RiCal
 
           # Advance to the next occurrence, if the result is within the current cycles of all outer incrementers
           def next_cycle(previous_occurrence)
+            @sub_cycle_dtstart = previous_occurrence
             if current_occurrence
               candidate = sub_cycle_incrementer.cycle_adjust(step(current_occurrence))
             else

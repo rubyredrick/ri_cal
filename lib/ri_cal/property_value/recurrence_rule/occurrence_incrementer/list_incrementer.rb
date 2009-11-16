@@ -40,6 +40,16 @@ module RiCal
               nil
             end
           end
+          
+          def unneeded?(candidate)
+            sub_cycle_incrementer.unneeded?(candidate) &&
+            list.length == 1 && 
+            candidate_acceptable?(candidate)
+          end
+          
+          def candidate_acceptable?(candidate)
+            list.any? {|value| candidate.send(varying_time_attribute) == value}
+          end
 
           def first_within_outer_cycle(previous_occurrence, outer_range)
             self.outer_range = outer_range
@@ -47,7 +57,7 @@ module RiCal
             occurrences.each { |occurrence|
               sub = sub_cycle_incrementer.first_within_outer_cycle(previous_occurrence, update_cycle_range(occurrence))
               return sub if sub && sub > previous_occurrence
-              }
+            }
             nil
           end
 

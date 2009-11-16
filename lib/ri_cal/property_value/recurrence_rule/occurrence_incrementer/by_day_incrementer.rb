@@ -39,6 +39,10 @@ module RiCal
               OccurrenceIncrementer::ByYeardayIncrementer.for_rrule(rrule)
             end
           end
+          
+          def unneeded?(candidate)
+            false
+          end
 
           def daily_incrementer?
             true
@@ -60,7 +64,7 @@ module RiCal
             result
           end
 
-          def candidate_acceptible?(candidate)
+          def candidate_acceptable?(candidate)
             list.any? {|recurring_day| recurring_day.include?(candidate)}
           end
 

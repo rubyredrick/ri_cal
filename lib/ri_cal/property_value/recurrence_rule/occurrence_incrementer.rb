@@ -78,6 +78,7 @@ module RiCal
         # But the occurrence is outside the current cycle of any outer incrementer(s) return
         # nil which will cause the outer incrementer to step to its next cycle.
         def next_time(previous_occurrence)
+          @previous_occurrence = previous_occurrence
           if current_occurrence
             sub_occurrence = sub_cycle_incrementer.next_time(previous_occurrence)
           else #first time
