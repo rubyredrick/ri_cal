@@ -38,12 +38,6 @@ module RiCal
             ::Date.new(year, month, day)
           end
 
-          # Attempts to convert self to a Ruby Time object; returns self if out of range of Ruby Time class
-          # If self has an offset other than 0, self will just be returned unaltered, since there's no clean way to map it to a Time
-          def to_time
-            self.offset == 0 ? ::Time.utc_time(year, month, day, hour, min, sec) : self
-          end
-
           # To be able to keep Times, Dates and DateTimes interchangeable on conversions
           def to_datetime
             self
