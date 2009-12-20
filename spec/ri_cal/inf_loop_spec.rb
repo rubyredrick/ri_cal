@@ -59,20 +59,20 @@ END_STR
       }
   end
   
-  describe "with a dtstart outside the recurrence rule" do
-    before(:each) do
-      @event.dtstart = Date.parse("July 12, 1940")
-    end
-    
-    it "should enumerate 10 events first July 12, 1940, July 13, 1940, July 13, 1941 when count is 3" do
-      @event.occurrences(:count => 3).map {|occurrence| occurrence.dtstart.to_s}.should == [
-        Date.parse("July 12, 1940").to_s,
-        Date.parse("July 13, 1940").to_s,
-        Date.parse("July 13, 1941").to_s
-      ]
-        
-    end
-  
-  end
+  # describe "with a dtstart outside the recurrence rule" do
+  #   before(:each) do
+  #     @event.dtstart = Date.parse("July 12, 1940")
+  #   end
+  #   
+  #   it "should enumerate 10 events first July 12, 1940, July 13, 1940, July 13, 1941 when count is 3" do
+  #     @event.occurrences(:count => 3).map {|occurrence| occurrence.dtstart.to_s}.should == [
+  #       Date.parse("July 12, 1940").to_s,
+  #       Date.parse("July 13, 1940").to_s,
+  #       Date.parse("July 13, 1941").to_s
+  #     ]
+  #       
+  #   end
+  # 
+  # end
   
 end
