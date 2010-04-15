@@ -40,6 +40,7 @@ if RiCal::TimeWithZone
   def result_time_in_zone(year, month, day, hour, min, sec, tzid, alternate_offset = nil)
     DateTime.civil(year, month, day, hour, min, sec, 
        offset_for_tzid(year, month, day, hour, min, sec, tzid, alternate_offset)).in_time_zone(tzid)
+    puts "#{result} #{result.inspect}"
   end
 else
   def result_time_in_zone(year, month, day, hour, min, sec, tzid, alternate_offset = nil)

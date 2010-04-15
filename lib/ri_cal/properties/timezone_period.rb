@@ -359,23 +359,23 @@ module RiCal
       end
 
       def export_properties_to(export_stream) #:nodoc:
+        export_prop_to(export_stream, "RDATE", @rdate_property)
         export_prop_to(export_stream, "TZOFFSETTO", @tzoffsetto_property)
         export_prop_to(export_stream, "DTSTART", @dtstart_property)
-        export_prop_to(export_stream, "RRULE", @rrule_property)
-        export_prop_to(export_stream, "TZOFFSETFROM", @tzoffsetfrom_property)
         export_prop_to(export_stream, "TZNAME", @tzname_property)
-        export_prop_to(export_stream, "RDATE", @rdate_property)
+        export_prop_to(export_stream, "TZOFFSETFROM", @tzoffsetfrom_property)
+        export_prop_to(export_stream, "RRULE", @rrule_property)
         export_prop_to(export_stream, "COMMENT", @comment_property)
       end
 
       def ==(o) #:nodoc:
         if o.class == self.class
+        (rdate_property == o.rdate_property) &&
         (tzoffsetto_property == o.tzoffsetto_property) &&
         (dtstart_property == o.dtstart_property) &&
-        (rrule_property == o.rrule_property) &&
-        (tzoffsetfrom_property == o.tzoffsetfrom_property) &&
         (tzname_property == o.tzname_property) &&
-        (rdate_property == o.rdate_property) &&
+        (tzoffsetfrom_property == o.tzoffsetfrom_property) &&
+        (rrule_property == o.rrule_property) &&
         (comment_property == o.comment_property)
         else
            super
@@ -384,12 +384,12 @@ module RiCal
 
       def initialize_copy(o) #:nodoc:
         super
+        rdate_property = rdate_property && rdate_property.dup
         tzoffsetto_property = tzoffsetto_property && tzoffsetto_property.dup
         dtstart_property = dtstart_property && dtstart_property.dup
-        rrule_property = rrule_property && rrule_property.dup
-        tzoffsetfrom_property = tzoffsetfrom_property && tzoffsetfrom_property.dup
         tzname_property = tzname_property && tzname_property.dup
-        rdate_property = rdate_property && rdate_property.dup
+        tzoffsetfrom_property = tzoffsetfrom_property && tzoffsetfrom_property.dup
+        rrule_property = rrule_property && rrule_property.dup
         comment_property = comment_property && comment_property.dup
       end
 
@@ -400,7 +400,7 @@ module RiCal
 
       module ClassMethods #:nodoc:
         def property_parser #:nodoc:
-          {"RDATE"=>:rdate_property_from_string, "DTSTART"=>:dtstart_property_from_string, "TZNAME"=>:tzname_property_from_string, "RRULE"=>:rrule_property_from_string, "TZOFFSETFROM"=>:tzoffsetfrom_property_from_string, "COMMENT"=>:comment_property_from_string, "TZOFFSETTO"=>:tzoffsetto_property_from_string}
+          {"RDATE"=>:rdate_property_from_string, "COMMENT"=>:comment_property_from_string, "RRULE"=>:rrule_property_from_string, "TZOFFSETFROM"=>:tzoffsetfrom_property_from_string, "TZNAME"=>:tzname_property_from_string, "TZOFFSETTO"=>:tzoffsetto_property_from_string, "DTSTART"=>:dtstart_property_from_string}
         end
       end
 

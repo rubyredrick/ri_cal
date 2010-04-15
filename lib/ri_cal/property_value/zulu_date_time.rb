@@ -6,11 +6,29 @@ module RiCal
     # RiCal::PropertyValue::CalAddress represents an icalendar CalAddress property value
     # which is defined in RFC 2445 section 4.3.5 pp 35-37
     class ZuluDateTime < PropertyValue::DateTime
+      
+      def tzid
+        "UTC"
+      end
 
       def value=(val) # :nodoc:
-        super
+        if DateTime === val
+          @date_time_value = val
+        else
+          super(val)
+        end
         @date_time_value = @date_time_value.utc if @date_time_value
       end
+      
+      def to_ri_cal_zulu_date_time
+        self
+      end
+      
+      def self.convert(timezone_finder, ruby_object) # :nodoc:
+          result = super
+          result.to_ri_cal_zulu_date_time
+      end
+      
     end
   end
 end

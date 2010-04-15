@@ -41,7 +41,7 @@ module RiCal
 
 
       # return the the LAST-MODIFIED property
-      # which will be an instances of RiCal::PropertyValueDateTime
+      # which will be an instances of RiCal::PropertyValueZuluDateTime
       # 
       # [purpose (from RFC 2445)]
       # This property specifies the date and time that the information associated with the calendar component was last revised in teh calendar store.
@@ -52,24 +52,24 @@ module RiCal
       end
 
       # set the LAST-MODIFIED property
-      # property value should be an instance of RiCal::PropertyValueDateTime
+      # property value should be an instance of RiCal::PropertyValueZuluDateTime
       def last_modified_property=(property_value)
-        @last_modified_property = property_value ? property_value.for_parent(self) : nil
+        @last_modified_property = property_value
       end
 
       # set the value of the LAST-MODIFIED property
       def last_modified=(ruby_value)
-        self.last_modified_property= RiCal::PropertyValue::DateTime.convert(self, ruby_value)
+        self.last_modified_property= RiCal::PropertyValue::ZuluDateTime.convert(self, ruby_value)
       end
 
       # return the value of the LAST-MODIFIED property
-      # which will be an instance of DateTime
+      # which will be an instance of ZuluDateTime
       def last_modified
         last_modified_property ? last_modified_property.ruby_value : nil
       end
 
       def last_modified_property_from_string(line) # :nodoc:
-        @last_modified_property = RiCal::PropertyValue::DateTime.new(self, line)
+        @last_modified_property = RiCal::PropertyValue::ZuluDateTime.new(self, line)
       end
 
 
@@ -107,15 +107,15 @@ module RiCal
 
 
       def export_properties_to(export_stream) #:nodoc:
-        export_prop_to(export_stream, "LAST-MODIFIED", @last_modified_property)
         export_prop_to(export_stream, "TZURL", @tzurl_property)
+        export_prop_to(export_stream, "LAST-MODIFIED", @last_modified_property)
         export_prop_to(export_stream, "TZID", @tzid_property)
       end
 
       def ==(o) #:nodoc:
         if o.class == self.class
-        (last_modified_property == o.last_modified_property) &&
         (tzurl_property == o.tzurl_property) &&
+        (last_modified_property == o.last_modified_property) &&
         (tzid_property == o.tzid_property)
         else
            super
@@ -124,18 +124,17 @@ module RiCal
 
       def initialize_copy(o) #:nodoc:
         super
-        last_modified_property = last_modified_property && last_modified_property.dup
         tzurl_property = tzurl_property && tzurl_property.dup
+        last_modified_property = last_modified_property && last_modified_property.dup
         tzid_property = tzid_property && tzid_property.dup
       end
 
       def add_date_times_to(required_timezones) #:nodoc:
-        add_property_date_times_to(required_timezones, last_modified_property)
       end
 
       module ClassMethods #:nodoc:
         def property_parser #:nodoc:
-          {"TZID"=>:tzid_property_from_string, "TZURL"=>:tzurl_property_from_string, "LAST-MODIFIED"=>:last_modified_property_from_string}
+          {"TZURL"=>:tzurl_property_from_string, "TZID"=>:tzid_property_from_string, "LAST-MODIFIED"=>:last_modified_property_from_string}
         end
       end
 

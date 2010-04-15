@@ -332,26 +332,26 @@ module RiCal
       end
 
       def export_properties_to(export_stream) #:nodoc:
-        export_prop_to(export_stream, "ACTION", @action_property)
-        export_prop_to(export_stream, "ATTENDEE", @attendee_property)
         export_prop_to(export_stream, "DURATION", @duration_property)
+        export_prop_to(export_stream, "ATTENDEE", @attendee_property)
         export_prop_to(export_stream, "TRIGGER", @trigger_property)
         export_prop_to(export_stream, "DESCRIPTION", @description_property)
         export_prop_to(export_stream, "SUMMARY", @summary_property)
         export_prop_to(export_stream, "REPEAT", @repeat_property)
         export_prop_to(export_stream, "ATTACH", @attach_property)
+        export_prop_to(export_stream, "ACTION", @action_property)
       end
 
       def ==(o) #:nodoc:
         if o.class == self.class
-        (action_property == o.action_property) &&
-        (attendee_property == o.attendee_property) &&
         (duration_property == o.duration_property) &&
+        (attendee_property == o.attendee_property) &&
         (trigger_property == o.trigger_property) &&
         (description_property == o.description_property) &&
         (summary_property == o.summary_property) &&
         (repeat_property == o.repeat_property) &&
-        (attach_property == o.attach_property)
+        (attach_property == o.attach_property) &&
+        (action_property == o.action_property)
         else
            super
         end
@@ -359,14 +359,14 @@ module RiCal
 
       def initialize_copy(o) #:nodoc:
         super
-        action_property = action_property && action_property.dup
-        attendee_property = attendee_property && attendee_property.dup
         duration_property = duration_property && duration_property.dup
+        attendee_property = attendee_property && attendee_property.dup
         trigger_property = trigger_property && trigger_property.dup
         description_property = description_property && description_property.dup
         summary_property = summary_property && summary_property.dup
         repeat_property = repeat_property && repeat_property.dup
         attach_property = attach_property && attach_property.dup
+        action_property = action_property && action_property.dup
       end
 
       def add_date_times_to(required_timezones) #:nodoc:
@@ -374,7 +374,7 @@ module RiCal
 
       module ClassMethods #:nodoc:
         def property_parser #:nodoc:
-          {"ACTION"=>:action_property_from_string, "ATTACH"=>:attach_property_from_string, "REPEAT"=>:repeat_property_from_string, "SUMMARY"=>:summary_property_from_string, "TRIGGER"=>:trigger_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "DURATION"=>:duration_property_from_string, "DESCRIPTION"=>:description_property_from_string}
+          {"ACTION"=>:action_property_from_string, "REPEAT"=>:repeat_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "TRIGGER"=>:trigger_property_from_string, "ATTACH"=>:attach_property_from_string, "SUMMARY"=>:summary_property_from_string, "DESCRIPTION"=>:description_property_from_string, "DURATION"=>:duration_property_from_string}
         end
       end
 

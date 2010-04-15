@@ -41,7 +41,7 @@ module RiCal
 
 
       # return the the CREATED property
-      # which will be an instances of RiCal::PropertyValueDateTime
+      # which will be an instances of RiCal::PropertyValueZuluDateTime
       # 
       # [purpose (from RFC 2445)]
       # This property specifies the date and time that the calendar information was created by teh calendar user agent in the calendar store.
@@ -52,24 +52,24 @@ module RiCal
       end
 
       # set the CREATED property
-      # property value should be an instance of RiCal::PropertyValueDateTime
+      # property value should be an instance of RiCal::PropertyValueZuluDateTime
       def created_property=(property_value)
-        @created_property = property_value ? property_value.for_parent(self) : nil
+        @created_property = property_value
       end
 
       # set the value of the CREATED property
       def created=(ruby_value)
-        self.created_property= RiCal::PropertyValue::DateTime.convert(self, ruby_value)
+        self.created_property= RiCal::PropertyValue::ZuluDateTime.convert(self, ruby_value)
       end
 
       # return the value of the CREATED property
-      # which will be an instance of DateTime
+      # which will be an instance of ZuluDateTime
       def created
         created_property ? created_property.ruby_value : nil
       end
 
       def created_property_from_string(line) # :nodoc:
-        @created_property = RiCal::PropertyValue::DateTime.new(self, line)
+        @created_property = RiCal::PropertyValue::ZuluDateTime.new(self, line)
       end
 
 
@@ -140,7 +140,7 @@ module RiCal
 
 
       # return the the DTSTAMP property
-      # which will be an instances of RiCal::PropertyValueDateTime
+      # which will be an instances of RiCal::PropertyValueZuluDateTime
       # 
       # [purpose (from RFC 2445)]
       # This property indicates the date/time that the instance of the iCalendar object was created.
@@ -151,29 +151,29 @@ module RiCal
       end
 
       # set the DTSTAMP property
-      # property value should be an instance of RiCal::PropertyValueDateTime
+      # property value should be an instance of RiCal::PropertyValueZuluDateTime
       def dtstamp_property=(property_value)
-        @dtstamp_property = property_value ? property_value.for_parent(self) : nil
+        @dtstamp_property = property_value
       end
 
       # set the value of the DTSTAMP property
       def dtstamp=(ruby_value)
-        self.dtstamp_property= RiCal::PropertyValue::DateTime.convert(self, ruby_value)
+        self.dtstamp_property= RiCal::PropertyValue::ZuluDateTime.convert(self, ruby_value)
       end
 
       # return the value of the DTSTAMP property
-      # which will be an instance of DateTime
+      # which will be an instance of ZuluDateTime
       def dtstamp
         dtstamp_property ? dtstamp_property.ruby_value : nil
       end
 
       def dtstamp_property_from_string(line) # :nodoc:
-        @dtstamp_property = RiCal::PropertyValue::DateTime.new(self, line)
+        @dtstamp_property = RiCal::PropertyValue::ZuluDateTime.new(self, line)
       end
 
 
       # return the the LAST-MODIFIED property
-      # which will be an instances of RiCal::PropertyValueDateTime
+      # which will be an instances of RiCal::PropertyValueZuluDateTime
       # 
       # [purpose (from RFC 2445)]
       # This property specifies the date and time that the information associated with the calendar component was last revised in teh calendar store.
@@ -184,24 +184,24 @@ module RiCal
       end
 
       # set the LAST-MODIFIED property
-      # property value should be an instance of RiCal::PropertyValueDateTime
+      # property value should be an instance of RiCal::PropertyValueZuluDateTime
       def last_modified_property=(property_value)
-        @last_modified_property = property_value ? property_value.for_parent(self) : nil
+        @last_modified_property = property_value
       end
 
       # set the value of the LAST-MODIFIED property
       def last_modified=(ruby_value)
-        self.last_modified_property= RiCal::PropertyValue::DateTime.convert(self, ruby_value)
+        self.last_modified_property= RiCal::PropertyValue::ZuluDateTime.convert(self, ruby_value)
       end
 
       # return the value of the LAST-MODIFIED property
-      # which will be an instance of DateTime
+      # which will be an instance of ZuluDateTime
       def last_modified
         last_modified_property ? last_modified_property.ruby_value : nil
       end
 
       def last_modified_property_from_string(line) # :nodoc:
-        @last_modified_property = RiCal::PropertyValue::DateTime.new(self, line)
+        @last_modified_property = RiCal::PropertyValue::ZuluDateTime.new(self, line)
       end
 
 
@@ -1127,58 +1127,58 @@ module RiCal
       end
 
       def export_properties_to(export_stream) #:nodoc:
-        export_prop_to(export_stream, "REQUEST-STATUS", @request_status_property)
-        export_prop_to(export_stream, "EXDATE", @exdate_property)
-        export_prop_to(export_stream, "DTSTAMP", @dtstamp_property)
-        export_prop_to(export_stream, "CREATED", @created_property)
+        export_prop_to(export_stream, "RDATE", @rdate_property)
         export_prop_to(export_stream, "CONTACT", @contact_property)
-        export_prop_to(export_stream, "CATEGORIES", @categories_property)
+        export_prop_to(export_stream, "EXDATE", @exdate_property)
+        export_prop_to(export_stream, "CREATED", @created_property)
         export_prop_to(export_stream, "STATUS", @status_property)
-        export_prop_to(export_stream, "LAST-MODIFIED", @last_modified_property)
         export_prop_to(export_stream, "DTSTART", @dtstart_property)
         export_prop_to(export_stream, "RECURRENCE-ID", @recurrence_id_property)
+        export_prop_to(export_stream, "DTSTAMP", @dtstamp_property)
+        export_prop_to(export_stream, "CATEGORIES", @categories_property)
+        export_prop_to(export_stream, "LAST-MODIFIED", @last_modified_property)
         export_prop_to(export_stream, "ATTENDEE", @attendee_property)
         export_prop_to(export_stream, "UID", @uid_property)
+        export_prop_to(export_stream, "DESCRIPTION", @description_property)
         export_prop_to(export_stream, "URL", @url_property)
+        export_prop_to(export_stream, "SUMMARY", @summary_property)
         export_prop_to(export_stream, "ORGANIZER", @organizer_property)
         export_prop_to(export_stream, "RRULE", @rrule_property)
-        export_prop_to(export_stream, "DESCRIPTION", @description_property)
-        export_prop_to(export_stream, "CLASS", @class_property)
-        export_prop_to(export_stream, "SUMMARY", @summary_property)
         export_prop_to(export_stream, "ATTACH", @attach_property)
-        export_prop_to(export_stream, "SEQUENCE", @sequence_property)
-        export_prop_to(export_stream, "RDATE", @rdate_property)
+        export_prop_to(export_stream, "CLASS", @class_property)
+        export_prop_to(export_stream, "REQUEST-STATUS", @request_status_property)
         export_prop_to(export_stream, "RELATED-TO", @related_to_property)
         export_prop_to(export_stream, "EXRULE", @exrule_property)
         export_prop_to(export_stream, "COMMENT", @comment_property)
+        export_prop_to(export_stream, "SEQUENCE", @sequence_property)
       end
 
       def ==(o) #:nodoc:
         if o.class == self.class
-        (request_status_property == o.request_status_property) &&
-        (exdate_property == o.exdate_property) &&
-        (dtstamp_property == o.dtstamp_property) &&
-        (created_property == o.created_property) &&
+        (rdate_property == o.rdate_property) &&
         (contact_property == o.contact_property) &&
-        (categories_property == o.categories_property) &&
+        (exdate_property == o.exdate_property) &&
+        (created_property == o.created_property) &&
         (status_property == o.status_property) &&
-        (last_modified_property == o.last_modified_property) &&
         (dtstart_property == o.dtstart_property) &&
         (recurrence_id_property == o.recurrence_id_property) &&
+        (dtstamp_property == o.dtstamp_property) &&
+        (categories_property == o.categories_property) &&
+        (last_modified_property == o.last_modified_property) &&
         (attendee_property == o.attendee_property) &&
         (uid_property == o.uid_property) &&
+        (description_property == o.description_property) &&
         (url_property == o.url_property) &&
+        (summary_property == o.summary_property) &&
         (organizer_property == o.organizer_property) &&
         (rrule_property == o.rrule_property) &&
-        (description_property == o.description_property) &&
-        (class_property == o.class_property) &&
-        (summary_property == o.summary_property) &&
         (attach_property == o.attach_property) &&
-        (sequence_property == o.sequence_property) &&
-        (rdate_property == o.rdate_property) &&
+        (class_property == o.class_property) &&
+        (request_status_property == o.request_status_property) &&
         (related_to_property == o.related_to_property) &&
         (exrule_property == o.exrule_property) &&
-        (comment_property == o.comment_property)
+        (comment_property == o.comment_property) &&
+        (sequence_property == o.sequence_property)
         else
            super
         end
@@ -1186,37 +1186,34 @@ module RiCal
 
       def initialize_copy(o) #:nodoc:
         super
-        request_status_property = request_status_property && request_status_property.dup
-        exdate_property = exdate_property && exdate_property.dup
-        dtstamp_property = dtstamp_property && dtstamp_property.dup
-        created_property = created_property && created_property.dup
+        rdate_property = rdate_property && rdate_property.dup
         contact_property = contact_property && contact_property.dup
-        categories_property = categories_property && categories_property.dup
+        exdate_property = exdate_property && exdate_property.dup
+        created_property = created_property && created_property.dup
         status_property = status_property && status_property.dup
-        last_modified_property = last_modified_property && last_modified_property.dup
         dtstart_property = dtstart_property && dtstart_property.dup
         recurrence_id_property = recurrence_id_property && recurrence_id_property.dup
+        dtstamp_property = dtstamp_property && dtstamp_property.dup
+        categories_property = categories_property && categories_property.dup
+        last_modified_property = last_modified_property && last_modified_property.dup
         attendee_property = attendee_property && attendee_property.dup
         uid_property = uid_property && uid_property.dup
+        description_property = description_property && description_property.dup
         url_property = url_property && url_property.dup
+        summary_property = summary_property && summary_property.dup
         organizer_property = organizer_property && organizer_property.dup
         rrule_property = rrule_property && rrule_property.dup
-        description_property = description_property && description_property.dup
-        class_property = class_property && class_property.dup
-        summary_property = summary_property && summary_property.dup
         attach_property = attach_property && attach_property.dup
-        sequence_property = sequence_property && sequence_property.dup
-        rdate_property = rdate_property && rdate_property.dup
+        class_property = class_property && class_property.dup
+        request_status_property = request_status_property && request_status_property.dup
         related_to_property = related_to_property && related_to_property.dup
         exrule_property = exrule_property && exrule_property.dup
         comment_property = comment_property && comment_property.dup
+        sequence_property = sequence_property && sequence_property.dup
       end
 
       def add_date_times_to(required_timezones) #:nodoc:
-        add_property_date_times_to(required_timezones, created_property)
         add_property_date_times_to(required_timezones, dtstart_property)
-        add_property_date_times_to(required_timezones, dtstamp_property)
-        add_property_date_times_to(required_timezones, last_modified_property)
         add_property_date_times_to(required_timezones, recurrence_id_property)
         add_property_date_times_to(required_timezones, exdate_property)
         add_property_date_times_to(required_timezones, rdate_property)
@@ -1224,7 +1221,7 @@ module RiCal
 
       module ClassMethods #:nodoc:
         def property_parser #:nodoc:
-          {"RDATE"=>:rdate_property_from_string, "RELATED-TO"=>:related_to_property_from_string, "DTSTART"=>:dtstart_property_from_string, "DTSTAMP"=>:dtstamp_property_from_string, "EXRULE"=>:exrule_property_from_string, "CONTACT"=>:contact_property_from_string, "URL"=>:url_property_from_string, "LAST-MODIFIED"=>:last_modified_property_from_string, "EXDATE"=>:exdate_property_from_string, "ATTACH"=>:attach_property_from_string, "UID"=>:uid_property_from_string, "SEQUENCE"=>:sequence_property_from_string, "CATEGORIES"=>:categories_property_from_string, "SUMMARY"=>:summary_property_from_string, "RECURRENCE-ID"=>:recurrence_id_property_from_string, "CLASS"=>:class_property_from_string, "RRULE"=>:rrule_property_from_string, "STATUS"=>:status_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "ORGANIZER"=>:organizer_property_from_string, "CREATED"=>:created_property_from_string, "REQUEST-STATUS"=>:request_status_property_from_string, "COMMENT"=>:comment_property_from_string, "DESCRIPTION"=>:description_property_from_string}
+          {"RDATE"=>:rdate_property_from_string, "COMMENT"=>:comment_property_from_string, "CONTACT"=>:contact_property_from_string, "URL"=>:url_property_from_string, "RECURRENCE-ID"=>:recurrence_id_property_from_string, "LAST-MODIFIED"=>:last_modified_property_from_string, "CLASS"=>:class_property_from_string, "EXDATE"=>:exdate_property_from_string, "UID"=>:uid_property_from_string, "SEQUENCE"=>:sequence_property_from_string, "EXRULE"=>:exrule_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "ORGANIZER"=>:organizer_property_from_string, "RRULE"=>:rrule_property_from_string, "ATTACH"=>:attach_property_from_string, "CATEGORIES"=>:categories_property_from_string, "SUMMARY"=>:summary_property_from_string, "DESCRIPTION"=>:description_property_from_string, "REQUEST-STATUS"=>:request_status_property_from_string, "RELATED-TO"=>:related_to_property_from_string, "STATUS"=>:status_property_from_string, "DTSTART"=>:dtstart_property_from_string, "DTSTAMP"=>:dtstamp_property_from_string, "CREATED"=>:created_property_from_string}
         end
       end
 

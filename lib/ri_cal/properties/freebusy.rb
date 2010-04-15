@@ -140,7 +140,7 @@ module RiCal
 
 
       # return the the DTSTAMP property
-      # which will be an instances of RiCal::PropertyValueDateTime
+      # which will be an instances of RiCal::PropertyValueZuluDateTime
       # 
       # [purpose (from RFC 2445)]
       # This property indicates the date/time that the instance of the iCalendar object was created.
@@ -151,24 +151,24 @@ module RiCal
       end
 
       # set the DTSTAMP property
-      # property value should be an instance of RiCal::PropertyValueDateTime
+      # property value should be an instance of RiCal::PropertyValueZuluDateTime
       def dtstamp_property=(property_value)
-        @dtstamp_property = property_value ? property_value.for_parent(self) : nil
+        @dtstamp_property = property_value
       end
 
       # set the value of the DTSTAMP property
       def dtstamp=(ruby_value)
-        self.dtstamp_property= RiCal::PropertyValue::DateTime.convert(self, ruby_value)
+        self.dtstamp_property= RiCal::PropertyValue::ZuluDateTime.convert(self, ruby_value)
       end
 
       # return the value of the DTSTAMP property
-      # which will be an instance of DateTime
+      # which will be an instance of ZuluDateTime
       def dtstamp
         dtstamp_property ? dtstamp_property.ruby_value : nil
       end
 
       def dtstamp_property_from_string(line) # :nodoc:
-        @dtstamp_property = RiCal::PropertyValue::DateTime.new(self, line)
+        @dtstamp_property = RiCal::PropertyValue::ZuluDateTime.new(self, line)
       end
 
 
@@ -521,33 +521,33 @@ module RiCal
       end
 
       def export_properties_to(export_stream) #:nodoc:
-        export_prop_to(export_stream, "REQUEST-STATUS", @request_status_property)
-        export_prop_to(export_stream, "DTSTAMP", @dtstamp_property)
+        export_prop_to(export_stream, "CONTACT", @contact_property)
+        export_prop_to(export_stream, "DURATION", @duration_property)
         export_prop_to(export_stream, "DTEND", @dtend_property)
         export_prop_to(export_stream, "DTSTART", @dtstart_property)
-        export_prop_to(export_stream, "CONTACT", @contact_property)
+        export_prop_to(export_stream, "DTSTAMP", @dtstamp_property)
         export_prop_to(export_stream, "ATTENDEE", @attendee_property)
         export_prop_to(export_stream, "UID", @uid_property)
-        export_prop_to(export_stream, "DURATION", @duration_property)
         export_prop_to(export_stream, "URL", @url_property)
         export_prop_to(export_stream, "ORGANIZER", @organizer_property)
         export_prop_to(export_stream, "FREEBUSY", @freebusy_property)
+        export_prop_to(export_stream, "REQUEST-STATUS", @request_status_property)
         export_prop_to(export_stream, "COMMENT", @comment_property)
       end
 
       def ==(o) #:nodoc:
         if o.class == self.class
-        (request_status_property == o.request_status_property) &&
-        (dtstamp_property == o.dtstamp_property) &&
+        (contact_property == o.contact_property) &&
+        (duration_property == o.duration_property) &&
         (dtend_property == o.dtend_property) &&
         (dtstart_property == o.dtstart_property) &&
-        (contact_property == o.contact_property) &&
+        (dtstamp_property == o.dtstamp_property) &&
         (attendee_property == o.attendee_property) &&
         (uid_property == o.uid_property) &&
-        (duration_property == o.duration_property) &&
         (url_property == o.url_property) &&
         (organizer_property == o.organizer_property) &&
         (freebusy_property == o.freebusy_property) &&
+        (request_status_property == o.request_status_property) &&
         (comment_property == o.comment_property)
         else
            super
@@ -556,29 +556,28 @@ module RiCal
 
       def initialize_copy(o) #:nodoc:
         super
-        request_status_property = request_status_property && request_status_property.dup
-        dtstamp_property = dtstamp_property && dtstamp_property.dup
+        contact_property = contact_property && contact_property.dup
+        duration_property = duration_property && duration_property.dup
         dtend_property = dtend_property && dtend_property.dup
         dtstart_property = dtstart_property && dtstart_property.dup
-        contact_property = contact_property && contact_property.dup
+        dtstamp_property = dtstamp_property && dtstamp_property.dup
         attendee_property = attendee_property && attendee_property.dup
         uid_property = uid_property && uid_property.dup
-        duration_property = duration_property && duration_property.dup
         url_property = url_property && url_property.dup
         organizer_property = organizer_property && organizer_property.dup
         freebusy_property = freebusy_property && freebusy_property.dup
+        request_status_property = request_status_property && request_status_property.dup
         comment_property = comment_property && comment_property.dup
       end
 
       def add_date_times_to(required_timezones) #:nodoc:
         add_property_date_times_to(required_timezones, dtstart_property)
         add_property_date_times_to(required_timezones, dtend_property)
-        add_property_date_times_to(required_timezones, dtstamp_property)
       end
 
       module ClassMethods #:nodoc:
         def property_parser #:nodoc:
-          {"DTEND"=>:dtend_property_from_string, "DTSTART"=>:dtstart_property_from_string, "DTSTAMP"=>:dtstamp_property_from_string, "URL"=>:url_property_from_string, "CONTACT"=>:contact_property_from_string, "UID"=>:uid_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "ORGANIZER"=>:organizer_property_from_string, "REQUEST-STATUS"=>:request_status_property_from_string, "FREEBUSY"=>:freebusy_property_from_string, "COMMENT"=>:comment_property_from_string, "DURATION"=>:duration_property_from_string}
+          {"COMMENT"=>:comment_property_from_string, "DTEND"=>:dtend_property_from_string, "URL"=>:url_property_from_string, "CONTACT"=>:contact_property_from_string, "UID"=>:uid_property_from_string, "ATTENDEE"=>:attendee_property_from_string, "ORGANIZER"=>:organizer_property_from_string, "FREEBUSY"=>:freebusy_property_from_string, "REQUEST-STATUS"=>:request_status_property_from_string, "DURATION"=>:duration_property_from_string, "DTSTART"=>:dtstart_property_from_string, "DTSTAMP"=>:dtstamp_property_from_string}
         end
       end
 

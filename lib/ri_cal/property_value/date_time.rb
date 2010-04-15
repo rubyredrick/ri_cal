@@ -71,6 +71,14 @@ module RiCal
           nil
         end
       end
+      
+      def to_ri_cal_zulu_date_time
+        ZuluDateTime.new(nil, :value => self.utc.fast_date_tme)
+      end
+      
+      def fast_date_tme # :nodoc:
+        @date_time_value
+      end
 
       # Set the value of the property to val
       #

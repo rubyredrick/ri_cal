@@ -17,6 +17,7 @@ module RiCal
     autoload :Text, "ri_cal/property_value/text.rb"
     autoload :Uri, "ri_cal/property_value/uri.rb"
     autoload :UtcOffset, "ri_cal/property_value/utc_offset.rb"
+    autoload :ZuluDateTime, "ri_cal/property_value/zulu_date_time.rb"
 
     attr_writer :params, :value #:nodoc:
     attr_reader :timezone_finder #:nodoc:

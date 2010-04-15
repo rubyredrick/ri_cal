@@ -5,6 +5,23 @@ require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::Component::Event do
   
+  context "with change management properties" do
+    it "should use zulu time for all change management datetime properties" do
+      new_york_offset = Rational(-1, 6)
+      cal = RiCal.Calendar
+      event = RiCal::Component::Event.new(cal)
+      event.dtstamp = result_time_in_zone(2010, 4, 1, 9, 23, 45, "America/New_York", new_york_offset)
+      event.created = result_time_in_zone(2010, 4, 1, 9, 23, 45, "America/New_York", new_york_offset)
+      event.last_modified = result_time_in_zone(2010, 4, 1, 12, 23, 45, "America/New_York", new_york_offset)
+      event.to_s.should == "BEGIN:VEVENT
+CREATED;VALUE=DATE-TIME:20100401T132345Z
+DTSTAMP;VALUE=DATE-TIME:20100401T132345Z
+LAST-MODIFIED;VALUE=DATE-TIME:20100401T162345Z
+END:VEVENT
+"
+    end
+  end
+  
   context ".finish_time" do
     it "should be the end of the start day for an event with a date dtstart and no dtend or duration" do
       @it = RiCal.Event do |evt|

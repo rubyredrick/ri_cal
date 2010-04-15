@@ -118,16 +118,16 @@ module RiCal
 
 
       def export_properties_to(export_stream) #:nodoc:
-        export_prop_to(export_stream, "PRODID", @prodid_property)
         export_prop_to(export_stream, "CALSCALE", @calscale_property)
+        export_prop_to(export_stream, "PRODID", @prodid_property)
         export_prop_to(export_stream, "VERSION", @version_property)
         export_prop_to(export_stream, "METHOD", @method_property)
       end
 
       def ==(o) #:nodoc:
         if o.class == self.class
-        (prodid_property == o.prodid_property) &&
         (calscale_property == o.calscale_property) &&
+        (prodid_property == o.prodid_property) &&
         (version_property == o.version_property) &&
         (method_property == o.method_property)
         else
@@ -137,8 +137,8 @@ module RiCal
 
       def initialize_copy(o) #:nodoc:
         super
-        prodid_property = prodid_property && prodid_property.dup
         calscale_property = calscale_property && calscale_property.dup
+        prodid_property = prodid_property && prodid_property.dup
         version_property = version_property && version_property.dup
         method_property = method_property && method_property.dup
       end

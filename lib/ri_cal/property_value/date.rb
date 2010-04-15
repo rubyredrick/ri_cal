@@ -20,6 +20,10 @@ module RiCal
           nil
         end
       end
+      
+      def to_ri_cal_zulu_date_time
+        self.to_ri_cal_date_time_value.to_ri_cal_zulu_date_time
+      end
 
       # Set the value of the property to val
       #
