@@ -5,6 +5,16 @@ require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 module RiCal
 
   describe RiCal::FastDateTime do
+    context "#utc" do
+      it "should not change if it is already UTC" do
+        FastDateTime.new(2009, 5, 29, 19, 3, 0, 0).utc.should == FastDateTime.new(2009, 5, 29, 19, 3, 0, 0)        
+      end
+      
+      it "should change the time by the offset" do
+        FastDateTime.new(2010, 4, 15, 16, 3, 0, -4*60*60).utc.should == FastDateTime.new(2010, 4, 15, 20, 3, 0, 0)
+      end
+    end
+    
     context "#==" do
       it "should detect equal FastDateTimes" do
         FastDateTime.new(2009, 5, 29, 19, 3, 0, 0).should == 

@@ -112,6 +112,14 @@ module RiCal
     #   end
     # end
 
+    def utc
+      if offset == 0
+        self
+      else
+        advance(:seconds => -offset, :offset => 0)
+      end
+    end
+
     def hms_to_seconds(hours, minutes, seconds)
       seconds + 60 *(minutes + (60 * hours))
     end

@@ -160,16 +160,16 @@ trigger:
     rfc_ref: '4.8.6.3 p 127-129'
 created:
     purpose: This property specifies the date and time that the calendar information was created by teh calendar user agent in the calendar store.
-    type: DateTime
+    type: ZuluDateTime
     rfc_ref: '4.8.7.1 pp 129-130'   
 dtstamp:
     purpose: This property indicates the date/time that the instance of the iCalendar object was created.
-    type: DateTime
+    type: ZuluDateTime
     auto_set: to_ical
     rfc_ref: '4.8.7.2 pp 130-131'   
 last-modified:
     purpose: This property specifies the date and time that the information associated with the calendar component was last revised in teh calendar store.
-    type: DateTime
+    type: ZuluDateTime
     rfc_ref: '4.8.7.3 p 131'   
 sequence:
     purpose: This property defines the revision sequence number of the calendar component within a sequence of revisions.
