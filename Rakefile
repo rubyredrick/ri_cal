@@ -1,53 +1,66 @@
-#- ©2009 Rick DeNatale
-#- All rights reserved. Refer to the file README.txt for the license
-#
-# %w[rubygems rake rake/clean fileutils newgem  rubigen].each { |f| require f }
-#require File.dirname(__FILE__) + '/lib/ri_cal'
-
 require 'rubygems'
-gem 'hoe', '>=2.1.0'
-require 'hoe'
-require 'fileutils'
-require './lib/ri_cal'
+require 'rake'
 
-Hoe.plugin :newgem
-Hoe.plugin :website
-# Hoe.plugin :cucumberfeatures
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "ri_cal"
+    gem.summary = %Q{a new implementation of RFC2445 in Ruby}
+    gem.description = %Q{A new Ruby implementation of RFC2445 iCalendar.
 
-# Generate all the Rake tasks
-# Run 'rake -T' to see list of generated tasks (from gem root directory)
-$hoe = Hoe.spec('ri_cal') do |p|
-  p.developer('author=Rick DeNatale', 'rick.denatale@gmail.com')
-  p.changes              = p.paragraphs_of("History.txt", 0..1).join("\n\n")
-  p.rubyforge_name       = 'ri-cal'
-  p.readme_file = "README.txt"
-  p.extra_dev_deps = [
-    ['newgem', ">= #{::Newgem::VERSION}"],
-    ['ruby-prof', ">= 0"]
-  ]
+The existing Ruby iCalendar libraries (e.g. icalendar, vpim) provide for parsing and generating icalendar files,
+but do not support important things like enumerating occurrences of repeating events.
 
-  p.clean_globs |= %w[**/.DS_Store tmp *.log]
-  path = (p.rubyforge_name == p.name) ? p.rubyforge_name : "\#{p.rubyforge_name}/\#{p.name}"
-  p.remote_rdoc_dir = File.join(path.gsub(/^#{p.rubyforge_name}\/?/,''), 'rdoc')
-  p.rsync_args = '-av --delete --ignore-errors'
+This is a clean-slate implementation of RFC2445.
+
+A Google group for discussion of this library has been set up http://groups.google.com/group/rical_gem
+    }
+    gem.email = "rick.denatale@gmail.com"
+    gem.homepage = "http://github.com/rubyredrick/ri_cal"
+    gem.authors = ["Rick DeNatale"]
+    ['.gitignore', 'performance_data/*', 'sample_ical_files/*', 'website/*', 'config/website.yml'].each do |excl|
+      gem.files.exclude excl
+    end
+    gem.extra_rdoc_files.include %w{History.txt copyrights.txt}
+    # gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-require 'newgem/tasks' # load /tasks/*.rake
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
+end
 
-# It looks like newgem is already defining these
-# Rake::TaskManager.class_eval do
-#   def remove_task(task_name)
-#     @tasks.delete(task_name.to_s)
-#   end
-# end
-#  
-# def remove_task(task_name)
-#   Rake.application.remove_task(task_name)
-# end
- 
-# Override hoe's standard spec task
-remove_task :spec
+begin
+  require 'rcov/rcovtask'
+  Rcov::RcovTask.new do |test|
+    test.libs << 'test'
+    test.pattern = 'test/**/test_*.rb'
+    test.verbose = true
+  end
+rescue LoadError
+  task :rcov do
+    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
+  end
+end
 
 Dir['tasks/**/*.rake'].each { |t| load t }
 
 task :default => [:"spec:with_tzinfo_gem", :"spec:with_active_support"]
+
+
+require 'rake/rdoctask'
+Rake::RDocTask.new do |rdoc|
+  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title = "ri_cal #{version}"
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
+end
