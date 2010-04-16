@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ri_cal}
-  s.version = "0.8.5"
+  s.version = "0.8.6"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rick DeNatale"]
@@ -13,21 +13,22 @@ Gem::Specification.new do |s|
   s.default_executable = %q{ri_cal}
   s.description = %q{A new Ruby implementation of RFC2445 iCalendar.
 
-    The existing Ruby iCalendar libraries (e.g. icalendar, vpim) provide for parsing and generating icalendar files,
-    but do not support important things like enumerating occurrences of repeating events.
+The existing Ruby iCalendar libraries (e.g. icalendar, vpim) provide for parsing and generating icalendar files,
+but do not support important things like enumerating occurrences of repeating events.
 
-    This is a clean-slate implementation of RFC2445.
+This is a clean-slate implementation of RFC2445.
 
-    A Google group for discussion of this library has been set up http://groups.google.com/group/rical_gem
+A Google group for discussion of this library has been set up http://groups.google.com/group/rical_gem
     }
   s.email = %q{rick.denatale@gmail.com}
   s.executables = ["ri_cal"]
   s.extra_rdoc_files = [
-    "README.txt"
+    "History.txt",
+     "README.txt",
+     "copyrights.txt"
   ]
   s.files = [
-    ".gitignore",
-     "History.txt",
+    "History.txt",
      "Manifest.txt",
      "README.txt",
      "Rakefile",
@@ -42,7 +43,6 @@ Gem::Specification.new do |s|
      "component_attributes/timezone.yml",
      "component_attributes/timezone_period.yml",
      "component_attributes/todo.yml",
-     "config/website.yml",
      "copyrights.txt",
      "docs/draft-ietf-calsify-2446bis-08.txt",
      "docs/draft-ietf-calsify-rfc2445bis-09.txt",
@@ -142,7 +142,9 @@ Gem::Specification.new do |s|
      "lib/ri_cal/property_value/text.rb",
      "lib/ri_cal/property_value/uri.rb",
      "lib/ri_cal/property_value/utc_offset.rb",
+     "lib/ri_cal/property_value/zulu_date_time.rb",
      "lib/ri_cal/required_timezones.rb",
+     "parked_specs/ri_cal/claudio_a_bug_spec.rb",
      "performance/empty_propval/subject.rb",
      "performance/paris_eastern/subject.rb",
      "performance/penultimate_weekday/subject.rb",
@@ -199,7 +201,6 @@ Gem::Specification.new do |s|
   s.summary = %q{a new implementation of RFC2445 in Ruby}
   s.test_files = [
     "spec/ri_cal/bugreports_spec.rb",
-     "spec/ri_cal/claudio_a_bug_spec.rb",
      "spec/ri_cal/component/alarm_spec.rb",
      "spec/ri_cal/component/calendar_spec.rb",
      "spec/ri_cal/component/event_spec.rb",
