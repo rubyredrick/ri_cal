@@ -1,3 +1,10 @@
+=== 0.8.6
+  Fixes an issue of RFC 2445 non-conformance - change management time attributes (dtstamp, last_modified, and created) MUST be zulu time
+  Changed VTIMEZONE export from tz_info
+     Discovered that RFC 2445 expects a timezone period onset to be local time before the change, while TZInfo gives it after the change
+       Thanks to both Michael Hale and H. Wade Minter for reporting this.
+     Changed from generating a single RDATE line for a timezone period with multiple values to multiple RDATE lines
+       to fix a problem reported by Michael Hale.
 === 0.8.5
   Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/26
     events with date parameters failing
