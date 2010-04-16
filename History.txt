@@ -1,4 +1,6 @@
-=== 0.8.6
+=== 0.8.7
+  fix ticket #29-supress x-rical-tzsource when not relevant
+=== 0.8.6 - 15 April 2010
   Fixes an issue of RFC 2445 non-conformance - change management time attributes (dtstamp, last_modified, and created) MUST be zulu time
   Changed VTIMEZONE export from tz_info
      Discovered that RFC 2445 expects a timezone period onset to be local time before the change, while TZInfo gives it after the change
