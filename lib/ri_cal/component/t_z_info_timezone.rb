@@ -10,10 +10,11 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
 
     def initialize(which, this_period, prev_period)
       @which = which
-      @onset = period_local_start(this_period)
       if prev_period
+        @onset = period_local_end(prev_period)
         @offset_from = format_rfc2445_offset(prev_period.utc_total_offset)
       else
+        @onset = period_local_start(this_period)
         @offset_from = format_rfc2445_offset(this_period.utc_total_offset)
       end
       @offset_to = format_rfc2445_offset(this_period.utc_total_offset)
@@ -21,8 +22,19 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
       @rdates = []
     end
     
+    def daylight?
+      @which == "DAYLIGHT"
+    end
+    
+    def period_local_end(period)
+      (period.local_end || DateTime.parse("99990101T000000")).strftime("%Y%m%dT%H%M%S")
+    end
+    
+    # This assumes a 1 hour shift which is why we use the previous period local end when
+    # possible
     def period_local_start(period)
-      (period.local_start || DateTime.parse("16010101T000000")).strftime("%Y%m%dT%H%M%S")
+      shift = daylight? ? Rational(-1, 24) : Rational(1, 24)
+      ((period.local_start || DateTime.parse("16010101T000000")) + shift).strftime("%Y%m%dT%H%M%S")
     end
 
     def add_period(this_period)
@@ -41,7 +53,9 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
     def export_to(export_stream)
       export_stream.puts "BEGIN:#{@which}"
       export_stream.puts "DTSTART:#{@onset}"
-      export_stream.puts "RDATE:#{@rdates.join(",")}"
+      @rdates.each do |rdate|
+        export_stream.puts "RDATE:#{rdate}"
+      end
       export_stream.puts "TZOFFSETFROM:#{@offset_from}"
       export_stream.puts "TZOFFSETTO:#{@offset_to}"
       export_stream.puts "TZNAME:#{@abbreviation}"
