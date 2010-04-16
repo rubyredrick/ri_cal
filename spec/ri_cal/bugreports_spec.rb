@@ -247,3 +247,17 @@ context "ticket #26" do
   end
 end
 
+context "ticket 29:supress-x-rical-tzsource-when-not-relevant" do
+  it "should parse its own output" do
+    cal_string = %Q(BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+BEGIN:VEVENT
+DTSTART:20100610T100000
+DTEND:20100610T110000
+END:VEVENT
+END:VCALENDAR)
+    lambda {RiCal.parse_string(RiCal.parse_string(cal_string).first.to_s)}.should_not raise_error
+  end
+end
+
+
