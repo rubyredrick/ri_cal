@@ -2,7 +2,7 @@ require 'rubygems'
 require 'rake'
 
 begin
-  require 'jeweler'
+  require 'ad_agency'
   Jeweler::Tasks.new do |gem|
     gem.name = "ri_cal"
     gem.summary = %Q{a new implementation of RFC2445 in Ruby}
@@ -26,6 +26,7 @@ A Google group for discussion of this library has been set up http://groups.goog
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
+  Jeweler::AdAgencyTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
