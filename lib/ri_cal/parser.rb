@@ -87,7 +87,7 @@ module RiCal
     end
 
     def invalid #:nodoc:
-      raise Exception.new("Invalid icalendar file")
+      raise "Invalid icalendar file"
     end
 
     def still_in(component, separated_line) #:nodoc:
