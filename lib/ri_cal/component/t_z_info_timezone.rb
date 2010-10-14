@@ -1,4 +1,4 @@
-#- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+#- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
 #
 # A wrapper class for a Timezone implemented by the TZInfo Gem
 # (or by Rails)

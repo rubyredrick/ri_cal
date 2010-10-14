@@ -1,7 +1,7 @@
 # encoding: utf-8
-#- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+#- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
 
-require File.join(File.dirname(__FILE__), %w[.. spec_helper.rb])
+require 'spec_helper.rb'
 
 def mock_enumerator(name, next_occurrence)
   mock(name, :next_occurrence => next_occurrence, :bounded? => true, :empty? => false)

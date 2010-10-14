@@ -1,6 +1,6 @@
-#- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+#- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
 
-require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
+require 'spec_helper'
 
 # RFC 2445 Section 4.3.9 pp 39-40
 describe RiCal::PropertyValue::Period do

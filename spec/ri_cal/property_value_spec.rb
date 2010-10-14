@@ -1,5 +1,5 @@
-#- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
-require File.join(File.dirname(__FILE__), %w[.. spec_helper])
+#- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+require 'spec_helper'
 require 'tzinfo'
 
 describe RiCal::PropertyValue do

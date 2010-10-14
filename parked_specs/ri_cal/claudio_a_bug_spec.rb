@@ -1,7 +1,7 @@
-#- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+#- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
 
 require 'rubygems'
-require File.join(File.dirname(__FILE__), %w[.. spec_helper])
+require 'spec_helper'
 
 describe "RiCal TimeZone problem" do
   it "should keep the original calendar timezone intact" do
