@@ -25,6 +25,10 @@ module RiCal
         end
       end
       
+      def to_ri_cal_text_property
+        self
+      end
+      
       def self.convert(parent, string) #:nodoc:
         ical_str = string.gsub(/\n\r?|\r\n?|,|;|\\/) {|match|
           if ["\n", "\r", "\n\r", "\r\n"].include?(match)

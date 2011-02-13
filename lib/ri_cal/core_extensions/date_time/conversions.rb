@@ -32,12 +32,13 @@ module RiCal
           dup.set_tzid(:floating)
         end
         
-        unless defined? ActiveSupport
+        unless DateTime.instance_methods.map {|selector| selector.to_sym}.include?(:to_date)
           # Converts self to a Ruby Date object; time portion is discarded
           def to_date
             ::Date.new(year, month, day)
           end
-
+        end
+        unless DateTime.instance_methods.map {|selector| selector.to_sym}.include?(:to_datetime)
           # To be able to keep Times, Dates and DateTimes interchangeable on conversions
           def to_datetime
             self

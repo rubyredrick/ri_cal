@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'rake'
+# require 'jeweler'
 
 begin
   require 'ad_agency'
@@ -27,8 +28,9 @@ A Google group for discussion of this library has been set up http://groups.goog
   end
   Jeweler::GemcutterTasks.new
   Jeweler::AdAgencyTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+# rescue LoadError => ex
+#   puts ex
+#   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
 require 'rake/testtask'

@@ -31,13 +31,14 @@ module RiCal
           to_ri_cal_date_time_value.end_of_day.to_datetime
         end
         
-        unless defined? ActiveSupport
+        unless Date.instance_methods.map {|selector| selector.to_sym}.include?(:to_date)
           # A method to keep Time, Date and DateTime instances interchangeable on conversions.
           # In this case, it simply returns +self+.
           def to_date
             self
-          end if RUBY_VERSION < '1.9'
-
+          end
+        end
+        unless Date.instance_methods.map {|selector| selector.to_sym}.include?(:to_datetime)
           # Converts a Date instance to a DateTime, where the time is set to the beginning of the day
           # and UTC offset is set to 0.
           #
@@ -47,7 +48,7 @@ module RiCal
           #   date.to_datetime               # => Sat, 10 Nov 2007 00:00:00 0000
           def to_datetime
             ::DateTime.civil(year, month, day, 0, 0, 0, 0)
-          end if RUBY_VERSION < '1.9'
+          end
         end
       end
     end

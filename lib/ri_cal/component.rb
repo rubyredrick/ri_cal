@@ -155,17 +155,20 @@ module RiCal
     end
 
     # Add a n extended property
-    def add_x_property(name, prop)
-      x_properties[name] << prop
+    def add_x_property(name, prop, debug=false)
+      x_properties[name.gsub("_","-").upcase] << prop.to_ri_cal_text_property
     end
 
     def method_missing(selector, *args, &b) #:nodoc:
       xprop_candidate = selector.to_s
-      if (match = /^x_(.+)(=?)$/.match(xprop_candidate))
+      if (match = /^(x_.+)(=?)$/.match(xprop_candidate))
+        x_property_key = match[1].gsub('_','-').upcase
         if match[2] == "="
-          add_x_property("x_#{match[1]}", *args)
+          args.each do |val|
+            add_x_property(x_property_key, val)
+          end
         else
-          x_properties[xprop_candidate]
+          x_properties[x_property_key].map {|property| property.value}
         end
       else
         super

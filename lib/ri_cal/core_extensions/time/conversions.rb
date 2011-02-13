@@ -32,7 +32,7 @@ module RiCal
           dup.set_tzid(:floating)
         end
         
-        unless defined? ActiveSupport
+        unless Time.instance_methods.map {|selector| selector.to_sym}.include?(:to_datetime)
           require 'date'
           ::Time.send(:public, :to_datetime)
         end

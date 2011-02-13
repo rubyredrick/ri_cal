@@ -174,7 +174,7 @@ describe RiCal::Component do
 
       before(:each) do
         @it = RiCal.Calendar do
-          add_x_property 'x_wr_calname', 'My Personal Calendar'
+          add_x_property 'x_wr_calname', 'My Personal Calendar', true
           event do
             summary     'A Recurring Event'
             description "This is some really long note content. It should be appropriately folded in the generated file.\nCarriage returns should work, too."

@@ -5,6 +5,10 @@ module RiCal
       #- All rights reserved. Refer to the file README.txt for the license
       #
       module Conversions #:nodoc:
+        def to_ri_cal_text_property
+           PropertyValue::Text.new(nil, :value => self)
+        end
+        
         # Parse the receiver as an RiCal::PropertyValue::DateTime
         def to_ri_cal_date_time_value(timezone_finder = nil)
           params, value = *Parser.params_and_value(self, :no_leading_semicolon)
