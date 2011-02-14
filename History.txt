@@ -1,165 +1,402 @@
-=== 0.8.7
-  fix ticket #29-supress x-rical-tzsource when not relevant
-=== 0.8.6 - 15 April 2010
-  Fixes an issue of RFC 2445 non-conformance - change management time attributes (dtstamp, last_modified, and created) MUST be zulu time
-  Changed VTIMEZONE export from tz_info
-     Discovered that RFC 2445 expects a timezone period onset to be local time before the change, while TZInfo gives it after the change
-       Thanks to both Michael Hale and H. Wade Minter for reporting this.
-     Changed from generating a single RDATE line for a timezone period with multiple values to multiple RDATE lines
-       to fix a problem reported by Michael Hale.
-=== 0.8.5
-  Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/26
-    events with date parameters failing
-=== 0.8.4 - 18 September 2009
-  Refactored load structure, should now be conforming to    
-        http://weblog.rubyonrails.org/2009/9/1/gem-packaging-best-practices
-    I did finesse the load path issue a bit as a workaround to RSpec not putting lib on $LOADPATH
-    the lib directory will get added to load path IF IT ISN"T ALREADY THERE
-    
-  Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/25
-     please clean your code up to be quiet
-     
-   Thanks to Ryan for such a courteous problem report.
-=== 0.8.3 - 18 September 2009
-   Released with bad gemspec
-=== 0.8.2 - 4 September 2009
-  Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/23
-        initialization_methodsrb-syntax
-  Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/24
-        need-to-handle-empty-property-values
-=== 0.8.1 - 18 August 2009
-  Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/21
-        exception-when-count-option-used-to-enumerate-non-recurring-event
-=== 0.8.0 - 11 August 2009
-
-  Minor Version Bump - There is a small potentially breaking change see section on treatment of X-properties below
-
-  * Unknown Components
-
-  Starting with version 0.8.0 RiCal will parse calendars and components which contain nonstandard components.
-
-  For example, there was a short-lived proposal to extend RFC2445 with a new VVENUE component which would hold structured information about the location of an event.  This proposal was never accepted and was withdrawn, but there is icalendar data in the wild which contains VVENUE components.
-
-  Prior to version 0.8.0, RiCal would raise an exception if unknown component types were encountered.  Starting with version 0.8.0 RiCal will 'parse' such components and create instances of NonStandard component to represent them.  Since the actual format of unknown components is not known by RiCal, the NonStandard component will simply save the data lines between the BEGIN:xxx and END:xxx lines, (where xxx is the non-standard component name, e.g. VVENUE).  If the calendar is re-exported the original lines will be replayed.
-
-  * Change to treatment of X-properties
-
-  RFC2445 allows 'non-standard' or experimental properties which property-names beginning with X.  RiCal always supported parsing these.
-
-  The standard properties are specified as to how many times they can occur within a particular component.  For singly occurring properties RiCal returns a single property object, while for properties which can occur multiple times RiCal returns an array of property objects.
-
-  While implementing NonStandard properties, I realized that X-properties were being assumed to be singly occurring. But this isn't necessarily true.  So starting with 0.8.0 the X-properties are represented by an array of property objects.
-
-  THIS MAY BREAK SOME APPLICATIONS, but the adaptation should be easy.
-
-=== 0.7.7 - 6 August 2009
+=== v0.8.8 2011-02-13
+   Regenerate gemspec for version 0.8.8 
+   Version bump to 0.8.8 
+   fix x property access 
+   change rakefile to use ad_agency 
+=== v0.8.7 2010-04-16
+   Regenerated gemspec for version 0.8.7 
+   update history 
+   Version bump to 0.8.7 
+   fix tickets #29-supress x-rical-tzsource when not relevant 
+=== v0.8.6 2010-04-15
+   Regenerated gemspec for version 0.8.6 
+   update history prior to release 
+   Version bump to 0.8.6 
+   fix tzinfo timezone export 
+   force change managment datetimes to zulu time 
+   added ZuluDateTime property for use by change management properties 
+   parked a spec 
+   Convert to jeweler 
+   Version bump to 0.8.5 
+   remove unneeeded Date#to_time and DateTime#to_time methods 
+   remove inf loop spec temporarily 
+   Working on a bug where a recurrence rule with simple by-parts caused an infinite loop   See spec/ri_cal/inf_loop_spec
+   
+     Although the reported bug is fixed there is still work to do because giving an event a dtstart
+     not within the recurrence rule produces incorrect output.
+   
+     1) 'an event with unneeded by parts with a dtstart outside the recurrence rule should enumerate 10 events first July 12, 1940, July 13, 1940, July 13, 1941 when count is 3' FAILED
+     expected: ["1940-07-12", "1940-07-13", "1941-07-13"],
+          got: ["1940-07-12", "1940-07-13", "1941-07-12"] (using ==)
+   
+      I'm going to push this to github, but not release a new gem version until I can fix this latter bug.
+   
+   fixed infinite loop bug for reported case 
+   website and gemspec 
+   Fixed Ticket #26, failing with date values for event dtstart and dtend 
+   updated website 
+=== v0.8.4 2009-09-18
+   fixed gemspec problem 
+=== v0.8.3 2009-09-18
+   prepared to publish 
+   refactored occurrence incrementers 
+   checkpoint 
+   changed ri_cal.rb to autoload 
+   changed ri_cal.rb to autoload 
+=== v0.8.2 2009-09-05
+   another attempt to trigger github to rebuild 
+   fixed gem version so github should now build 
+   Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/23         initialization_methodsrb-syntax   Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/24         need-to-handle-empty-property-values 
+   fixed ticket #23 
+   adopted patch from ebigart 
+   Support properties with no value (e.g. 'LOCATION;LANGUAGE=en-US:' gets generated using Outlook) 
+=== v0.8.1 2009-08-18
+   Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/21         exception-when-count-option-used-to-enumerate-non-recurring-event 
+=== v0.8.0 2009-08-11
+   Minor Version Bump - There is a small potentially breaking change see section on treatment of X-properties below   * Unknown Components
+   
+     Starting with version 0.8.0 RiCal will parse calendars and components which contain nonstandard components.
+   
+     For example, there was a short-lived proposal to extend RFC2445 with a new VVENUE component which would hold structured information about the location of an event.  This proposal was never accepted and was withdrawn, but there is icalendar data in the wild which contains VVENUE components.
+   
+     Prior to version 0.8.0, RiCal would raise an exception if unknown component types were encountered.  Starting with version 0.8.0 RiCal will 'parse' such components and create instances of NonStandard component to represent them.  Since the actual format of unknown components is not known by RiCal, the NonStandard component will simply save the data lines between the BEGIN:xxx and END:xxx lines, (where xxx is the non-standard component name, e.g. VVENUE).  If the calendar is re-exported the original lines will be replayed.
+   
+     * Change to treatment of X-properties
+   
+     RFC2445 allows 'non-standard' or experimental properties which property-names beginning with X.  RiCal always supported parsing these.
+   
+     The standard properties are specified as to how many times they can occur within a particular component.  For singly occurring properties RiCal returns a single property object, while for properties which can occur multiple times RiCal returns an array of property objects.
+   
+     While implementing NonStandard properties, I realized that X-properties were being assumed to be singly occurring. But this isn't necessarily true.  So starting with 0.8.0 the X-properties are represented by an array of property objects.
+   
+     THIS MAY BREAK SOME APPLICATIONS, but the adaptation should be easy.
+   
    - No changes other than a version number bump.  github seems to have failed to notice the commit of v0.7.6
-     and didn't build the gem.  Hopefully it will notice this one.
-=== 0.7.6 - 6 August 2009
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/20
-     RiCal::PropertyValue::Period was returning a nil ruby value.
-=== 0.7.5 - 3 August 2009
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/19
-      Microsoft ical exports double quote tzid values in parameters, which caused a failure to find VTIMEZONES
-      This exposed an issue with parameter parsing.  Did the simplest thing which could work which was to
-      strip the quotes.  Need to BOLO for other pathological cases showing up in future, which may require
-      smarter parameter parsing.
-
-=== 0.7.4 - 21 July 2009
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/17
-    Problem with Alarm trigger property value
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/18
-    Problem with exporting components with sub-components
-=== 0.7.3 - 13 July 2009
-  Added pointers to rdoc in README
-=== 0.7.2 - 6 July 2009
-  updated to use newest versions of newgem and hoe, in order to make run-code-run work again
-=== 0.7.1 - 6 July 2009
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/15
-      duration validation issues
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/16
-      event finish_time loses timezone info when event has a dtstart and duration
-=== 0.7.0 - 29 June 2009
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/14
-      component without recurrence properties should enumerate just itself only if it is within the period between starting and before
-   - added the :overlapping option to OccurrenceEnumerator#occurrences - Allows the enumeration of occurrences which are either partiall or completely within a timespan given by a pair of Dates/Times/DateTimes
-   - Fixes some Ruby 1.9 incompatibilities
-   - Added some new rake tasks to run specs under multi-ruby
-=== 0.6.3 - 14 June 2009
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/13
-      tzinfotimezones-with-no-transitions-fail-on-export
-=== 0.6.2 - 11 June 2009
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/12
-      export-failure-for-unbounded-tzinfo-timezone
-=== 0.6.1 - 6 June 2009
-   - Fixes problem with file which loads activesupport for the rake spec:with_activesupport task, it now
-   requires >=2.2 instead of <=2.2 - Thanks to Paul Scott-Murphy for finding this.
-=== 0.6.0 - 5 June 2009
- Time for a minor version bump.
-   - Improved overall enumeration performance bypassing most of the effects of the poor performance of Ruby's DateTime class.
-   - Added a framework for performance monitoring during development.
-   - New performance directory with subdirs for code to be monitored for performance (subjects)
-   - New script files: 
-        script/benchmark_subject runs a ruby benchmark on one performance subject
-        script/profile_subject runs ruby-prof for a subject and puts a kcachegrind compatible calltree in the performance_data directory.
-   - New rake tasks: 
-        performance:benchmark runs benchmarks against all subjects in the performance directory and produces a consolidated output file in performance_data/benchmarks.out
-        performance:profile runs script/profile_subject against all subjects in the performance directory.
-=== 0.5.3 - 1 June, 2009
-   - Improved performance of time zone enumeration, TimeZonePeriod now caches occurrences
-   - Added a profiling directory which contains ruby programs which benchmark and/or profile performance
-=== 0.5.2
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/11
-   Export folding is not UTF-8 Safe
-=== 0.5.1
-   - Fixes README to acknowledge release on RubyForge
-=== 0.5.0 rubyforge release candidate Tue May 26 10:26:43 2009 -0400
-   - Added OccurrenceEnumerator#zulu_occurrence_range
-=== 0.0.11 Sat May 23 18:24:57 2009 -0400
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/5
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/9
-=== 0.0.10
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/8
-=== 0.0.9
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/4
-    Missing comparison methods in PropertyValue::Date
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/6
-    Type of dtstart and dtend (DATE or DATETIME) now preserved on enumeration
-=== 0.0.8
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/1
-    EXDATE and RDATE now pick up the timezone from DateTime, Time, and TimeWithZone values
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/2
-    Missing arithmetic methods in PropertyValue::Date
-   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/3
-       Components with no recurrence rules or rdate properties failed on enumeration, they now
-       will enumerate a single occurrence  
-=== 0.0.7
-   - Fixes a bug relating to properly recognizing ActiveRecord::TimeWithZone
-   - DATETIME propertyvalues will now return an instance of TimeWithZone instead of DateTime when
-   activesupport is present, and it is appropriate. See the README for details
-=== 0.0.6
-   - Added rake tasks to run specs with either the tzinfo gem or activesupport (<=2.2)
-   - Default rake task now runs both of these
-=== 0.0.5
-   - Fixes a bug in occurrence enumeration reported by paulsm on github
-=== 0.0.4
-   - Fixes a bug in imported timezones reported by paulsm on github
-=== 0.0.3
-   - Added tzid method to Ruby Time and DateTime instances, and to ActiveRecord::TimeWithZone if it is defined this method is used to determine the desired
-timezone when an instance of one of these classes is given as the value of a datetime property.  If the tzid is nil then the default tzid is used,
-if it is set to :floating then the property will be a floating time.
-   - Removed the ability to pass an array with a tzid string and a date-time since the above made it unnecessary
-   - The ruby datetime property returned from the ruby_value method on the DateTime property will return an instance of ::DateTime with:
-     -- The proper utc offset
-     -- The tzid set to the right tzid
-   - Made exdate/rdate building possible
-   - Added a default_tzid attribute to the Calendar component, if this attribute is not set for a particular calendar it will delegate to the default set 
-for the DateTime property class.
-   - Added fix patches from
-     -- http://github.com/kjwierenga/ri_cal
-     -- http://github.com/wesmaldonado/ri_cal
-
-=== 0.0.2
-   - Fixes gemspec
-== 0.0.1
-   - Initial public release
+        and didn't build the gem.  Hopefully it will notice this one.
+   
+=== v0.7.6 2009-08-06
+   Version 0.7.6   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/20     RiCal::PropertyValue::Period was returning a nil ruby value. 
+   Version 0.7.6   - Fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/20     RiCal::PropertyValue::Period was returning a nil ruby value. 
+   checkpoint before regen 
+=== v0.7.5 2009-08-03
+   Merge commit 'origin/master' 
+   fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/19   Microsoft ical exports double quote tzid values in parameters, which caused a failure to find VTIMEZONES
+     This exposed an issue with parameter parsing.
+   
+   fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/19   Microsoft ical exports double quote tzid values in parameters, which caused a failure to find VTIMEZONES
+     This exposed an issue with parameter parsing.
+   
+   updated website 
+   Oops forgot to update gemspec 
+   release 0.7.4 
+   fix alarm trigger 
+   added pointer to rdoc in README 
+=== 0_7_2 2009-07-06
+   updated to use newest versions of newgem and hoe, in order to make run-code-run work again 
+   updated to use newest versions of newgem and hoe, in order to make run-code-run work again 
+=== 0_7_1 2009-07-06
+   * fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/15       duration validation issues   * fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/16       event finish_time loses timezone info when event has a dtstart and duration 
+=== 0_7_0 2009-06-29
+   * fixed http://rick_denatale.lighthouseapp.com/projects/30941/tickets/14     component without recurrence properties should enumerate just itself only if it is within the period between starting and before * added the :overlapping option to OccurrenceEnumerator#occurrences - Allows the enumeration of occurrences which are either partiall or completely within a timespan given by a pair of Dates/Times/DateTimes * Fixed some Ruby 1.9 incompatibilities * Added some new rake tasks to run specs under multi-ruby 
+   fixes http://rick_denatale.lighthouseapp.com/projects/30941/tickets/14 component-without-recurrence-properties-should-enumerate-just-itself-only-if-it-is-within-the-period-between-starting-and-before
+   
+   Made the test rake task a no-op since we only have specs not tests Cleaned up syntax warnings in two specs using here doc strings
+   
+=== 0_6_3 2009-06-14
+   * Fixed http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/13       tzinfotimezones-with-no-transitions-fail-on-export 
+=== 0_6_2 2009-06-11
+   * Fixed http://rick_denatale.lighthouseapp.com/projects/30941-ri_cal/tickets/12       export-failure-for-unbounded-tzinfo-timezone 
+=== 0_6_1 2009-06-07
+   * Fixed problem with file which loads activesupport for the rake spec:with_activesupport task, it now    requires >=2.2 instead of <=2.2 - Thanks to Paul Scott-Murphy for finding this. 
+   fixed gem version requirement in tasks/gem_loader/load_active_support.rb 
+=== 0_6_0 2009-06-05
+   Time for a minor version bump.  * Improved overall enumeration performance bypassing most of the effects of the poor performance of Ruby's DateTime class.  * Added a framework for performance monitoring during development.    - New performance directory with subdirs for code to be monitored for performance (subjects)    - New script files:         script/benchmark_subject runs a ruby benchmark on one performance subject         script/profile_subject runs ruby-prof for a subject and puts a kcachegrind compatible calltree in the performance_data directory.    - New rake tasks:         performance:benchmark runs benchmarks against all subjects in the performance directory and produces a consolidated output file in performance_data/benchmarks.out         performance:profile runs script/profile_subject against all subjects in the performance directory. 
+=== perf_harness 2009-06-05
+   performance harness 
+   changed profile3 to output kcachegrind compatible output 
+=== 0_5_3 2009-06-01
+   version 0.5.3 
+   ready to merge 
+   timezone period now caching occurrences 
+   experiment with caching rationals in the RiCal module 
+   added reset of caches 
+   Easy performance improvement for occurrence enumeration 
+   changes to rakefile - trying to make rake release work 
+=== 0_5_2 2009-05-28
+   Version 0.5.2 
+   Fixed [\#11 state:resolved] 
+=== 0_5_1 2009-05-26
+   fix README to acknowledge release on RubyForge 
+=== 0_5_0 2009-05-26
+   version 0.5.0 rubyforge release candidate 
+   after generator change 
+=== github0_0_11 2009-05-23
+   updated version to 0.0.11 
+   Fixes [\#5 state:resolved milestone:"0.0.11"] 
+   Fixed [\#9 state:resolved milestone:"0.0.11"] 
+   Fixed bug [\#8 tagged:committed state:resolved] 
+   fixed [\#4 \#6 state:committed] 
+   Fixed bugs [\#4 \#6 state:committed] 
+   fixed [\#1] tagged:committed fixed [\#2] tagged:committed fixed [\#3] tagged:committed 
+=== github0_0_7 2009-05-18
+   gemspec for 0.0.7 
+   Documentation updates 
+   fixed problem with TimeWithZone 
+   updated gemspec 
+   new rake tasks to run specs with tzinfo or activesupport 
+   fixed an occurrence enumeration bug reported by paulsm on github 
+   fixed bug in imported timezones 
+   fixed bug reported by paulsm via github 
+   fixed manifest to remove .ackrc 
+   new gemspec 
+   removed rubigen include from Rakefile, since it pulls in activesupport 
+   doc cleanup 
+   doc cleanup 
+   rationalized namespaces of Datetime property modules 
+   finished string conversion specs 
+   synced copyrights 
+   added spec for string conversion to datetime 
+   added specs for multiply occuring property example 
+   checkpoint after generator change 
+   implement OccurrenceEnumerator :starting option fix so that :before and :starting actually accept Date,Time or DateTime instances as arguments by converting occurrence[:start].to_datetime before comparing against :starting or :before 
+   checkpoint 
+   ruby values of datetime props now have tzids and proper utc-offsets 
+   fixed bug where RiCal::PropertyValue::Duration.from_datetime would fail when start > finish 
+   regenerated 
+   checkpoint after generator change 
+   checkpoint before generator change 
+   Merge branch 'master' of git://github.com/wesmaldonado/ri_cal 
+   RiCal::PropertyValue::DateTime.default_tzid can be set. 
+   added OcurrenceList.occurrence_list_property_from_string 
+   added timezone detection to occurence list convert 
+   regenarated properties 
+   checkpoint after changing generator 
+   resync version number between ri_cal.rb and gemspec 
+   fixed manifest removed uncommitted occurrence_list_spec 
+   updated manifest and gemspec 
+   updated readme for github unofficial release 
+   fixed export of x_property 
+   checkpoint changed generation 
+   fixed problem with array input to datetime properties not using ::Array for check 
+   doc cleanup 
+   checkpoint after change to generator 
+   checkpoint before generator change 
+   fixed manifest 
+   DATETIME properties can now also take an array with a time and a time zone identifier as a value 
+   merge 
+   added in_time_zone method to DateTime property 
+   calendar now responsible for flagging tzinfo source 
+   refactored DateTime property value class -- finally 
+   .utc working for imported datetimes 
+   working on timezone conversions for datetime property 
+   fixed problem with count in recurrence rule 
+   Merge branch 'master' of ssh://git@denhaven2.com/home/git/repositories/ri_cal 
+   added more tzinfo timezone compat specs 
+   fixed issue with active support time zones 
+   fixed gem generation issues 
+   fixed gem generation issues 
+   changed unneeded around_local back to last_before_local 
+   timezone checking for ambiguous/invalid local times 
+   checkpoint 
+   changed parent_component to timezone_finder 
+   checkpoint before renaming parent_component to timezone_finder 
+   checkpoint before regeneration 
+   checkpoint before regeneration 
+   fixed export to fold long output lines 
+   added adams builder patch and code that ensued 
+   added second style of component initialization block 
+   ruby 1.9 compatibility 
+   more doc 
+   working on docs 
+   working on doc 
+   component build seems to be working 
+   checkpoint before applying new rake task change 
+   prior to regeneration - added new methods to the rake task for multiple value properties 
+   added some doc to readme 
+   added support for times with floating time zones 
+   component export datetime and date now formatting correctly 
+   fixed tzinfo_timezone spec 
+   export event 1 spec fails 
+   checkpoint before regeneration 
+   generated properties 
+   changed ri_cal rake task to generate add_date_times_to(required_timezones) method 
+   added classes to accumulate require timezones for export 
+   dead code elimination 
+   removed debugging output 
+   all specs passing, need to remove debugging output 
+   recurrence rule spec passing 
+   checkpoint, about to combine byday, bymonthday, and byyearday incrementers 
+   checkpoint 
+   checkpoint 
+   checkpoint 
+   checkpoint 
+   checkpoint 
+   checkpoint 
+   checkpoint before moving by rules checks 
+   specs passing, but some missing 
+   checkpoint 
+   tabled experiment 
+   taught the text property how to deal with escaped characters 
+   checkpoint 
+   checkpoint 
+   checkpoint before moving by rules checks 
+   specs passing, but some missing 
+   checkpoint 
+   tabled experiment 
+   added copyright task 
+   merged timezone_calcs 
+   initial timezone enumeration working 
+   changed tzinfo to emit one period each for standard and daylight 
+   changed tzinfo to emit one period each for standard and daylight 
+   changed rdoc to darkfish format, took doc directory out of .gitignore 
+   Merge branch 'occurrence_enumeration' Conflicts:
+   	.gitignore
+   	README.txt
+   	Rakefile
+   	component_attributes/component_property_defs.yml
+   	lib/ri_cal.rb
+   	lib/ri_cal/component.rb
+   	lib/ri_cal/parser.rb
+   	lib/ri_cal/property_value.rb
+   	spec/ri_cal/parser_spec.rb
+   	spec/ri_cal/property_value_spec.rb
+   	spec/spec_helper.rb
+   	tasks/ri_cal.rake
+   
+   Prepared for limited release Lots of Doc
+   
+   Refactored validations out of recurrence rule
+   
+   occurrence enumeration producing hashes 
+   Moved inner classes inside RecurrenceRule to separate files 
+   Refactored to put components inside the Component class 
+   Refactored for modularity - put value classes inside PropertyValue class, renamed so e.g. DurationValue is now PropertyValue::Duration 
+   moved calculations to date/time/datetime 
+   moved nth weekday predicates to Ruby time/date/datetime 
+   file restructuring 
+   Added specs and behavior for: date_time_value
+      calculations such as subtraction to produce a duration, and addition and subtraction of a duration
+   duration_value
+   period_value
+   
+   used autoload to preload some classes/modules 
+   refactored to put generated component property methods in separate modules 
+   now ignoring doc and coverage directory contents 
+   Added attribute definitions for alarm, freebusy, journal components. Added psuedo components with attribute definitions for timezone periods Added parsing of nested components 
+   removed dependency on activesupport 
+   renamed ventity to component, and all components have natural names like Calendar, Event etc. 
+   removed name iv from property_value, no longer needed 
+   added initial vtdodo_spec 
+   mend 
+   added mutually exclusive property resetting 
+   added Vtodo class 
+   added GeoValue class 
+   entities now have accessors for both properties and property values 
+   now using yml for attributes, generating rdoc for methods 
+   methods for entities are now generated rather than dynamic, to facilitate rdoc 
+   checkpoint before destroying rb files 
+   normalized project file structure 
+   multi-value attributes 
+   added base spec for ri_cal 
+   prepare to support multiple value attributes 
+   fixed file hierarchy in spec directory so that autodetection works 
+   all rrule examples in RFC 2445 passing 
+   Every 20 mins... 
+   by setpos usecases working 
+   passing use cases through the US presidential election case 
+   byday with yearly frequency working 
+   YEARLY with by-month list now working 
+   checkpoint working on YEARLY with by-month list 
+   new enumeration algorithm, mostly working 
+   checkpoint - bit the bullet on using activesupport 
+   all frequencies, interval=1, next occurrence 
+   partial implementation checkpoint 
+   processing :value key in recurrence_rule initialization 
+   changed by_xxx symbols to just byxxx 
+   Refactored   v_xx_property classes are now xx_value
+   
+   added behavior and specs for recurring weekno rule part 
+   fixed wkstart calculations 
+   checkpoint - initial week start calculations are broken 
+   refactored to move month length calculations to a module 
+   added computational behavior and specs for recurring month days 
+   to_ical implementation for recurrence rules 
+   all by_xxx rules can now be set on instantiation 
+   refactored validation of recurrence rule 
+   initial by_xxx rules 
+   checkpoint start on recurrence rule value 
+   changed autotest config 
+   fixed up autotest configuration 
+   all vevent properties, I think 
+   added recurrence rules; removed activesupport dependency 
+   refactored ventity to use metaprogramming for repetitive methods 
+   checkpoint before doing some metaprogramming 
+   renamed project from rfc2445 to ri_cal 
+   added correct expectation 
+   added initial support to generate a VTIMEZONE component from a TZInfo::Timezone 
+   additional property types including integers, dates and date-times 
+   refactored and added array property 
+   some event properties 
+   base calendar properties 
+   initial commit 
+   made temporary restricted use license 
+   working on merging of recurrence rules and recurrence lists changed date_list_value to occurrence_list_value changed rrule enumeration to take the component instead of just dtstart changed rrule enumeration to return a hash instead of just a date time    recurrence lists can include durations which will produce occurrences with a different duration 
+   now ignoring doc and coverage directory contents 
+   Added attribute definitions for alarm, freebusy, journal components. Added psuedo components with attribute definitions for timezone periods Added parsing of nested components 
+   removed dependency on activesupport 
+   renamed ventity to component, and all components have natural names like Calendar, Event etc. 
+   some doc 
+   removed name iv from property_value, no longer needed 
+   added initial vtdodo_spec 
+   mend 
+   added mutually exclusive property resetting 
+   added Vtodo class 
+   added GeoValue class 
+   entities now have accessors for both properties and property values 
+   now using yml for attributes, generating rdoc for methods 
+   methods for entities are now generated rather than dynamic, to facilitate rdoc 
+   checkpoint before destroying rb files 
+   normalized project file structure 
+   multi-value attributes 
+   added base spec for ri_cal 
+   prepare to support multiple value attributes 
+   fixed file hierarchy in spec directory so that autodetection works 
+   all rrule examples in RFC 2445 passing 
+   Every 20 mins... 
+   by setpos usecases working 
+   passing use cases through the US presidential election case 
+   byday with yearly frequency working 
+   YEARLY with by-month list now working 
+   checkpoint working on YEARLY with by-month list 
+   new enumeration algorithm, mostly working 
+   checkpoint - bit the bullet on using activesupport 
+   all frequencies, interval=1, next occurrence 
+   partial implementation checkpoint 
+   processing :value key in recurrence_rule initialization 
+   changed by_xxx symbols to just byxxx 
+   Refactored   v_xx_property classes are now xx_value
+   
+   added behavior and specs for recurring weekno rule part 
+   fixed wkstart calculations 
+   checkpoint - initial week start calculations are broken 
+   refactored to move month length calculations to a module 
+   added computational behavior and specs for recurring month days 
+   to_ical implementation for recurrence rules 
+   all by_xxx rules can now be set on instantiation 
+   refactored validation of recurrence rule 
+   initial by_xxx rules 
+   checkpoint start on recurrence rule value 
+   changed autotest config 
+   fixed up autotest configuration 
+   all vevent properties, I think 
+   added recurrence rules; removed activesupport dependency 
+   refactored ventity to use metaprogramming for repetitive methods 
+   checkpoint before doing some metaprogramming 
+   renamed project from rfc2445 to ri_cal 
+   added correct expectation 
+   added initial support to generate a VTIMEZONE component from a TZInfo::Timezone 
+   additional property types including integers, dates and date-times 
+   refactored and added array property 
+   some event properties 
+   base calendar properties 
+   initial commit 
