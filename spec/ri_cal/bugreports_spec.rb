@@ -229,7 +229,7 @@ ENDVENUE
   end
 end
 
-context "ticket #23" do
+describe "ticket #23" do
   describe "RecurrenceRule" do
     it "should convert the rrule string to a hash" do
       rrule = RiCal::PropertyValue::RecurrenceRule.convert(nil, 'INTERVAL=2;FREQ=WEEKLY;BYDAY=TH,TU')
@@ -238,8 +238,8 @@ context "ticket #23" do
   end
 end
 
-context "ticket #26" do
-  context "Date property" do
+describe "ticket #26" do
+  describe "Date property" do
     it "should handle for_parent" do
       lambda {
       RiCal::PropertyValue::Date.convert(:foo, Date.parse("20090927")).for_parent(:bar)}.should_not raise_error
@@ -247,7 +247,7 @@ context "ticket #26" do
   end
 end
 
-context "ticket 29:supress-x-rical-tzsource-when-not-relevant" do
+describe "ticket 29:supress-x-rical-tzsource-when-not-relevant" do
   it "should parse its own output" do
     cal_string = %Q(BEGIN:VCALENDAR
 PRODID:-//Google Inc//Google Calendar 70.9054//EN
@@ -260,7 +260,7 @@ END:VCALENDAR)
   end
 end
 
-context "X-properties" do
+describe "X-properties" do
   it "should round-trip the X-WR-CALNAME property" do
     cal_string = %Q(BEGIN:VCALENDAR
 PRODID:-//Markthisdate.com\,0.7
@@ -272,5 +272,16 @@ END:VCALENDAR)
       cal = RiCal.parse_string(cal_string).first
       cal.x_wr_calname.first.should == " AFC Ajax Eredivisie wedstrijden 2010 - 2011"
     end
+    
+  it "should define x-properties correctly" do
+    calendar = RiCal.Calendar
+    calendar.add_x_property 'x_wr_calname', 'Lifetracker'
+    calendar.export.should == %Q(BEGIN:VCALENDAR
+PRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN
+CALSCALE:GREGORIAN
+VERSION:2.0
+X-WR-CALNAME:Lifetracker
+END:VCALENDAR
+)
+  end
 end
-
