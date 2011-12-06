@@ -307,7 +307,8 @@ module RiCal
       # Returns a ruby DateTime object representing the receiver.
       def ruby_value
         if has_valid_tzinfo_tzid? && RiCal::TimeWithZone && tz_info_source?
-          RiCal::TimeWithZone.new(utc.to_datetime, ::Time.__send__(:get_zone, @tzid))
+          time_zone_meth = ::Time.respond_to?(:find_zone!) ? :find_zone! : :get_zone
+          RiCal::TimeWithZone.new(utc.to_datetime, ::Time.__send__(time_zone_meth, @tzid))
         else
           ::DateTime.civil(year, month, day, hour, min, sec, rational_tz_offset).set_tzid(@tzid)
         end
