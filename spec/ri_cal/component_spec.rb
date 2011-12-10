@@ -190,6 +190,10 @@ describe RiCal::Component do
       it 'should have an x_wr_calname property with the value "My Personal Calendar"' do
         @it.x_wr_calname.first.should == "My Personal Calendar"
       end
+      
+      it 'should write out the x_wr_calname with the value "My Personal Calendar"' do
+        @it.to_s.should =~ /X-WR-CALNAME:My Personal Calendar/
+      end
 
       context "event with a long description and a dsl built recurence rule" do
         before(:each) do
