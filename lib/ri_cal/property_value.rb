@@ -57,12 +57,12 @@ module RiCal
     
     def self.date_or_date_time(timezone_finder, separated_line) # :nodoc:
       match = separated_line[:value].match(/(\d\d\d\d)(\d\d)(\d\d)((T?)((\d\d)(\d\d)(\d\d))(Z?))?/)
-      raise Exception.new("Invalid date") unless match
+      raise "Invalid date" unless match
       if match[5] == "T" # date-time
         time = Time.utc(match[1].to_i, match[2].to_i, match[3].to_i, match[7].to_i, match[8].to_i, match[9].to_i)
         parms = (separated_line[:params] ||{}).dup
         if match[10] == "Z"
-          raise Exception.new("Invalid time, cannot combine Zulu with timezone reference") if parms[:tzid]
+          raise "Invalid time, cannot combine Zulu with timezone reference" if parms[:tzid]
           parms['TZID'] = "UTC"
         end
         PropertyValue::DateTime.new(timezone_finder, separated_line.merge(:params => parms))
