@@ -2,6 +2,8 @@ module RiCal
   #- ©2009 Rick DeNatale
   #- All rights reserved. Refer to the file README.txt for the license
   #
+  class ParseError < StandardError; end
+  
   class Parser # :nodoc:
     attr_reader :last_line_str #:nodoc:
     def next_line #:nodoc:
@@ -87,7 +89,7 @@ module RiCal
     end
 
     def invalid #:nodoc:
-      raise Exception.new("Invalid icalendar file")
+      raise ParseError.new("Invalid icalendar file")      
     end
 
     def still_in(component, separated_line) #:nodoc:

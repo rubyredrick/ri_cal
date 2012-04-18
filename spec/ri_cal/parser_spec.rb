@@ -120,7 +120,7 @@ describe RiCal::Parser do
 
     it "should reject a file which doesn't start with BEGIN" do
       parser = RiCal::Parser.new(StringIO.new("END:VCALENDAR"))
-      lambda {parser.parse}.should raise_error     
+      lambda {parser.parse}.should raise_error(RiCal::ParseError)
     end
 
     describe "parsing an event" do
