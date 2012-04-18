@@ -2,7 +2,7 @@ module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
       class OccurrenceIncrementer # :nodoc:
-        #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+        #- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
         #
         class NullSubCycleIncrementer #:nodoc:
           def self.next_time(previous)

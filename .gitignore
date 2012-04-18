@@ -5,3 +5,4 @@ profiles/
 doc/
 \.DS_Store
 .ackrc
+.rvmrc

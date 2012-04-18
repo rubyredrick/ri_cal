@@ -1,7 +1,7 @@
 module RiCal
   class Component
     class Timezone
-      #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+      #- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
       #
       # A TimezonePeriod is a component of a timezone representing a period during which a particular offset from UTC is
       # in effect.

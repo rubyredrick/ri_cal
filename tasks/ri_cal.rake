@@ -1,6 +1,6 @@
 #require 'active_support'
 require 'yaml'
-#- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+#- C2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
 #
 # code stolen from ActiveSupport Gem
 unless  String.instance_methods.include?("camelize")
@@ -167,7 +167,7 @@ class VEntityUpdater
     else
       line_evaluator = "#{type_class(type)}.new(self, line)"
     end
-    
+
     if %w{Array, OccurrenceList}.include?(type)
       ruby_val_parm = "*ruby_value"
       val_parm = "*val"
@@ -360,7 +360,7 @@ class VEntityUpdater
       ruby_out_file.puts("module RiCal")
       ruby_out_file.puts("  module Properties #:nodoc:")
       @indent = "    "
-      ruby_out_file.puts("    #- ©2009 Rick DeNatale")
+      ruby_out_file.puts("    #- c2009 Rick DeNatale")
       ruby_out_file.puts("    #- All rights reserved. Refer to the file README.txt for the license")
       ruby_out_file.puts("    #")
       ruby_out_file.puts("    # Properties::#{module_name} provides property accessing methods for the #{class_name} class")
