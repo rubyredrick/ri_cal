@@ -4,6 +4,7 @@ require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib ri_cal]))
 require 'cgi'
 require 'tzinfo'
 
+alias :context :describe
 
 module Kernel
   if ENV.keys.find {|env_var| env_var.match(/^TM_/)}

@@ -66,11 +66,19 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
   class Periods #:nodoc: all
 
     def initialize
-      @dst_period = @std_period = @previous_period = nil
+      @daylight_period = @standard_period = @previous_period = nil
     end
     
     def empty?
       @periods.nil? || @periods.empty?
+    end
+
+    def has_standard?
+      !@standard_period.nil?
+    end
+    
+    def has_daylight?
+      !@daylight_period.nil?
     end
 
     def daylight_period(this_period, previous_period)
@@ -142,9 +150,13 @@ class RiCal::Component::TZInfoTimezone < RiCal::Component::Timezone
      #start with the period before the one containing utc_start
     prev_period = period.utc_start && tzinfo_timezone.period_for_utc(period.utc_start - 1)
     period = prev_period if prev_period
-    while period && period.utc_start && period.utc_start < utc_end
+    while period && period.utc_start && period.utc_start <= utc_end
       periods.add_period(period)
+      prev_period = period
       period = period.utc_end && tzinfo_timezone.period_for_utc(period.utc_end + 1)
+    end
+    if period && prev_period && period.dst? != prev_period.dst? && !(periods.has_daylight? && periods.has_standard?)
+      periods.add_period(period)
     end
     periods.add_period(initial_period, :force) if periods.empty?
     periods.export_to(export_stream)
