@@ -1,3 +1,5 @@
+=== v0.8.8o 2012-8-10
+   Fix for RRULE DAILY with BYDAY, added test
 === v0.8.8n 2012-6-19
    Regenerate gemspec for verson 0.8.8n
    merged in fix for get_zone and X-WR-CALNAME
