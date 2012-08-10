@@ -1,6 +1,6 @@
 module RiCal
   module Properties #:nodoc:
-    #- ©2009 Rick DeNatale
+    #- c2009 Rick DeNatale
     #- All rights reserved. Refer to the file README.txt for the license
     #
     # Properties::TimezonePeriod provides property accessing methods for the TimezonePeriod class

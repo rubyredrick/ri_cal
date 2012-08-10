@@ -1,7 +1,7 @@
 module RiCal
   class Component
     class Timezone
-      #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+      #- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
       #
       # A DaylightPeriod is a TimezonePeriod during which daylight saving time *is* in effect
       class DaylightPeriod < TimezonePeriod #:nodoc: all

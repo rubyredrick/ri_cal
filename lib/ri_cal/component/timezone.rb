@@ -1,6 +1,6 @@
 module RiCal
   class Component
-    #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+    #- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
     #
     # An Timezone (VTIMEZONE) calendar component describes a timezone used within the calendar.
     # A Timezone has two or more TimezonePeriod subcomponents which describe the transitions between

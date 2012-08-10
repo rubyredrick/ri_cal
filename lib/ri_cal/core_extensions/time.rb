@@ -1,4 +1,4 @@
-#- ©2009 Rick DeNatale
+#- c2009 Rick DeNatale
 #- All rights reserved. Refer to the file README.txt for the license
 #
 require "ri_cal/core_extensions/time/conversions.rb"

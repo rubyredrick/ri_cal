@@ -1,7 +1,7 @@
 module RiCal
   class PropertyValue
     class DateTime
-      #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+      #- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
       #
       # Time zone related methods for DateTime
       module TimezoneSupport
