@@ -229,7 +229,7 @@ ENDVENUE
   end
 end
 
-context "ticket #23" do
+describe "ticket #23" do
   describe "RecurrenceRule" do
     it "should convert the rrule string to a hash" do
       rrule = RiCal::PropertyValue::RecurrenceRule.convert(nil, 'INTERVAL=2;FREQ=WEEKLY;BYDAY=TH,TU')
@@ -238,8 +238,8 @@ context "ticket #23" do
   end
 end
 
-context "ticket #26" do
-  context "Date property" do
+describe "ticket #26" do
+  describe "Date property" do
     it "should handle for_parent" do
       lambda {
       RiCal::PropertyValue::Date.convert(:foo, Date.parse("20090927")).for_parent(:bar)}.should_not raise_error
@@ -247,7 +247,7 @@ context "ticket #26" do
   end
 end
 
-context "ticket 29:supress-x-rical-tzsource-when-not-relevant" do
+describe "ticket 29:supress-x-rical-tzsource-when-not-relevant" do
   it "should parse its own output" do
     cal_string = %Q(BEGIN:VCALENDAR
 PRODID:-//Google Inc//Google Calendar 70.9054//EN
@@ -260,7 +260,7 @@ END:VCALENDAR)
   end
 end
 
-context "X-properties" do
+describe "X-properties" do
   it "should round-trip the X-WR-CALNAME property" do
     cal_string = %Q(BEGIN:VCALENDAR
 PRODID:-//Markthisdate.com\,0.7
@@ -269,8 +269,37 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 X-WR-CALNAME: AFC Ajax Eredivisie wedstrijden 2010 - 2011
 END:VCALENDAR)
-      cal = RiCal.parse_string(cal_string).first
-      cal.x_wr_calname.first.should == " AFC Ajax Eredivisie wedstrijden 2010 - 2011"
-    end
+    cal = RiCal.parse_string(cal_string).first
+    cal.x_wr_calname.first.should == " AFC Ajax Eredivisie wedstrijden 2010 - 2011"
+  end
+end
+
+describe "RRULE_DAILY_BYDAY" do
+  it "should parse and generate" do
+    cal_string = %Q(BEGIN:VCALENDAR
+PRODID:-//Google Inc//Google Calendar 70.9054//EN
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+CREATED;VALUE=DATE-TIME:20110320T181053Z
+DTEND;VALUE=DATE:20110412
+STATUS:CONFIRMED
+DTSTART;VALUE=DATE:20110411
+TRANSP:TRANSPARENT
+DTSTAMP;VALUE=DATE-TIME:20120810T174438Z
+SUMMARY:Pragmatic Marketing
+RRULE:FREQ=DAILY;UNTIL=20110413;BYDAY=MO,TU,WE,TH,FR
+LOCATION:
+SEQUENCE:0
+END:VEVENT
+END:VCALENDAR)
+    cal = RiCal.parse_string(cal_string).first
+    e = cal.events.first
+    e.recurs?.should be_true
+    e.bounded?.should be_true
+    twelfth = Date.parse('2011-04-12')
+    e.occurrences(:overlapping => [twelfth, twelfth]).size.should eql 2
+  end
 end
 
