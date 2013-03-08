@@ -171,7 +171,7 @@ module RiCal
           stream.string
         end
 
-        if RUBY_VERSION =~ /^1\.9/
+        if RUBY_VERSION >= "1.9"
           def utf8_safe_split(string, n)
             if string.bytesize <= n
               [string, nil]
