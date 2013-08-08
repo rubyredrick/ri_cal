@@ -171,7 +171,7 @@ module RiCal
           stream.string
         end
 
-        if RUBY_VERSION =~ /^1\.9/
+        if RUBY_VERSION >= "1.9"
           def utf8_safe_split(string, n)
             if string.bytesize <= n
               [string, nil]
@@ -208,10 +208,10 @@ module RiCal
 
         def fold(string) #:nodoc:
           line, remainder = *utf8_safe_split(string, 73)
-          stream.puts(line)
+          stream.puts("#{line}\r")
           while remainder
             line, remainder = *utf8_safe_split(remainder, 72)
-            stream.puts(" #{line}")
+            stream.puts(" #{line}\r")
           end
         end
 

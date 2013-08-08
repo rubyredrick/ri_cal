@@ -557,42 +557,42 @@ END:VEVENT
 
     it "should cause a VTIMEZONE to be included for a dtstart with a local timezone" do
       @it.dtstart = date_time_with_tzinfo_zone(DateTime.parse("April 22, 2009 17:55"), "America/New_York")
-      unfold(@it.export).should match(/BEGIN:VTIMEZONE\nTZID;X-RICAL-TZSOURCE=TZINFO:America\/New_York\n/)
+      unfold(@it.export).should match(/BEGIN:VTIMEZONE\r\nTZID;X-RICAL-TZSOURCE=TZINFO:America\/New_York\r\n/)
     end
 
     it "should properly format dtstart with a UTC date-time" do
       @it.dtstart = DateTime.parse("April 22, 2009 1:23:45").set_tzid("UTC")
-      unfold(@it.export).should match(/^DTSTART;VALUE=DATE-TIME:20090422T012345Z$/)
+      unfold(@it.export).should match(/^DTSTART;VALUE=DATE-TIME:20090422T012345Z\r$/)
     end
 
     it "should properly format dtstart with a floating date-time" do
       @it.dtstart = DateTime.parse("April 22, 2009 1:23:45").with_floating_timezone
-      unfold(@it.export).should match(/^DTSTART;VALUE=DATE-TIME:20090422T012345$/)
+      unfold(@it.export).should match(/^DTSTART;VALUE=DATE-TIME:20090422T012345\r$/)
     end
 
     it "should properly format dtstart with a local time zone" do
       @it.dtstart = date_time_with_tzinfo_zone(DateTime.parse("April 22, 2009 17:55"), "America/New_York")
-      unfold(@it.export).should match(/^DTSTART;TZID=America\/New_York;VALUE=DATE-TIME:20090422T175500$/)
+      unfold(@it.export).should match(/^DTSTART;TZID=America\/New_York;VALUE=DATE-TIME:20090422T175500\r$/)
     end
 
     it "should properly format dtstart with a date" do
       @it.dtstart = Date.parse("April 22, 2009")
-      unfold(@it.export).should match(/^DTSTART;VALUE=DATE:20090422$/)
+      unfold(@it.export).should match(/^DTSTART;VALUE=DATE:20090422\r$/)
     end
 
     it "should properly fold on export when the description contains a carriage return" do
       @it.description = "Weather report looks nice, 80 degrees and partly cloudy, so following Michael's suggestion, let's meet at the food court at Crossroads:\n\rhttp://www.shopcrossroadsplaza.c...\n"
       export_string = @it.export
-      export_string.should match(%r(^DESCRIPTION:Weather report looks nice\\, 80 degrees and partly cloudy\\, so$))
-      export_string.should match(%r(^  following Michael's suggestion\\, let's meet at the food court at Crossr$))
-      export_string.should match(%r(^ oads:\\nhttp://www\.shopcrossroadsplaza.c\.\.\.\\n$))
+      export_string.should match(%r(^DESCRIPTION:Weather report looks nice\\, 80 degrees and partly cloudy\\, so\r$))
+      export_string.should match(%r(^  following Michael's suggestion\\, let's meet at the food court at Crossr\r$))
+      export_string.should match(%r(^ oads:\\nhttp://www\.shopcrossroadsplaza.c\.\.\.\\n\r$))
     end
 
     it "should properly fold on export when the description contains multi-byte UTF-8 Characters" do
       @it.description = "Juin 2009 <<Alliance Francaise Reunion>> lieu Café périferôl"
       export_string = @it.export
-      export_string.should match(%r(^DESCRIPTION:Juin 2009 <<Alliance Francaise Reunion>> lieu Café périfer$))
-      export_string.should match(%r(^ ôl$))
+      export_string.should match(%r(^DESCRIPTION:Juin 2009 <<Alliance Francaise Reunion>> lieu Café périfer\r$))
+      export_string.should match(%r(^ ôl\r$))
     end
   end
 

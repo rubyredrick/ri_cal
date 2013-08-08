@@ -13,15 +13,15 @@ describe RiCal::Component do
       end
 
       it "should have the default prodid" do
-        @it.should match(%r{^PRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN$})
+        @it.should match(%r{^PRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN\r$})
       end
 
       it "should have the default calscale" do
-        @it.should match(%r{^CALSCALE:GREGORIAN$})
+        @it.should match(%r{^CALSCALE:GREGORIAN\r$})
       end
 
       it "should have the default icalendar version" do
-        @it.should match(%r{^VERSION:2\.0$})
+        @it.should match(%r{^VERSION:2\.0\r$})
       end
     end
 

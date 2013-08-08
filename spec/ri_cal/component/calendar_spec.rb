@@ -21,7 +21,7 @@ describe RiCal::Component::Calendar do
     end
     
     it "should export a product id with an X-RICAL-TZSOURCE parameter of TZINFO" do
-      @it.export.should match(%r{\nPRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN\n})
+      @it.export.should match(%r{\r\nPRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN\r\n})
     end
   end
   
@@ -35,7 +35,7 @@ describe RiCal::Component::Calendar do
     end
     
     it "should export a product id with an X-RICAL-TZSOURCE parameter of TZINFO" do
-      @it.export.should match(%r{\nPRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN\n})
+      @it.export.should match(%r{\r\nPRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN\r\n})
     end
   end
   

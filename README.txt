@@ -379,8 +379,9 @@ or by a recent(>= 2.2) version of the ActiveSupport gem which is part of Ruby on
     1. cd to a directory in which you want to install ri_cal as a subdirectory
     2. git clone http://github.com/rubyredrick/ri_cal  your_install_subdirectory
     3. cd your_install_directory
-    4. rake spec
-    5. rake install_gem
+    4. bundle install
+    5. bundle exec rspec
+    6. gem build ri_cal.gemspec
 
 
 

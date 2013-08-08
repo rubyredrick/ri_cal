@@ -203,6 +203,7 @@ URL;X-LABEL=Venue Info:http://www.hrmafestival.org
 END:VVENUE
 END:VCALENDAR
 ENDCAL
+  @cal_string.gsub!(/\n/, "\r\n")
 
   @venue_str = <<ENDVENUE
 BEGIN:VVENUE
@@ -217,6 +218,7 @@ GEO:39.546;-104.997
 URL;X-LABEL=Venue Info:http://www.hrmafestival.org
 END:VVENUE
 ENDVENUE
+    @venue_str.gsub!(/\n/, "\r\n")
   end
 
   it "should parse without error" do

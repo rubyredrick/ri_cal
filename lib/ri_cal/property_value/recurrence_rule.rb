@@ -76,7 +76,7 @@ module RiCal
       end
 
       def wkst_day # :nodoc:
-        @wkst_day ||= (%w{SU MO TU WE FR SA}.index(wkst) || 1)
+        @wkst_day ||= (%w{SU MO TU WE TH FR SA}.index(wkst) || 1)
       end
 
       # Set the starting week day for the recurrence rule, which should  be one of
