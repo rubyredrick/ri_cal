@@ -1,4 +1,4 @@
-#- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+#- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
 
 require File.expand_path(File.join(File.dirname(__FILE__), %w[.. lib ri_cal]))
 require 'cgi'

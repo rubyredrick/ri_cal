@@ -1,7 +1,7 @@
 # encoding: utf-8
-#- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+#- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
 
-require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
+require 'spec_helper'
 
 describe RiCal::Component::Calendar do
 
@@ -21,7 +21,7 @@ describe RiCal::Component::Calendar do
     end
     
     it "should export a product id with an X-RICAL-TZSOURCE parameter of TZINFO" do
-      @it.export.should match(%r{\nPRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN\n})
+      @it.export.should match(%r{\r\nPRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN\r\n})
     end
   end
   
@@ -35,7 +35,7 @@ describe RiCal::Component::Calendar do
     end
     
     it "should export a product id with an X-RICAL-TZSOURCE parameter of TZINFO" do
-      @it.export.should match(%r{\nPRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN\n})
+      @it.export.should match(%r{\r\nPRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN\r\n})
     end
   end
   

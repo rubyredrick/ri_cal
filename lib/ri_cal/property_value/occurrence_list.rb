@@ -1,7 +1,7 @@
 module RiCal
   class PropertyValue
     # OccurrenceList is used to represent the value of an RDATE or EXDATE property.
-    #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+    #- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
     #
     class OccurrenceList < Array
       attr_accessor :tzid #:nodoc:

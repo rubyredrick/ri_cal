@@ -1,4 +1,4 @@
-#- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+#- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
 
 require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 require 'tzinfo'
@@ -13,15 +13,15 @@ describe RiCal::Component do
       end
 
       it "should have the default prodid" do
-        @it.should match(%r{^PRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN$})
+        @it.should match(%r{^PRODID;X-RICAL-TZSOURCE=TZINFO:-//com.denhaven2/NONSGML ri_cal gem//EN\r$})
       end
 
       it "should have the default calscale" do
-        @it.should match(%r{^CALSCALE:GREGORIAN$})
+        @it.should match(%r{^CALSCALE:GREGORIAN\r$})
       end
 
       it "should have the default icalendar version" do
-        @it.should match(%r{^VERSION:2\.0$})
+        @it.should match(%r{^VERSION:2\.0\r$})
       end
     end
 
@@ -189,6 +189,10 @@ describe RiCal::Component do
 
       it 'should have an x_wr_calname property with the value "My Personal Calendar"' do
         @it.x_wr_calname.first.should == "My Personal Calendar"
+      end
+      
+      it 'should write out the x_wr_calname with the value "My Personal Calendar"' do
+        @it.to_s.should =~ /X-WR-CALNAME:My Personal Calendar/
       end
 
       context "event with a long description and a dsl built recurence rule" do

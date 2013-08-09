@@ -1,7 +1,7 @@
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
-      #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+      #- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
       #
       # Instances of RecurringDay are used to represent values in BYDAY recurrence rule parts
       #
@@ -48,7 +48,7 @@ module RiCal
             time.year
           when :monthly
             (time.year * 100) + time.month
-          when :weekly
+          when :weekly, :daily
             time.at_start_of_week_with_wkst(rrule.wkst_day).jd
           end
         end
@@ -60,7 +60,7 @@ module RiCal
             yearly_matches_for(time)
           when :monthly
             monthly_matches_for(time)
-          when :weekly
+          when :weekly, :daily
             weekly_matches_for(time)
           else
             walkback = caller.grep(/recurrence/i)

@@ -1,5 +1,5 @@
 module RiCal
-  #- ©2009 Rick DeNatale
+  #- c2009 Rick DeNatale
   #- All rights reserved. Refer to the file README.txt for the license
   #
   # FloatingTimezone represents the 'time zone' for a time or date time with no timezone

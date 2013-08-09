@@ -1,6 +1,6 @@
 module RiCal
   class PropertyValue
-    #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+    #- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
     #
     # RiCal::PropertyValue::RecurrenceRule represents an icalendar Recurrence Rule property value
     # which is defined in 
@@ -76,7 +76,7 @@ module RiCal
       end
 
       def wkst_day # :nodoc:
-        @wkst_day ||= (%w{SU MO TU WE FR SA}.index(wkst) || 1)
+        @wkst_day ||= (%w{SU MO TU WE TH FR SA}.index(wkst) || 1)
       end
 
       # Set the starting week day for the recurrence rule, which should  be one of

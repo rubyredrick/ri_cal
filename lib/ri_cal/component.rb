@@ -1,5 +1,5 @@
 module RiCal
-  #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+  #- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
   #
   class Component #:nodoc:
 
@@ -214,7 +214,7 @@ module RiCal
     def export_x_properties_to(export_stream) #:nodoc:
       x_properties.each do |name, props|
         props.each do | prop |
-          export_stream.puts("#{name}:#{prop}")
+          export_stream.puts("#{name}#{prop}")
         end
       end
     end

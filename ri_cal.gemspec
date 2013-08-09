@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{ri_cal}
-  s.version = "0.8.8"
+  s.version = "0.8.8p"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Rick DeNatale"]
@@ -234,6 +234,10 @@ A Google group for discussion of this library has been set up http://groups.goog
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
     s.specification_version = 3
+
+    s.add_development_dependency 'rake', '~>10.0.3'
+    s.add_development_dependency 'rspec', '~> 2.12.0'
+    s.add_development_dependency 'tzinfo', '~> 0.3.36'
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
     else

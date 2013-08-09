@@ -1,5 +1,5 @@
 module RiCal
-  #- ©2009 Rick DeNatale
+  #- c2009 Rick DeNatale
   #- All rights reserved. Refer to the file README.txt for the license
   #
   # An InvalidTimezoneIdentifier error is raised when a DATETIME property with an invalid timezone is

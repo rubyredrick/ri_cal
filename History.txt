@@ -1,3 +1,13 @@
+=== v0.8.8p 2013-8-8
+   Merge fixes from PRs:
+   merge wkst_day fix https://github.com/austincgt/ri_cal/commit/288c9e78bcdef3461c6082abbf592f574c232838
+   merge ruby 2.0 fixhttps://github.com/spk/ri_cal/commit/321d722837318c8f6371d36bedb6e4ed5acdae35
+   fix \n\r encoding for export
+=== v0.8.8o 2012-8-10
+   Fix for RRULE DAILY with BYDAY, added test
+=== v0.8.8n 2012-6-19
+   Regenerate gemspec for verson 0.8.8n
+   merged in fix for get_zone and X-WR-CALNAME
 === v0.8.8 2011-02-13
    Regenerate gemspec for version 0.8.8 
    Version bump to 0.8.8 

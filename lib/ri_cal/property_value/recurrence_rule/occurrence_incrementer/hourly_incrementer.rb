@@ -1,7 +1,7 @@
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
-      #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+      #- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
       #
       class OccurrenceIncrementer # :nodoc:
         class HourlyIncrementer < FrequencyIncrementer #:nodoc:

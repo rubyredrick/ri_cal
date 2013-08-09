@@ -1,7 +1,7 @@
 module RiCal
   class PropertyValue
     class RecurrenceRule < PropertyValue
-      #- ©2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
+      #- c2009 Rick DeNatale, All rights reserved. Refer to the file README.txt for the license
       #
       class OccurrenceIncrementer # :nodoc:
         class ByDayIncrementer < ListIncrementer #:nodoc:
@@ -21,12 +21,12 @@ module RiCal
               @cycle_advance_proc = lambda {|date_time| first_day_of_month(advance_month(date_time))}
               @current_proc = lambda {|date_time| same_month?(current, date_time)}
               @first_day_proc = lambda {|date_time| first_day_of_month(date_time)}
-            when :weekly
+            when :weekly, :daily
               @cycle_advance_proc = lambda {|date_time| first_day_of_week(rrule.wkst_day, advance_week(date_time))}
               @current_proc = lambda {|date_time| same_week?(rrule.wkst_day, current, date_time)}
               @first_day_proc = lambda {|date_time| first_day_of_week(rrule.wkst_day, date_time)}
             else
-              raise "Invalid recurrence rule, byday needs to be scoped by month, week or year"
+              raise "Invalid recurrence rule, byday needs to be scoped by month, week, day or year"
             end
           end
 

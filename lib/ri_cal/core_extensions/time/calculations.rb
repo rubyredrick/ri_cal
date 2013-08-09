@@ -1,7 +1,7 @@
 module RiCal
   module CoreExtensions #:nodoc:
     module Time #:nodoc:
-      #- ©2009 Rick DeNatale
+      #- c2009 Rick DeNatale
       #- All rights reserved. Refer to the file README.txt for the license
       #
       # Provide calculation methods for use by the RiCal gem
