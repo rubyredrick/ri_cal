@@ -1,4 +1,4 @@
-== RI_CAL -- a new implementation of RFC2445 in Ruby
+== RI_CAL -- a new implementation of RFC2445 in Ruby with Outlook FREE / BUSY status implementation
 http://ri-cal.rubyforge.org/
 
     by Rick DeNatale
@@ -16,6 +16,8 @@ A Google group for discussion of this library has been set up http://groups.goog
 == FEATURES/PROBLEMS:
 
 * All examples of recurring events in RFC 2445 are handled. RSpec examples are provided for them. 
+
+Added functionality to support Outlook FREE / BUSY status implementation
 
 == SYNOPSIS:
 
@@ -36,6 +38,8 @@ The methods for accessing the properties of each type of component are defined i
 same name as the component class in the RiCal::properties module. For example the property
 accessing methods for RiCal::Component::Event are defined in RiCal::Properties::Event
 
+Added functionality to support Outlook FREE / BUSY status implementation
+
 === Creating Calendars and Calendar Components
 
 RiCal provides a builder DSL for creating calendars and calendar components. An example
@@ -47,6 +51,8 @@ RiCal provides a builder DSL for creating calendars and calendar components. An 
       dtend       DateTime.parse("2/20/1962 19:43:02")
       location    "Cape Canaveral"
       add_attendee "john.glenn@nasa.gov"
+      #Outlook FREE / BUSY status
+      outlook_busystatus "FREE"
       alarm do
         description "Segment 51"
       end
@@ -69,6 +75,7 @@ will be passed as that argument
       event.dtend = DateTime.parse("2/20/1962 19:43:02")
       event.location = "Cape Canaveral"
       event.add_attendee "john.glenn@nasa.gov"
+      event.outlook_busystatus = "FREE"
       event.alarm do
         description "Segment 51"
       end
@@ -290,6 +297,7 @@ In either case the result will be an array of components.
 	CREATED:20090225T000839Z
 	DTEND;TZID=US/Eastern:20090224T100000
 	RRULE:FREQ=DAILY;INTERVAL=1;UNTIL=20090228T045959Z
+  X-MICROSOFT-CDO-BUSYSTATUS:FREE
 	END:VEVENT
 	END:VCALENDAR
 	ENDCAL
