@@ -1200,6 +1200,36 @@ module RiCal
         request_status_property << RiCal::PropertyValue::Text.new(self, line)
       end
 
+      # return the the X-MICROSOFT-CDO-BUSYSTATUS property
+      # which will be an instance of RiCal::PropertyValueText
+      # 
+      
+      def outlook_busystatus_property
+        @outlook_busystatus_property ||= []
+      end
+
+      # set the the X-MICROSOFT-CDO-BUSYSTATUS property
+      # one or more instances of RiCal::PropertyValueText may be passed to this method
+      def outlook_busystatus_property=(property_values)
+        @outlook_busystatus_property = property_values
+      end
+
+      # set the value of the X-MICROSOFT-CDO-BUSYSTATUS property to a single value
+      # one instance of String may be passed to this method
+      def outlook_busystatus=(ruby_value)
+        @outlook_busystatus_property = RiCal::PropertyValue::Text.convert(self, ruby_value)
+      end
+
+      # return the value of the X-MICROSOFT-CDO-BUSYSTATUS property
+      # which will be an array of instances of String
+      def outlook_busystatus
+        outlook_busystatus ? outlook_busystatus.ruby_value : nil
+      end
+
+      def outlook_busystatus_property_from_string(line) # :nodoc:
+        outlook_busystatus_property << RiCal::PropertyValue::Text.new(self, line)
+      end
+
       # return the the RELATED-TO property
       # which will be an array of instances of RiCal::PropertyValueText
       # 
@@ -1421,6 +1451,7 @@ module RiCal
         export_prop_to(export_stream, "LOCATION", @location_property)
         export_prop_to(export_stream, "COMMENT", @comment_property)
         export_prop_to(export_stream, "SEQUENCE", @sequence_property)
+        export_prop_to(export_stream, "X-MICROSOFT-CDO-BUSYSTATUS", @outlook_busystatus_property)
       end
 
       def ==(o) #:nodoc:
@@ -1455,7 +1486,8 @@ module RiCal
         (exrule_property == o.exrule_property) &&
         (location_property == o.location_property) &&
         (comment_property == o.comment_property) &&
-        (sequence_property == o.sequence_property)
+        (sequence_property == o.sequence_property) &&
+        (outlook_busystatus_property == o.outlook_busystatus_property)
         else
            super
         end
@@ -1494,6 +1526,7 @@ module RiCal
         location_property = location_property && location_property.dup
         comment_property = comment_property && comment_property.dup
         sequence_property = sequence_property && sequence_property.dup
+        outlook_busystatus_property = outlook_busystatus_property && outlook_busystatus_property.dup
       end
 
       def add_date_times_to(required_timezones) #:nodoc:
