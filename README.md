@@ -71,20 +71,20 @@ The blocks are evaluated in the context of an object which builds the calendar o
 
 A method corresponding to the name of one of the components sub component will create the subcomponent and evaluate a block if given in the context of the new subcomponent.
 
-#### Multiply occurring properties
+#### Multiple occurring properties
 
 Certain RFC Components have properties which may be specified multiple times, for example, an Event
 may have zero or more comment properties, A component will have a family of methods for
 building/manipulating such a property, e.g.
 
 <table>
-  <tr><td>Event#comment::</td>         <td>will return an array of comment strings.</td></tr>
-  <tr><td>Event#comment=::</td>        <td>takes a single comment string and gives the event a single comment property, replacing any existing comment property collection.</td></tr>
-  <tr><td>Event#comments=::</td>       <td>takes multiple comment string arguments and gives the event a comment property for each, replacing any existing comment property collection.</td></tr>
-  <tr><td>Event#add_comment::</td>     <td>takes a single comment string argument and adds a comment property.</td></tr>
-  <tr><td>Event#add_comments::</td>    <td>takes multiple comment string arguments and adds a comment property for each.</td></tr>
-  <tr><td>Event#remove_comment::</td>  <td>takes a single comment string argument and removes an existing comment property with that value.</td></tr>
-  <tr><td>Event#remove_comments::</td> <td>takes multiple comment string argument and removes an existing comment property with that value.</td></tr>
+  <tr><td>`Event#comment::`</td>         <td>will return an array of comment strings.</td></tr>
+  <tr><td>`Event#comment=::`</td>        <td>takes a single comment string and gives the event a single comment property, replacing any existing comment property collection.</td></tr>
+  <tr><td>`Event#comments=::`</td>       <td>takes multiple comment string arguments and gives the event a comment property for each, replacing any existing comment property collection.</td></tr>
+  <tr><td>`Event#add_comment::`</td>     <td>takes a single comment string argument and adds a comment property.</td></tr>
+  <tr><td>`Event#add_comments::`</td>    <td>takes multiple comment string arguments and adds a comment property for each.</td></tr>
+  <tr><td>`Event#remove_comment::`</td>  <td>takes a single comment string argument and removes an existing comment property with that value.</td></tr>
+  <tr><td>`Event#remove_comments::`</td> <td>takes multiple comment string argument and removes an existing comment property with that value.</td></tr>
 </table>
 
 
@@ -111,12 +111,12 @@ When the value of a datetime property is set to a value, the following processin
   * `20090530T123000Z`  will be interpreted as the time May 30, 2009 at 12:30:00 UTC
   * `20090530T123000`  will be interpreted as the time May 30, 2009 with a floating time zone
   * `TZID=America/New_York:20090530T123000`  will be interpreted as the time May 30, 2009 in the time zone identified by "America/New_York"
-* If the value is a Date it will be interpreted as that date
-* If the value is a `Time`, `DateTime`, or `TimeWithZone` then the tzid attribute will determine the time zone. If tzid returns nil then the default tzid will be used.
+* If the value is a `Date` it will be interpreted as that date
+* If the value is a `Time`, `DateTime`, or `TimeWithZone` then the `tzid` attribute will determine the time zone. If `tzid` returns `nil` then the default `tzid` will be used.
 
 #### Default TZID
 
-The `PropertyValue::DateTime` class has a `default_tzid` attribute which is initialized to "UTC".
+The `PropertyValue::DateTime` class has a `default_tzid` attribute which is initialized to `"UTC"`.
 
 The `Component::Calendar` class also has a `default_tzid` attribute, which may be set, but if it is not set the `default_tzid` of the `PropertyValue::DateTime` class will be used.
 
@@ -220,7 +220,7 @@ In either case the result will be an array of components.
     END:VCALENDAR
     ENDCAL
 
-**Beware of the initial whitespace in the above example.** The parser does not strip initial whitespace from lines in the file and will fail.
+**Beware of whitespace.** The parser does not strip initial whitespace from lines in the file.
 
 As already stated the string argument may be a full icalendar format calendar, or just one or more subcomponents, e.g.
 
@@ -236,17 +236,17 @@ As already stated the string argument may be a full icalendar format calendar, o
 
 Event, Journal, and Todo components can have recurrences which are defined following the RFC 2445 specification.  A component with recurrences can enumerate those occurrences.
 
-These components have common methods for enumeration which are defined in the RiCal::OccurrenceEnumerator module.
+These components have common methods for enumeration which are defined in the `RiCal::OccurrenceEnumerator` module.
 
 #### Obtaining an array of occurrences
 
-To get an array of occurrences, Use the RiCal::OccurrenceEnumerator#occurrences method:
+To get an array of occurrences, Use the `RiCal::OccurrenceEnumerator#occurrences` method:
 
     event.occurrences
 
-This method may fail with an argument error, if the component has an unbounded recurrence definition. This happens when one or more of its RRULES don't have a COUNT, or UNTIL part. This may be tested by using the RiCal::OccurrenceEnumerator#bounded? method.
+This method may fail with an argument error, if the component has an unbounded recurrence definition. This happens when one or more of its RRULES don't have a COUNT, or UNTIL part. This may be tested by using the `RiCal::OccurrenceEnumerator#bounded?` method.
 
-In the case of unbounded components, you must either use the :count, or :before options of the RiCal::OccurrenceEnumerator#occurrences method:
+In the case of unbounded components, you must either use the `:count`, or `:before` options of the `RiCal::OccurrenceEnumerator#occurrences` method:
 
     event.occurrences(:count => 10)
 
@@ -254,9 +254,9 @@ or
 
     event.occurrences(:before => Date.today >> 1)
 
-Another option on the occurrences method is the :overlapping option, which takes an array of two Dates, Times or DateTimes which are expected to be in chronological order. Only events which occur either partially or fully within the range given by the :overlapping option will be enumerated.
+Another option on the occurrences method is the `:overlapping` option, which takes an array of two Dates, Times or DateTimes which are expected to be in chronological order. Only events which occur either partially or fully within the range given by the `:overlapping` option will be enumerated.
 
-Alternately, you can use the RiCal::OccurrenceEnumerator#each method, or another Enumerable method (RiCal::OccurrenceEnumerator includes Enumerable), and terminate when you wish by breaking out of the block.
+Alternately, you can use the `RiCal::OccurrenceEnumerator#each` method, or another `Enumerable` method (`RiCal::OccurrenceEnumerator` includes `Enumerable`), and terminate when you wish by breaking out of the block.
 
     event.each do |event|
        break if some_termination_condition
