@@ -96,17 +96,17 @@ RFC2445 describes three different kinds of datetime values with respect to time 
 2. datetimes with UTC time. An application would either display these with an indication of the time zone, or convert them to the viewer's time zone, perhaps depending on user settings.
 3. datetimes with a specified time zone.
 
-RiCal can be given ruby Time, DateTime, or Date objects for the value of properties requiring an iCalendar datetime value. It can also be given a string
+RiCal can be given ruby `Time`, `DateTime`, or `Date` objects for the value of properties requiring an iCalendar datetime value. It can also be given a string.
 
-Note that a date only datetime value has no time zone by definition, effectively such values float and describe a date as viewed by the user in his/her local time zone.
+Note that a date-only `DateTime` value has no time zone by definition; effectively such values float and describe a date as viewed by the user in his/her local time zone.
 
-When a Ruby Time or DateTime instance is used to set properties with with a datetime value, it needs to determine which of the three types it represents. RiCal is designed to make use of the TimeWithZone support which has been part of the ActiveSupport component of Ruby on Rails since Rails 2.2. However it's been carefully designed not to require Rails or ActiveSupport, but to dynamically detect the presence of the TimeWithZone support.
+When a Ruby `Time` or `DateTime` instance is used to set properties with a datetime value, it needs to determine which of the three types it represents. RiCal is designed to make use of the `TimeWithZone` support which has been part of the `ActiveSupport` component of Ruby on Rails since Rails 2.2. However it's been carefully designed not to require Rails or `ActiveSupport`, but to dynamically detect the presence of the `TimeWithZone` support.
 
-RiCal adds accessor methods for a tzid attribute to the Ruby Time, and DateTime classes as well as a set_tzid method which sets the tzid attribute and returns the receiver for convenience in building calendars. If ActiveSupport::TimeWithZone is defined, a tzid instance method is defined which returns the identifier of the time zone.
+RiCal adds accessor methods for a `tzid` attribute to the Ruby `Time` and `DateTime` classes, as well as a `set_tzid` method which sets the `tzid` attribute and returns the receiver for convenience in building calendars. If `ActiveSupport::TimeWithZone` is defined, a `tzid` instance method is defined which returns the identifier of the time zone.
 
 When the value of a datetime property is set to a value, the following processing occurs:
 
-* If the value is a string, then it must be a valid rfc 2445 date or datetime string optionally preceded by a parameter specification e.g
+* If the value is a string, then it must be a valid rfc2445 date or datetime string optionally preceded by a parameter specification e.g
   * `20010911`  will be interpreted as a date
   * `20090530T123000Z`  will be interpreted as the time May 30, 2009 at 12:30:00 UTC
   * `20090530T123000`  will be interpreted as the time May 30, 2009 with a floating time zone
