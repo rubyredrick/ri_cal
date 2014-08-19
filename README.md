@@ -78,13 +78,13 @@ may have zero or more comment properties, A component will have a family of meth
 building/manipulating such a property, e.g.
 
 <table>
-  <tr><td>`Event#comment::`</td>         <td>will return an array of comment strings.</td></tr>
-  <tr><td>`Event#comment=::`</td>        <td>takes a single comment string and gives the event a single comment property, replacing any existing comment property collection.</td></tr>
-  <tr><td>`Event#comments=::`</td>       <td>takes multiple comment string arguments and gives the event a comment property for each, replacing any existing comment property collection.</td></tr>
-  <tr><td>`Event#add_comment::`</td>     <td>takes a single comment string argument and adds a comment property.</td></tr>
-  <tr><td>`Event#add_comments::`</td>    <td>takes multiple comment string arguments and adds a comment property for each.</td></tr>
-  <tr><td>`Event#remove_comment::`</td>  <td>takes a single comment string argument and removes an existing comment property with that value.</td></tr>
-  <tr><td>`Event#remove_comments::`</td> <td>takes multiple comment string argument and removes an existing comment property with that value.</td></tr>
+  <tr><td>Event#comment::</td>         <td>will return an array of comment strings.</td></tr>
+  <tr><td>Event#comment=::</td>        <td>takes a single comment string and gives the event a single comment property, replacing any existing comment property collection.</td></tr>
+  <tr><td>Event#comments=::</td>       <td>takes multiple comment string arguments and gives the event a comment property for each, replacing any existing comment property collection.</td></tr>
+  <tr><td>Event#add_comment::</td>     <td>takes a single comment string argument and adds a comment property.</td></tr>
+  <tr><td>Event#add_comments::</td>    <td>takes multiple comment string arguments and adds a comment property for each.</td></tr>
+  <tr><td>Event#remove_comment::</td>  <td>takes a single comment string argument and removes an existing comment property with that value.</td></tr>
+  <tr><td>Event#remove_comments::</td> <td>takes multiple comment string argument and removes an existing comment property with that value.</td></tr>
 </table>
 
 
