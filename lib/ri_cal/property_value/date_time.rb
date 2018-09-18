@@ -23,7 +23,7 @@ module RiCal
           PropertyValue::Date.new(parent, line)
         end
       end
-      
+
       def self.valid_string?(string) #:nodoc:
         string =~ /^\d{8}T\d{6}Z?$/
       end
@@ -58,7 +58,7 @@ module RiCal
           {'TZID' => default_tzid}
         end
       end
-      
+
       def inspect # :nodoc:
         "#{@date_time_value}:#{tzid}"
       end
@@ -71,11 +71,11 @@ module RiCal
           nil
         end
       end
-      
+
       def to_ri_cal_zulu_date_time
         ZuluDateTime.new(nil, :value => self.utc.fast_date_tme)
       end
-      
+
       def fast_date_tme # :nodoc:
         @date_time_value
       end
@@ -108,7 +108,7 @@ module RiCal
         end
         reset_cached_values
       end
-      
+
       # Extract the time and timezone identifier from an object used to set the value of a DATETIME property.
       #
       # If the object is a string it should be of the form [TZID=identifier:]
@@ -144,7 +144,7 @@ module RiCal
         if timezone_finder.nil?
           @timezone_finder = parent
           self
-        elsif parent == timezone_finder
+        elsif parent.equal?(timezone_finder) || parent == timezone_finder
           self
         else
           DateTime.new(parent, :value => @date_time_value, :params => params, :tzid => tzid)
@@ -167,7 +167,7 @@ module RiCal
           self.tzid =  @params['TZID']
         end
       end
-      
+
       # Return a Hash representing this properties parameters
       def params
         result = @params.dup
@@ -185,7 +185,7 @@ module RiCal
       def <=>(other)
        other.cmp_fast_date_time_value(@date_time_value)
       end
-      
+
       def cmp_fast_date_time_value(other)
         other <=> @date_time_value
       end
@@ -203,7 +203,7 @@ module RiCal
           :tzid => tzid
         )
       end
-      
+
       def nth_wday_in_month(n, which_wday) #:nodoc:
         with_date_time_value(@date_time_value.nth_wday_in_month(n, which_wday))
       end
@@ -293,7 +293,7 @@ module RiCal
       def to_ri_cal_date_or_date_time_value(timezone_finder = nil) #:nodoc:
         self.for_parent(timezone_finder)
       end
-      
+
       # Return a Date property for this DateTime
       def to_ri_cal_date_value(timezone_finder=nil)
         PropertyValue::Date.new(timezone_finder, :value => @date_time_value.ical_date_str)
@@ -315,12 +315,12 @@ module RiCal
 
       alias_method :to_ri_cal_ruby_value, :to_datetime
       alias_method :to_finish_time, :ruby_value
-      
+
       def to_zulu_time
         utc.to_datetime
       end
-      
-      # If a time is floating, then the utc of it's start time may actually be as early 
+
+      # If a time is floating, then the utc of it's start time may actually be as early
       # as 12 hours earlier if the occurrence is being viewed in a time zone just west
       # of the International Date Line
       def to_zulu_occurrence_range_start_time
@@ -330,9 +330,9 @@ module RiCal
           to_zulu_time
         end
       end
-      
-      
-      # If a time is floating, then the utc of it's start time may actually be as early 
+
+
+      # If a time is floating, then the utc of it's start time may actually be as early
       # as 12 hours later if the occurrence is being viewed in a time zone just east
       # of the International Date Line
       def to_zulu_occurrence_range_finish_time
@@ -342,15 +342,15 @@ module RiCal
           to_zulu_time
         end
       end
-      
+
       def add_date_times_to(required_timezones) #:nodoc:
         required_timezones.add_datetime(self, tzid) if has_local_timezone?
       end
-      
+
       def start_of_day?
         [hour, min, sec] == [0,0,0]
       end
-      
+
       def for_occurrence(occurrence)
         occurrence.to_ri_cal_date_time_value(timezone_finder)
       end
