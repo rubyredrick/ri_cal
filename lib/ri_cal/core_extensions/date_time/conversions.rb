@@ -9,8 +9,8 @@ module RiCal
         # Return an RiCal::PropertyValue::DateTime representing the receiver
         def to_ri_cal_date_time_value(timezone_finder = nil) #:nodoc:
           RiCal::PropertyValue::DateTime.new(
-               timezone_finder, 
-               :value => strftime("%Y%m%dT%H%M%S"), 
+               timezone_finder,
+               :value => is_a?(::DateTime) ? self : strftime("%Y%m%dT%H%M%S"),
                :params => {"TZID" => self.tzid || :default})
         end
 
@@ -21,17 +21,17 @@ module RiCal
         def to_ri_cal_property_value(timezone_finder = nil) #:nodoc:
           to_ri_cal_date_time_value(timezone_finder)
         end
-        
+
         def to_overlap_range_start
           self
         end
         alias_method :to_overlap_range_end, :to_overlap_range_start
-        
+
         # Return a copy of this object which will be interpreted as a floating time.
         def with_floating_timezone
           dup.set_tzid(:floating)
         end
-        
+
         unless DateTime.instance_methods.map {|selector| selector.to_sym}.include?(:to_date)
           # Converts self to a Ruby Date object; time portion is discarded
           def to_date
