@@ -23,7 +23,7 @@ module RiCal
     def self.parse_params(string) #:nodoc:
       if string
         string.split(";").inject({}) { |result, val|
-          m = /^(.+)=(.+)$/.match(val)
+          m = /^(.+)=(.*)$/.match(val)
           raise "Invalid parameter value #{val.inspect}" unless m
           #TODO - The gsub below is a simplest fix for http://rick_denatale.lighthouseapp.com/projects/30941/tickets/19
           #       it may need further examination if more pathological cases show up.
