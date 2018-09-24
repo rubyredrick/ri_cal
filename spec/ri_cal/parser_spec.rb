@@ -22,6 +22,11 @@ describe RiCal::Parser do
     it "should strip surrounding quotes" do
       RiCal::Parser.params_and_value(";TZID=\"(GMT-05.00) Eastern Time (US & Canada)\":20090804T120000").should == [{"TZID" => "(GMT-05.00) Eastern Time (US & Canada)"}, "20090804T120000"]
     end
+    
+    it "should allow empty x-parameter value" do
+      # Example from publicly shared iCloud calendar
+      RiCal::Parser.params_and_value(";X-ADDRESS=:geo:37.334722,-122.008889").should == [{"X-ADDRESS" => ""}, "geo:37.334722,-122.008889"]
+    end
   end
   
   def self.describe_property(entity_name, prop_name, params, value, type = RiCal::PropertyValue::Text)
