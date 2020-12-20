@@ -121,7 +121,7 @@ module RiCal
     end
 
     def hms_to_seconds(hours, minutes, seconds)
-      seconds + 60 *(minutes + (60 * hours))
+      seconds + 60 * (minutes + (60 * hours))
     end
 
     def seconds_to_hms(total_seconds)
