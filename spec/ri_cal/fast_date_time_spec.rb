@@ -5,7 +5,7 @@ require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 module RiCal
 
   describe RiCal::FastDateTime do
-    context "#utc" do
+    describe "#utc" do
       it "should not change if it is already UTC" do
         FastDateTime.new(2009, 5, 29, 19, 3, 0, 0).utc.should == FastDateTime.new(2009, 5, 29, 19, 3, 0, 0)        
       end
@@ -15,7 +15,7 @@ module RiCal
       end
     end
     
-    context "#==" do
+    describe "#==" do
       it "should detect equal FastDateTimes" do
         FastDateTime.new(2009, 5, 29, 19, 3, 0, 0).should == 
         FastDateTime.new(2009, 5, 29, 19, 3, 0, 0)
@@ -26,7 +26,7 @@ module RiCal
         FastDateTime.new(2009, 5, 29, 19, 3, 10, 0)      
       end
 
-      context "#advance" do
+      describe "#advance" do
         it "should advance one second" do
           FastDateTime.new(2009, 5, 29, 19, 3, 0, 0).advance(:seconds => 1).should == 
           FastDateTime.new(2009, 5, 29, 19, 3, 1, 0)

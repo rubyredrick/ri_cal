@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::PropertyValue::Text do
 
-  context ".ruby_value" do
+  describe ".ruby_value" do
 
     it "should handle escapes according to RFC2445 Sec 4.3.11 p 45" do
       expected = "this\\ has\, \nescaped\;\n\\x characters"
@@ -13,7 +13,7 @@ describe RiCal::PropertyValue::Text do
     end
   end
 
-  context ".convert" do
+  describe ".convert" do
 
     it "should handle escapes according to RFC2445 Sec 4.3.11 p 45" do
       expected = ':this has\, \nescaped\;\n characters\ncr\nnlcr\ncrnl'

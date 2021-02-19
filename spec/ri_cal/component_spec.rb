@@ -5,9 +5,9 @@ require 'tzinfo'
 
 describe RiCal::Component do
 
-  context "building blocks" do
+  describe "building blocks" do
 
-    context "building an empty calendar" do
+    describe "building an empty calendar" do
       before(:each) do
         @it = RiCal.Calendar.to_s
       end
@@ -25,7 +25,7 @@ describe RiCal::Component do
       end
     end
 
-    context "building a calendar with time zones" do
+    describe "building a calendar with time zones" do
       it 'should allow specifying the time zone identifier' do
         event = RiCal.Event do
           dtstart     DateTime.parse("Feb 20, 1962 14:47:39").set_tzid('US/Pacific')
@@ -33,7 +33,7 @@ describe RiCal::Component do
         event.dtstart_property.should == dt_prop(DateTime.parse("Feb 20, 1962 14:47:39"), tzid = 'US/Pacific')
       end
 
-      context "adding an exception date" do
+      describe "adding an exception date" do
         
         before(:each) do
           @cal =  RiCal.Calendar do
@@ -53,7 +53,7 @@ describe RiCal::Component do
           @prop.to_s.should == ";TZID=US/Eastern:19620220T144739"
         end
         
-        context "its ruby_value" do
+        describe "its ruby_value" do
           it "should have the right value" do
             @prop.ruby_value.should == [DateTime.civil(1962, 2, 20, 14, 47, 39, Rational(-5, 24))]
           end
@@ -65,7 +65,7 @@ describe RiCal::Component do
       end
     end
 
-    context "with a block with 1 parameter" do
+    describe "with a block with 1 parameter" do
       before(:each) do
         @it = RiCal.Event do |event|
           event.description = "MA-6 First US Manned Spaceflight"
@@ -119,7 +119,7 @@ describe RiCal::Component do
       end
     end
 
-    context "building an event for MA-6" do
+    describe "building an event for MA-6" do
       before(:each) do
         @it = RiCal.Event do
           description "MA-6 First US Manned Spaceflight"
@@ -170,7 +170,7 @@ describe RiCal::Component do
       end
     end
 
-    context "building a complex calendar" do
+    describe "building a complex calendar" do
 
       before(:each) do
         @it = RiCal.Calendar do
@@ -191,19 +191,19 @@ describe RiCal::Component do
         @it.x_wr_calname.first.should == "My Personal Calendar"
       end
 
-      context "event with a long description and a dsl built recurence rule" do
+      describe "event with a long description and a dsl built recurence rule" do
         before(:each) do
           @cal = @it
           @it = @cal.events.first
         end
 
-        context "its description" do
+        describe "its description" do
           it "should pass through correctly" do
            @it.description.should == "This is some really long note content. It should be appropriately folded in the generated file.\nCarriage returns should work, too."
           end
         end
 
-        context "its rrule" do
+        describe "its rrule" do
 
           it "should have a 1 rrule" do
             @it.rrule.length.should == 1

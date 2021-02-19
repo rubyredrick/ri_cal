@@ -10,7 +10,7 @@ describe RiCal::Component::Journal do
     end
   end
   
-  context ".start_time" do
+  describe ".start_time" do
     it "should be the same as dtstart for a date time" do
       event = RiCal.Journal {|e| e.dtstart = "20090525T151900"}
       event.start_time.should == DateTime.civil(2009,05,25,15,19,0,0)
@@ -22,7 +22,7 @@ describe RiCal::Component::Journal do
     end
   end
   
-  context ".finish_time" do
+  describe ".finish_time" do
     it "should be the same as dtstart for a date time" do
       event = RiCal.Journal {|e| e.dtstart = "20090525T151900"}
       event.finish_time.should == DateTime.civil(2009,05,25,15,19,0,0)

@@ -97,7 +97,7 @@ describe RiCal::PropertyValue do
           @prop.value.should == "19970714T123456"
         end
         
-        context "it's Ruby value" do
+        describe "it's Ruby value" do
           before(:each) do
             @it = @prop.ruby_value
           end

@@ -5,7 +5,7 @@ require 'date'
 
 describe RiCal::PropertyValue::Duration do
 
-  context "with various values" do
+  describe "with various values" do
     def value_expectations(dv, values = {})
       values = {:weeks => 0, :days => 0, :hours => 0, :minutes => 0, :seconds => 0}.merge(values)
       dv.weeks.should == values[:weeks]
@@ -40,15 +40,15 @@ describe RiCal::PropertyValue::Duration do
     end
   end
 
-  context ".==" do
+  describe ".==" do
     it "should return true for two durations of one day" do
       RiCal::PropertyValue.new(nil, :value => "+P1D").should == RiCal::PropertyValue.new(nil, :value => "+P1D")
     end
   end
 
-  context ".from_datetimes" do
+  describe ".from_datetimes" do
 
-    context "starting at 11:00 pm, and ending at 1:01:02 am the next day" do
+    describe "starting at 11:00 pm, and ending at 1:01:02 am the next day" do
       before(:each) do
         @it = RiCal::PropertyValue::Duration.from_datetimes(nil,
         DateTime.parse("Sep 1, 2008 23:00"),
@@ -81,7 +81,7 @@ describe RiCal::PropertyValue::Duration do
       end
     end
 
-    context "starting at 00:00, and ending at 00:00 the next day" do
+    describe "starting at 00:00, and ending at 00:00 the next day" do
       before(:each) do
         @it = RiCal::PropertyValue::Duration.from_datetimes(nil,
         DateTime.parse("Sep 1, 2008 00:00"),

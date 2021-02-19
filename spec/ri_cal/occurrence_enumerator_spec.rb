@@ -132,7 +132,7 @@ TEXT
   end
 
   describe "#zulu_occurrence_range" do
-    context "For an unbounded recurring event" do
+    describe "For an unbounded recurring event" do
       before(:each) do
         @event = RiCal.Event do |e|
           e.dtstart = "TZID=America/New_York:20090525T143500"
@@ -150,7 +150,7 @@ TEXT
       end
     end
 
-    context "For a bounded recurring event" do
+    describe "For a bounded recurring event" do
       before(:each) do
         @event = RiCal.Event do |e|
           e.dtstart = "TZID=America/New_York:20090525T143500"
@@ -164,8 +164,8 @@ TEXT
       end
     end
 
-    context "For an event with no recurrence rules" do
-      context "with a non-floating dtstart and dtend" do
+    describe "For an event with no recurrence rules" do
+      describe "with a non-floating dtstart and dtend" do
         before(:each) do
           @event = RiCal.Event do |e|
             e.dtstart = "TZID=America/New_York:20090525T143500"
@@ -177,7 +177,7 @@ TEXT
           @event.zulu_occurrence_range.should == [DateTime.civil(2009,5,25,18,35,00, 0), DateTime.civil(2009,5,25,19,35,00, 0)]
         end
       end
-      context "with a floating dtstart and dtend" do
+      describe "with a floating dtstart and dtend" do
         before(:each) do
           @event = RiCal.Event do |e|
             e.dtstart = "20090525T143500"
@@ -192,7 +192,7 @@ TEXT
     end
   end
 
-  context "Ticket #4 from paulsm" do
+  describe "Ticket #4 from paulsm" do
     it "should produce 4 occurrences" do
       cal = RiCal.parse_string rectify_ical(<<-ENDCAL)
       BEGIN:VCALENDAR
@@ -224,7 +224,7 @@ TEXT
     end
   end
 
-  context "Ticket #2 from paulsm" do
+  describe "Ticket #2 from paulsm" do
     before(:each) do
       cals = RiCal.parse_string rectify_ical(<<-ENDCAL)
       BEGIN:VCALENDAR
@@ -274,7 +274,7 @@ TEXT
     end
   end
 
-  context "Lighthouse bug #3" do
+  describe "Lighthouse bug #3" do
     before(:each) do
       cals = RiCal.parse_string rectify_ical(<<-ENDCAL)
       BEGIN:VCALENDAR
@@ -318,7 +318,7 @@ TEXT
       end
     end
 
-    context "An event with a DATE dtstart, Ticket #6" do
+    describe "An event with a DATE dtstart, Ticket #6" do
       before(:each) do
         cal = RiCal.parse_string rectify_ical(<<-ENDCAL)
         BEGIN:VCALENDAR
@@ -375,7 +375,7 @@ TEXT
         @occurrences.all? {|o| o.dtend.class == ::Date}.should be_true
       end
     end
-    context "bounded? bug" do
+    describe "bounded? bug" do
       before(:each) do
         events = RiCal.parse_string rectify_ical(<<-ENDCAL)
         BEGIN:VEVENT
@@ -405,7 +405,7 @@ TEXT
       end
     end
 
-    context "EXDATES with timezones bug" do
+    describe "EXDATES with timezones bug" do
       before(:each) do
         cals = RiCal.parse_string rectify_ical(<<-ENDCAL)
         BEGIN:VCALENDAR

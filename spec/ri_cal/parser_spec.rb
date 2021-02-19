@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), %w[.. spec_helper])
 
 describe RiCal::Parser do
   
-  context ".separate_line" do
+  describe ".separate_line" do
     it "should work" do
       RiCal::Parser.new.separate_line("DTSTART;TZID=America/New_York:20090804T120000").should == {
         :name => "DTSTART",
@@ -14,7 +14,7 @@ describe RiCal::Parser do
     end
   end
   
-  context ".params_and_value" do
+  describe ".params_and_value" do
     it "should separate parameters and values" do
       RiCal::Parser.params_and_value(";TZID=(GMT-05.00) Eastern Time (US & Canada):20090804T120000").should == [{"TZID" => "(GMT-05.00) Eastern Time (US & Canada)"}, "20090804T120000"]
     end
