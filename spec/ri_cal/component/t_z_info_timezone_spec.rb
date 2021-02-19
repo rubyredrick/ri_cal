@@ -37,7 +37,7 @@ ENDDATA
   end
 
   TZInfo::Timezone.all_identifiers.each do |tz|
-    context "TZInfo timezone #{tz}" do
+    describe "TZInfo timezone #{tz}" do
       before(:each) do
         @calendar = RiCal.Calendar do |cal|
           cal.event do |event|

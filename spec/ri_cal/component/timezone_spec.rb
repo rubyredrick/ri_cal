@@ -5,13 +5,13 @@ require 'tzinfo'
 
 describe RiCal::Component::Timezone do
 
-  context ".entity_name" do
+  describe ".entity_name" do
     it "should be VTIMEZONE" do
       RiCal::Component::Timezone.entity_name.should == "VTIMEZONE"
     end
   end
 
-  context "for a Timezone with no DST periods" do
+  describe "for a Timezone with no DST periods" do
     before(:each) do
       @it = RiCal.parse_string rectify_ical(<<-'ENDCAL')
       BEGIN:VTIMEZONE
@@ -28,14 +28,14 @@ describe RiCal::Component::Timezone do
       @it = @it.first
     end
 
-    context ".periods_for_local" do
+    describe ".periods_for_local" do
       it "should return a single period" do
         @it.periods_for_local(DateTime.parse("20090530T100000")).length.should == 1
       end
     end
   end
 
-  context "from an iCal.app calendar for America/New_York starting March 11 2007" do
+  describe "from an iCal.app calendar for America/New_York starting March 11 2007" do
     before(:each) do
       @it = RiCal.parse_string rectify_ical(<<-'ENDCAL')
       BEGIN:VTIMEZONE
@@ -63,33 +63,33 @@ describe RiCal::Component::Timezone do
       @it.should be_kind_of(RiCal::Component::Timezone)
     end
 
-    context ".local_to_utc" do
+    describe ".local_to_utc" do
       it "should produce 2/27/2009 18:00 UTC for 2/27/2009 13:00" do
         expected = RiCal::PropertyValue::DateTime.new(nil, :value => "20090227T1800Z" )
         @it.local_to_utc(DateTime.parse("Feb 27, 2009 13:00")).should == expected
       end
     end
 
-    context ".utc_to_local" do
+    describe ".utc_to_local" do
       it "should produce 2/27/2009 13:00 EST for 2/27/2009 18:00 UTC" do
         expected = RiCal::PropertyValue::DateTime.new(nil, :params => {'TZID' => 'US/Eastern'}, :value => "20090227T1300" )
         @it.utc_to_local(DateTime.parse("Feb 27, 2009 18:00")).should == expected
       end
     end
 
-    context ".period_for_local" do
+    describe ".period_for_local" do
       it "should raise TZInfo::PeriodNotFound for an invalid local time, e.g. Mar 8, 2009 2:30" do
         lambda {@it.period_for_local(DateTime.parse("Mar 8, 2009 2:30"))}.should raise_error(TZInfo::PeriodNotFound)
       end
 
-      context "for an ambiguous local time , e.g. Nov 1, 2009 2:00" do
-        context "lacking a dst parameter or block" do
+      describe "for an ambiguous local time , e.g. Nov 1, 2009 2:00" do
+        describe "lacking a dst parameter or block" do
           it "should raise TZInfo::AmbiguousTime" do
             lambda {@it.period_for_local(DateTime.parse("Nov 1, 2009 2:00"))}.should raise_error(TZInfo::AmbiguousTime)
           end
         end
 
-        context "with a dst parameter" do
+        describe "with a dst parameter" do
           it "should return a dst period if the dst parameter is true" do
             @it.period_for_local(DateTime.parse("Nov 1, 2009 2:00"), true).should be_dst
           end
@@ -99,7 +99,7 @@ describe RiCal::Component::Timezone do
           end
         end
 
-        context "with a block" do
+        describe "with a block" do
           it "should return a period if the block returns a TimezonePeriod" do
             mock_period = ::RiCal::Component::Timezone::TimezonePeriod.new(nil)
             @it.period_for_local(DateTime.parse("Nov 1, 2009 2:00")) { |results| mock_period}.should == mock_period
@@ -118,8 +118,8 @@ describe RiCal::Component::Timezone do
         end
       end
 
-    context ".periods_for_local" do
-      context "for the date on which DST begins springing ahead e.g. Mar 8, 2009" do
+    describe ".periods_for_local" do
+      describe "for the date on which DST begins springing ahead e.g. Mar 8, 2009" do
         it "should return a 1 element array for 1 second before the transition time" do
           @it.periods_for_local(DateTime.parse("Mar 8, 2009 1:59:59")).length.should == 1
         end
@@ -141,7 +141,7 @@ describe RiCal::Component::Timezone do
         end
       end
 
-      context "for the date on which DST ends falling back e.g. Nov 11, 2009" do
+      describe "for the date on which DST ends falling back e.g. Nov 11, 2009" do
         it "should return a 1 element array for 1 second before the transition time" do
           @it.periods_for_local(DateTime.parse("Nov 1, 2009 1:59:59")).length.should == 1
         end
@@ -169,7 +169,7 @@ describe RiCal::Component::Timezone do
     end
   end
 
-  context "Bug report from paulsm" do
+  describe "Bug report from paulsm" do
     before(:each) do
       cals = RiCal.parse_string rectify_ical(<<-'ENDCAL')
       BEGIN:VCALENDAR
@@ -213,7 +213,7 @@ describe RiCal::Component::Timezone do
       @event = cals.first.events.first
     end
   
-    context "the events dtstart" do
+    describe "the events dtstart" do
       it "should be the right DateTime" do
         @event.dtstart.should == DateTime.civil(2009, 2, 24, 9, 0, 0, Rational(-5, 24))
       end
@@ -223,7 +223,7 @@ describe RiCal::Component::Timezone do
       end
     end
   
-    context "the events dtend" do
+    describe "the events dtend" do
       it "should be the right DateTime" do
         @event.dtend.should == DateTime.civil(2009, 2, 24, 10, 0, 0, Rational(-5, 24))
       end

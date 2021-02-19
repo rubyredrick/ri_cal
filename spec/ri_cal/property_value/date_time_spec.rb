@@ -16,9 +16,9 @@ describe RiCal::PropertyValue::DateTime do
     RiCal::PropertyValue::DateTime.new(@cal, :value => string, :params => {'TZID' => tzid})
   end
 
-  context "time_with_zone_methods" do
-    context ".utc" do
-      context "for a datetime already in zulu time" do
+  describe "time_with_zone_methods" do
+    describe ".utc" do
+      describe "for a datetime already in zulu time" do
         before(:each) do
           @it = utc_datetime("19970101T012300").utc
         end
@@ -36,7 +36,7 @@ describe RiCal::PropertyValue::DateTime do
         lambda {local_datetime("19970101T012300", 'America/Caspian').utc}.should raise_error(RiCal::InvalidTimezoneIdentifier)
       end
 
-      context "for a datetime with a tzid of America/New_York" do
+      describe "for a datetime with a tzid of America/New_York" do
         before(:each) do
           @it = local_datetime("19970101T012300")
           @it = @it.utc
@@ -51,13 +51,13 @@ describe RiCal::PropertyValue::DateTime do
         end
       end
 
-      context ".in_timezone('America/New_York')" do
+      describe ".in_timezone('America/New_York')" do
 
         it "should raise an invalid timezone exception if the timezone of the receiver is unknown" do
           lambda {local_datetime("19970101T012300", 'America/Caspian').in_time_zone('America/New_York')}.should raise_error(RiCal::InvalidTimezoneIdentifier)
         end
 
-        context "for a datetime 19970101T012300 in zulu time" do
+        describe "for a datetime 19970101T012300 in zulu time" do
           before(:each) do
             @it = utc_datetime("19970101T012300").in_time_zone('America/New_York')
           end
@@ -71,7 +71,7 @@ describe RiCal::PropertyValue::DateTime do
           end
         end
 
-        context "for a datetime 19970101T012300 with a tzid of America/New_York" do
+        describe "for a datetime 19970101T012300 with a tzid of America/New_York" do
           before(:each) do
             @it = local_datetime("19970101T012300").in_time_zone('America/New_York')
           end
@@ -85,7 +85,7 @@ describe RiCal::PropertyValue::DateTime do
           end
         end
 
-        context "for a datetime 19970101T012300 with a tzid of America/Chicago" do
+        describe "for a datetime 19970101T012300 with a tzid of America/Chicago" do
           before(:each) do
             @it = local_datetime("19970101T012300", "America/Chicago").in_time_zone('America/New_York')
           end
@@ -101,7 +101,7 @@ describe RiCal::PropertyValue::DateTime do
       end
     end
 
-    context "for a datetime from an imported calendar" do
+    describe "for a datetime from an imported calendar" do
 
       before(:each) do
         cals = RiCal.parse_string <<-END_OF_DATA
@@ -187,13 +187,13 @@ END:VCALENDAR
        @cal.events.find {|event| event.summary == summary}
      end
 
-     context ".utc" do
+     describe ".utc" do
 
        it "should raise an invalid timezone exception if the timezone of the receiver is not in the calendar" do
          lambda {local_datetime("19970101T012300", 'America/New_York').utc}.should raise_error(RiCal::InvalidTimezoneIdentifier)
        end
 
-       context "for the DTSTART of the UTC Event" do
+       describe "for the DTSTART of the UTC Event" do
          before(:each) do
            @it = find_event("UTC Event").dtstart_property.utc
          end
@@ -207,7 +207,7 @@ END:VCALENDAR
          end
        end
 
-       context "for the DTSTART of the Eastern Event" do
+       describe "for the DTSTART of the Eastern Event" do
          before(:each) do
            @it = find_event("Eastern Event").dtstart_property.utc
          end
@@ -222,13 +222,13 @@ END:VCALENDAR
        end
      end
 
-     context ".in_timezone('US/Eastern')" do
+     describe ".in_timezone('US/Eastern')" do
 
        it "should raise an invalid timezone exception if the timezone of the receiver is not in the calendar" do
          lambda {local_datetime("19970101T012300", 'America/New_York').in_time_zone("US/Eastern")}.should raise_error(RiCal::InvalidTimezoneIdentifier)
        end
 
-       context "for the DTSTART of the UTC Event" do
+       describe "for the DTSTART of the UTC Event" do
           before(:each) do
             @it = find_event("UTC Event").dtstart_property.in_time_zone("US/Eastern")
           end
@@ -242,7 +242,7 @@ END:VCALENDAR
          end
        end
 
-       context "for the DTSTART of the Eastern Event" do
+       describe "for the DTSTART of the Eastern Event" do
          before(:each) do
            @it = find_event("Eastern Event").dtstart_property.in_time_zone("US/Eastern")
          end
@@ -256,7 +256,7 @@ END:VCALENDAR
          end
        end
 
-       context "for the DTSTART of the Paris Event" do
+       describe "for the DTSTART of the Paris Event" do
          before(:each) do
            @it = find_event("Paris Event").dtstart_property.in_time_zone("US/Eastern")
          end
@@ -273,7 +273,7 @@ END:VCALENDAR
    end
  end
 
-  context ".from_separated_line" do
+  describe ".from_separated_line" do
     it "should return a RiCal::PropertyValue::Date if the value doesn't contain a time specification" do
       RiCal::PropertyValue::DateTime.or_date(nil, :value => "19970714").should be_kind_of(RiCal::PropertyValue::Date)
     end
@@ -283,7 +283,7 @@ END:VCALENDAR
     end
   end
 
-  context ".advance" do
+  describe ".advance" do
     it "should advance by one week if passed :days => 7" do
       dt1 = RiCal::PropertyValue::DateTime.new(nil, :value => "20050131T230000")
       dt2 = RiCal::PropertyValue::DateTime.new(nil, :value => "20050207T230000")
@@ -291,7 +291,7 @@ END:VCALENDAR
     end
   end
 
-  context "subtracting one date-time from another" do
+  describe "subtracting one date-time from another" do
 
     it "should produce the right RiCal::PropertyValue::Duration" do
       dt1 = RiCal::PropertyValue::DateTime.new(nil, :value => "19980118T230000")
@@ -301,7 +301,7 @@ END:VCALENDAR
     end
   end
 
-  context "adding a RiCal::PropertyValue::Duration to a RiCal::PropertyValue::DateTime" do
+  describe "adding a RiCal::PropertyValue::Duration to a RiCal::PropertyValue::DateTime" do
 
     it "should produce the right RiCal::PropertyValue::DateTime" do
       dt1 = RiCal::PropertyValue::DateTime.new(nil, :value => "19980118T230000")
@@ -311,7 +311,7 @@ END:VCALENDAR
     end
   end
 
-  context "subtracting a RiCal::PropertyValue::Duration from a RiCal::PropertyValue::DateTime" do
+  describe "subtracting a RiCal::PropertyValue::Duration from a RiCal::PropertyValue::DateTime" do
 
     it "should produce the right RiCal::PropertyValue::DateTime" do
       dt1 = RiCal::PropertyValue::DateTime.new(nil, :value => "19980119T010000")
@@ -320,7 +320,7 @@ END:VCALENDAR
       @it.should == RiCal::PropertyValue::DateTime.new(nil, :value => "19980118T230000")
     end
   end
-  context "when setting the default timezone identifier" do
+  describe "when setting the default timezone identifier" do
 
     before(:each) do
       RiCal::PropertyValue::DateTime.default_tzid = "America/Chicago"
@@ -343,13 +343,13 @@ END:VCALENDAR
     end
   end
 
-  context ".convert(rubyobject)" do
+  describe ".convert(rubyobject)" do
     describe "for a Time instance of  Feb 05 19:17:11"
     before(:each) do
       @time = Time.mktime(2009,2,5,19,17,11)
     end
 
-    context "with a normal a normal time instance" do
+    describe "with a normal a normal time instance" do
       describe "when the default timezone identifier is UTC" do
         before(:each) do
           @it = RiCal::PropertyValue::DateTime.convert(nil, @time)
@@ -364,7 +364,7 @@ END:VCALENDAR
         end
       end
       
-      context "when the default timezone has been set to 'America/Chicago" do
+      describe "when the default timezone has been set to 'America/Chicago" do
         before(:each) do
           RiCal::PropertyValue::DateTime.stub!(:default_tzid).and_return("America/Chicago")
           @it = RiCal::PropertyValue::DateTime.convert(nil, @time)

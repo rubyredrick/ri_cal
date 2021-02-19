@@ -3,7 +3,7 @@
 require File.join(File.dirname(__FILE__), %w[.. .. .. spec_helper])
 
 describe RiCal::CoreExtensions::String::Conversions do
-  context "#to_ri_cal_date_time_value" do
+  describe "#to_ri_cal_date_time_value" do
     
     it "should produce a DateTime property for a valid RFC 2445 datetime string" do
       "20090304T123456".to_ri_cal_date_time_value.should == RiCal::PropertyValue::DateTime.new(nil, :value => "20090304T123456")
@@ -18,7 +18,7 @@ describe RiCal::CoreExtensions::String::Conversions do
     end
   end
   
-  context "#to_ri_cal_duration_value" do
+  describe "#to_ri_cal_duration_value" do
     
     it "should produce a Duration property for a valid RFC 2445 duration string" do
       "PT1H".to_ri_cal_duration_value.should == RiCal::PropertyValue::Duration.new(nil, :value => "PT1H")
@@ -29,7 +29,7 @@ describe RiCal::CoreExtensions::String::Conversions do
     end
   end
   
-  context "#to_ri_cal_date_or_date_time_value" do
+  describe "#to_ri_cal_date_or_date_time_value" do
     
     it "should produce a DateTime property for a valid RFC 2445 datetime string" do
       "20090304T123456".to_ri_cal_date_or_date_time_value.should == RiCal::PropertyValue::DateTime.new(nil, :value => "20090304T123456")
@@ -49,7 +49,7 @@ describe RiCal::CoreExtensions::String::Conversions do
     end
   end
   
-  context "#to_ri_cal_occurrence_list_value" do
+  describe "#to_ri_cal_occurrence_list_value" do
     
     it "should produce a DateTime property for a valid RFC 2445 datetime string" do
       "20090304T123456".to_ri_cal_occurrence_list_value.should == RiCal::PropertyValue::DateTime.new(nil, :value => "20090304T123456")

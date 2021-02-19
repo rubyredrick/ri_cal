@@ -4,7 +4,7 @@ require File.join(File.dirname(__FILE__), %w[.. .. spec_helper])
 
 describe RiCal::Component::Todo do
   
-  context ".start_time" do
+  describe ".start_time" do
     it "should be the same as dtstart for a date time" do
       todo = RiCal.Todo {|e| e.dtstart = "20090525T151900"}
       todo.start_time.should == DateTime.civil(2009,05,25,15,19,0,0)
@@ -20,20 +20,20 @@ describe RiCal::Component::Todo do
     end
   end
   
-  context ".finish_time" do
+  describe ".finish_time" do
     before(:each) do
       @todo = RiCal.Todo {|t| t.dtstart = "20090525T151900"}
     end
 
-    context "with a given due" do
+    describe "with a given due" do
       it "should be the same as due for a date time" do
         @todo.due = "20090525T161900"
         @todo.finish_time.should == DateTime.civil(2009,05,25,16,19,0,0)
       end
     end
 
-    context "with no due" do
-      context "and a duration" do
+    describe "with no due" do
+      describe "and a duration" do
         before(:each) do
           @todo.duration = "+PT1H"
         end
@@ -48,7 +48,7 @@ describe RiCal::Component::Todo do
         end
       end
 
-      context "and no duration" do
+      describe "and no duration" do
         it "should be nil" do
           @todo.finish_time.should be_nil
         end
