@@ -16,7 +16,7 @@ module RiCal
 
           def step(date_time)
             if contains_daily_incrementer?
-              result = super(date_time).change(:day => 1)
+              result = super(date_time).change(:day => date_time.day)
               result
             else
               super(date_time)

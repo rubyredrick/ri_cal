@@ -375,6 +375,51 @@ TEXT
         @occurrences.all? {|o| o.dtend.class == ::Date}.should be_true
       end
     end
+
+    context "Subsequent Monthy Occurence Bug" do
+      before(:each) do
+        cal = RiCal.parse_string rectify_ical(<<-ENDCAL)
+        BEGIN:VCALENDAR
+        PRODID:-//Mozilla.org/NONSGML Mozilla Calendar V1.1//EN
+        VERSION:2.0
+        BEGIN:VEVENT
+        CREATED:20090520T092032Z
+        LAST-MODIFIED:20090520T092052Z
+        DTSTAMP:20090520T092032Z
+        UID:d41c124a-65c3-400e-bd04-1d2ee7b98352
+        SUMMARY:event2
+        RRULE:FREQ=MONTHLY;INTERVAL=1;COUNT=4;BYMONTHDAY=24;
+        DTSTART;VALUE=DATE:20090624
+        DTEND;VALUE=DATE:20091024
+        TRANSP:TRANSPARENT
+        END:VEVENT
+        END:VCALENDAR
+        ENDCAL
+        @occurrences = cal.first.events.first.occurrences(
+        :after => Date.parse('01/11/2009'),
+        :before => Date.parse("01/11/2009")
+        )
+      end
+
+      it "should produce the right dtstart values" do
+        @occurrences.map {|o| o.dtstart}.should == [
+          Date.parse("2009-06-24"),
+          Date.parse("2009-07-24"),
+          Date.parse("2009-08-24"),
+          Date.parse("2009-09-24"),
+        ]
+      end
+
+      it "should produce events whose dtstarts are all dates" do
+        @occurrences.all? {|o| o.dtstart.class == ::Date}.should be
+      end
+
+      it "should produce events whose dtstends are all dates" do
+        @occurrences.all? {|o| o.dtend.class == ::Date}.should be
+      end
+    end
+
+
     context "bounded? bug" do
       before(:each) do
         events = RiCal.parse_string rectify_ical(<<-ENDCAL)
